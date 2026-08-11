@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Article — Global Design Leadership Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  /* ─── styleguide.css variables ─── */
+  :root {
+    --background: rgba(255,255,255,1);
+    --paragraph-1: rgba(0,0,0,1);
+    --paragraph-2: rgba(118,118,118,1);
+    --divider: rgba(0,0,0,1);
+
+    --header-header-1-font-family: "Instrument Sans", Helvetica;
+    --header-header-1-font-weight: 400;
+    --header-header-1-font-size: 64px;
+    --header-header-1-letter-spacing: -3.2px;
+    --header-header-1-line-height: 100%;
+
+    --header-header-2-font-family: "Instrument Sans", Helvetica;
+    --header-header-2-font-weight: 400;
+    --header-header-2-font-size: 37px;
+    --header-header-2-letter-spacing: -1.11px;
+    --header-header-2-line-height: 100%;
+
+    --paragraph-1-font-family: "Instrument Sans", Helvetica;
+    --paragraph-1-font-weight: 400;
+    --paragraph-1-font-size: 20px;
+    --paragraph-1-letter-spacing: -1px;
+    --paragraph-1-line-height: 121%;
+
+    --paragraph-2-font-family: "Instrument Sans", Helvetica;
+    --paragraph-2-font-weight: 400;
+    --paragraph-2-font-size: 16px;
+    --paragraph-2-letter-spacing: -0.48px;
+    --paragraph-2-line-height: 110%;
+
+    --text-link-font-family: "Instrument Sans", Helvetica;
+    --text-link-font-weight: 500;
+    --text-link-font-size: 16px;
+    --text-link-letter-spacing: -0.48px;
+    --text-link-line-height: 110%;
+
+    --nav-link-font-family: "Instrument Sans", Helvetica;
+    --nav-link-font-weight: 400;
+    --nav-link-font-size: 20px;
+    --nav-link-letter-spacing: -1px;
+    --nav-link-line-height: 100%;
+  }
+
+  /* ─── globals.css reset ─── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  * { -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  img { display: block; }
+  h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+  button:focus-visible { outline: 2px solid #4a90e2 !important; }
+  @font-face { font-family: "Instrument Sans"; src: local("Instrument Sans"); }
+
+  /* ─── Desktop wrapper ─── */
+  .desktop {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 0 40px;
+    position: relative;
+    background-color: var(--background);
+  }
+
+  /* ─── NAV (same as home / about / article) ─── */
+  .nav-header-2 {
+    display: flex;
+    width: 100%;
+    height: 46px;
+    align-items: center;
+    padding: 0 40px;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 200;
+    background-color: var(--background);
+    max-width: 1920px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @supports not (max-width: 1280px) {
+    .nav-header-2 { left: 0; transform: none; }
+  }
+  .logotype-contain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 10px 0;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    border-bottom: 1px solid var(--divider);
+  }
+  .f-f-logo { position: relative; width: 310px; height: 24px; }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 0 4px;
+    position: relative;
+  }
+  .nav-link .link {
+    position: relative;
+    width: fit-content;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    color: #000;
+    font-size: 20px;
+    letter-spacing: -1px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+  .links-contain {
+    display: flex;
+    max-width: 615px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 189px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+    align-self: stretch;
+  }
+  .text-links {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 50px;
+    padding: 12px 0 10px 20px;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    background-color: var(--background);
+    border-bottom: 1px solid var(--divider);
+  }
+  .link-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 0 4px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .link-2 {
+    width: fit-content;
+    white-space: nowrap;
+    position: relative;
+    font-family: var(--nav-link-font-family);
+    font-weight: var(--nav-link-font-weight);
+    color: var(--paragraph-1);
+    font-size: var(--nav-link-font-size);
+    letter-spacing: var(--nav-link-letter-spacing);
+    line-height: var(--nav-link-line-height);
+  }
+  .link-2.current { color: var(--paragraph-2); }
+  .link-2:hover, .nav-link:hover { opacity: 0.6; }
+
+  .nav-spacer { height: 225px; width: 100%; flex-shrink: 0; }
+
+  /* ─── Hamburger nav (mobile) ─── */
+  .hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #000;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+  .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 46px; left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 199;
+    flex-direction: column;
+    padding: 24px 40px 32px;
+    border-bottom: 1px solid #000;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: "Instrument Sans", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: -1.2px;
+    line-height: 1;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { opacity: 0.5; }
+
+  /* ─── Focus styles ─── */
+  a:focus-visible, button:focus-visible { outline: 2px solid #4a90e2; outline-offset: 4px; }
+
+  /* ─── ARTICLES main wrapper ─── */
+  .article-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1920px;
+    align-items: flex-start;
+  }
+
+  /* ─── Section titles (shared 64px header, matches home page) ─── */
+  .article-section-title {
+    width: 100%;
+    padding: 40px 0 30px;
+    font-family: var(--header-header-1-font-family);
+    font-weight: var(--header-header-1-font-weight);
+    font-size: var(--header-header-1-font-size);
+    letter-spacing: var(--header-header-1-letter-spacing);
+    line-height: var(--header-header-1-line-height);
+    color: #000;
+  }
+
+  /* ─── Intro section ─── */
+  .articles-intro { display: flex; flex-direction: column; gap: 20px; width: 100%; padding: 15px 0 120px; }
+  .articles-intro-lead {
+    font-family: var(--paragraph-1-font-family);
+    font-weight: var(--paragraph-1-font-weight);
+    font-size: var(--paragraph-1-font-size);
+    letter-spacing: var(--paragraph-1-letter-spacing);
+    line-height: 150%;
+    color: #000;
+    width: 100%;
+    max-width: 900px;
+  }
+  .articles-intro-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .articles-intro-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: var(--header-header-1-font-family);
+    font-weight: var(--header-header-1-font-weight);
+    font-size: var(--header-header-1-font-size);
+    letter-spacing: var(--header-header-1-letter-spacing);
+    line-height: 100%;
+    color: #000;
+  }
+  .articles-intro-item span {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: var(--paragraph-2);
+  }
+
+  /* ─── Card grid (Latest News) ─── */
+  .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+  .card { display: flex; flex-direction: column; gap: 16px; }
+  .card-thumb { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #111; display: block; }
+  .card-thumb.ph-c1 { background: #E85A1A; }
+  .card-thumb.ph-c2 { background: #2B1F8C; }
+  .card-thumb.ph-c3 { background: #111111; }
+  .card-thumb.ph-c4 { background: #4a4a4a; }
+  .card-eyebrow {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.48px;
+    color: var(--paragraph-2);
+  }
+  .card-title {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.48px;
+    color: #000;
+  }
+  .card-tags {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.48px;
+    color: var(--paragraph-2);
+  }
+  .card-excerpt {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.48px;
+    line-height: 150%;
+    color: #000;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+  .text-wrapper-7 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: var(--text-link-font-family);
+    font-weight: var(--text-link-font-weight);
+    color: var(--paragraph-2);
+    font-size: var(--text-link-font-size);
+    letter-spacing: var(--text-link-letter-spacing);
+    line-height: var(--text-link-line-height);
+    white-space: nowrap;
+  }
+  .text-link:hover .text-wrapper-7 { opacity: 0.6; }
+
+  /* ─── Filter + list layout ─── */
+  .articles-layout { display: flex; align-items: flex-start; gap: 60px; width: 100%; padding: 0 0 80px; }
+  .filter-sidebar { display: flex; flex-direction: column; width: 220px; gap: 20px; flex-shrink: 0; padding-top: 80px; }
+  .filter-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: #000;
+  }
+  .filter-checkbox {
+    width: 24px; height: 24px;
+    border: 1.5px solid #000;
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .filter-item input { position: absolute; opacity: 0; width: 24px; height: 24px; margin: 0; cursor: pointer; }
+  .filter-item input:checked ~ .filter-checkbox { background: #4a90e2; border-color: #4a90e2; }
+  .filter-item input:checked ~ .filter-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 6px; top: 2px;
+    width: 6px; height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .filter-item { position: relative; }
+
+  .articles-list-col { flex: 1; display: flex; flex-direction: column; gap: 0; min-width: 0; }
+  .articles-list-header { display: flex; align-items: center; justify-content: space-between; width: 100%; padding-bottom: 30px; }
+  .articles-count {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: #000;
+  }
+  .sort-tabs { display: flex; gap: 24px; }
+  .sort-tab {
+    background: none; border: none; cursor: pointer;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: var(--paragraph-2);
+    padding: 0;
+  }
+  .sort-tab.active { color: #000; }
+
+  .article-row-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    padding: 30px 0;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+  .article-row-item:last-child { border-bottom: 1px solid rgba(0,0,0,0.12); }
+  .article-row-thumb { width: 340px; height: 348px; object-fit: cover; flex-shrink: 0; background: #111; }
+  .article-row-thumb.ph-r1 { background: #E85A1A; }
+  .article-row-thumb.ph-r2 { background: #2B1F8C; }
+  .article-row-thumb.ph-r3 { background: #4a4a4a; }
+  .article-row-thumb.ph-r4 { background: #111111; }
+  .article-row-body { flex: 1; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+
+  .see-more-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 40px;
+    border: 1px solid #000;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: #000;
+    cursor: pointer;
+    background: none;
+  }
+  .see-more-btn:hover { opacity: 0.6; }
+
+  /* ─── CONNECT WITH US (same as home) ─── */
+  .connect-with-us {
+    max-width: 1920px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .connect-with-us-2 {
+    gap: 34px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .divider-3 { height: 1px; background: var(--divider); position: relative; align-self: stretch; width: 100%; }
+  .text-wrapper-17 {
+    position: relative;
+    align-self: stretch;
+    font-family: var(--header-header-2-font-family);
+    font-weight: var(--header-header-2-font-weight);
+    color: #000;
+    font-size: var(--header-header-2-font-size);
+    letter-spacing: var(--header-header-2-letter-spacing);
+    line-height: var(--header-header-2-line-height);
+  }
+
+  /* ─── FOOTER (same as home) ─── */
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 1920px;
+    gap: 60px;
+    padding: 30px 0 60px;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .footer-content { display: flex; width: 100%; max-width: 1200px; flex: 0 0 auto; align-items: flex-start; position: relative; }
+  .logo-contain-2 { display: flex; max-width: 625px; align-items: flex-start; gap: 10px; position: relative; flex: 1; flex-grow: 1; }
+  .image-2 { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .clab-logo-black { position: relative; height: 60px; width: auto; object-fit: contain; }
+  .logo { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .footer-text { display: flex; width: 100%; max-width: 616px; justify-content: space-between; align-items: flex-start; position: relative; }
+  .office-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 62px; position: relative; }
+  .office-contain-2 { display: flex; flex-direction: column; width: 201px; align-items: flex-start; gap: 30px; position: relative; flex: 0 0 auto; }
+  .text-wrapper-18 { position: relative; align-self: stretch; margin-top: -1px; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .text-wrapper-19 { position: relative; align-self: stretch; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .contact-contain { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .div-2 { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .social-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 30px; position: relative; }
+  .social-contain a { color: #000; }
+  .social-contain a:hover { opacity: 0.5; }
+
+  /* ─── Responsive — tablet ─── */
+  @media (max-width: 1280px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .footer-content { gap: 24px; flex-wrap: wrap; }
+    .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+    .articles-layout { gap: 30px; }
+    .filter-sidebar { width: 180px; }
+    .article-row-thumb { width: 260px; height: 266px; }
+  }
+
+  /* ─── Responsive — mobile ─── */
+  @media (max-width: 768px) {
+    .desktop { padding: 0 40px; }
+    .nav-header-2 { padding: 0 40px; left: 0; transform: none; max-width: 100%; width: 100%; }
+    .hamburger-btn { display: flex; }
+    .links-contain { display: none; }
+    .logotype-contain { border-bottom: none; }
+
+    .article-section-title { font-size: 36px; letter-spacing: -1.8px; padding: 30px 0 20px; }
+    .articles-intro-item { font-size: 36px; letter-spacing: -1.8px; }
+    .articles-intro-lead { font-size: 18px; letter-spacing: -0.5px; line-height: 140%; }
+
+    .card-grid { grid-template-columns: 1fr; gap: 30px; }
+
+    .articles-layout { flex-direction: column; gap: 30px; padding: 40px 0 60px; }
+    .filter-sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 16px 24px; padding-top: 0; }
+    .article-row-item { flex-direction: column; gap: 16px; }
+    .article-row-thumb { width: 100%; height: auto; aspect-ratio: 1/1; }
+
+    .connect-with-us-2 { gap: 20px; }
+    .text-wrapper-17 { font-size: 28px; letter-spacing: -1.4px; }
+
+    .footer-section { padding: 30px 0 48px; gap: 40px; }
+    .footer-content { flex-direction: column; gap: 30px; }
+    .logo-contain-2 { max-width: 100%; }
+    .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+    .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+    .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+  }
+
+  @media (max-width: 420px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .mobile-nav { padding: 24px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header-2">
+    <div class="logotype-contain">
+      <div class="f-f-logo">
+        <a class="nav-link" href="index.html" aria-label="Global Design Leadership Association home">
+          <span class="link">Global Design Leadership Association</span>
+        </a>
+      </div>
+    </div>
+    <nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        <div class="link-wrapper"><a class="link-2" href="about.html">About</a></div>
+        <div class="link-wrapper"><a class="link-2 current" href="articles.html" aria-current="page">Article</a></div>
+        <div class="link-wrapper"><a class="link-2" href="index.html#contact">Contact</a></div>
+      </div>
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="index.html#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <div class="nav-spacer"></div>
+
+  <main class="article-main">
+
+    <!-- ═══ INTRO ═══ -->
+    <section class="articles-intro" aria-label="Article section intro">
+      <p class="articles-intro-lead">We bring together diverse teams, global perspectives, and cross-industry thinking to shape design that's thoughtful, inclusive, and actionable.</p>
+      <div class="articles-intro-list">
+        <div class="articles-intro-item">Cross-functional Team<span>Marketer, Designer, Manager, Student-Alumni, Student · Professor</span></div>
+        <div class="articles-intro-item">Cross-cultural View<span>Korean · Non Korean, Universal, International Understanding</span></div>
+        <div class="articles-intro-item">Cross-industrial insight<span>Commerce, Finance, Mobility about Academic and Functional</span></div>
+      </div>
+    </section>
+
+    <!-- ═══ LATEST NEWS ═══ -->
+    <section aria-labelledby="latest-news-title" style="width:100%; padding: 15px 0 80px;">
+      <div class="divider-3" aria-hidden="true"></div>
+      <h2 class="article-section-title" id="latest-news-title" style="padding:29px 0 104px">Latest News</h2>
+      <div class="card-grid">
+        <div class="card">
+          <a href="article.html"><img class="card-thumb" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다"></a>
+          <p class="card-eyebrow">Article</p>
+          <p class="card-title">[칼럼] 경계를 디자인하다</p>
+          <p class="card-tags">Design</p>
+          <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회'에서 홍익대학교 IDAS 캐시 리 교수가 「Designing the Boundary」를 주제로 기조연설을 맡았다.</p>
+          <a class="text-link" href="article.html" aria-label="See article: Designing the Boundary">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-thumb ph-c1"></div>
+          <p class="card-eyebrow">Article</p>
+          <p class="card-title">'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy</p>
+          <p class="card-tags">Career</p>
+          <p class="card-excerpt">CLAB launched its first global seminar, Human Factors in Leadership, at IDAS in collaboration with UNDP, exploring DEIA in design leadership.</p>
+          <a class="text-link" href="index.html#article" aria-label="See article: Human Factors in Leadership Workshop">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-thumb ph-c2"></div>
+          <p class="card-eyebrow">Article</p>
+          <p class="card-title">CLab Fall 2025 Thesis Final Presentation Highlights</p>
+          <p class="card-tags">Design</p>
+          <p class="card-excerpt">CLab 석사과정 학생들의 2025년 가을학기 졸업논문 발표회 현장을 정리했다.</p>
+          <a class="text-link" href="index.html#article" aria-label="See article: CLab Fall 2025 Thesis Final Presentation">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FILTER + LIST ═══ -->
+    <section class="articles-layout" aria-label="All articles">
+      <form class="filter-sidebar" id="filter-form">
+        <label class="filter-item">
+          <input type="radio" name="cat" value="All" checked>
+          <span class="filter-checkbox"></span> All
+        </label>
+        <label class="filter-item"><input type="radio" name="cat" value="Design"><span class="filter-checkbox"></span> Design</label>
+        <label class="filter-item"><input type="radio" name="cat" value="AI"><span class="filter-checkbox"></span> AI</label>
+        <label class="filter-item"><input type="radio" name="cat" value="UX"><span class="filter-checkbox"></span> UX</label>
+        <label class="filter-item"><input type="radio" name="cat" value="IT"><span class="filter-checkbox"></span> IT</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Strategies"><span class="filter-checkbox"></span> Strategies</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Business"><span class="filter-checkbox"></span> Business</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Career"><span class="filter-checkbox"></span> Career</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Alumni Stories"><span class="filter-checkbox"></span> Alumni Stories</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Tips & Advice"><span class="filter-checkbox"></span> Tips &amp; Advice</label>
+        <label class="filter-item"><input type="radio" name="cat" value="Uncategorized"><span class="filter-checkbox"></span> Uncategorized</label>
+      </form>
+
+      <div class="articles-list-col">
+        <div class="articles-list-header">
+          <p class="articles-count" id="articles-count">8 Articles</p>
+          <div class="sort-tabs">
+            <button class="sort-tab active" type="button" data-sort="newest">Newest</button>
+            <button class="sort-tab" type="button" data-sort="popular">Most popular</button>
+          </div>
+        </div>
+
+        <div id="article-list">
+          <a class="article-row-item" href="article.html" data-cat="Design">
+            <img class="article-row-thumb" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다">
+            <div class="article-row-body">
+              <p class="card-eyebrow">Article</p>
+              <p class="card-title">[칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄</p>
+              <p class="card-tags">Design · 2026.05.09</p>
+              <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수가 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡았다.</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="Career">
+            <div class="article-row-thumb ph-r1"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Article</p>
+              <p class="card-title">'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy</p>
+              <p class="card-tags">Career · 2025.11.25</p>
+              <p class="card-excerpt">CLAB launched its first global seminar, Human Factors in Leadership, at IDAS in collaboration with UNDP (United Nations Development Programme), exploring DEIA in design leadership and the evolving role of designers as leaders in a rapidly changing world.</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="Design">
+            <div class="article-row-thumb ph-r2"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Article</p>
+              <p class="card-title">CLab Fall 2025 Thesis Final Presentation Highlights</p>
+              <p class="card-tags">Design · 2025.11.25</p>
+              <p class="card-excerpt">CLab 석사과정 학생들의 2025년 가을학기 졸업논문 발표회 현장을 정리했다.</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="AI">
+            <div class="article-row-thumb ph-r3"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Article</p>
+              <p class="card-title">Spring 2025 Industry Talk: Branding in the AI Era</p>
+              <p class="card-tags">AI · 2025.03.18</p>
+              <p class="card-excerpt">AI 시대의 브랜딩 전략을 주제로 진행된 2025년 봄학기 산업 특강을 소개한다.</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#our-works" data-cat="Business">
+            <div class="article-row-thumb ph-r4"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Article</p>
+              <p class="card-title">CLab × Hyundai Executive Leadership Program Launch</p>
+              <p class="card-tags">Business · 2024.03.04</p>
+              <p class="card-excerpt">현대자동차와 함께하는 여성 임원 리더십 프로그램의 출범 소식을 전한다.</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="UX">
+            <div class="article-row-thumb ph-c1"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Thesis</p>
+              <p class="card-title">UX Constellation Model: An Innovative Framework for User Experience Design</p>
+              <p class="card-tags">UX · 2025.07 · KCI</p>
+              <p class="card-excerpt">Jong Min Moon · Design Convergence Study</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="AI">
+            <div class="article-row-thumb ph-c2"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Thesis</p>
+              <p class="card-title">Non-Cognitive Skills Deficit in Generative AI-Based Work in the Graphic Design Industry</p>
+              <p class="card-tags">AI · 2025.04 · KCI</p>
+              <p class="card-excerpt">Hye Su Kang · Korean Business Association</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+
+          <a class="article-row-item" href="index.html#article" data-cat="Design">
+            <div class="article-row-thumb ph-c3"></div>
+            <div class="article-row-body">
+              <p class="card-eyebrow">Thesis</p>
+              <p class="card-title">Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Individual Emotional Stability</p>
+              <p class="card-tags">Design · 2025.07 · KCI</p>
+              <p class="card-excerpt">Seon Hwa Kim · Korea Convergence Society</p>
+              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
+            </div>
+          </a>
+        </div>
+
+        <button class="see-more-btn" type="button">See More</button>
+      </div>
+    </section>
+
+    <!-- ═══ CONNECT WITH US ═══ -->
+    <section class="connect-with-us" aria-labelledby="connect-title">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+
+  // ─── Category filter ───
+  const filterForm = document.getElementById('filter-form');
+  const rows = Array.from(document.querySelectorAll('.article-row-item'));
+  const countEl = document.getElementById('articles-count');
+  filterForm.addEventListener('change', () => {
+    const selected = filterForm.querySelector('input[name="cat"]:checked').value;
+    let visible = 0;
+    rows.forEach(row => {
+      const show = selected === 'All' || row.dataset.cat === selected;
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = visible + ' Articles';
+  });
+
+  // ─── Sort tabs (visual only — no backing data to sort by popularity) ───
+  document.querySelectorAll('.sort-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.sort-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

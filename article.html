@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Article — Global Design Leadership Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  /* ─── styleguide.css variables ─── */
+  :root {
+    --background: rgba(255,255,255,1);
+    --paragraph-1: rgba(0,0,0,1);
+    --paragraph-2: rgba(118,118,118,1);
+    --divider: rgba(0,0,0,1);
+
+    --header-header-1-font-family: "Instrument Sans", Helvetica;
+    --header-header-1-font-weight: 400;
+    --header-header-1-font-size: 64px;
+    --header-header-1-letter-spacing: -3.2px;
+    --header-header-1-line-height: 100%;
+
+    --header-header-2-font-family: "Instrument Sans", Helvetica;
+    --header-header-2-font-weight: 400;
+    --header-header-2-font-size: 37px;
+    --header-header-2-letter-spacing: -1.11px;
+    --header-header-2-line-height: 100%;
+
+    --header-header-5-font-family: "Instrument Sans", Helvetica;
+    --header-header-5-font-weight: 600;
+    --header-header-5-font-size: 16px;
+    --header-header-5-letter-spacing: -0.48px;
+    --header-header-5-line-height: 100%;
+
+    --paragraph-1-font-family: "Instrument Sans", Helvetica;
+    --paragraph-1-font-weight: 400;
+    --paragraph-1-font-size: 20px;
+    --paragraph-1-letter-spacing: -1px;
+    --paragraph-1-line-height: 121%;
+
+    --paragraph-2-font-family: "Instrument Sans", Helvetica;
+    --paragraph-2-font-weight: 400;
+    --paragraph-2-font-size: 16px;
+    --paragraph-2-letter-spacing: -0.48px;
+    --paragraph-2-line-height: 110%;
+
+    --text-link-font-family: "Instrument Sans", Helvetica;
+    --text-link-font-weight: 500;
+    --text-link-font-size: 16px;
+    --text-link-letter-spacing: -0.48px;
+    --text-link-line-height: 110%;
+
+    --nav-link-font-family: "Instrument Sans", Helvetica;
+    --nav-link-font-weight: 400;
+    --nav-link-font-size: 20px;
+    --nav-link-letter-spacing: -1px;
+    --nav-link-line-height: 100%;
+  }
+
+  /* ─── globals.css reset ─── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  * { -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  img { display: block; }
+  h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+  button:focus-visible { outline: 2px solid #4a90e2 !important; }
+  @font-face { font-family: "Instrument Sans"; src: local("Instrument Sans"); }
+
+  /* ─── Desktop wrapper ─── */
+  .desktop {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 0 40px;
+    position: relative;
+    background-color: var(--background);
+  }
+
+  /* ─── NAV (same as home / about) ─── */
+  .nav-header-2 {
+    display: flex;
+    width: 100%;
+    height: 46px;
+    align-items: center;
+    padding: 0 40px;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 200;
+    background-color: var(--background);
+    max-width: 1920px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @supports not (max-width: 1280px) {
+    .nav-header-2 { left: 0; transform: none; }
+  }
+  .logotype-contain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 10px 0;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    border-bottom: 1px solid var(--divider);
+  }
+  .f-f-logo { position: relative; width: 310px; height: 24px; }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 0 4px;
+    position: relative;
+  }
+  .nav-link .link {
+    position: relative;
+    width: fit-content;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    color: #000;
+    font-size: 20px;
+    letter-spacing: -1px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+  .links-contain {
+    display: flex;
+    max-width: 615px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 189px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+    align-self: stretch;
+  }
+  .text-links {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 50px;
+    padding: 12px 0 10px 20px;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    background-color: var(--background);
+    border-bottom: 1px solid var(--divider);
+  }
+  .link-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 0 4px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .link-2 {
+    width: fit-content;
+    white-space: nowrap;
+    position: relative;
+    font-family: var(--nav-link-font-family);
+    font-weight: var(--nav-link-font-weight);
+    color: var(--paragraph-1);
+    font-size: var(--nav-link-font-size);
+    letter-spacing: var(--nav-link-letter-spacing);
+    line-height: var(--nav-link-line-height);
+  }
+  .link-2.current { color: var(--paragraph-2); }
+  .link-2:hover, .nav-link:hover { opacity: 0.6; }
+
+  .nav-spacer { height: 225px; width: 100%; flex-shrink: 0; }
+
+  /* ─── Hamburger nav (mobile) ─── */
+  .hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #000;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+  .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 46px; left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 199;
+    flex-direction: column;
+    padding: 24px 40px 32px;
+    border-bottom: 1px solid #000;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: "Instrument Sans", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: -1.2px;
+    line-height: 1;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { opacity: 0.5; }
+
+  /* ─── Focus styles ─── */
+  a:focus-visible, button:focus-visible { outline: 2px solid #4a90e2; outline-offset: 4px; }
+
+  /* ─── ARTICLE main wrapper ─── */
+  .article-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1920px;
+    align-items: flex-start;
+  }
+
+  /* ─── Article header ─── */
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    padding: 82px 0 160px;
+  }
+  .article-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .article-tag {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -1.2px;
+    color: #000;
+  }
+  .article-lang-toggle {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -1.6px;
+    color: #000;
+  }
+  .article-title {
+    font-family: var(--header-header-1-font-family);
+    font-weight: var(--header-header-1-font-weight);
+    font-size: var(--header-header-1-font-size);
+    letter-spacing: var(--header-header-1-letter-spacing);
+    line-height: 112%;
+    color: #000;
+    width: 100%;
+  }
+  .article-byline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .article-byline p {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -1.2px;
+    color: #000;
+  }
+  .article-lead {
+    font-family: var(--paragraph-1-font-family);
+    font-weight: var(--paragraph-1-font-weight);
+    font-size: var(--paragraph-1-font-size);
+    letter-spacing: var(--paragraph-1-letter-spacing);
+    line-height: 150%;
+    color: #000;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 190px;
+  }
+
+  /* ─── Section titles (Background / Insight / Other Projects) ─── */
+  .article-section-title {
+    width: 100%;
+    padding: 40px 0 30px;
+    font-family: var(--header-header-1-font-family);
+    font-weight: var(--header-header-1-font-weight);
+    font-size: var(--header-header-1-font-size);
+    letter-spacing: var(--header-header-1-letter-spacing);
+    line-height: var(--header-header-1-line-height);
+    color: #000;
+  }
+
+  /* ─── Image + quote row ─── */
+  .article-row-block { width: 100%; padding: 0; }
+  .article-caption {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    line-height: 150%;
+    color: var(--paragraph-2);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--divider);
+    white-space: pre-line;
+  }
+  .article-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+  }
+  .article-row.reverse { flex-direction: row-reverse; }
+  .article-row-image {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .article-row-text {
+    flex: 1;
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -1.4px;
+    line-height: 145%;
+    color: #000;
+  }
+
+  /* ─── Full-width pull quote block ─── */
+  .article-quote-block {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .article-quote-short {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -1.6px;
+    line-height: 135%;
+    color: #000;
+  }
+  .article-quote-short span {
+    display: block;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -1.2px;
+    color: var(--paragraph-2);
+    margin-top: 8px;
+  }
+  .article-quote-body {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -1.4px;
+    line-height: 155%;
+    color: #000;
+    white-space: pre-line;
+  }
+
+  /* ─── CONNECT WITH US (same as home) ─── */
+  .connect-with-us {
+    max-width: 1920px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .connect-with-us-2 {
+    gap: 34px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .divider-3 { height: 1px; background: var(--divider); position: relative; align-self: stretch; width: 100%; }
+  .text-wrapper-17 {
+    position: relative;
+    align-self: stretch;
+    font-family: var(--header-header-2-font-family);
+    font-weight: var(--header-header-2-font-weight);
+    color: #000;
+    font-size: var(--header-header-2-font-size);
+    letter-spacing: var(--header-header-2-letter-spacing);
+    line-height: var(--header-header-2-line-height);
+  }
+
+  /* ─── Other Projects grid ─── */
+  .other-projects-section { width: 100%; padding: 0 0 60px; }
+  .other-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+  .other-project-card { display: flex; flex-direction: column; gap: 16px; }
+  .other-project-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 0.95;
+    object-fit: cover;
+    background: #111;
+  }
+  .other-project-thumb.ph-op1 { background: #E85A1A; }
+  .other-project-thumb.ph-op2 { background: #2B1F8C; }
+  .other-project-thumb.ph-op3 { background: #111111; }
+  .other-project-title {
+    font-family: "Instrument Sans", Helvetica;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+    line-height: 130%;
+    color: #000;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+  .text-wrapper-7 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: var(--text-link-font-family);
+    font-weight: var(--text-link-font-weight);
+    color: var(--paragraph-2);
+    font-size: var(--text-link-font-size);
+    letter-spacing: var(--text-link-letter-spacing);
+    line-height: var(--text-link-line-height);
+    white-space: nowrap;
+  }
+  .text-link:hover .text-wrapper-7 { opacity: 0.6; }
+
+  /* ─── FOOTER (same as home) ─── */
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 1920px;
+    gap: 60px;
+    padding: 30px 0 60px;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+  }
+  .footer-content { display: flex; width: 100%; max-width: 1200px; flex: 0 0 auto; align-items: flex-start; position: relative; }
+  .logo-contain-2 { display: flex; max-width: 625px; align-items: flex-start; gap: 10px; position: relative; flex: 1; flex-grow: 1; }
+  .image-2 { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .clab-logo-black { position: relative; height: 60px; width: auto; object-fit: contain; }
+  .logo { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .footer-text { display: flex; width: 100%; max-width: 616px; justify-content: space-between; align-items: flex-start; position: relative; }
+  .office-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 62px; position: relative; }
+  .office-contain-2 { display: flex; flex-direction: column; width: 201px; align-items: flex-start; gap: 30px; position: relative; flex: 0 0 auto; }
+  .text-wrapper-18 { position: relative; align-self: stretch; margin-top: -1px; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .text-wrapper-19 { position: relative; align-self: stretch; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .contact-contain { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .div-2 { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .social-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 30px; position: relative; }
+  .social-contain a { color: #000; }
+  .social-contain a:hover { opacity: 0.5; }
+
+  /* ─── Responsive — tablet ─── */
+  @media (max-width: 1280px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .footer-content { gap: 24px; flex-wrap: wrap; }
+    .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+    .article-row-image { width: 400px; height: 400px; }
+    .other-projects-grid { gap: 16px; }
+  }
+
+  /* ─── Responsive — mobile ─── */
+  @media (max-width: 768px) {
+    .desktop { padding: 0 40px; }
+    .nav-header-2 { padding: 0 40px; left: 0; transform: none; max-width: 100%; width: 100%; }
+    .hamburger-btn { display: flex; }
+    .links-contain { display: none; }
+    .logotype-contain { border-bottom: none; }
+
+    .article-title { font-size: 36px; letter-spacing: -1.8px; }
+    .article-section-title { font-size: 36px; letter-spacing: -1.8px; padding: 30px 0 20px; }
+    .article-tag, .article-byline p { font-size: 18px; letter-spacing: -0.9px; }
+    .article-lang-toggle { font-size: 24px; }
+    .article-lead { font-size: 18px; letter-spacing: -0.5px; line-height: 140%; }
+
+    .article-row { flex-direction: column !important; gap: 24px; }
+    .article-row-image { width: 100%; height: auto; aspect-ratio: 1/1; }
+    .article-row-text { font-size: 20px; letter-spacing: -1px; line-height: 140%; }
+
+    .article-quote-short { font-size: 24px; letter-spacing: -1.2px; }
+    .article-quote-body { font-size: 18px; letter-spacing: -0.5px; line-height: 150%; }
+
+    .other-projects-grid { grid-template-columns: 1fr; gap: 30px; }
+
+    .connect-with-us-2 { gap: 20px; }
+    .text-wrapper-17 { font-size: 28px; letter-spacing: -1.4px; }
+
+    .footer-section { padding: 30px 0 48px; gap: 40px; }
+    .footer-content { flex-direction: column; gap: 30px; }
+    .logo-contain-2 { max-width: 100%; }
+    .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+    .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+    .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+  }
+
+  @media (max-width: 420px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .mobile-nav { padding: 24px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header-2">
+    <div class="logotype-contain">
+      <div class="f-f-logo">
+        <a class="nav-link" href="index.html" aria-label="Global Design Leadership Association home">
+          <span class="link">Global Design Leadership Association</span>
+        </a>
+      </div>
+    </div>
+    <nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        <div class="link-wrapper"><a class="link-2" href="about.html">About</a></div>
+        <div class="link-wrapper"><a class="link-2" href="articles.html">Article</a></div>
+        <div class="link-wrapper"><a class="link-2" href="index.html#contact">Contact</a></div>
+      </div>
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="index.html#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <div class="nav-spacer"></div>
+
+  <main class="article-main">
+
+    <!-- ═══ ARTICLE HEADER ═══ -->
+    <section class="article-header" aria-labelledby="article-title">
+      <div class="article-meta-row">
+        <span class="article-tag">Design</span>
+        <span class="article-lang-toggle">KR / EN</span>
+      </div>
+      <h1 class="article-title" id="article-title">[칼럼] 경계를 디자인하다<br/>— 가속의 시대, 디자인이 지켜야 할 인간의 존엄</h1>
+      <div class="article-byline">
+        <p>IDAS 교수 이캐시연주</p>
+        <p>2026.05.09 · 조회수 963</p>
+      </div>
+      <p class="article-lead">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'은 'Borders(경계)'를 주제로 디자인·문화·사회 전반에 걸친 경계의 의미를 탐색했다. 이 자리에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수는 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡아, 기술이 인간의 삶으로 빠르게 파고드는 시대에 디자인이 무엇을 지켜야 하는지를 물었다.</p>
+    </section>
+
+    <!-- ═══ BACKGROUND ═══ -->
+    <h2 class="article-section-title" style="padding:0 0 110px">Background</h2>
+
+    <div class="article-row-block" style="padding-bottom:148px">
+      <p class="article-caption">2026 Keynote — Designing the Boundary<br/>▲ Cathy Lee 교수 기조연설 「Designing the Boundary」 — 급변하는 기술·문화·사회경제적 맥락 속 디자인의 역할 변화</p>
+      <div class="article-row">
+        <img class="article-row-image" src="assets/images/Frame 2147238105.png" alt="2026 KICD 춘계 국제학술대회 기조연설 현장">
+        <p class="article-row-text">캐시 리 교수는 디자인을 '무엇을 만드는가'가 아니라 '무엇을 결정하는가'의 문제로 다시 정의하며 연설을 열었다. 디자인은 늘 무언가를 만들어 왔지만, 더 깊은 질문은 디자인이 무엇을 허용하고 무엇을 거부하는가에 있다는 것이다. 경계를 긋는 일은 한계를 두는 행위가 아니라, 어떤 것이 다른 것보다 더 중요하다고 말하고 그 신념을 세상에 새겨 넣는 '저작(authorship)'의 행위라고 그는 강조했다.</p>
+      </div>
+    </div>
+
+    <div class="article-quote-block">
+      <p class="article-quote-short">"디자인은 무엇을 만드는가가 아니라, 무엇을 결정하는가이다."<span>— Design is not what you make. It is what you decide.</span></p>
+      <p class="article-quote-body">전통적으로 디자인은 결과물과 산출물을 만드는 일로 이해돼 왔다. 그러나 지금의 디자인은 인간의 미래를 형성하고, 복잡한 시스템을 매개하며, 혁신의 윤리적 경계를 정의하는 비판적 학문으로 재배치되고 있다. 캐시 리 교수는 AI와 기술이 상상 이상으로 확장(Expandability)되고, 스스로 판단하는 자율(Autonomy)을 갖추며, 인간의 삶에 밀착(Closeness)하는 '능력이 팽창하는 시대'를 진단했다.
+
+그 결과 디자인의 무게중심도 이동한다. '아티팩트를 만들고 제품을 설계하는 일(Making Artifacts, Designing Products)'에서 '미래를 형성하고 시스템을 매개하는 일(Shaping the Future, Mediating Systems)'로. 만드는 손에서 방향을 정하는 판단으로, 디자인의 좌표가 바뀌고 있다는 것이다.</p>
+    </div>
+
+    <!-- ═══ INSIGHT ═══ -->
+    <h2 class="article-section-title" style="padding:269px 0 110px">Insight</h2>
+
+    <div class="article-row-block" style="padding-bottom:159px">
+      <p class="article-caption">Design as the Mediator — Between Technology and Human Dignity<br/>▲ 기술과 인간 존엄 사이의 매개자로서의 디자인 — 조건을 설정하고, 가치를 담고, 경계를 지킨다</p>
+      <div class="article-row reverse">
+        <img class="article-row-image" src="assets/images/Frame 2147238106.png" alt="Cathy Lee 교수 기조연설 발표 장면">
+        <p class="article-row-text">연설의 핵심은 '문제는 더 이상 기술적인 것이 아니라 방향의 문제'라는 선언이었다. AI가 확장·자율·밀착할수록 중요한 질문은 'AI가 무엇을 할 수 있는가'가 아니라 '무엇을 해야 하는가, 그리고 누구의 관점에서 하는가'로 옮겨간다. 디자인은 바로 그 경계를 지키는 학문이라는 것이다.</p>
+      </div>
+    </div>
+
+    <div class="article-quote-block">
+      <p class="article-quote-short">"경계가 무엇을 만드는가가 아니라, 무엇을 결정하는가이다."<span>Before ethics. Before systems. Before scale. The person in front of you.</span></p>
+      <p class="article-quote-body">전통적으로 디자인은 결과물과 산출물을 만드는 일로 이해돼 왔다. 그러나 지금의 디자인은 인간의 미래를 형성하고, 복잡한 시스템을 매개하며, 혁신의 윤리적 경계를 정의하는 비판적 학문으로 재배치되고 있다. 캐시 리 교수는 AI와 기술이 상상 이상으로 확장(Expandability)되고, 스스로 판단하는 자율(Autonomy)을 갖추며, 인간의 삶에 밀착(Closeness)하는 '능력이 팽창하는 시대'를 진단했다.
+
+그 결과 디자인의 무게중심도 이동한다. '아티팩트를 만들고 제품을 설계하는 일(Making Artifacts, Designing Products)'에서 '미래를 형성하고 시스템을 매개하는 일(Shaping the Future, Mediating Systems)'로. 만드는 손에서 방향을 정하는 판단으로, 디자인의 좌표가 바뀌고 있다는 것이다.</p>
+    </div>
+
+    <div class="article-row-block" style="padding-bottom:80px">
+      <div class="article-row reverse">
+        <img class="article-row-image" src="assets/images/Frame 2147238108.png" alt="Define Boundaries. Protect Dignity. Shape the Future. Transform Mindsets. Build Community.">
+        <p class="article-row-text">이러한 철학은 원칙으로, 다시 실제 맥락으로 이어진다. 디자인은 기술과 인간 존엄 사이의 매개자(Mediator)로서 조건을 설정하고(Setting the Terms), 가치를 담으며(Embodying Values), 경계를 지킨다(Holding the Boundary). 매 순간 던져야 할 질문은 하나다. "이것은 인간의 삶을 긍정하는가, 아니면 단지 최적화할 뿐인가?" 그는 현대차 그룹과 함께한 'Designed with Human Dignity' 프로젝트를 사례로 들어, 존중(Respect)·돌봄(Care)·공존(Co-Existence)·신뢰(Trusted)의 원칙이 어떻게 실제 산업 구조로 옮겨지는지를 보여 주었다.
+
+결론에서 그는 방법론을 넘어선 '마인드셋'을 이야기했다. 도구는 이전할 수 있고 방법은 가르칠 수 있지만, 자신의 위기조차 이름 붙이기 어려운 세계를 항해하려면 디자이너에게는 도구 이상의 것이 필요하다. 마인드셋은 태도를 넘어, 세계를 바꾸고 세대를 잇고 새로운 리더십을 여는 출발점이라는 것이다.</p>
+      </div>
+    </div>
+
+    <!-- ═══ OTHER PROJECTS ═══ -->
+    <section class="other-projects-section" aria-labelledby="other-projects-title">
+      <div class="divider-3" aria-hidden="true"></div>
+      <h2 class="article-section-title" id="other-projects-title" style="padding:29px 0 104px">Other Projects</h2>
+      <div class="other-projects-grid">
+        <div class="other-project-card">
+          <img class="other-project-thumb" src="assets/images/Frame 2147238105.png" alt="Hyundai Motor Women Executive Leadership Program">
+          <p class="other-project-title">Hyundai Motor Women Executive Leadership Program</p>
+          <a class="text-link" href="index.html#our-works" aria-label="See project: Hyundai Motor Women Executive Leadership Program">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="other-project-card">
+          <div class="other-project-thumb ph-op1"></div>
+          <p class="other-project-title">WHY: 2025 — Our First Step Together</p>
+          <a class="text-link" href="index.html#our-works" aria-label="See project: WHY 2025">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="other-project-card">
+          <div class="other-project-thumb ph-op3"></div>
+          <p class="other-project-title">Human Factors in Leadership Seminar</p>
+          <a class="text-link" href="index.html#our-works" aria-label="See project: Human Factors in Leadership">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONNECT WITH US ═══ -->
+    <section class="connect-with-us" aria-labelledby="connect-title">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+</script>
+</body>
+</html>

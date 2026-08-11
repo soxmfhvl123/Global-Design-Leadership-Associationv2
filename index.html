@@ -92,7 +92,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1280px;
+      max-width: 1920px;
       margin: 0 auto;
       align-items: center;
       padding: 0 40px;
@@ -111,7 +111,7 @@
       top: 0; left: 0;
       z-index: 200;
       background-color: var(--background);
-      max-width: 1280px;
+      max-width: 1920px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -416,6 +416,7 @@
     }
     /* ─── Marquee image strip ─── */
     .marquee-container {
+      display: block;
       overflow: hidden;
       width: 100%;
       position: relative;
@@ -1091,4 +1092,629 @@
       gap: 5px;
       background: none;
       border: none;
-      cu
+      cursor: pointer;
+      padding: 6px 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: #000;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 46px; left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 199;
+      flex-direction: column;
+      padding: 24px 40px 32px;
+      border-bottom: 1px solid #000;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: "Instrument Sans", Helvetica;
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      letter-spacing: -1.2px;
+      line-height: 1;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { opacity: 0.5; }
+
+    /* ─── Focus styles ─── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #4a90e2;
+      outline-offset: 4px;
+    }
+
+    /* ─── Responsive — tablet ─── */
+    @media (max-width: 1280px) {
+      .desktop { padding: 0 24px; }
+      .nav-header-2 { padding: 0 24px; }
+      .project-description, .awards-content, .footer-content, .team-content-2 { gap: 24px; }
+      .project-description, .awards-content, .footer-content { flex-wrap: wrap; }
+      .project-title, .project-body-copy, .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+      .stats-content-2 { height: auto; min-height: 346px; }
+    }
+
+    /* ─── Responsive — mobile (Figma: 375px / 40px padding) ─── */
+    @media (max-width: 768px) {
+
+      /* ── Layout ── */
+      .desktop { padding: 0 40px; }
+      .nav-header-2 {
+        padding: 0 40px;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* ── Nav ── */
+      .hamburger-btn { display: flex; }
+      .links-contain { display: none; }
+      .logotype-contain { border-bottom: none; }
+
+      /* ── Type scale ── */
+      .intro-h1,
+      .text-wrapper-2,
+      .text-wrapper-8,
+      .president-founder {
+        font-size: 36px;
+        letter-spacing: -1.8px;
+      }
+      .text-wrapper-17 {
+        font-size: 28px;
+        letter-spacing: -1.4px;
+      }
+      .text-wrapper-13 {
+        font-size: 56px;
+        letter-spacing: -2.8px;
+      }
+      .text-wrapper-14 {
+        font-size: 26px;
+        letter-spacing: -1px;
+      }
+
+      /* ── Intro ── */
+      .intro-section { padding: 12px 0 60px; gap: 20px; }
+      .frame-logos .img { width: 60px; height: 60px; }
+      .flexcontainer .div { font-size: 16px; letter-spacing: -0.5px; line-height: 130%; }
+
+      /* ── Screenshot cards ── */
+      .screenshot { width: calc(100% + 80px); margin-left: -40px; }
+
+      /* ── Our Works section ── */
+      .stats-section { padding: 40px 0 60px; gap: 20px; }
+      .our-work-content { padding-bottom: 20px; }
+      .stats-content { flex-direction: column; padding-bottom: 30px; }
+      .stats-body { max-width: 100%; gap: 30px 0; }
+      .branding-list { min-width: 100%; max-width: 100%; padding-right: 0; }
+
+      /* ── Marquee ── */
+      .marquee-item { width: 260px; height: 260px; }
+      .marquee-ph  { width: 260px; height: 260px; }
+
+      /* ── Project description ── */
+      .project-description { flex-direction: column; gap: 20px; }
+      .project-title { width: 100%; }
+      .titles .p, .text-wrapper-5 { width: 100%; }
+      .project-body-copy { width: 100%; max-width: 100%; }
+
+      /* ── Poster screenshots ── */
+      .screenshot-2, .screenshot-3 {
+        width: calc(100% + 80px);
+        margin-left: -40px;
+      }
+
+      /* ── Thesis / Awards section ── */
+      .awards-section { padding-bottom: 60px; gap: 20px; }
+      .awards-content { flex-direction: column; gap: 16px; }
+      .text-wrapper-9 { font-size: 18px; letter-spacing: -0.5px; }
+      .text-wrapper-10, .text-wrapper-11 { font-size: 16px; }
+      .frame-3 { gap: 8px; }
+
+      /* ── Stats numbers ── */
+      .stats-content-2 {
+        flex-direction: column;
+        height: auto;
+        padding: 16px 0;
+        gap: 0;
+      }
+      .stat-content, .stat-middle, .stat-last {
+        border-right: none;
+        border-bottom: 1px solid #000;
+        padding: 20px 0;
+      }
+      .stat-last { border-bottom: none; }
+      .stat-content-2 { gap: 20px; }
+
+      /* ── Team section ── */
+      .our-team-section { padding-bottom: 60px; }
+      .team-content { gap: 40px; }
+      .team-content-wrapper { flex-direction: column; gap: 20px; }
+      .team-content-2 { flex-direction: column; gap: 20px; }
+      .image { width: 100%; height: auto; max-width: 390px; }
+      .row { flex-direction: column; gap: 16px; }
+      .person-wrapper { width: 100%; }
+      .flexcontainer-3 .div { font-size: 16px; }
+
+      /* ── Connect with us ── */
+      .connect-with-us-2 { gap: 20px; }
+
+      /* ── Footer ── */
+      .footer-section { padding: 30px 0 48px; gap: 40px; }
+      .footer-content { flex-direction: column; gap: 30px; }
+      .logo-contain-2 { max-width: 100%; }
+      .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+      .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+      .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+    }
+
+    /* ─── Extra-small (≤ 375px) ─── */
+    @media (max-width: 420px) {
+      .desktop { padding: 0 24px; }
+      .nav-header-2 { padding: 0 24px; }
+      .mobile-nav { padding: 24px 24px 32px; }
+      .screenshot { width: calc(100% + 48px); margin-left: -24px; }
+      .screenshot-2, .screenshot-3 { width: calc(100% + 48px); margin-left: -24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="desktop">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header-2">
+    <div class="logotype-contain">
+      <div class="f-f-logo">
+        <a class="nav-link" href="#" aria-label="Global Design Leadership Association home">
+          <span class="link">Global Design Leadership Association</span>
+        </a>
+      </div>
+    </div>
+    <nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        <div class="link-wrapper"><a class="link-2" href="about.html">About</a></div>
+        <div class="link-wrapper"><a class="link-2" href="articles.html">Article</a></div>
+        <div class="link-wrapper"><a class="link-2" href="#contact">Contact</a></div>
+      </div>
+    </nav>
+    <!-- Mobile hamburger -->
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <!-- Nav height spacer -->
+  <div class="nav-spacer"></div>
+
+  <main class="main">
+
+    <!-- ═══ HERO / INTRO ═══ -->
+    <section class="intro-section" id="about" aria-labelledby="intro-title">
+      <h1 class="intro-h1" id="intro-title">Global Design. Design Leadership.</h1>
+      <div class="flexcontainer">
+        <p class="div">Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership&nbsp; to create social value and expand global collaboration and knowledge ecosystems.</p>
+        <p class="div">CLAB, its research laboratory, manifests this mission as human-centered innovation&nbsp; — designing the future of human value through research, education, and enduring practice.</p>
+      </div>
+      <div class="frame-logos">
+        <img class="img" src="assets/logo/logo-gdla.png.png" alt="Association mark"/>
+        <img class="img" src="assets/logo/logo-clab.png.png" alt="CLAB logo"/>
+      </div>
+    </section>
+
+    <!-- ═══ Hero cards screenshot ═══ -->
+    <img class="screenshot"
+         src="assets/images/screenshot_hero_cards.png"
+         alt="Global Network, Academic Alliance, Industry Impact"/>
+
+    <!-- ═══ OUR WORKS ═══ -->
+    <section class="stats-section" id="our-works" aria-labelledby="our-works-title">
+      <div class="divider-line" aria-hidden="true"></div>
+
+      <div class="our-work-content">
+        <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
+      </div>
+
+      <div class="stats-content">
+        <div class="stats-body">
+          <section class="branding-list" aria-labelledby="design-management-title">
+            <h3 class="text-wrapper-3" id="design-management-title">DESIGN MANAGEMENT</h3>
+            <div class="flexcontainer-2">
+              <p class="div">Vision &amp; Strategy</p>
+              <p class="div">Leadership &amp; Innovation</p>
+              <p class="div">Curriculum &amp; Practice</p>
+              <p class="div">Industry Collaboration</p>
+              <p class="div">Career &amp; Impact</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Project 1: Hyundai -->
+      <article class="project-article" aria-labelledby="project-1-title">
+        <a class="marquee-container" href="article.html" aria-label="Read article: Designing the Boundary">
+          <div class="marquee-inner">
+            <img class="marquee-item" src="assets/images/Frame 2147238105.png" alt="Hyundai Leadership Program conference">
+            <img class="marquee-item" src="assets/images/Frame 2147238106.png" alt="Hyundai Leadership Program speaker session">
+            <img class="marquee-item" src="assets/images/Frame 2147238108.png" alt="Hyundai Leadership Program key message slide">
+            <img class="marquee-item" src="assets/images/Frame 2147238105.png" alt="Hyundai Leadership Program conference">
+            <img class="marquee-item" src="assets/images/Frame 2147238106.png" alt="Hyundai Leadership Program speaker session">
+            <img class="marquee-item" src="assets/images/Frame 2147238108.png" alt="Hyundai Leadership Program key message slide">
+          </div>
+        </a>
+        <div class="project-description">
+          <div class="project-title">
+            <div class="text-wrapper-4">Project</div>
+            <div class="titles">
+              <h3 class="p" id="project-1-title">Hyundai Motor Women Executive Leadership Program</h3>
+              <p class="text-wrapper-5">Leadership Development &amp; Executive Empowerment</p>
+            </div>
+          </div>
+          <div class="project-body-copy">
+            <p class="text-wrapper-6">Designed for high-performing women leaders, the program encourages participants to create platforms for change, inspire teams, and strengthen global leadership capabilities through education, collaboration, and strategic guidance.</p>
+            <a class="text-link" href="article.html" aria-label="See project: Hyundai Motor Women Executive Leadership Program">
+              <span class="text-wrapper-7">See Project</span>
+              <span class="text-wrapper-7" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: WHY 2025 -->
+      <article class="project-article" aria-labelledby="project-2-title">
+        <div class="marquee-container">
+          <div class="marquee-inner">
+            <div class="marquee-ph ph-p2a"></div>
+            <div class="marquee-ph ph-p2b"></div>
+            <div class="marquee-ph ph-p2c"></div>
+            <div class="marquee-ph ph-p2a"></div>
+            <div class="marquee-ph ph-p2b"></div>
+            <div class="marquee-ph ph-p2c"></div>
+          </div>
+        </div>
+        <div class="project-description">
+          <div class="project-title">
+            <div class="text-wrapper-4">Project</div>
+            <div class="titles">
+              <h3 class="p" id="project-2-title">WHY: 2025<br/>Our First Step Together</h3>
+              <p class="text-wrapper-5">Digital Rebrand &amp; User Experience</p>
+            </div>
+          </div>
+          <div class="project-body-copy">
+            <p class="text-wrapper-6">Our website redesign for Farm Global emphasized authentic brand imagery and user-centric design. Professional on-location photography showcased their sustainable practices.</p>
+            <a class="text-link" href="#" aria-label="See project: WHY 2025">
+              <span class="text-wrapper-7">See Project</span>
+              <span class="text-wrapper-7" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: Human Factors -->
+      <article class="project-article" aria-labelledby="project-3-title">
+        <div class="marquee-container">
+          <div class="marquee-inner">
+            <div class="marquee-ph ph-p3a"></div>
+            <div class="marquee-ph ph-p3b"></div>
+            <div class="marquee-ph ph-p3c"></div>
+            <div class="marquee-ph ph-p3a"></div>
+            <div class="marquee-ph ph-p3b"></div>
+            <div class="marquee-ph ph-p3c"></div>
+          </div>
+        </div>
+        <div class="project-description">
+          <div class="project-title">
+            <div class="text-wrapper-4">Project</div>
+            <div class="titles">
+              <h3 class="p" id="project-3-title">Human Factors in Leadership Seminar</h3>
+              <p class="text-wrapper-5">Design Leadership &amp; Global Collaboration</p>
+            </div>
+          </div>
+          <div class="project-body-copy">
+            <p class="text-wrapper-6">CLAB launched its first global seminar, Human Factors in Leadership, at IDAS in collaboration with UNDP (United Nations Development Programme). The seminar explored DEIA in design leadership and examined the evolving role of designers as leaders in a rapidly changing world.</p>
+            <a class="text-link" href="#" aria-label="See project: Human Factors in Leadership">
+              <span class="text-wrapper-7">See Project</span>
+              <span class="text-wrapper-7" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <a class="text-link see-more-projects" href="#" aria-label="See more projects">
+        <span class="text-wrapper-7">See More Projects</span>
+        <span class="text-wrapper-7" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <!-- ═══ THESIS ═══ -->
+    <section class="awards-section" id="article" aria-labelledby="thesis-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="thesis-title">Thesis</h2>
+        <div class="awards-list">
+
+          <a href="#" aria-label="Open: Therapeutic Effects of Digital Spatial Design in Theme Park Gardens">
+            <div class="award">
+              <p class="div">Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Visitors' Psychological Well-being</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.07 · KCI · Seon Hwa Kim, Korea Convergence Society</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: UX Constellation Model">
+            <div class="award">
+              <p class="div">UX Constellation Model: A Framework for Mapping User Experience Dimensions</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.07 · KCI · Jong Min Moon, Design Convergence Study</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce">
+            <div class="award">
+              <p class="div">Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce: Zalando &amp; ASOS</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.07 · KCI · Da Jeong Lee, Korean Contents and Industry Association</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: Non-Cognitive Skills Deficit in Generative AI-Based Work in the Graphic Design Industry">
+            <div class="award">
+              <p class="div">Non-Cognitive Skills Deficit in Generative AI-Based Work in the Graphic Design Industry</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.04 · KCI · Hye Su Kang, Korean Business Association</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a class="text-link" href="#" aria-label="See more thesis">
+            <span class="text-wrapper-7">See More</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <section class="stats-content-2" aria-label="Key statistics">
+      <div class="stat-content">
+        <div class="text-wrapper-13">30+</div>
+        <p class="div">Number of Team Members</p>
+      </div>
+      <div class="stat-middle">
+        <div class="stat-content-2">
+          <div class="text-wrapper-13">6</div>
+          <p class="div">Number of Global Stock-Listed Clients</p>
+        </div>
+      </div>
+      <div class="stat-last">
+        <div class="stat-content-2">
+          <div class="text-wrapper-13">20+</div>
+          <p class="div">Number of Projects</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ NEWS ═══ -->
+    <section class="awards-section" aria-labelledby="news-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="news-title">News</h2>
+        <div class="awards-list">
+
+          <a href="#" aria-label="Open: 'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy">
+            <div class="award">
+              <div class="frame-2">
+                <div class="text-wrapper-10">Workshop</div>
+              </div>
+              <p class="div">'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.11.25</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: CLab Fall 2025 Thesis Final Presentation Highlights">
+            <div class="award">
+              <div class="frame-2">
+                <div class="text-wrapper-10">Event</div>
+              </div>
+              <p class="div">CLab Fall 2025 Thesis Final Presentation Highlights</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.11.25</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: Spring 2025 Industry Talk: Branding in the AI Era">
+            <div class="award">
+              <div class="frame-2">
+                <div class="text-wrapper-10">Industry</div>
+              </div>
+              <p class="div">Spring 2025 Industry Talk: Branding in the AI Era</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2025.03.18</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a href="#" aria-label="Open: CLab × Hyundai Executive Leadership Program Launch">
+            <div class="award">
+              <div class="frame-2">
+                <div class="text-wrapper-10">Collaboration</div>
+              </div>
+              <p class="div">CLab × Hyundai Executive Leadership Program Launch</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">2024.03.04</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>
+
+          <a class="text-link" href="#" aria-label="See more news">
+            <span class="text-wrapper-7">See More</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PRESIDENT & FOUNDER ═══ -->
+    <section class="our-team-section" aria-labelledby="team-title">
+      <div class="divider-3" aria-hidden="true"></div>
+      <div class="team-content">
+        <h2 class="president-founder" id="team-title">President &amp; Founder</h2>
+        <div class="frame-4">
+          <div class="team-content-wrapper">
+            <article class="team-content-2">
+              <img class="image" src="assets/images/Image.png" alt="Portrait of Cathy Yeonchoo Lee"/>
+              <div class="frame-5">
+                <div class="description">
+                  <h3 class="text-wrapper-14">Cathy Yeonchoo Lee</h3>
+                  <p class="text-wrapper-15">Professor</p>
+                </div>
+                <div class="row">
+                  <div class="person">
+                    <div class="flexcontainer-3">
+                      <p class="div">Ekatrina Newyork Founder &amp; Creative Director</p>
+                      <p class="div">Ann Taylor Accessories Design Director</p>
+                      <p class="div">Gap Inc. Old Navy Handbag Designer</p>
+                    </div>
+                    <div class="person-wrapper">
+                      <div class="person">
+                        <div class="text-wrapper-16">Global Fashion Trend Research</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <a class="text-link" href="#" aria-label="See more members">
+            <span class="text-wrapper-7">See More Members</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONNECT WITH US ═══ -->
+    <section class="connect-with-us" aria-labelledby="connect-title">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <img class="screenshot-2" src="assets/images/screenshot_partners.png" alt="Partner and collaboration showcase"/>
+    <img class="screenshot-3" src="assets/images/screenshot_concept_cards.png" alt="Human Value, Leadership, Narrative, Design, Empowerment"/>
+
+    <!-- ═══ CONNECT WITH US 2 ═══ -->
+    <section class="connect-with-us" aria-labelledby="connect-title-2">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title-2">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+</script>
+</body>
+</html>
