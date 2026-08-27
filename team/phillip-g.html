@@ -71,6 +71,9 @@
     .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; }
     .work-card { display: flex; flex-direction: column; gap: 10px; }
     .work-card-image { width: 100%; aspect-ratio: 1 / 1; background: #d8d8d8; border-radius: 2px; }
+    .work-thumb-link { display: block; }
+    .work-thumb-link:hover .work-card-image, .work-thumb-link:hover .work-row-thumb { opacity: 0.85; }
+
     .work-card-body { display: flex; flex-direction: column; gap: 20px; font-size: 16px; letter-spacing: -0.48px; }
     .work-eyebrow { font-weight: 600; color: var(--gray); line-height: 100%; margin: 0; }
     .work-titles { display: flex; flex-direction: column; gap: 4px; }
@@ -230,7 +233,7 @@
       </div>
       <div class="works-grid">
         <div class="work-card">
-          <div class="work-card-image" role="img" aria-label="CLAB Research Archive Website thumbnail"></div>
+          <a class="work-thumb-link" href="../our-works/clab-research-archive-website.html" aria-label="See project: CLAB Research Archive Website"><div class="work-card-image" role="img" aria-label="CLAB Research Archive Website thumbnail"></div></a>
           <div class="work-card-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -242,7 +245,7 @@
           </div>
         </div>
         <div class="work-card">
-          <div class="work-card-image" role="img" aria-label="Human Factors in Leadership Visual System thumbnail"></div>
+          <a class="work-thumb-link" href="../our-works/human-factors-leadership-visual-system.html" aria-label="See project: Human Factors in Leadership Visual System"><div class="work-card-image" role="img" aria-label="Human Factors in Leadership Visual System thumbnail"></div></a>
           <div class="work-card-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -254,7 +257,7 @@
           </div>
         </div>
         <div class="work-card">
-          <div class="work-card-image" role="img" aria-label="GDLA Annual Report 2025 thumbnail"></div>
+          <a class="work-thumb-link" href="../our-works/gdla-annual-report-2025.html" aria-label="See project: GDLA Annual Report 2025"><div class="work-card-image" role="img" aria-label="GDLA Annual Report 2025 thumbnail"></div></a>
           <div class="work-card-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -280,7 +283,7 @@
       </div>
       <div class="works-row-list">
         <div class="work-row-item">
-          <div class="work-row-thumb"></div>
+          <a class="work-thumb-link" href="../our-works/gdla-ci-design.html" aria-label="See project: Global Design Leadership Association CI Design"><div class="work-row-thumb"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -292,7 +295,7 @@
           </div>
         </div>
         <div class="work-row-item">
-          <div class="work-row-thumb"></div>
+          <a class="work-thumb-link" href="../our-works/clab-press-bi-design.html" aria-label="See project: CLAB Press BI Design"><div class="work-row-thumb"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -304,7 +307,7 @@
           </div>
         </div>
         <div class="work-row-item">
-          <div class="work-row-thumb"></div>
+          <a class="work-thumb-link" href="../our-works/unii-bi-design.html" aria-label="See project: Unii (Pet-care product system) BI Design"><div class="work-row-thumb"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -316,7 +319,7 @@
           </div>
         </div>
         <div class="work-row-item">
-          <div class="work-row-thumb"></div>
+          <a class="work-thumb-link" href="../our-works/why-2025-global-forum-identity.html" aria-label="See project: WHY: 2025 Global Forum Identity"><div class="work-row-thumb"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -328,7 +331,7 @@
           </div>
         </div>
         <div class="work-row-item">
-          <div class="work-row-thumb"></div>
+          <a class="work-thumb-link" href="../our-works/hongik-idas-program-rebrand.html" aria-label="See project: Hongik IDAS Program Rebrand"><div class="work-row-thumb"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
