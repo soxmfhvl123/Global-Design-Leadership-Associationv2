@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GDLA — Team Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    :root {
+      --black: #000;
+      --gray: rgba(118,118,118,1);
+      --font: "Instrument Sans", Helvetica, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #fff; }
+    * { -webkit-font-smoothing: antialiased; font-family: var(--font); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; }
+    h1, h2, h3, h4, p { margin: 0; padding: 0; }
+
+    .page { width: 100%; max-width: 1920px; margin: 0 auto; padding: 0 40px; background: #fff; }
+
+    /* NAV (identical to portfolio pages) */
+    .nav-header {
+      display: flex; align-items: center; width: 100%; height: 46px; padding: 0 40px;
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%); max-width: 1920px;
+      z-index: 200; background: #fff;
+    }
+    .nav-logo-wrap { flex: 1; display: flex; align-items: center; align-self: stretch; border-bottom: 1px solid #000; padding-right: 20px; }
+    .nav-logo-wrap a { font-size: 20px; font-weight: 400; letter-spacing: -1px; color: #000; }
+    .nav-links-wrap { display: flex; align-items: flex-end; gap: 50px; padding: 12px 0 10px 20px; align-self: stretch; border-bottom: 1px solid #000; }
+    .nav-links-wrap a { font-size: 20px; font-weight: 400; letter-spacing: -1px; color: #000; line-height: 1; padding-bottom: 4px; }
+    .nav-links-wrap a:hover { opacity: 0.6; }
+    .nav-spacer { height: 46px; width: 100%; }
+
+    .hamburger-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 4px; margin-left: auto; flex-shrink: 0; }
+    .hamburger-btn span { display: block; width: 22px; height: 1.5px; background: #000; transition: transform 0.25s, opacity 0.25s; }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 46px; left: 0; width: 100%; background: #fff; z-index: 199; flex-direction: column; padding: 24px 40px 32px; border-bottom: 1px solid #000; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { opacity: 0.5; }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid #4a90e2; outline-offset: 4px; }
+
+    /* SHARED SECTION HEADING (same tokens as portfolio pages) */
+    .section-divider { width: 100%; height: 1px; background: #000; }
+    .section-heading-xl { font-size: 64px; font-weight: 400; letter-spacing: -3.2px; line-height: 100%; color: #000; }
+
+    /* ADMIN LOGIN */
+    .admin-login { max-width: 420px; margin: 0 auto; padding: 140px 0 200px; display: flex; flex-direction: column; gap: 28px; }
+    .admin-login-eyebrow { font-size: 16px; font-weight: 600; letter-spacing: -0.48px; color: var(--gray); }
+    .admin-login h1 { font-size: 48px; font-weight: 400; letter-spacing: -2.4px; color: #000; }
+    .admin-field { display: flex; flex-direction: column; gap: 8px; }
+    .admin-field label { font-size: 14px; font-weight: 600; letter-spacing: -0.4px; color: #000; text-transform: uppercase; }
+    .admin-field input, .admin-field textarea {
+      border: none; border-bottom: 1px solid #000; padding: 10px 0; font-size: 20px;
+      font-family: var(--font); letter-spacing: -1px; background: transparent; color: #000; width: 100%;
+    }
+    .admin-field input:focus, .admin-field textarea:focus { outline: none; border-bottom-width: 2px; }
+    .admin-error { color: #c0392b; font-size: 16px; letter-spacing: -0.48px; display: none; }
+    .admin-error.show { display: block; }
+    .admin-login-note { font-size: 14px; color: var(--gray); line-height: 1.5; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border: 1px solid #000; background: none;
+      font-family: var(--font); font-size: 18px; font-weight: 400; letter-spacing: -0.9px;
+      color: #000; cursor: pointer; white-space: nowrap;
+    }
+    .btn-outline:hover { opacity: 0.6; }
+    .btn-outline.primary { background: #000; color: #fff; }
+    .btn-outline.primary:hover { opacity: 0.85; }
+    .btn-outline.small { padding: 8px 16px; font-size: 14px; }
+    .btn-outline:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-text {
+      background: none; border: none; padding: 0; font-family: var(--font);
+      font-size: 16px; letter-spacing: -0.48px; color: var(--gray); cursor: pointer; text-decoration: underline;
+    }
+    .btn-text:hover { color: #000; }
+
+    /* ADMIN DASHBOARD */
+    .admin-main { display: none; width: 100%; padding: 40px 0 120px; flex-direction: column; gap: 64px; }
+    .admin-main.show { display: flex; }
+    .admin-topbar { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; border-bottom: 1px solid #000; padding-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+    .admin-topbar h1 { font-size: 48px; font-weight: 400; letter-spacing: -2.4px; color: #000; }
+    .admin-topbar .sub { font-size: 16px; color: var(--gray); margin-top: 6px; }
+    .admin-topbar-actions { display: flex; align-items: center; gap: 20px; }
+
+    .admin-panel { display: flex; flex-direction: column; gap: 16px; padding: 28px; border: 1px solid #000; }
+    .admin-panel h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.9px; }
+    .admin-panel .hint { font-size: 14px; color: var(--gray); line-height: 1.6; }
+    .admin-panel .hint a { text-decoration: underline; color: var(--gray); }
+
+    .admin-section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .admin-section-head h2 { font-size: 32px; font-weight: 400; letter-spacing: -1.6px; }
+
+    .admin-project-list { display: flex; flex-direction: column; border-top: 1px solid #000; }
+    .admin-project-row { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.12); }
+    .admin-project-thumb { width: 64px; height: 64px; background: #d8d8d8; border-radius: 2px; flex-shrink: 0; }
+    .admin-project-info { flex: 1; min-width: 0; }
+    .admin-project-info .title { font-size: 18px; font-weight: 600; color: #000; letter-spacing: -0.5px; }
+    .admin-project-info .meta { font-size: 14px; color: var(--gray); margin-top: 2px; }
+    .admin-project-badge {
+      font-size: 12px; letter-spacing: -0.3px; color: var(--gray); border: 1px solid var(--gray);
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    }
+    .admin-project-order { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+    .admin-project-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .admin-icon-btn { background: none; border: none; cursor: pointer; padding: 4px 6px; color: #000; font-size: 16px; line-height: 1; }
+    .admin-icon-btn:hover { opacity: 0.5; }
+    .admin-icon-btn.danger:hover { color: #c0392b; opacity: 1; }
+    .admin-empty { padding: 40px 0; color: var(--gray); font-size: 16px; text-align: center; }
+
+    .admin-form { display: none; flex-direction: column; gap: 20px; border: 1px solid #000; padding: 28px; }
+    .admin-form.show { display: flex; }
+    .admin-form h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.9px; }
+    .admin-form textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+    .admin-form .row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .admin-form .row .admin-field { flex: 1; min-width: 220px; }
+    .admin-form-actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
+    .admin-slug-preview { font-size: 13px; color: var(--gray); }
+    .admin-slug-preview code { background: #f2f2f2; padding: 2px 6px; }
+
+    /* MEDIA UPLOAD FIELDS (in the add/edit form) */
+    .admin-media-field { display: flex; flex-direction: column; gap: 10px; }
+    .admin-media-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .admin-media-preview { width: 96px; height: 96px; background: #d8d8d8; border-radius: 2px; flex-shrink: 0; overflow: hidden; position: relative; }
+    .admin-media-preview img, .admin-media-preview video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .admin-media-preview.empty::after { content: '＋'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 24px; }
+    .admin-media-controls { display: flex; flex-direction: column; gap: 6px; }
+    .admin-media-controls input[type=file] { font-size: 13px; font-family: var(--font); }
+    .admin-lock-panel { display: none; flex-direction: column; gap: 12px; padding: 16px; background: #f7f7f7; border: 1px dashed var(--gray); }
+    .admin-lock-panel.show { display: flex; }
+    .admin-lock-toggle { display: flex; align-items: center; gap: 10px; font-size: 15px; letter-spacing: -0.4px; cursor: pointer; }
+    .admin-lock-toggle input { width: 16px; height: 16px; }
+
+    /* MEDIA LOCK / BLUR (used in generated preview + published pages) */
+    .media-lock-wrap { position: relative; overflow: hidden; }
+    .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
+    .media-lock-overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; background: rgba(0,0,0,0.28); border: none; color: #fff; cursor: pointer; width: 100%; height: 100%;
+      font-family: var(--font); font-size: 14px; letter-spacing: -0.4px;
+    }
+    .media-lock-overlay .lock-icon { font-size: 22px; pointer-events: none; }
+    .media-lock-overlay:hover { background: rgba(0,0,0,0.4); }
+    .media-lock-badge {
+      position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; pointer-events: none;
+    }
+
+    .admin-log { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 13px; line-height: 1.7; background: #f5f5f5; padding: 18px; white-space: pre-wrap; max-height: 260px; overflow-y: auto; display: none; }
+    .admin-log.show { display: block; }
+
+    /* FOOTER (identical to portfolio pages) */
+    .footer-section { display: flex; flex-direction: column; max-width: 1920px; gap: 60px; padding: 30px 0 60px; align-items: flex-start; width: 100%; }
+    .footer-content { display: flex; width: 100%; max-width: 1200px; align-items: flex-start; }
+    .logo-contain-2 { display: flex; max-width: 625px; align-items: flex-start; gap: 10px; flex: 1; flex-grow: 1; }
+    .image-2 { width: 60px; height: 60px; object-fit: contain; }
+    .clab-logo-black { height: 60px; width: auto; object-fit: contain; }
+    .logo { width: 60px; height: 60px; object-fit: contain; }
+    .footer-text { display: flex; width: 100%; max-width: 616px; justify-content: space-between; align-items: flex-start; }
+    .office-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 62px; }
+    .office-contain-2 { display: flex; flex-direction: column; width: 201px; align-items: flex-start; gap: 30px; }
+    .text-wrapper-18 { align-self: stretch; margin-top: -1px; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+    .text-wrapper-19 { align-self: stretch; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+    .contact-contain { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; align-self: stretch; width: 100%; }
+    .div-2 { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; align-self: stretch; width: 100%; }
+    .social-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 30px; }
+    .social-contain a { color: #000; }
+    .social-contain a:hover { opacity: 0.5; }
+
+    @media (max-width: 1280px) {
+      .page { padding: 0 24px; }
+      .nav-header { padding: 0 24px; }
+      .footer-content { gap: 24px; flex-wrap: wrap; }
+      .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 0 40px; }
+      .nav-header { padding: 0 40px; left: 0; transform: none; max-width: 100%; width: 100%; }
+      .hamburger-btn { display: flex; }
+      .nav-links-wrap { display: none; }
+      .nav-logo-wrap { border-bottom: none; }
+
+      .admin-login { padding: 80px 0 100px; }
+      .admin-login h1 { font-size: 36px; letter-spacing: -1.8px; }
+      .admin-topbar h1 { font-size: 32px; letter-spacing: -1.6px; }
+      .admin-section-head h2 { font-size: 24px; letter-spacing: -1.2px; }
+      .admin-project-row { flex-wrap: wrap; }
+      .admin-project-order { order: 3; flex-direction: row; }
+
+      .footer-section { padding: 30px 0 48px; gap: 40px; }
+      .footer-content { flex-direction: column; gap: 30px; }
+      .logo-contain-2 { max-width: 100%; }
+      .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+      .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+      .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+    }
+
+    @media (max-width: 420px) {
+      .page { padding: 0 24px; }
+      .nav-header { padding: 0 24px; }
+      .mobile-nav { padding: 24px 24px 32px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header">
+    <div class="nav-logo-wrap">
+      <a href="index.html">Global Design Leadership Association</a>
+    </div>
+    <nav class="nav-links-wrap" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="#" id="my-portfolio-link" style="display:none;">My Portfolio</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="#" id="my-portfolio-link-mobile" style="display:none;" onclick="closeMobileNav()">My Portfolio</a>
+    <a href="index.html#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <div class="nav-spacer"></div>
+
+  <main>
+
+    <!-- ═══ LOGIN ═══ -->
+    <section class="admin-login" id="login-screen">
+      <div>
+        <p class="admin-login-eyebrow">Team Admin</p>
+        <h1>Global Design Leadership Association</h1>
+      </div>
+      <div class="admin-field">
+        <label for="login-username">Name</label>
+        <input type="text" id="login-username" autocomplete="username" placeholder="e.g. piia"/>
+      </div>
+      <div class="admin-field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" autocomplete="current-password" placeholder="••••"/>
+      </div>
+      <p class="admin-error" id="login-error">이름 또는 비밀번호가 올바르지 않아요.</p>
+      <button class="btn-outline primary" id="login-btn" type="button" style="align-self:flex-start;">Log in</button>
+      <p class="admin-login-note" id="login-note">본인 이름(영문 이름의 첫 단어)과 팀에서 공유받은 비밀번호로 로그인하세요. 로그인은 서버에서 실제로 확인돼요.</p>
+    </section>
+
+    <!-- ═══ ADMIN DASHBOARD ═══ -->
+    <div class="admin-main" id="admin-main">
+
+      <div class="admin-topbar">
+        <div>
+          <h1 id="admin-title">Team Admin</h1>
+          <p class="sub">여기서 추가·수정한 프로젝트는 "Publish"를 눌러야 실제 사이트(팀원 9명 전체 포트폴리오)에 반영돼요.</p>
+        </div>
+        <div class="admin-topbar-actions">
+          <a href="#" id="my-portfolio-link-2" target="_blank">내 포트폴리오 보기 ↗</a>
+          <button class="btn-text" id="logout-btn" type="button">Log out</button>
+        </div>
+      </div>
+
+      <!-- ═══ PROJECTS ═══ -->
+      <div>
+        <div class="admin-section-head">
+          <h2>Our Works</h2>
+          <button class="btn-outline" id="add-project-btn" type="button">+ Add New Project</button>
+        </div>
+        <p class="hint" style="margin-top:8px;">이 프로젝트 목록은 팀원 9명 전체 포트폴리오에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 각 포트폴리오의 "Latest Works"에, 나머지는 "More Works" 목록에 자동으로 표시돼요. 화살표로 순서를 바꿀 수 있어요.</p>
+
+        <div class="admin-project-list" id="project-list"></div>
+
+        <!-- Add/Edit form (shared) -->
+        <div class="admin-form" id="project-form" style="margin-top:24px;">
+          <h2 id="form-title">Add New Project</h2>
+          <div class="row">
+            <div class="admin-field">
+              <label for="f-title">Title</label>
+              <input type="text" id="f-title" placeholder="Project name"/>
+            </div>
+            <div class="admin-field">
+              <label for="f-subtitle">Category</label>
+              <input type="text" id="f-subtitle" placeholder="e.g. Branding · Identity"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="f-desc">Card Description</label>
+            <textarea id="f-desc" placeholder="포트폴리오 카드/리스트에 보이는 한두 문장 소개"></textarea>
+          </div>
+
+          <div class="admin-media-field">
+            <label>Cover Image (카드·썸네일용)</label>
+            <div class="admin-media-row">
+              <div class="admin-media-preview empty" id="preview-cover"></div>
+              <div class="admin-media-controls">
+                <input type="file" id="f-cover-file" accept="image/*"/>
+                <button class="btn-text" type="button" id="remove-cover-btn">이미지 삭제</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-field">
+            <label for="f-background">Detail Page — Background</label>
+            <textarea id="f-background" placeholder="프로젝트 상세페이지 Background 문단"></textarea>
+          </div>
+          <div class="admin-media-field">
+            <label>Background Image</label>
+            <div class="admin-media-row">
+              <div class="admin-media-preview empty" id="preview-background"></div>
+              <div class="admin-media-controls">
+                <input type="file" id="f-background-file" accept="image/*"/>
+                <button class="btn-text" type="button" id="remove-background-btn">이미지 삭제</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-field">
+            <label for="f-insight">Detail Page — Insight</label>
+            <textarea id="f-insight" placeholder="프로젝트 상세페이지 Insight 문단"></textarea>
+          </div>
+          <div class="admin-media-field">
+            <label>Insight Image</label>
+            <div class="admin-media-row">
+              <div class="admin-media-preview empty" id="preview-insight"></div>
+              <div class="admin-media-controls">
+                <input type="file" id="f-insight-file" accept="image/*"/>
+                <button class="btn-text" type="button" id="remove-insight-btn">이미지 삭제</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-media-field">
+            <label>Project Video (선택)</label>
+            <div class="admin-media-row">
+              <div class="admin-media-preview empty" id="preview-video"></div>
+              <div class="admin-media-controls">
+                <input type="file" id="f-video-file" accept="video/*"/>
+                <button class="btn-text" type="button" id="remove-video-btn">동영상 삭제</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="admin-lock-toggle">
+            <input type="checkbox" id="f-locked"/>
+            🔒 이 프로젝트의 이미지·동영상 블러 처리 (비밀번호로 잠금)
+          </label>
+          <div class="admin-lock-panel" id="lock-panel">
+            <div class="admin-field">
+              <label for="f-lock-password">잠금 비밀번호</label>
+              <input type="text" id="f-lock-password" placeholder="예: 1234"/>
+            </div>
+            <p class="hint" style="margin:0;">⚠️ 이건 실제 암호화가 아니라 화면에서 블러만 걸어주는 가벼운 잠금이에요. 페이지 소스를 보면 우회될 수 있으니, 정말 민감한 파일은 올리지 마세요.</p>
+          </div>
+
+          <p class="admin-slug-preview">상세페이지 주소: <code>our-works/<span id="slug-preview">project-slug</span>.html</code></p>
+          <div class="admin-form-actions">
+            <button class="btn-text" id="cancel-form-btn" type="button">Cancel</button>
+            <button class="btn-outline primary" id="save-project-btn" type="button">Save Project</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PUBLISH ═══ -->
+      <div class="admin-panel">
+        <h2>Publish</h2>
+        <p class="hint">이 목록(프로젝트 데이터), 각 프로젝트의 상세페이지(our-works/*.html), 팀원 9명의 포트폴리오 페이지(team/*.html), 새로 올린 이미지·동영상까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 반영까지 1분 정도 걸려요. 업로드하는 이미지·동영상은 파일당 대략 20MB 이하로 올려주세요.</p>
+        <button class="btn-outline primary" id="publish-btn" type="button" style="align-self:flex-start;">Publish to Live Site</button>
+        <div class="admin-log" id="publish-log"></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  /* ═══════════════════ CONFIG ═══════════════════ */
+  // Fill this in after you deploy the Cloudflare Worker (see cf-worker/README.md).
+  // Example: 'https://gdla-admin.yoursubdomain.workers.dev'
+  const WORKER_URL = 'https://gdla-admin.YOUR-SUBDOMAIN.workers.dev';
+
+  const GH_BRANCH     = 'main';
+  const PROJECTS_PATH = 'assets/data/projects.json';
+  // Every team page that shares the same "Our Works" catalog — kept in sync on every Publish.
+  const TEAM_PAGE_SLUGS = ['piia-l','niina','cathy-d','jeremy-t','mariana-v','phillip-g','kat-e','lauren-w','caleb-e'];
+
+  const SESSION_KEY = 'gdla_admin_session';
+
+  let sessionToken = null;
+  let currentPerson = null; // { slug, name }
+
+  /* ═══════════════════ SEED DATA (used only if assets/data/projects.json doesn't exist yet) ═══════════════════ */
+  const SEED_PROJECTS = [
+    {
+      slug: "gdla-ci-design",
+      title: "Global Design Leadership Association CI Design",
+      subtitle: "Branding · Corporate Identity",
+      desc: "A corporate identity for the Global Design Leadership Association (GDLA), built around a bold typographic wordmark. The system codifies the association's authority and global outlook into a flexible visual language that reads with equal clarity across print, screen, and space.",
+      background: "As GDLA's activities expanded across leadership and design-management education, brand strategy and identity consulting, public and social-innovation advisory, annual trend reports and policy papers, and joint programs with international institutions, the organization needed one identity system that would hold together across print publications, digital channels, and the physical space of international forums.",
+      insight: "The solution centers on typography. Rather than leaning on a decorative symbol, the association's name itself was shaped into a bold wordmark, so the name becomes the identity. The typeface reads as geometric and modernist — a deliberate nod to the Bauhaus lineage — so the mark itself declares the association's commitment to design modernism. The wordmark stacks GLOBAL · DESIGN · LEADERSHIP · ASSOCIATION across four lines, and that four-line structure sets the baseline for a flexible grid system that extends from print to digital screens to spatial signage, keeping GDLA instantly recognizable at any size or medium."
+    },
+    {
+      slug: "clab-press-bi-design",
+      title: "CLAB Press BI Design",
+      subtitle: "Brand Identity",
+      desc: "A brand identity for CLAB Press, the imprint that turns CLAB's research, programs, conversations, and project outcomes into publishable knowledge assets. The system unifies content production, publishing, and knowledge IP under one refined editorial voice.",
+      background: "CLAB Press had been publishing research, program recaps, interviews, and case studies under a loose mix of formats, so material from the same institution often looked like it came from different sources. Before any single title could grow into a recognizable series, the imprint needed one consistent visual system to publish under.",
+      insight: "The identity treats every CLAB Press release — a report, a transcript, a project brief — as one entry in a continuing editorial voice. A restrained typographic system and a consistent grid carry across formats, so a reader can recognize a CLAB Press title at a glance, whether it's a printed report or a page on the research archive."
+    },
+    {
+      slug: "unii-bi-design",
+      title: "Unii (Pet-care product system) BI Design",
+      subtitle: "Design Research, Branding",
+      desc: "Brand identity and visual design for unii, a pet-care product system built around the bond between people and their pets. Designed not around functions but around the rituals that make us care, the system unifies logotype, graphic language, and tone into one warm, restrained visual identity.",
+      background: "unii set out to design a product system for pet care that started from the relationship between people and their pets rather than from a list of features. The brief asked for an identity that could hold everything from packaging to app screens without reducing that relationship to a slogan.",
+      insight: "Instead of organizing the system around functions, the team organized it around the small rituals — feeding, walking, checking in — that make up everyday care. That shift shows up in a warm, restrained visual identity: a logotype and graphic language built to feel more like a companion than a product line."
+    },
+    {
+      slug: "why-2025-global-forum-identity",
+      title: "WHY: 2025 Global Forum Identity",
+      subtitle: "Branding · Event Design",
+      desc: "A visual identity for WHY: 2025, a global forum on design leadership. The system had to work across a stage backdrop, delegate materials, and a live broadcast, so it was built around a single adaptable mark rather than a fixed lockup.",
+      background: "WHY: 2025 needed an identity that could survive very different environments in the same week — a stage backdrop seen from the back of a hall, delegate badges and printed materials seen up close, and a live broadcast compressed into a small frame.",
+      insight: "Rather than lock the forum to one static composition, the system was built around a single adaptable mark that rescales and recomposes for each surface, keeping WHY: 2025 recognizable everywhere without ever looking like three different events."
+    },
+    {
+      slug: "hongik-idas-program-rebrand",
+      title: "Hongik IDAS Program Rebrand",
+      subtitle: "Identity Design · Education",
+      desc: "A rebrand for a graduate design-management program, translating an academic mission into a mark and system that reads clearly on diplomas, signage, and admissions materials alike.",
+      background: "A graduate design-management program needed its identity to speak to two audiences at once: prospective students weighing a serious academic choice, and the institution's own diplomas, signage, and formal materials that outlive any single marketing cycle.",
+      insight: "The rebrand translates the program's academic mission into a mark restrained enough to sit comfortably on a diploma, yet distinctive enough to stand out in an admissions brochure — one system doing double duty across the program's most formal and most persuasive materials."
+    },
+    {
+      slug: "clab-research-archive-website",
+      title: "CLAB Research Archive Website",
+      subtitle: "UX Design · Digital",
+      desc: "An interface for browsing years of design-leadership research, prioritizing fast scanning over decoration so returning researchers can find a paper or case study in a few clicks.",
+      background: "Years of design-leadership research had accumulated with no single way to browse it, so returning researchers were re-finding papers through search engines instead of the archive itself.",
+      insight: "The interface was built around fast scanning rather than decoration — clear filters, consistent card layouts, and minimal visual noise — so a returning researcher can locate a specific paper or case study in a few clicks instead of a few minutes."
+    },
+    {
+      slug: "human-factors-leadership-visual-system",
+      title: "Human Factors in Leadership Visual System",
+      subtitle: "Design Research · Branding",
+      desc: "A visual system for CLAB's seminar series on human factors in leadership, built to travel between printed programs, a lecture hall backdrop, and a set of social recap graphics.",
+      background: "CLAB's seminar series on human factors in leadership runs across a printed program, a lecture hall backdrop, and a set of social recap graphics produced right after each session, so the visual system had to travel light and assemble quickly between formats.",
+      insight: "A shared set of typographic and graphic rules — rather than a single fixed layout — lets the same identity scale from a printed program to a projected backdrop to a same-day social recap without a new design pass for every format."
+    },
+    {
+      slug: "gdla-annual-report-2025",
+      title: "GDLA Annual Report 2025",
+      subtitle: "Editorial · Typography",
+      desc: "An editorial system for the association's annual report, using a single typographic voice to hold a year of statistics, essays, and project summaries together without a photograph in sight.",
+      background: "A year of statistics, essays, and project summaries needed to read as one coherent report rather than a bound stack of separate documents, without leaning on photography to carry the visual interest.",
+      insight: "The editorial system uses a single typographic voice — considered scale, spacing, and hierarchy — to hold numbers, narrative, and project recaps together, proving a report can feel visually rich through typography alone."
+    }
+  ];
+
+  /* ═══════════════════ STATE ═══════════════════ */
+  let projects = [];
+  // In-memory only (NOT persisted) — keyed by project slug while editing, or NEW_KEY while adding.
+  // { cover: File, background: File, insight: File, video: File }
+  let pendingUploads = {};
+  const NEW_KEY = '__new__';
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  function extFromFile(file) {
+    const fromName = (file.name || '').split('.').pop();
+    if (fromName && fromName.length <= 5) return fromName.toLowerCase();
+    const map = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'video/mp4': 'mp4', 'video/webm': 'webm', 'video/quicktime': 'mov' };
+    return map[file.type] || 'bin';
+  }
+  function simpleHash(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  async function loadProjects() {
+    try {
+      const file = await getFile(PROJECTS_PATH);
+      if (file) {
+        projects = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ 저장된 프로젝트 목록을 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    projects = JSON.parse(JSON.stringify(SEED_PROJECTS));
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function slugify(s) {
+    return String(s).toLowerCase()
+      .replace(/[()]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 60) || 'project';
+  }
+  function uniqueSlug(base, ignoreSlug) {
+    let s = base, n = 2;
+    const taken = new Set(projects.filter(p => p.slug !== ignoreSlug).map(p => p.slug));
+    while (taken.has(s)) { s = `${base}-${n++}`; }
+    return s;
+  }
+
+  /* ═══════════════════ LOGIN ═══════════════════ */
+  const loginScreen = document.getElementById('login-screen');
+  const adminMain = document.getElementById('admin-main');
+  const loginBtn = document.getElementById('login-btn');
+  const loginError = document.getElementById('login-error');
+
+  function applyPersonToChrome() {
+    const portfolioHref = `team/${currentPerson.slug}.html`;
+    document.getElementById('admin-title').textContent = `${currentPerson.name} — Team Admin`;
+    ['my-portfolio-link', 'my-portfolio-link-mobile', 'my-portfolio-link-2'].forEach(id => {
+      const el = document.getElementById(id);
+      el.href = portfolioHref;
+      el.style.display = '';
+    });
+  }
+
+  async function showDashboard() {
+    applyPersonToChrome();
+    loginScreen.style.display = 'none';
+    adminMain.classList.add('show');
+    logShow(); logClear();
+    log('프로젝트 목록 불러오는 중...');
+    await loadProjects();
+    logClear();
+    renderProjectList();
+  }
+
+  async function tryLogin() {
+    const name = document.getElementById('login-username').value.trim().toLowerCase();
+    const password = document.getElementById('login-password').value;
+    if (!name || !password) return;
+    loginBtn.disabled = true;
+    loginError.classList.remove('show');
+    try {
+      const res = await fetch(`${WORKER_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, password })
+      });
+      if (!res.ok) throw new Error('bad credentials');
+      const data = await res.json();
+      sessionToken = data.token;
+      currentPerson = data.person;
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: sessionToken, person: currentPerson }));
+      await showDashboard();
+    } catch (e) {
+      loginError.classList.add('show');
+    } finally {
+      loginBtn.disabled = false;
+    }
+  }
+  loginBtn.addEventListener('click', tryLogin);
+  document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+
+  (function restoreSession() {
+    try {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      sessionToken = data.token;
+      currentPerson = data.person;
+      if (sessionToken && currentPerson) showDashboard();
+    } catch (e) { /* ignore, show login */ }
+  })();
+
+  function forceReLogin(message) {
+    sessionStorage.removeItem(SESSION_KEY);
+    sessionToken = null;
+    currentPerson = null;
+    adminMain.classList.remove('show');
+    loginScreen.style.display = '';
+    if (message) alert(message);
+  }
+
+  /* ═══════════════════ PROJECT LIST RENDER ═══════════════════ */
+  const listEl = document.getElementById('project-list');
+
+  function renderProjectList() {
+    if (!projects.length) {
+      listEl.innerHTML = '<p class="admin-empty">아직 프로젝트가 없어요. "+ Add New Project"로 첫 프로젝트를 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = projects.map((p, i) => `
+      <div class="admin-project-row">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveProject(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === projects.length - 1 ? 'disabled' : ''} onclick="moveProject(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-thumb" style="${p.coverImagePath ? `background-image:url('${p.coverImagePath}');background-size:cover;background-position:center;` : ''}"></div>
+        <div class="admin-project-info">
+          <div class="title">${escapeHtml(p.title)}${p.locked ? ' 🔒' : ''}</div>
+          <div class="meta">${escapeHtml(p.subtitle)}</div>
+        </div>
+        <span class="admin-project-badge">${i < 3 ? 'Latest Works' : 'More Works'}</span>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn" title="수정" onclick="editProject(${i})">✎</button>
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteProject(${i})">🗑</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.moveProject = function (i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= projects.length) return;
+    [projects[i], projects[j]] = [projects[j], projects[i]];
+    renderProjectList();
+  };
+  window.deleteProject = function (i) {
+    const p = projects[i];
+    if (!confirm(`"${p.title}" 프로젝트를 전체 목록에서 삭제할까요?\n(Publish 해야 실제 반영돼요)`)) return;
+    delete pendingUploads[p.slug];
+    projects.splice(i, 1);
+    renderProjectList();
+  };
+
+  /* ═══════════════════ ADD / EDIT FORM ═══════════════════ */
+  const formEl = document.getElementById('project-form');
+  const fTitle = document.getElementById('f-title');
+  const fSubtitle = document.getElementById('f-subtitle');
+  const fDesc = document.getElementById('f-desc');
+  const fBackground = document.getElementById('f-background');
+  const fInsight = document.getElementById('f-insight');
+  const fLocked = document.getElementById('f-locked');
+  const fLockPassword = document.getElementById('f-lock-password');
+  const lockPanel = document.getElementById('lock-panel');
+  const slugPreview = document.getElementById('slug-preview');
+  let editingIndex = -1;
+  let manualSlug = null;
+
+  const MEDIA_FIELDS = ['cover', 'background', 'insight', 'video'];
+
+  function currentUploadKey() {
+    return editingIndex === -1 ? NEW_KEY : projects[editingIndex].slug;
+  }
+  function renderMediaPreview(field) {
+    const previewEl = document.getElementById(`preview-${field}`);
+    const key = currentUploadKey();
+    const pending = pendingUploads[key] && pendingUploads[key][field];
+    const existingPath = editingIndex !== -1 ? projects[editingIndex][`${field}Path`] : null;
+    previewEl.innerHTML = '';
+    if (pending) {
+      const url = URL.createObjectURL(pending);
+      previewEl.classList.remove('empty');
+      previewEl.innerHTML = field === 'video' ? `<video src="${url}" muted></video>` : `<img src="${url}"/>`;
+    } else if (existingPath) {
+      previewEl.classList.remove('empty');
+      previewEl.innerHTML = field === 'video' ? `<video src="${existingPath}" muted></video>` : `<img src="${existingPath}"/>`;
+    } else {
+      previewEl.classList.add('empty');
+    }
+  }
+  function renderAllMediaPreviews() {
+    MEDIA_FIELDS.forEach(renderMediaPreview);
+  }
+
+  MEDIA_FIELDS.forEach(field => {
+    document.getElementById(`f-${field}-file`).addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const key = currentUploadKey();
+      if (!pendingUploads[key]) pendingUploads[key] = {};
+      pendingUploads[key][field] = file;
+      renderMediaPreview(field);
+    });
+    document.getElementById(`remove-${field}-btn`).addEventListener('click', () => {
+      const key = currentUploadKey();
+      if (pendingUploads[key]) delete pendingUploads[key][field];
+      if (editingIndex !== -1) projects[editingIndex][`${field}Path`] = null;
+      document.getElementById(`f-${field}-file`).value = '';
+      renderMediaPreview(field);
+    });
+  });
+
+  fLocked.addEventListener('change', () => {
+    lockPanel.classList.toggle('show', fLocked.checked);
+  });
+
+  function openForm(index) {
+    editingIndex = index;
+    manualSlug = null;
+    if (index === -1) {
+      document.getElementById('form-title').textContent = 'Add New Project';
+      fTitle.value = ''; fSubtitle.value = ''; fDesc.value = ''; fBackground.value = ''; fInsight.value = '';
+      fLocked.checked = false; fLockPassword.value = '';
+      slugPreview.textContent = 'project-slug';
+      delete pendingUploads[NEW_KEY];
+    } else {
+      const p = projects[index];
+      document.getElementById('form-title').textContent = 'Edit Project';
+      fTitle.value = p.title; fSubtitle.value = p.subtitle; fDesc.value = p.desc;
+      fBackground.value = p.background; fInsight.value = p.insight;
+      fLocked.checked = !!p.locked; fLockPassword.value = '';
+      manualSlug = p.slug;
+      slugPreview.textContent = p.slug;
+    }
+    lockPanel.classList.toggle('show', fLocked.checked);
+    MEDIA_FIELDS.forEach(f => { document.getElementById(`f-${f}-file`).value = ''; });
+    renderAllMediaPreviews();
+    formEl.classList.add('show');
+    formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  window.editProject = i => openForm(i);
+  document.getElementById('add-project-btn').addEventListener('click', () => openForm(-1));
+  document.getElementById('cancel-form-btn').addEventListener('click', () => formEl.classList.remove('show'));
+  fTitle.addEventListener('input', () => {
+    if (editingIndex === -1) slugPreview.textContent = slugify(fTitle.value) || 'project-slug';
+  });
+
+  document.getElementById('save-project-btn').addEventListener('click', () => {
+    const title = fTitle.value.trim();
+    if (!title) { alert('Title을 입력해주세요.'); return; }
+    if (fLocked.checked && !fLockPassword.value.trim() && !(editingIndex !== -1 && projects[editingIndex].lockHash)) {
+      alert('보안 처리를 켰으면 잠금 비밀번호를 입력해주세요.');
+      return;
+    }
+    const base = slugify(title);
+    const oldSlug = editingIndex !== -1 ? projects[editingIndex].slug : null;
+    const slug = editingIndex === -1 ? uniqueSlug(base) : (manualSlug || uniqueSlug(base, oldSlug));
+    const prev = editingIndex !== -1 ? projects[editingIndex] : {};
+    const data = {
+      slug,
+      title,
+      subtitle: fSubtitle.value.trim(),
+      desc: fDesc.value.trim(),
+      background: fBackground.value.trim(),
+      insight: fInsight.value.trim(),
+      coverImagePath: prev.coverImagePath || null,
+      backgroundImagePath: prev.backgroundImagePath || null,
+      insightImagePath: prev.insightImagePath || null,
+      videoPath: prev.videoPath || null,
+      locked: fLocked.checked,
+      lockHash: fLocked.checked ? (fLockPassword.value.trim() ? simpleHash(fLockPassword.value.trim()) : prev.lockHash) : null,
+    };
+    // move any pending file selections from the temp/old key to the final slug key
+    const workingKey = editingIndex === -1 ? NEW_KEY : oldSlug;
+    if (pendingUploads[workingKey]) {
+      pendingUploads[slug] = pendingUploads[workingKey];
+      if (workingKey !== slug) delete pendingUploads[workingKey];
+    }
+    if (editingIndex === -1) {
+      projects.push(data);
+    } else {
+      projects[editingIndex] = data;
+    }
+    renderProjectList();
+    formEl.classList.remove('show');
+  });
+
+  /* ═══════════════════ HTML GENERATORS (mirrors the live site templates) ═══════════════════ */
+
+  // Non-interactive thumbnail media (always sits inside an <a> link, so clicks must pass through
+  // to that link — locked ones just show a blurred image + a small lock badge, no button).
+  function renderThumbMedia(path, alt, sizingClass, locked) {
+    if (!path) return `<div class="${sizingClass}" role="img" aria-label="${escapeHtml(alt)} thumbnail"></div>`;
+    if (!locked) return `<img class="${sizingClass} media-img" src="../${path}" alt="${escapeHtml(alt)}">`;
+    return `<div class="${sizingClass} media-lock-wrap"><img class="media-img blurred" src="../${path}" alt="${escapeHtml(alt)}"><span class="media-lock-badge" aria-hidden="true">🔒</span></div>`;
+  }
+  // Interactive standalone media (Background/Insight images, video) — has its own click-to-unlock overlay.
+  const UNLOCK_JS = "(function(el){var pw=prompt('비밀번호를 입력하세요');if(pw===null)return;if(btoa(unescape(encodeURIComponent(pw)))===el.dataset.pw){var m=el.parentElement.querySelector('.media-img');m.classList.remove('blurred');if(m.tagName==='VIDEO'){m.controls=true;}el.remove();}else{alert('비밀번호가 올바르지 않습니다.');}})(this)";
+  function renderStandaloneMedia(path, alt, sizingClass, locked, lockHash, tag) {
+    tag = tag || 'img';
+    if (!path) return `<div class="${sizingClass}" role="img" aria-label="${escapeHtml(alt)}"></div>`;
+    const mediaTag = tag === 'video'
+      ? `<video class="media-img${locked ? ' blurred' : ''}" src="../${path}"${locked ? '' : ' controls'} muted playsinline></video>`
+      : `<img class="media-img${locked ? ' blurred' : ''}" src="../${path}" alt="${escapeHtml(alt)}">`;
+    if (!locked) return `<div class="${sizingClass}" style="overflow:hidden;">${mediaTag}</div>`;
+    return `<div class="${sizingClass} media-lock-wrap">${mediaTag}<button type="button" class="media-lock-overlay" data-pw="${lockHash}" onclick="${UNLOCK_JS}"><span class="lock-icon">🔒</span><span>Click to view</span></button></div>`;
+  }
+
+  function renderWorkCard(p) {
+    return `
+        <div class="work-card">
+          <a class="work-thumb-link" href="../our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-card-image', p.locked)}</a>
+          <div class="work-card-body">
+            <p class="work-eyebrow">Project</p>
+            <div class="work-titles">
+              <p class="work-title">${escapeHtml(p.title)}</p>
+              <p class="work-subtitle">${escapeHtml(p.subtitle)}</p>
+            </div>
+            <p class="work-desc">${escapeHtml(p.desc)}</p>
+            <a class="text-link" href="../our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+          </div>
+        </div>`;
+  }
+  function renderWorkRow(p) {
+    return `
+        <div class="work-row-item">
+          <a class="work-thumb-link" href="../our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-row-thumb', p.locked)}</a>
+          <div class="work-row-body">
+            <p class="work-eyebrow">Project</p>
+            <div class="work-titles">
+              <p class="work-title">${escapeHtml(p.title)}</p>
+              <p class="work-subtitle">${escapeHtml(p.subtitle)}</p>
+            </div>
+            <p class="work-desc">${escapeHtml(p.desc)}</p>
+            <a class="text-link" href="../our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+          </div>
+        </div>`;
+  }
+  function buildWorksSectionHtml(list) {
+    const latest3 = list.slice(0, 3);
+    return `<section class="works-section" aria-labelledby="works-heading">
+      <div class="works-title-wrap">
+        <div class="section-divider" aria-hidden="true"></div>
+        <h2 class="section-heading-xl" id="works-heading">Latest Works</h2>
+      </div>
+      <div class="works-grid">${latest3.map(renderWorkCard).join('')}
+      </div>
+    </section>`;
+  }
+  function buildWorksListSectionHtml(list) {
+    const more = list.slice(3);
+    return `<section class="works-list-section" aria-label="More works">
+      <div class="section-divider" aria-hidden="true"></div>
+      <div class="works-list-header">
+        <p class="articles-count">${list.length} Works</p>
+        <div class="sort-tabs">
+          <button class="sort-tab active" type="button">Newest</button>
+          <button class="sort-tab" type="button">Most popular</button>
+        </div>
+      </div>
+      <div class="works-row-list">${more.map(renderWorkRow).join('')}
+      </div>
+      <a class="see-more-btn" href="../index.html#our-works">See More</a>
+    </section>`;
+  }
+
+  function buildOtherProjectsHtml(others) {
+    if (!others.length) return '';
+    const cards = others.map(o => `
+        <div class="other-project-card">
+          <a class="other-project-thumb-link" href="${o.slug}.html" aria-label="See project: ${escapeHtml(o.title)}">
+            ${renderThumbMedia(o.coverImagePath, o.title, 'other-project-thumb', o.locked)}
+          </a>
+          <p class="other-project-title">${escapeHtml(o.title)}</p>
+          <a class="text-link" href="${o.slug}.html" aria-label="See project: ${escapeHtml(o.title)}">
+            <span class="text-wrapper-7">See Project</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>`).join('');
+    return `
+    <section class="other-projects-section" aria-labelledby="other-projects-title">
+      <div class="divider-3" aria-hidden="true"></div>
+      <h2 class="article-section-title" id="other-projects-title" style="padding:29px 0 104px">Other Projects</h2>
+      <div class="other-projects-grid">${cards}
+      </div>
+    </section>`;
+  }
+
+  function buildProjectDetailHtml(p, others) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>${escapeHtml(p.title)} — Global Design Leadership Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --background: rgba(255,255,255,1);
+    --paragraph-1: rgba(0,0,0,1);
+    --paragraph-2: rgba(118,118,118,1);
+    --divider: rgba(0,0,0,1);
+    --header-header-1-font-family: "Instrument Sans", Helvetica;
+    --header-header-1-font-weight: 400;
+    --header-header-1-font-size: 64px;
+    --header-header-1-letter-spacing: -3.2px;
+    --header-header-1-line-height: 100%;
+    --header-header-2-font-family: "Instrument Sans", Helvetica;
+    --header-header-2-font-weight: 400;
+    --header-header-2-font-size: 37px;
+    --header-header-2-letter-spacing: -1.11px;
+    --header-header-2-line-height: 100%;
+    --paragraph-1-font-family: "Instrument Sans", Helvetica;
+    --paragraph-1-font-weight: 400;
+    --paragraph-1-font-size: 20px;
+    --paragraph-1-letter-spacing: -1px;
+    --paragraph-1-line-height: 121%;
+    --text-link-font-family: "Instrument Sans", Helvetica;
+    --text-link-font-weight: 500;
+    --text-link-font-size: 16px;
+    --text-link-letter-spacing: -0.48px;
+    --text-link-line-height: 110%;
+    --nav-link-font-family: "Instrument Sans", Helvetica;
+    --nav-link-font-weight: 400;
+    --nav-link-font-size: 20px;
+    --nav-link-letter-spacing: -1px;
+    --nav-link-line-height: 100%;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  * { -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  img { display: block; }
+  h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+  button:focus-visible { outline: 2px solid #4a90e2 !important; }
+  @font-face { font-family: "Instrument Sans"; src: local("Instrument Sans"); }
+  .desktop { display: flex; flex-direction: column; width: 100%; max-width: 1920px; margin: 0 auto; align-items: center; padding: 0 40px; position: relative; background-color: var(--background); }
+  .nav-header-2 { display: flex; width: 100%; height: 46px; align-items: center; padding: 0 40px; position: fixed; top: 0; left: 0; z-index: 200; background-color: var(--background); max-width: 1920px; left: 50%; transform: translateX(-50%); }
+  @supports not (max-width: 1280px) { .nav-header-2 { left: 0; transform: none; } }
+  .logotype-contain { display: flex; align-items: center; gap: 10px; padding: 12px 20px 10px 0; position: relative; flex: 1; align-self: stretch; flex-grow: 1; border-bottom: 1px solid var(--divider); }
+  .logotype-contain a { position: relative; width: fit-content; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; white-space: nowrap; }
+  .links-contain { display: flex; max-width: 615px; align-items: flex-start; justify-content: flex-end; gap: 189px; position: relative; flex: 1; flex-grow: 1; align-self: stretch; }
+  .text-links { display: flex; align-items: flex-end; justify-content: flex-end; gap: 50px; padding: 12px 0 10px 20px; position: relative; flex: 1; align-self: stretch; flex-grow: 1; background-color: var(--background); border-bottom: 1px solid var(--divider); }
+  .link-wrapper { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 0 4px; position: relative; flex: 0 0 auto; }
+  .link-2 { width: fit-content; white-space: nowrap; position: relative; font-family: var(--nav-link-font-family); font-weight: var(--nav-link-font-weight); color: var(--paragraph-1); font-size: var(--nav-link-font-size); letter-spacing: var(--nav-link-letter-spacing); line-height: var(--nav-link-line-height); }
+  .link-2:hover, .logotype-contain a:hover { opacity: 0.6; }
+  .nav-spacer { height: 225px; width: 100%; flex-shrink: 0; }
+  .hamburger-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 4px; margin-left: auto; flex-shrink: 0; }
+  .hamburger-btn span { display: block; width: 22px; height: 1.5px; background: #000; transition: transform 0.25s, opacity 0.25s; }
+  .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+  .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .mobile-nav { display: none; position: fixed; top: 46px; left: 0; width: 100%; background: #fff; z-index: 199; flex-direction: column; padding: 24px 40px 32px; border-bottom: 1px solid #000; }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { font-family: "Instrument Sans", Helvetica; font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { opacity: 0.5; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #4a90e2; outline-offset: 4px; }
+  .article-main { display: flex; flex-direction: column; width: 100%; max-width: 1920px; align-items: flex-start; }
+  .article-header { display: flex; flex-direction: column; gap: 25px; width: 100%; padding: 82px 0 160px; }
+  .article-meta-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .article-tag { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 24px; letter-spacing: -1.2px; color: #000; }
+  .article-title { font-family: var(--header-header-1-font-family); font-weight: var(--header-header-1-font-weight); font-size: var(--header-header-1-font-size); letter-spacing: var(--header-header-1-letter-spacing); line-height: 112%; color: #000; width: 100%; }
+  .article-byline { display: flex; flex-direction: column; gap: 8px; }
+  .article-byline p { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 24px; letter-spacing: -1.2px; color: #000; }
+  .article-lead { font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: 150%; color: #000; width: 100%; max-width: 900px; margin-top: 190px; }
+  .article-section-title { width: 100%; padding: 40px 0 30px; font-family: var(--header-header-1-font-family); font-weight: var(--header-header-1-font-weight); font-size: var(--header-header-1-font-size); letter-spacing: var(--header-header-1-letter-spacing); line-height: var(--header-header-1-line-height); color: #000; }
+  .article-row-block { width: 100%; padding: 0; }
+  .article-row { display: flex; align-items: center; gap: 40px; width: 100%; }
+  .article-row.reverse { flex-direction: row-reverse; }
+  .article-row-image { width: 500px; height: 500px; object-fit: cover; flex-shrink: 0; background: #d8d8d8; border-radius: 2px; }
+  .article-row-text { flex: 1; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 28px; letter-spacing: -1.4px; line-height: 145%; color: #000; }
+  .media-lock-wrap { position: relative; overflow: hidden; }
+  .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
+  .media-lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.28); border: none; color: #fff; cursor: pointer; width: 100%; height: 100%; font-family: "Instrument Sans", Helvetica; font-size: 14px; letter-spacing: -0.4px; }
+  .media-lock-overlay .lock-icon { font-size: 22px; pointer-events: none; }
+  .media-lock-overlay:hover { background: rgba(0,0,0,0.4); }
+  .media-lock-badge { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; pointer-events: none; }
+  .project-video-section { width: 100%; padding: 0 0 80px; }
+  .project-video-section .article-row-image { width: 100%; height: auto; aspect-ratio: 16/9; }
+  .connect-with-us { max-width: 1920px; gap: 10px; display: flex; flex-direction: column; align-items: flex-start; position: relative; width: 100%; }
+  .connect-with-us-2 { gap: 34px; align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; position: relative; width: 100%; }
+  .divider-3 { height: 1px; background: var(--divider); position: relative; align-self: stretch; width: 100%; }
+  .text-wrapper-17 { position: relative; align-self: stretch; font-family: var(--header-header-2-font-family); font-weight: var(--header-header-2-font-weight); color: #000; font-size: var(--header-header-2-font-size); letter-spacing: var(--header-header-2-letter-spacing); line-height: var(--header-header-2-line-height); }
+  .other-projects-section { width: 100%; padding: 0 0 60px; }
+  .other-projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+  .other-project-card { display: flex; flex-direction: column; gap: 16px; }
+  .other-project-card a.other-project-thumb-link { display: block; }
+  .other-project-thumb { width: 100%; aspect-ratio: 1 / 0.95; object-fit: cover; background: #d8d8d8; border-radius: 2px; }
+  .other-project-title { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 130%; color: #000; }
+  .text-link { display: inline-flex; align-items: center; gap: 3px; position: relative; flex: 0 0 auto; cursor: pointer; }
+  .text-wrapper-7 { position: relative; width: fit-content; margin-top: -1px; font-family: var(--text-link-font-family); font-weight: var(--text-link-font-weight); color: var(--paragraph-2); font-size: var(--text-link-font-size); letter-spacing: var(--text-link-letter-spacing); line-height: var(--text-link-line-height); white-space: nowrap; }
+  .text-link:hover .text-wrapper-7 { opacity: 0.6; }
+  .footer-section { display: flex; flex-direction: column; max-width: 1920px; gap: 60px; padding: 30px 0 60px; flex: 0 0 auto; align-items: flex-start; position: relative; width: 100%; }
+  .footer-content { display: flex; width: 100%; max-width: 1200px; flex: 0 0 auto; align-items: flex-start; position: relative; }
+  .logo-contain-2 { display: flex; max-width: 625px; align-items: flex-start; gap: 10px; position: relative; flex: 1; flex-grow: 1; }
+  .image-2 { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .clab-logo-black { position: relative; height: 60px; width: auto; object-fit: contain; }
+  .logo { position: relative; width: 60px; height: 60px; object-fit: contain; }
+  .footer-text { display: flex; width: 100%; max-width: 616px; justify-content: space-between; align-items: flex-start; position: relative; }
+  .office-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 62px; position: relative; }
+  .office-contain-2 { display: flex; flex-direction: column; width: 201px; align-items: flex-start; gap: 30px; position: relative; flex: 0 0 auto; }
+  .text-wrapper-18 { position: relative; align-self: stretch; margin-top: -1px; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .text-wrapper-19 { position: relative; align-self: stretch; font-family: "Instrument Sans", Helvetica; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+  .contact-contain { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .div-2 { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; position: relative; align-self: stretch; width: 100%; flex: 0 0 auto; }
+  .social-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 30px; position: relative; }
+  .social-contain a { color: #000; }
+  .social-contain a:hover { opacity: 0.5; }
+  @media (max-width: 1280px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .footer-content { gap: 24px; flex-wrap: wrap; }
+    .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+    .article-row-image { width: 400px; height: 400px; }
+    .other-projects-grid { gap: 16px; }
+  }
+  @media (max-width: 768px) {
+    .desktop { padding: 0 40px; }
+    .nav-header-2 { padding: 0 40px; left: 0; transform: none; max-width: 100%; width: 100%; }
+    .hamburger-btn { display: flex; }
+    .links-contain { display: none; }
+    .logotype-contain { border-bottom: none; }
+    .article-title { font-size: 36px; letter-spacing: -1.8px; }
+    .article-section-title { font-size: 36px; letter-spacing: -1.8px; padding: 30px 0 20px; }
+    .article-tag, .article-byline p { font-size: 18px; letter-spacing: -0.9px; }
+    .article-lead { font-size: 18px; letter-spacing: -0.5px; line-height: 140%; margin-top: 80px; }
+    .article-row { flex-direction: column !important; gap: 24px; }
+    .article-row-image { width: 100%; height: auto; aspect-ratio: 1/1; }
+    .article-row-text { font-size: 20px; letter-spacing: -1px; line-height: 140%; }
+    .other-projects-grid { grid-template-columns: 1fr; gap: 30px; }
+    .connect-with-us-2 { gap: 20px; }
+    .text-wrapper-17 { font-size: 28px; letter-spacing: -1.4px; }
+    .footer-section { padding: 30px 0 48px; gap: 40px; }
+    .footer-content { flex-direction: column; gap: 30px; }
+    .logo-contain-2 { max-width: 100%; }
+    .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+    .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+    .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+  }
+  @media (max-width: 420px) {
+    .desktop { padding: 0 24px; }
+    .nav-header-2 { padding: 0 24px; }
+    .mobile-nav { padding: 24px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="desktop">
+  <header class="nav-header-2">
+    <div class="logotype-contain">
+      <a href="../index.html" aria-label="Global Design Leadership Association home">Global Design Leadership Association</a>
+    </div>
+    <nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        <div class="link-wrapper"><a class="link-2" href="../about.html">About</a></div>
+        <div class="link-wrapper"><a class="link-2" href="../articles.html">Article</a></div>
+        <div class="link-wrapper"><a class="link-2" href="../index.html#contact">Contact</a></div>
+      </div>
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="../about.html" onclick="closeMobileNav()">About</a>
+    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+  <div class="nav-spacer"></div>
+  <main class="article-main">
+    <section class="article-header" aria-labelledby="article-title">
+      <div class="article-meta-row">
+        <span class="article-tag">Project</span>
+      </div>
+      <h1 class="article-title" id="article-title">${escapeHtml(p.title)}</h1>
+      <div class="article-byline">
+        <p>${escapeHtml(p.subtitle)}</p>
+        <p>GDLA Studio</p>
+      </div>
+      <p class="article-lead">${escapeHtml(p.desc)}</p>
+    </section>
+    <h2 class="article-section-title" style="padding:0 0 110px">Background</h2>
+    <div class="article-row-block" style="padding-bottom:148px">
+      <div class="article-row">
+        ${renderStandaloneMedia(p.backgroundImagePath, p.title + ' background visual', 'article-row-image', p.locked, p.lockHash, 'img')}
+        <p class="article-row-text">${escapeHtml(p.background)}</p>
+      </div>
+    </div>
+    <h2 class="article-section-title" style="padding:110px 0 110px">Insight</h2>
+    <div class="article-row-block" style="padding-bottom:80px">
+      <div class="article-row reverse">
+        ${renderStandaloneMedia(p.insightImagePath, p.title + ' insight visual', 'article-row-image', p.locked, p.lockHash, 'img')}
+        <p class="article-row-text">${escapeHtml(p.insight)}</p>
+      </div>
+    </div>
+    ${p.videoPath ? `
+    <section class="project-video-section" aria-label="Project video">
+      ${renderStandaloneMedia(p.videoPath, p.title + ' video', 'article-row-image', p.locked, p.lockHash, 'video')}
+    </section>` : ''}
+    ${buildOtherProjectsHtml(others)}
+    <section class="connect-with-us" aria-labelledby="connect-title">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="../assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="../assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="../assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="../assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+<\/script>
+</body>
+</html>
+`;
+  }
+
+  /* ═══════════════════ BACKEND (Cloudflare Worker — never talks to GitHub directly) ═══════════════════ */
+  function utf8ToB64(str) { return btoa(unescape(encodeURIComponent(str))); }
+  function b64ToUtf8(b64) { return decodeURIComponent(escape(atob(b64.replace(/\n/g, '')))); }
+
+  async function workerFetch(path, opts = {}) {
+    const res = await fetch(`${WORKER_URL}${path}`, {
+      ...opts,
+      headers: {
+        'Authorization': `Bearer ${sessionToken}`,
+        ...(opts.headers || {})
+      }
+    });
+    if (res.status === 401) {
+      forceReLogin('로그인이 만료됐어요. 다시 로그인해주세요.');
+      throw new Error('세션이 만료되어 다시 로그인해야 해요.');
+    }
+    return res;
+  }
+  async function getFile(path) {
+    const res = await workerFetch(`/api/file?path=${encodeURIComponent(path)}`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`GET ${path} 실패: ${res.status}`);
+    const data = await res.json();
+    return { sha: data.sha, content: b64ToUtf8(data.content) };
+  }
+  async function putFileRawBase64(path, base64, message) {
+    const res = await workerFetch(`/api/file`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, contentBase64: base64, message })
+    });
+    if (!res.ok) {
+      let msg = res.status;
+      try { const err = await res.json(); msg += ` ${err.error || ''}`; } catch (e) {}
+      throw new Error(`PUT ${path} 실패: ${msg}`);
+    }
+    return res.json();
+  }
+  async function putFile(path, content, message) {
+    return putFileRawBase64(path, utf8ToB64(content), message);
+  }
+
+  /* ═══════════════════ PUBLISH ═══════════════════ */
+  function log(msg) { const el = document.getElementById('publish-log'); el.textContent += msg + '\n'; el.scrollTop = el.scrollHeight; }
+  function logClear() { document.getElementById('publish-log').textContent = ''; }
+  function logShow() { document.getElementById('publish-log').classList.add('show'); }
+
+  const MEDIA_CSS_INJECT = `
+    .media-lock-wrap { position: relative; overflow: hidden; }
+    .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
+    .media-lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.28); border: none; color: #fff; cursor: pointer; width: 100%; height: 100%; font-family: var(--font); font-size: 14px; letter-spacing: -0.4px; }
+    .media-lock-overlay .lock-icon { font-size: 22px; pointer-events: none; }
+    .media-lock-overlay:hover { background: rgba(0,0,0,0.4); }
+    .media-lock-badge { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; pointer-events: none; }
+`;
+
+  // Uploads every pending file for one project to GitHub under assets/uploads/{slug}/{field}.{ext}
+  // (shared across the whole team, since all 9 portfolios show the same project catalog).
+  async function uploadPendingMediaForProject(p) {
+    const pending = pendingUploads[p.slug] || {};
+    for (const field of MEDIA_FIELDS) {
+      const file = pending[field];
+      if (!file) continue;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/${p.slug}/${field}.${ext}`;
+      log(`  ↳ ${field} 업로드 중... (${file.name || field}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload ${field} for ${p.title}`);
+      p[`${field}Path`] = path;
+      log(`  ✅ ${path}`);
+    }
+  }
+
+  document.getElementById('publish-btn').addEventListener('click', async () => {
+    if (!projects.length) { alert('발행할 프로젝트가 없어요.'); return; }
+    const btn = document.getElementById('publish-btn');
+    btn.disabled = true;
+    logClear(); logShow();
+    try {
+      log('이미지·동영상 업로드 확인 중...');
+      for (const p of projects) {
+        await uploadPendingMediaForProject(p);
+      }
+      pendingUploads = {};
+
+      log(`${PROJECTS_PATH} 저장 중...`);
+      await putFile(PROJECTS_PATH, JSON.stringify(projects, null, 2), `Update project catalog via admin (${currentPerson.name})`);
+      log('✅ ' + PROJECTS_PATH + ' 저장 완료');
+
+      for (const teamSlug of TEAM_PAGE_SLUGS) {
+        const teamPath = `team/${teamSlug}.html`;
+        log(teamPath + ' 불러오는 중...');
+        const teamFile = await getFile(teamPath);
+        if (!teamFile) { log('⚠️ ' + teamPath + ' 을 찾을 수 없어 건너뛰어요.'); continue; }
+        let newHtml = teamFile.content
+          .replace(/<section class="works-section"[\s\S]*?<\/section>/, buildWorksSectionHtml(projects))
+          .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(projects));
+        if (!newHtml.includes('.media-lock-wrap')) {
+          newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
+        }
+        await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
+        log('✅ ' + teamPath + ' 업데이트 완료');
+      }
+
+      for (const p of projects) {
+        const path = `our-works/${p.slug}.html`;
+        const others = projects.filter(x => x.slug !== p.slug).slice(0, 3);
+        const html = buildProjectDetailHtml(p, others);
+        log(path + ' 확인 중...');
+        await putFile(path, html, `Update project page via admin: ${p.title} (${currentPerson.name})`);
+        log('✅ ' + path + ' 저장 완료');
+      }
+      log('\n🎉 게시 완료! GitHub Pages가 1분 정도 후 새로 빌드돼요.');
+    } catch (e) {
+      log('❌ 오류: ' + e.message);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  /* ═══════════════════ MOBILE NAV ═══════════════════ */
+  const hbtn = document.getElementById('hamburger-btn');
+  const hnav = document.getElementById('mobile-nav');
+  hbtn.addEventListener('click', () => {
+    const open = hnav.classList.toggle('open');
+    hbtn.classList.toggle('open', open);
+    hbtn.setAttribute('aria-expanded', open);
+    hbtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    hnav.classList.remove('open');
+    hbtn.classList.remove('open');
+    hbtn.setAttribute('aria-expanded', 'false');
+    hbtn.setAttribute('aria-label', 'Open menu');
+  }
+  document.addEventListener('click', (e) => {
+    if (!hbtn.contains(e.target) && !hnav.contains(e.target)) closeMobileNav();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+name = "gdla-admin"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Secrets (set these with `wrangler secret put <NAME>` — never written to this file):
+#   GITHUB_TOKEN    - GitHub Personal Access Token, "repo" scope, for soxmfhvl123/Global-Design-Leadership-Associationv2
+#   ADMIN_PASSWORD  - the shared team login password (everyone logs in with their first name + this password)
+#   SESSION_SECRET  - random string used to sign login sessions (e.g. output of: openssl rand -hex 32)
