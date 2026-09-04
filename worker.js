@@ -23,7 +23,9 @@
  *
  * Nothing else needs to be configured by hand — everyone on the team
  * logs in with just their first name + the shared password, and the
- * Worker figures out who they are from the TEAM table below.
+ * Worker figures out who they are by reading assets/data/team.json
+ * from the repo (see getTeamRoster below) — so adding a teammate from
+ * admin never requires touching this file or redeploying the Worker.
  */
 
 const GH_OWNER = 'soxmfhvl123';
@@ -37,25 +39,21 @@ const VIEW_SEED = {
   'designing-the-boundary': 963,
 };
 
-// Allowed login names -> which team page + display name they control.
-// Add a new teammate by adding one line here — nothing else to change.
-const TEAM = [
-  { firstName: 'piia', slug: 'piia-l', name: 'Piia L.' },
-  { firstName: 'niina', slug: 'niina', name: 'Niina' },
-  { firstName: 'cathy', slug: 'cathy-d', name: 'Cathy D.' },
-  { firstName: 'jeremy', slug: 'jeremy-t', name: 'Jeremy T.' },
-  { firstName: 'mariana', slug: 'mariana-v', name: 'Mariana V.' },
-  { firstName: 'phillip', slug: 'phillip-g', name: 'Phillip G.' },
-  { firstName: 'kat', slug: 'kat-e', name: 'Kat E.' },
-  { firstName: 'lauren', slug: 'lauren-w', name: 'Lauren W.' },
-  { firstName: 'caleb', slug: 'caleb-e', name: 'Caleb E.' },
+const TEAM_DATA_PATH = 'assets/data/team.json';
+
+// Fallback roster, used only if assets/data/team.json doesn't exist in the repo yet
+// (e.g. before the first "Add Teammate" / team Publish from admin has ever run).
+const SEED_TEAM = [
+  { firstName: 'jin', slug: 'jin-c', name: 'Jin C.' },
+  { firstName: 'seyeon', slug: 'seyeon-s', name: 'Seyeon S.' },
+  { firstName: 'bomi', slug: 'bomi-k', name: 'Bomi K.' },
 ];
 
 // Only paths under these prefixes may ever be written by this Worker,
 // no matter what a caller sends — this is the server-side safety net.
 const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/', 'articles/'];
 // A few generated files live at exact top-level paths rather than under a prefix.
-const WRITE_EXACT_PATHS = ['articles.html'];
+const WRITE_EXACT_PATHS = ['articles.html', 'about.html'];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 
@@ -160,6 +158,36 @@ async function githubFetch(env, path, opts) {
   });
 }
 
+function b64ToUtf8(b64) {
+  return decodeURIComponent(escape(atob(String(b64).replace(/\n/g, ''))));
+}
+
+// Reads the team roster from assets/data/team.json in the repo (kept in sync by admin's
+// "Add Teammate" flow), falling back to SEED_TEAM if that file doesn't exist yet or fails
+// to parse — so a brand-new teammate can log in the moment they're added from admin,
+// with no code change or redeploy needed here.
+async function getTeamRoster(env) {
+  try {
+    const res = await githubFetch(env, `contents/${TEAM_DATA_PATH}?ref=${GH_BRANCH}`);
+    if (res.ok) {
+      const data = await res.json();
+      const list = JSON.parse(b64ToUtf8(data.content));
+      if (Array.isArray(list) && list.length) {
+        return list
+          .filter((m) => m && m.slug && m.name)
+          .map((m) => ({
+            slug: m.slug,
+            name: m.name,
+            firstName: (m.firstName || String(m.name).split(' ')[0] || '').toLowerCase(),
+          }));
+      }
+    }
+  } catch (e) {
+    // fall through to the seed roster below
+  }
+  return SEED_TEAM;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '*';
@@ -174,7 +202,8 @@ export default {
         const body = await request.json().catch(() => ({}));
         const name = String(body.name || '').trim().toLowerCase();
         const password = String(body.password || '');
-        const person = TEAM.find((t) => t.firstName === name);
+        const roster = await getTeamRoster(env);
+        const person = roster.find((t) => t.firstName === name);
         if (!person || password !== env.ADMIN_PASSWORD) {
           return json({ error: 'Invalid name or password.' }, 401, origin);
         }

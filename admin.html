@@ -277,7 +277,7 @@
       <div class="admin-topbar">
         <div>
           <h1 id="admin-title">Team Admin</h1>
-          <p class="sub">여기서 추가·수정한 프로젝트는 "Publish"를 눌러야 실제 사이트(팀원 9명 전체 포트폴리오)에 반영돼요.</p>
+          <p class="sub">여기서 추가·수정한 내용은 "Publish"를 눌러야 실제 사이트(팀원 전체 포트폴리오)에 반영돼요.</p>
         </div>
         <div class="admin-topbar-actions">
           <a href="#" id="my-portfolio-link-2" target="_blank">내 포트폴리오 보기 ↗</a>
@@ -291,7 +291,7 @@
           <h2>Our Works</h2>
           <button class="btn-outline" id="add-project-btn" type="button">+ Add New Project</button>
         </div>
-        <p class="hint" style="margin-top:8px;">이 프로젝트 목록은 팀원 9명 전체 포트폴리오에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 각 포트폴리오의 "Latest Works"에, 나머지는 "More Works" 목록에 자동으로 표시돼요. 화살표로 순서를 바꿀 수 있어요.</p>
+        <p class="hint" style="margin-top:8px;">이 프로젝트 목록은 팀원 전체 포트폴리오에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 각 포트폴리오의 "Latest Works"에, 나머지는 "More Works" 목록에 자동으로 표시돼요. 화살표로 순서를 바꿀 수 있어요.</p>
 
         <div class="admin-project-list" id="project-list"></div>
 
@@ -468,10 +468,99 @@
         </div>
       </div>
 
+      <!-- ═══ TEAM ═══ -->
+      <div>
+        <div class="admin-section-head">
+          <h2>Team</h2>
+        </div>
+        <p class="hint" style="margin-top:8px;">팀원 소개(소개글·직함·SNS 링크·CV·카테고리)를 관리해요. 본인 프로필은 아래 "내 프로필 수정"에서 직접 고치고, 새로 합류한 팀원은 "새 팀원 등록"으로 추가하세요. Publish를 눌러야 실제 사이트(about.html · 각자의 포트폴리오 페이지)에 반영돼요.</p>
+
+        <div class="admin-project-list" id="team-list"></div>
+
+        <!-- My Profile edit form -->
+        <div class="admin-form show" id="my-profile-form" style="margin-top:24px;">
+          <h2 id="my-profile-form-title">내 프로필 수정</h2>
+          <div class="row">
+            <div class="admin-field">
+              <label for="mp-name">Name</label>
+              <input type="text" id="mp-name" placeholder="예: Jin C."/>
+            </div>
+            <div class="admin-field">
+              <label for="mp-title">Title / 직함</label>
+              <input type="text" id="mp-title" placeholder="예: Design Director"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="mp-quote">Intro Quote (소개글 — 짧은 한 줄, 선택)</label>
+            <input type="text" id="mp-quote" placeholder="예: Design leadership begins with clarity of purpose."/>
+          </div>
+          <div class="admin-field">
+            <label for="mp-bio">Intro Description (소개글 — 설명, 선택)</label>
+            <textarea id="mp-bio" placeholder="예: Former Executive Creative Director at an international brand consultancy"></textarea>
+          </div>
+          <div class="admin-field">
+            <label for="mp-tags">Category / Tags (쉼표로 구분, 선택)</label>
+            <input type="text" id="mp-tags" placeholder="예: Branding, Strategy, Creative Direction"/>
+          </div>
+          <div class="row">
+            <div class="admin-field">
+              <label for="mp-instagram">Instagram URL (선택)</label>
+              <input type="text" id="mp-instagram" placeholder="https://instagram.com/..."/>
+            </div>
+            <div class="admin-field">
+              <label for="mp-linkedin">LinkedIn URL (선택)</label>
+              <input type="text" id="mp-linkedin" placeholder="https://linkedin.com/in/..."/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="mp-behance">Behance URL (선택)</label>
+            <input type="text" id="mp-behance" placeholder="https://behance.net/..."/>
+          </div>
+          <div class="admin-media-field">
+            <label>CV / Résumé (선택, PDF 권장)</label>
+            <div class="admin-media-row">
+              <div class="admin-media-controls">
+                <input type="file" id="mp-cv-file" accept=".pdf,.doc,.docx"/>
+                <span class="hint" id="mp-cv-current" style="margin:0;"></span>
+                <button class="btn-text" type="button" id="mp-remove-cv-btn">CV 삭제</button>
+              </div>
+            </div>
+          </div>
+          <div class="admin-form-actions">
+            <button class="btn-outline primary" id="save-my-profile-btn" type="button">Save My Profile</button>
+          </div>
+        </div>
+
+        <!-- Add Teammate -->
+        <div class="admin-section-head" style="margin-top:32px;">
+          <h2 style="font-size:24px;">새 팀원 등록</h2>
+          <button class="btn-outline" id="add-teammate-btn" type="button">+ Add Teammate</button>
+        </div>
+        <p class="hint">이름과 직함만 입력하면 로그인 ID와 포트폴리오 페이지 주소가 자동으로 만들어져요. 나머지 프로필 내용(소개글·SNS·CV)은 새 팀원이 로그인해서 "내 프로필 수정"에서 직접 채우면 돼요.</p>
+        <div class="admin-form" id="add-teammate-form">
+          <h2>Add Teammate</h2>
+          <div class="row">
+            <div class="admin-field">
+              <label for="nt-name">Name</label>
+              <input type="text" id="nt-name" placeholder="예: Jin C."/>
+            </div>
+            <div class="admin-field">
+              <label for="nt-title">Title / 직함</label>
+              <input type="text" id="nt-title" placeholder="예: Design Director"/>
+            </div>
+          </div>
+          <p class="admin-slug-preview">로그인 ID: <code id="nt-id-preview">-</code> · 포트폴리오 주소: <code>team/<span id="nt-slug-preview">-</span>.html</code></p>
+          <div class="admin-form-actions">
+            <button class="btn-text" id="cancel-teammate-form-btn" type="button">Cancel</button>
+            <button class="btn-outline primary" id="save-teammate-btn" type="button">Add Teammate</button>
+          </div>
+        </div>
+      </div>
+
       <!-- ═══ PUBLISH ═══ -->
       <div class="admin-panel">
         <h2>Publish</h2>
-        <p class="hint">프로젝트 목록·Articles 목록, 각 상세페이지(our-works/*.html, articles/*.html), 팀원 9명의 포트폴리오 페이지(team/*.html), articles.html, 새로 올린 이미지·동영상까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 반영까지 1분 정도 걸려요. 업로드하는 이미지·동영상은 파일당 대략 20MB 이하로 올려주세요.</p>
+        <p class="hint">프로젝트 목록·Articles 목록·Team 목록, 각 상세페이지(our-works/*.html, articles/*.html), 팀원 전체의 포트폴리오 페이지(team/*.html), articles.html, about.html의 팀 섹션, 새로 올린 이미지·동영상·CV까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 반영까지 1분 정도 걸려요. 업로드하는 파일은 개당 대략 20MB 이하로 올려주세요.</p>
         <button class="btn-outline primary" id="publish-btn" type="button" style="align-self:flex-start;">Publish to Live Site</button>
         <div class="admin-log" id="publish-log"></div>
       </div>
@@ -526,8 +615,8 @@
   const PROJECTS_PATH = 'assets/data/projects.json';
   const ARTICLES_PATH = 'assets/data/articles.json';
   const ARTICLES_LIST_PATH = 'articles.html';
-  // Every team page that shares the same "Our Works" catalog — kept in sync on every Publish.
-  const TEAM_PAGE_SLUGS = ['piia-l','niina','cathy-d','jeremy-t','mariana-v','phillip-g','kat-e','lauren-w','caleb-e'];
+  const TEAM_PATH     = 'assets/data/team.json';
+  const ABOUT_PATH    = 'about.html';
   // Matches the filter sidebar already hardcoded in articles.html — keep in sync if that list changes.
   const ARTICLE_CATEGORIES = ['Design','AI','UX','IT','Strategies','Business','Career','Alumni Stories','Tips & Advice','Uncategorized'];
 
@@ -537,72 +626,8 @@
   let currentPerson = null; // { slug, name }
 
   /* ═══════════════════ SEED DATA (used only if assets/data/projects.json doesn't exist yet) ═══════════════════ */
-  const SEED_PROJECTS = [
-    {
-      slug: "gdla-ci-design",
-      title: "Global Design Leadership Association CI Design",
-      subtitle: "Branding · Corporate Identity",
-      desc: "A corporate identity for the Global Design Leadership Association (GDLA), built around a bold typographic wordmark. The system codifies the association's authority and global outlook into a flexible visual language that reads with equal clarity across print, screen, and space.",
-      background: "As GDLA's activities expanded across leadership and design-management education, brand strategy and identity consulting, public and social-innovation advisory, annual trend reports and policy papers, and joint programs with international institutions, the organization needed one identity system that would hold together across print publications, digital channels, and the physical space of international forums.",
-      insight: "The solution centers on typography. Rather than leaning on a decorative symbol, the association's name itself was shaped into a bold wordmark, so the name becomes the identity. The typeface reads as geometric and modernist — a deliberate nod to the Bauhaus lineage — so the mark itself declares the association's commitment to design modernism. The wordmark stacks GLOBAL · DESIGN · LEADERSHIP · ASSOCIATION across four lines, and that four-line structure sets the baseline for a flexible grid system that extends from print to digital screens to spatial signage, keeping GDLA instantly recognizable at any size or medium."
-    },
-    {
-      slug: "clab-press-bi-design",
-      title: "CLAB Press BI Design",
-      subtitle: "Brand Identity",
-      desc: "A brand identity for CLAB Press, the imprint that turns CLAB's research, programs, conversations, and project outcomes into publishable knowledge assets. The system unifies content production, publishing, and knowledge IP under one refined editorial voice.",
-      background: "CLAB Press had been publishing research, program recaps, interviews, and case studies under a loose mix of formats, so material from the same institution often looked like it came from different sources. Before any single title could grow into a recognizable series, the imprint needed one consistent visual system to publish under.",
-      insight: "The identity treats every CLAB Press release — a report, a transcript, a project brief — as one entry in a continuing editorial voice. A restrained typographic system and a consistent grid carry across formats, so a reader can recognize a CLAB Press title at a glance, whether it's a printed report or a page on the research archive."
-    },
-    {
-      slug: "unii-bi-design",
-      title: "Unii (Pet-care product system) BI Design",
-      subtitle: "Design Research, Branding",
-      desc: "Brand identity and visual design for unii, a pet-care product system built around the bond between people and their pets. Designed not around functions but around the rituals that make us care, the system unifies logotype, graphic language, and tone into one warm, restrained visual identity.",
-      background: "unii set out to design a product system for pet care that started from the relationship between people and their pets rather than from a list of features. The brief asked for an identity that could hold everything from packaging to app screens without reducing that relationship to a slogan.",
-      insight: "Instead of organizing the system around functions, the team organized it around the small rituals — feeding, walking, checking in — that make up everyday care. That shift shows up in a warm, restrained visual identity: a logotype and graphic language built to feel more like a companion than a product line."
-    },
-    {
-      slug: "why-2025-global-forum-identity",
-      title: "WHY: 2025 Global Forum Identity",
-      subtitle: "Branding · Event Design",
-      desc: "A visual identity for WHY: 2025, a global forum on design leadership. The system had to work across a stage backdrop, delegate materials, and a live broadcast, so it was built around a single adaptable mark rather than a fixed lockup.",
-      background: "WHY: 2025 needed an identity that could survive very different environments in the same week — a stage backdrop seen from the back of a hall, delegate badges and printed materials seen up close, and a live broadcast compressed into a small frame.",
-      insight: "Rather than lock the forum to one static composition, the system was built around a single adaptable mark that rescales and recomposes for each surface, keeping WHY: 2025 recognizable everywhere without ever looking like three different events."
-    },
-    {
-      slug: "hongik-idas-program-rebrand",
-      title: "Hongik IDAS Program Rebrand",
-      subtitle: "Identity Design · Education",
-      desc: "A rebrand for a graduate design-management program, translating an academic mission into a mark and system that reads clearly on diplomas, signage, and admissions materials alike.",
-      background: "A graduate design-management program needed its identity to speak to two audiences at once: prospective students weighing a serious academic choice, and the institution's own diplomas, signage, and formal materials that outlive any single marketing cycle.",
-      insight: "The rebrand translates the program's academic mission into a mark restrained enough to sit comfortably on a diploma, yet distinctive enough to stand out in an admissions brochure — one system doing double duty across the program's most formal and most persuasive materials."
-    },
-    {
-      slug: "clab-research-archive-website",
-      title: "CLAB Research Archive Website",
-      subtitle: "UX Design · Digital",
-      desc: "An interface for browsing years of design-leadership research, prioritizing fast scanning over decoration so returning researchers can find a paper or case study in a few clicks.",
-      background: "Years of design-leadership research had accumulated with no single way to browse it, so returning researchers were re-finding papers through search engines instead of the archive itself.",
-      insight: "The interface was built around fast scanning rather than decoration — clear filters, consistent card layouts, and minimal visual noise — so a returning researcher can locate a specific paper or case study in a few clicks instead of a few minutes."
-    },
-    {
-      slug: "human-factors-leadership-visual-system",
-      title: "Human Factors in Leadership Visual System",
-      subtitle: "Design Research · Branding",
-      desc: "A visual system for CLAB's seminar series on human factors in leadership, built to travel between printed programs, a lecture hall backdrop, and a set of social recap graphics.",
-      background: "CLAB's seminar series on human factors in leadership runs across a printed program, a lecture hall backdrop, and a set of social recap graphics produced right after each session, so the visual system had to travel light and assemble quickly between formats.",
-      insight: "A shared set of typographic and graphic rules — rather than a single fixed layout — lets the same identity scale from a printed program to a projected backdrop to a same-day social recap without a new design pass for every format."
-    },
-    {
-      slug: "gdla-annual-report-2025",
-      title: "GDLA Annual Report 2025",
-      subtitle: "Editorial · Typography",
-      desc: "An editorial system for the association's annual report, using a single typographic voice to hold a year of statistics, essays, and project summaries together without a photograph in sight.",
-      background: "A year of statistics, essays, and project summaries needed to read as one coherent report rather than a bound stack of separate documents, without leaning on photography to carry the visual interest.",
-      insight: "The editorial system uses a single typographic voice — considered scale, spacing, and hierarchy — to hold numbers, narrative, and project recaps together, proving a report can feel visually rich through typography alone."
-    }
-  ];
+  // Real project catalog starts empty — add real work from admin's "+ Add New Project".
+  const SEED_PROJECTS = [];
 
   /* ═══════════════════ SEED DATA (used only if assets/data/articles.json doesn't exist yet) ═══════════════════ */
   // Ports the one real article already live at article.html into the new block-based format.
@@ -657,6 +682,13 @@
     }
   ];
 
+  /* ═══════════════════ SEED DATA (used only if assets/data/team.json doesn't exist yet) ═══════════════════ */
+  const SEED_TEAM = [
+    { slug: 'jin-c', firstName: 'jin', name: 'Jin C.', title: 'Design Director', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
+    { slug: 'seyeon-s', firstName: 'seyeon', name: 'Seyeon S.', title: 'Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
+    { slug: 'bomi-k', firstName: 'bomi', name: 'Bomi K.', title: 'UI/UX Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
+  ];
+
   /* ═══════════════════ STATE ═══════════════════ */
   let projects = [];
   // In-memory only (NOT persisted) — keyed by project slug while editing, or NEW_KEY while adding.
@@ -668,6 +700,10 @@
   // In-memory only (NOT persisted) — keyed by article slug while editing, or NEW_KEY while adding.
   // { cover: File, blocks: { [blockIndex]: File } }
   let pendingArticleUploads = {};
+
+  let team = [];
+  // In-memory only (NOT persisted) — keyed by member slug. { cv: File }
+  let pendingTeamUploads = {};
 
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -713,6 +749,19 @@
     articles = JSON.parse(JSON.stringify(SEED_ARTICLES));
   }
 
+  async function loadTeam() {
+    try {
+      const file = await getFile(TEAM_PATH);
+      if (file) {
+        team = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ 저장된 Team 목록을 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    team = JSON.parse(JSON.stringify(SEED_TEAM));
+  }
+
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -742,6 +791,18 @@
     while (taken.has(s)) { s = `${base}-${n++}`; }
     return s;
   }
+  function uniqueTeamSlug(base, ignoreSlug) {
+    let s = base, n = 2;
+    const taken = new Set(team.filter(m => m.slug !== ignoreSlug).map(m => m.slug));
+    while (taken.has(s)) { s = `${base}-${n++}`; }
+    return s;
+  }
+  function uniqueFirstName(base, ignoreSlug) {
+    let s = base, n = 2;
+    const taken = new Set(team.filter(m => m.slug !== ignoreSlug).map(m => m.firstName));
+    while (taken.has(s)) { s = `${base}${n++}`; }
+    return s;
+  }
 
   /* ═══════════════════ LOGIN ═══════════════════ */
   const loginScreen = document.getElementById('login-screen');
@@ -768,10 +829,14 @@
     await loadProjects();
     log('Article 목록 불러오는 중...');
     await loadArticles();
+    log('Team 목록 불러오는 중...');
+    await loadTeam();
     logClear();
     renderProjectList();
     renderArticleAdminList();
     populateCategorySelect();
+    renderTeamList();
+    populateMyProfileForm();
   }
 
   async function tryLogin() {
@@ -908,6 +973,156 @@
     articles.splice(i, 1);
     renderArticleAdminList();
   };
+
+  /* ═══════════════════ TEAM LIST RENDER ═══════════════════ */
+  const teamListEl = document.getElementById('team-list');
+
+  function renderTeamList() {
+    if (!team.length) {
+      teamListEl.innerHTML = '<p class="admin-empty">아직 팀원이 없어요. "+ Add Teammate"로 첫 팀원을 등록해보세요.</p>';
+      return;
+    }
+    teamListEl.innerHTML = team.map((m, i) => `
+      <div class="admin-project-row">
+        <div class="admin-project-thumb" style="background:#eee;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gray);">${escapeHtml((m.name || '?').slice(0, 1))}</div>
+        <div class="admin-project-info">
+          <div class="title">${escapeHtml(m.name)}${m.slug === (currentPerson && currentPerson.slug) ? ' (나)' : ''}</div>
+          <div class="meta">${escapeHtml(m.title || '')} · 로그인 ID: ${escapeHtml(m.firstName)}</div>
+        </div>
+        <a class="btn-text" href="team/${m.slug}.html" target="_blank">포트폴리오 ↗</a>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteTeamMember(${i})">🗑</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.deleteTeamMember = function (i) {
+    const m = team[i];
+    if (team.length <= 1) { alert('팀원이 한 명도 남지 않으면 안 돼요.'); return; }
+    if (!confirm(`"${m.name}" 님을 팀 목록에서 삭제할까요?\n(포트폴리오 페이지 파일 자체는 남아있고, Publish 해야 실제로 반영돼요)`)) return;
+    delete pendingTeamUploads[m.slug];
+    team.splice(i, 1);
+    renderTeamList();
+    if (currentPerson && m.slug === currentPerson.slug) populateMyProfileForm();
+  };
+
+  /* ═══════════════════ MY PROFILE (self-serve edit) ═══════════════════ */
+  const mpName = document.getElementById('mp-name');
+  const mpTitle = document.getElementById('mp-title');
+  const mpQuote = document.getElementById('mp-quote');
+  const mpBio = document.getElementById('mp-bio');
+  const mpTags = document.getElementById('mp-tags');
+  const mpInstagram = document.getElementById('mp-instagram');
+  const mpLinkedin = document.getElementById('mp-linkedin');
+  const mpBehance = document.getElementById('mp-behance');
+  const mpCvCurrent = document.getElementById('mp-cv-current');
+
+  function myTeamMember() {
+    if (!currentPerson) return null;
+    let m = team.find(x => x.slug === currentPerson.slug);
+    if (!m) {
+      // Shouldn't normally happen (login already resolves against the team roster),
+      // but keeps the form usable rather than broken if the two ever drift out of sync.
+      m = { slug: currentPerson.slug, firstName: currentPerson.slug, name: currentPerson.name, title: '', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null };
+      team.push(m);
+    }
+    return m;
+  }
+
+  function populateMyProfileForm() {
+    const m = myTeamMember();
+    if (!m) return;
+    document.getElementById('my-profile-form-title').textContent = `내 프로필 수정 (${m.name})`;
+    mpName.value = m.name || '';
+    mpTitle.value = m.title || '';
+    mpQuote.value = m.quote || '';
+    mpBio.value = m.bio || '';
+    mpTags.value = (m.tags || []).join(', ');
+    mpInstagram.value = m.instagramUrl || '';
+    mpLinkedin.value = m.linkedinUrl || '';
+    mpBehance.value = m.behanceUrl || '';
+    document.getElementById('mp-cv-file').value = '';
+    const pendingCv = pendingTeamUploads[m.slug] && pendingTeamUploads[m.slug].cv;
+    mpCvCurrent.textContent = pendingCv ? `새로 올릴 파일: ${pendingCv.name}` : (m.cvPath ? `현재 파일: ${m.cvPath.split('/').pop()}` : '등록된 CV 없음');
+  }
+
+  document.getElementById('mp-cv-file').addEventListener('change', e => {
+    const m = myTeamMember();
+    const file = e.target.files[0];
+    if (!file || !m) return;
+    if (!pendingTeamUploads[m.slug]) pendingTeamUploads[m.slug] = {};
+    pendingTeamUploads[m.slug].cv = file;
+    mpCvCurrent.textContent = `새로 올릴 파일: ${file.name}`;
+  });
+  document.getElementById('mp-remove-cv-btn').addEventListener('click', () => {
+    const m = myTeamMember();
+    if (!m) return;
+    if (pendingTeamUploads[m.slug]) delete pendingTeamUploads[m.slug].cv;
+    m.cvPath = null;
+    document.getElementById('mp-cv-file').value = '';
+    mpCvCurrent.textContent = '등록된 CV 없음';
+  });
+
+  document.getElementById('save-my-profile-btn').addEventListener('click', () => {
+    const m = myTeamMember();
+    if (!m) return;
+    const name = mpName.value.trim();
+    if (!name) { alert('Name을 입력해주세요.'); return; }
+    m.name = name;
+    m.title = mpTitle.value.trim();
+    m.quote = mpQuote.value.trim();
+    m.bio = mpBio.value.trim();
+    m.tags = mpTags.value.split(',').map(t => t.trim()).filter(Boolean);
+    m.instagramUrl = mpInstagram.value.trim();
+    m.linkedinUrl = mpLinkedin.value.trim();
+    m.behanceUrl = mpBehance.value.trim();
+    if (currentPerson && currentPerson.slug === m.slug) currentPerson.name = name;
+    renderTeamList();
+    populateMyProfileForm();
+    alert('저장했어요. "Publish"를 눌러야 실제 사이트에 반영돼요.');
+  });
+
+  /* ═══════════════════ ADD TEAMMATE ═══════════════════ */
+  const addTeammateForm = document.getElementById('add-teammate-form');
+  const ntName = document.getElementById('nt-name');
+  const ntTitle = document.getElementById('nt-title');
+  const ntIdPreview = document.getElementById('nt-id-preview');
+  const ntSlugPreview = document.getElementById('nt-slug-preview');
+
+  function updateTeammatePreview() {
+    const name = ntName.value.trim();
+    if (!name) { ntIdPreview.textContent = '-'; ntSlugPreview.textContent = '-'; return; }
+    const firstWord = name.split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '') || 'member';
+    ntIdPreview.textContent = uniqueFirstName(firstWord);
+    ntSlugPreview.textContent = uniqueTeamSlug(slugify(name, 'member'));
+  }
+  ntName.addEventListener('input', updateTeammatePreview);
+
+  document.getElementById('add-teammate-btn').addEventListener('click', () => {
+    ntName.value = ''; ntTitle.value = '';
+    updateTeammatePreview();
+    addTeammateForm.classList.add('show');
+    addTeammateForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  document.getElementById('cancel-teammate-form-btn').addEventListener('click', () => addTeammateForm.classList.remove('show'));
+
+  document.getElementById('save-teammate-btn').addEventListener('click', () => {
+    const name = ntName.value.trim();
+    if (!name) { alert('Name을 입력해주세요.'); return; }
+    const firstWord = name.split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '') || 'member';
+    const firstName = uniqueFirstName(firstWord);
+    const slug = uniqueTeamSlug(slugify(name, 'member'));
+    team.push({
+      slug, firstName, name,
+      title: ntTitle.value.trim(),
+      quote: '', bio: '', tags: [],
+      behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null,
+    });
+    addTeammateForm.classList.remove('show');
+    renderTeamList();
+    alert(`"${name}" 님을 팀에 추가했어요 (로그인 ID: ${firstName}). "Publish"를 눌러야 실제로 로그인하고 포트폴리오 페이지를 쓸 수 있어요.`);
+  });
 
   /* ═══════════════════ ADD / EDIT FORM ═══════════════════ */
   const formEl = document.getElementById('project-form');
@@ -1410,6 +1625,354 @@
       <div class="works-row-list">${more.map(renderWorkRow).join('')}
       </div>
       <a class="see-more-btn" href="../index.html#our-works">See More</a>
+    </section>`;
+  }
+
+  /* ═══════════════════ TEAM PAGE GENERATORS ═══════════════════ */
+  const SOCIAL_ICON_SVG = {
+    behance: '<svg viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.5h9.7c3.9 0 5.9 1.4 5.9 4.2 0 1.7-.9 2.9-2.5 3.5 2.1.5 3.3 2 3.3 4.1 0 3-2.3 4.7-6.5 4.7H0V3.5Zm3.6 6.6h5.4c1.8 0 2.9-.8 2.9-2.1 0-1.4-1-2.1-2.9-2.1H3.6v4.2Zm0 7.1h5.8c2 0 3.1-.9 3.1-2.4 0-1.5-1.1-2.3-3.1-2.3H3.6v4.7ZM16 0h7.6v1.8H16V0Zm9 12.4c0-3.9-2.4-6.4-6-6.4-3.7 0-6.2 2.6-6.2 6.6 0 4 2.5 6.5 6.3 6.5 2.9 0 5.1-1.5 5.7-3.9h-3.1c-.4 1-1.2 1.5-2.5 1.5-1.7 0-2.8-1.1-3-3h8.7c0-.4.1-.9.1-1.3Zm-8.8-1.1c.3-1.6 1.3-2.5 2.8-2.5 1.5 0 2.5 1 2.7 2.5h-5.5Z" fill="currentColor"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>',
+    // Matches the existing icon style (24x24, stroke-based like Instagram's) — a rounded-square
+    // badge with a simplified "in" glyph, since the original template had no LinkedIn icon yet.
+    linkedin: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><path d="M8 10.3V17M8 7.1v.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11.3 17v-4.3c0-1.4 1-2.3 2.35-2.3S16 11.3 16 12.7V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    cv: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v10.5M12 13.5 8 9.5M12 13.5l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 16v2.5A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  };
+
+  // Builds the <section class="profile-section">...</section> for one team member — this is
+  // the part that's fully self-serve editable from "내 프로필 수정" (name/title/intro/tags/CV/SNS).
+  function buildProfileSectionHtml(m) {
+    const bioPrimary = [];
+    if (m.quote) bioPrimary.push(`<p>“${escapeHtml(m.quote)}”</p>`);
+    if (m.title) bioPrimary.push(`<p>${escapeHtml(m.title)}</p>`);
+    const tags = (m.tags || []).filter(Boolean);
+    const social = [];
+    if (m.behanceUrl) social.push(`<a class="social-icon-btn" href="${escapeHtml(m.behanceUrl)}" target="_blank" rel="noopener" aria-label="Behance">${SOCIAL_ICON_SVG.behance}</a>`);
+    if (m.instagramUrl) social.push(`<a class="social-icon-btn" href="${escapeHtml(m.instagramUrl)}" target="_blank" rel="noopener" aria-label="Instagram">${SOCIAL_ICON_SVG.instagram}</a>`);
+    if (m.linkedinUrl) social.push(`<a class="social-icon-btn" href="${escapeHtml(m.linkedinUrl)}" target="_blank" rel="noopener" aria-label="LinkedIn">${SOCIAL_ICON_SVG.linkedin}</a>`);
+    if (m.cvPath) social.push(`<a class="social-icon-btn" href="../${m.cvPath}" download aria-label="Download résumé">${SOCIAL_ICON_SVG.cv}</a>`);
+    return `<section class="profile-section" aria-labelledby="profile-name">
+      <h1 class="profile-name" id="profile-name">${escapeHtml(m.name)}</h1>
+
+      <div class="profile-bio">
+        ${bioPrimary.length ? `<div class="profile-bio-primary">
+          ${bioPrimary.join('\n          ')}
+        </div>` : ''}
+        ${m.bio ? `<p class="profile-bio-secondary">${escapeHtml(m.bio)}</p>` : ''}
+      </div>
+
+      ${tags.length ? `<div class="profile-tags">
+          ${tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join('\n          ')}
+      </div>` : ''}
+
+      ${social.length ? `<div class="profile-social">
+        ${social.join('\n        ')}
+      </div>` : ''}
+    </section>`;
+  }
+
+  // Full brand-new team page (nav/CSS/footer copied verbatim from the existing template, e.g.
+  // team/piia-l.html) — only used the first time a newly-registered teammate is published,
+  // since after that their page already exists and gets patched in place like the others.
+  function buildTeamPageHtml(m, projectList) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>${escapeHtml(m.name)} — Global Design Leadership Association</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    :root {
+      --black: #000;
+      --gray: rgba(118,118,118,1);
+      --font: "Instrument Sans", Helvetica, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #fff; }
+    * { -webkit-font-smoothing: antialiased; font-family: var(--font); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; }
+    h1, h2, h3, h4, p { margin: 0; padding: 0; }
+
+    .page { width: 100%; max-width: 1920px; margin: 0 auto; padding: 0 40px; background: #fff; }
+
+    /* NAV */
+    .nav-header {
+      display: flex; align-items: center; width: 100%; height: 46px; padding: 0 40px;
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%); max-width: 1920px;
+      z-index: 200; background: #fff;
+    }
+    .nav-logo-wrap { flex: 1; display: flex; align-items: center; align-self: stretch; border-bottom: 1px solid #000; padding-right: 20px; }
+    .nav-logo-wrap a { font-size: 20px; font-weight: 400; letter-spacing: -1px; color: #000; }
+    .nav-links-wrap { display: flex; align-items: flex-end; gap: 50px; padding: 12px 0 10px 20px; align-self: stretch; border-bottom: 1px solid #000; }
+    .nav-links-wrap a { font-size: 20px; font-weight: 400; letter-spacing: -1px; color: #000; line-height: 1; padding-bottom: 4px; }
+    .nav-links-wrap a:hover { opacity: 0.6; }
+    .nav-spacer { height: 46px; width: 100%; }
+
+    .hamburger-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 4px; margin-left: auto; flex-shrink: 0; }
+    .hamburger-btn span { display: block; width: 22px; height: 1.5px; background: #000; transition: transform 0.25s, opacity 0.25s; }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 46px; left: 0; width: 100%; background: #fff; z-index: 199; flex-direction: column; padding: 24px 40px 32px; border-bottom: 1px solid #000; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { opacity: 0.5; }
+
+    /* PROFILE HERO */
+    .profile-section { width: 100%; border-top: 1px solid #000; padding: 30px 0 100px; display: flex; flex-direction: column; gap: 38px; }
+    .profile-name { font-size: 64px; font-weight: 400; letter-spacing: -3.2px; line-height: 100%; color: #000; }
+    .profile-bio { display: flex; flex-direction: column; gap: 9px; max-width: 640px; }
+    .profile-bio-primary p { font-size: 20px; font-weight: 400; letter-spacing: -1px; line-height: 121%; color: #000; margin: 0 0 4px; }
+    .profile-bio-primary p:last-child { margin-bottom: 0; }
+    .profile-bio-secondary { font-size: 20px; font-weight: 400; letter-spacing: -1px; line-height: 121%; color: var(--gray); margin: 0; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .tag-pill { background: #d9d9d9; height: 36px; display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 2px; font-size: 20px; font-weight: 400; letter-spacing: -0.9px; color: #000; white-space: nowrap; }
+    .profile-social { display: flex; align-items: center; gap: 24px; }
+    .social-icon-btn { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: #000; cursor: pointer; }
+    .social-icon-btn svg { display: block; width: 100%; height: 100%; }
+    .social-icon-btn:hover { opacity: 0.6; }
+
+    /* SHARED SECTION HEADING */
+    .section-divider { width: 100%; height: 1px; background: #000; }
+    .section-heading-xl { font-size: 64px; font-weight: 400; letter-spacing: -3.2px; line-height: 100%; color: #000; }
+
+    /* LATEST WORKS (grid) */
+    .works-section { width: 100%; display: flex; flex-direction: column; gap: 104px; padding: 15px 0 80px; }
+    .works-title-wrap { display: flex; flex-direction: column; gap: 29px; width: 100%; }
+    .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; }
+    .work-card { display: flex; flex-direction: column; gap: 10px; }
+    .work-card-image { width: 100%; aspect-ratio: 1 / 1; background: #d8d8d8; border-radius: 2px; }
+    .work-thumb-link { display: block; }
+    .work-thumb-link:hover .work-card-image, .work-thumb-link:hover .work-row-thumb { opacity: 0.85; }
+
+    .work-card-body { display: flex; flex-direction: column; gap: 20px; font-size: 16px; letter-spacing: -0.48px; }
+    .work-eyebrow { font-weight: 600; color: var(--gray); line-height: 100%; margin: 0; }
+    .work-titles { display: flex; flex-direction: column; gap: 4px; }
+    .work-title { font-weight: 600; color: #000; line-height: 100%; margin: 0; }
+    .work-subtitle { font-weight: 600; color: var(--gray); line-height: 100%; margin: 0; }
+    .work-desc { font-weight: 400; color: #000; line-height: 110%; margin: 0; }
+
+    /* MORE WORKS (list) */
+    .works-list-section { width: 100%; padding: 60px 0 80px; display: flex; flex-direction: column; gap: 30px; }
+    .works-list-header { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .articles-count { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: #000; }
+    .sort-tabs { display: flex; gap: 24px; }
+    .sort-tab { background: none; border: none; cursor: pointer; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: var(--gray); padding: 0; }
+    .sort-tab.active { color: #000; }
+    .works-row-list { display: flex; flex-direction: column; gap: 60px; width: 100%; }
+    .work-row-item { display: flex; align-items: flex-start; gap: 20px; width: 100%; }
+    .work-row-thumb { width: 340px; height: 348px; object-fit: cover; border-radius: 2px; background: #d8d8d8; flex-shrink: 0; }
+    .work-row-body { flex: 1; display: flex; flex-direction: column; gap: 20px; font-size: 16px; letter-spacing: -0.48px; min-width: 0; }
+    .text-link { display: inline-flex; align-items: center; gap: 3px; position: relative; flex: 0 0 auto; cursor: pointer; }
+    .text-wrapper-7 { position: relative; width: fit-content; margin-top: -1px; font-family: "Instrument Sans", Helvetica; font-weight: 500; color: var(--gray); font-size: 16px; letter-spacing: -0.48px; line-height: 110%; white-space: nowrap; }
+    .text-link:hover .text-wrapper-7 { opacity: 0.6; }
+    .see-more-btn { display: block; width: 100%; text-align: center; padding: 18px 0; margin-top: 10px; border: 1px solid #000; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: #000; cursor: pointer; background: none; }
+    .see-more-btn:hover { opacity: 0.6; }
+
+    /* CONNECT */
+    .connect-with-us { max-width: 1920px; gap: 10px; display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+    .connect-with-us-2 { gap: 34px; align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+    .divider-3 { height: 1px; background: #000; align-self: stretch; width: 100%; }
+    .text-wrapper-17 { align-self: stretch; font-weight: 400; color: #000; font-size: 37px; letter-spacing: -1.11px; line-height: 100%; }
+
+    /* FOOTER */
+    .footer-section { display: flex; flex-direction: column; max-width: 1920px; gap: 60px; padding: 30px 0 60px; align-items: flex-start; width: 100%; }
+    .footer-content { display: flex; width: 100%; max-width: 1200px; align-items: flex-start; }
+    .logo-contain-2 { display: flex; max-width: 625px; align-items: flex-start; gap: 10px; flex: 1; flex-grow: 1; }
+    .image-2 { width: 60px; height: 60px; object-fit: contain; }
+    .clab-logo-black { height: 60px; width: auto; object-fit: contain; }
+    .logo { width: 60px; height: 60px; object-fit: contain; }
+    .footer-text { display: flex; width: 100%; max-width: 616px; justify-content: space-between; align-items: flex-start; }
+    .office-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 62px; }
+    .office-contain-2 { display: flex; flex-direction: column; width: 201px; align-items: flex-start; gap: 30px; }
+    .text-wrapper-18 { align-self: stretch; margin-top: -1px; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+    .text-wrapper-19 { align-self: stretch; font-weight: 400; color: #000; font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+    .contact-contain { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; align-self: stretch; width: 100%; }
+    .div-2 { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; align-self: stretch; width: 100%; }
+    .social-contain { display: flex; flex-direction: column; width: 260px; align-items: flex-start; gap: 30px; }
+    .social-contain a { color: #000; }
+    .social-contain a:hover { opacity: 0.5; }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid #4a90e2; outline-offset: 4px; }
+
+    @media (max-width: 1280px) {
+      .page { padding: 0 24px; }
+      .nav-header { padding: 0 24px; }
+      .footer-content { gap: 24px; flex-wrap: wrap; }
+      .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 0 40px; }
+      .nav-header { padding: 0 40px; left: 0; transform: none; max-width: 100%; width: 100%; }
+      .hamburger-btn { display: flex; }
+      .nav-links-wrap { display: none; }
+      .nav-logo-wrap { border-bottom: none; }
+
+      .profile-name { font-size: 36px; letter-spacing: -1.8px; }
+      .profile-section { padding-bottom: 60px; gap: 24px; }
+      .profile-bio-primary p, .profile-bio-secondary, .tag-pill { font-size: 16px; letter-spacing: -0.48px; }
+      .tag-pill { height: 32px; padding: 5px 10px; }
+
+      .section-heading-xl { font-size: 36px; letter-spacing: -1.8px; }
+      .works-section { gap: 40px; padding-bottom: 60px; }
+      .works-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .works-list-section { padding: 40px 0 60px; }
+      .work-row-item { flex-direction: column; gap: 16px; }
+      .work-row-thumb { width: 100%; height: auto; aspect-ratio: 1/1; }
+
+      .text-wrapper-17 { font-size: 28px; letter-spacing: -1.4px; }
+      .connect-with-us-2 { gap: 20px; }
+
+      .footer-section { padding: 30px 0 48px; gap: 40px; }
+      .footer-content { flex-direction: column; gap: 30px; }
+      .logo-contain-2 { max-width: 100%; }
+      .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+      .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+      .text-wrapper-18, .text-wrapper-19 { font-size: 16px; letter-spacing: -0.5px; line-height: 150%; }
+    }
+
+    @media (max-width: 420px) {
+      .page { padding: 0 24px; }
+      .nav-header { padding: 0 24px; }
+      .mobile-nav { padding: 24px 24px 32px; }
+    }
+
+  ${MEDIA_CSS_INJECT}
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header">
+    <div class="nav-logo-wrap">
+      <a href="../index.html">Global Design Leadership Association</a>
+    </div>
+    <nav class="nav-links-wrap" aria-label="Primary">
+      <a href="../about.html">About</a>
+      <a href="../articles.html">Article</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="../about.html" onclick="closeMobileNav()">About</a>
+    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <div class="nav-spacer"></div>
+
+  <main>
+
+    ${buildProfileSectionHtml(m)}
+
+    ${buildWorksSectionHtml(projectList)}
+
+    ${buildWorksListSectionHtml(projectList)}
+
+    <!-- ═══ CONNECT WITH US ═══ -->
+    <section class="connect-with-us" aria-labelledby="connect-title">
+      <div class="connect-with-us-2">
+        <div class="divider-3" aria-hidden="true"></div>
+        <h2 class="text-wrapper-17" id="connect-title">Connect with us to explore your creative potential.</h2>
+        <div class="divider-3" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="image-2" src="../assets/logo/image_5654.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="../assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="../assets/logo/image_2.png" alt="IDAS"/>
+        <img class="logo" src="../assets/logo/Logo.png" alt="Hongik University"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">Clab Research Center</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+  document.querySelectorAll('.sort-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.sort-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
+`;
+  }
+
+  // Regenerates about.html's "Our Team" section from the live roster — replaces the old
+  // hardcoded 12-card photo grid + text-only grid entirely.
+  function buildTeamGridHtml(list) {
+    const cards = list.map(m => `
+        <a class="team-member-card" href="team/${m.slug}.html" aria-label="View ${escapeHtml(m.name)} portfolio">
+          <div class="team-member-photo"></div>
+          <p class="team-member-name">${escapeHtml(m.name)}</p>
+          <p class="team-member-role">${escapeHtml(m.title || '')}</p>
+        </a>`).join('');
+    return `<section class="team-section" aria-labelledby="team-heading">
+      <h2 class="team-heading" id="team-heading">Our Team</h2>
+
+      <div class="team-photo-grid">${cards}
+      </div>
     </section>`;
   }
 
@@ -2254,8 +2817,24 @@
     }
   }
 
+  // Uploads a pending CV for one team member to assets/uploads/team/{slug}/cv.{ext} —
+  // mirrors uploadPendingMediaForProject/Article.
+  async function uploadPendingMediaForTeam(m) {
+    const pending = pendingTeamUploads[m.slug] || {};
+    if (pending.cv) {
+      const file = pending.cv;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/team/${m.slug}/cv.${ext}`;
+      log(`  ↳ CV 업로드 중... (${file.name || 'cv'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload CV for ${m.name}`);
+      m.cvPath = path;
+      log(`  ✅ ${path}`);
+    }
+  }
+
   document.getElementById('publish-btn').addEventListener('click', async () => {
-    if (!projects.length && !articles.length) { alert('발행할 프로젝트나 Article이 없어요.'); return; }
+    if (!projects.length && !articles.length && !team.length) { alert('발행할 내용이 없어요.'); return; }
     const btn = document.getElementById('publish-btn');
     btn.disabled = true;
     logClear(); logShow();
@@ -2270,19 +2849,46 @@
       await putFile(PROJECTS_PATH, JSON.stringify(projects, null, 2), `Update project catalog via admin (${currentPerson.name})`);
       log('✅ ' + PROJECTS_PATH + ' 저장 완료');
 
-      for (const teamSlug of TEAM_PAGE_SLUGS) {
-        const teamPath = `team/${teamSlug}.html`;
-        log(teamPath + ' 불러오는 중...');
+      log('\nTeam CV 업로드 확인 중...');
+      for (const m of team) {
+        await uploadPendingMediaForTeam(m);
+      }
+      pendingTeamUploads = {};
+
+      log(`${TEAM_PATH} 저장 중...`);
+      await putFile(TEAM_PATH, JSON.stringify(team, null, 2), `Update team roster via admin (${currentPerson.name})`);
+      log('✅ ' + TEAM_PATH + ' 저장 완료');
+
+      for (const m of team) {
+        const teamPath = `team/${m.slug}.html`;
+        log(teamPath + ' 확인 중...');
         const teamFile = await getFile(teamPath);
-        if (!teamFile) { log('⚠️ ' + teamPath + ' 을 찾을 수 없어 건너뛰어요.'); continue; }
-        let newHtml = teamFile.content
-          .replace(/<section class="works-section"[\s\S]*?<\/section>/, buildWorksSectionHtml(projects))
-          .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(projects));
-        if (!newHtml.includes('.media-lock-wrap')) {
-          newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
+        let newHtml;
+        if (!teamFile) {
+          // Brand-new teammate (just added via "Add Teammate") — no page exists yet, so build one from scratch.
+          newHtml = buildTeamPageHtml(m, projects);
+        } else {
+          newHtml = teamFile.content
+            .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(m.name)} — Global Design Leadership Association</title>`)
+            .replace(/<section class="profile-section"[\s\S]*?<\/section>/, buildProfileSectionHtml(m))
+            .replace(/<section class="works-section"[\s\S]*?<\/section>/, buildWorksSectionHtml(projects))
+            .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(projects));
+          if (!newHtml.includes('.media-lock-wrap')) {
+            newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
+          }
         }
         await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
         log('✅ ' + teamPath + ' 업데이트 완료');
+      }
+
+      log(ABOUT_PATH + ' 팀 섹션 확인 중...');
+      const aboutFile = await getFile(ABOUT_PATH);
+      if (aboutFile) {
+        const newAboutHtml = aboutFile.content.replace(/<section class="team-section"[\s\S]*?<\/section>/, buildTeamGridHtml(team));
+        await putFile(ABOUT_PATH, newAboutHtml, `Update team section via admin (${currentPerson.name})`);
+        log('✅ ' + ABOUT_PATH + ' 업데이트 완료');
+      } else {
+        log('⚠️ ' + ABOUT_PATH + ' 을 찾을 수 없어 건너뛰어요.');
       }
 
       for (const p of projects) {

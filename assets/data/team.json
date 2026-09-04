@@ -1,0 +1,41 @@
+[
+  {
+    "slug": "jin-c",
+    "firstName": "jin",
+    "name": "Jin C.",
+    "title": "Design Director",
+    "quote": "",
+    "bio": "",
+    "tags": [],
+    "behanceUrl": "",
+    "instagramUrl": "",
+    "linkedinUrl": "",
+    "cvPath": null
+  },
+  {
+    "slug": "seyeon-s",
+    "firstName": "seyeon",
+    "name": "Seyeon S.",
+    "title": "Designer",
+    "quote": "",
+    "bio": "",
+    "tags": [],
+    "behanceUrl": "",
+    "instagramUrl": "",
+    "linkedinUrl": "",
+    "cvPath": null
+  },
+  {
+    "slug": "bomi-k",
+    "firstName": "bomi",
+    "name": "Bomi K.",
+    "title": "UI/UX Designer",
+    "quote": "",
+    "bio": "",
+    "tags": [],
+    "behanceUrl": "",
+    "instagramUrl": "",
+    "linkedinUrl": "",
+    "cvPath": null
+  }
+]
