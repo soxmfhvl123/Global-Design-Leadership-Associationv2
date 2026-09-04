@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "slug": "test",
+    "title": "Test",
+    "subtitle": "test category",
+    "desc": "Test description",
+    "background": "test Detail Page — Background",
+    "insight": "test Detail Page — Insight",
+    "coverImagePath": null,
+    "backgroundImagePath": null,
+    "insightImagePath": null,
+    "videoPath": "assets/uploads/test/video.mp4",
+    "locked": false,
+    "lockHash": null,
+    "coverPath": "assets/uploads/test/cover.png",
+    "backgroundPath": "assets/uploads/test/background.png",
+    "insightPath": "assets/uploads/test/insight.png"
+  }
+]
