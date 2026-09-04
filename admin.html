@@ -1337,7 +1337,10 @@
   // to that link — locked ones just show a blurred image + a small lock badge, no button).
   function renderThumbMedia(path, alt, sizingClass, locked) {
     if (!path) return `<div class="${sizingClass}" role="img" aria-label="${escapeHtml(alt)} thumbnail"></div>`;
-    if (!locked) return `<img class="${sizingClass} media-img" src="../${path}" alt="${escapeHtml(alt)}">`;
+    // No "media-img" class here on purpose: that class's generic width:100%/height:100%
+    // (added at the very end of the stylesheet for the lock/blur feature) would otherwise
+    // win the cascade over a thumbnail's own fixed sizing rule and blow its layout up.
+    if (!locked) return `<img class="${sizingClass}" src="../${path}" alt="${escapeHtml(alt)}">`;
     return `<div class="${sizingClass} media-lock-wrap"><img class="media-img blurred" src="../${path}" alt="${escapeHtml(alt)}"><span class="media-lock-badge" aria-hidden="true">🔒</span></div>`;
   }
   // Interactive standalone media (Background/Insight images, video) — has its own click-to-unlock overlay.
@@ -1719,7 +1722,7 @@
   // (repo root) rather than inside a subfolder — so image paths must NOT get a "../" prefix.
   function renderThumbMediaRoot(path, alt, sizingClass, locked) {
     if (!path) return `<div class="${sizingClass}" role="img" aria-label="${escapeHtml(alt)} thumbnail"></div>`;
-    if (!locked) return `<img class="${sizingClass} media-img" src="${path}" alt="${escapeHtml(alt)}">`;
+    if (!locked) return `<img class="${sizingClass}" src="${path}" alt="${escapeHtml(alt)}">`;
     return `<div class="${sizingClass} media-lock-wrap"><img class="media-img blurred" src="${path}" alt="${escapeHtml(alt)}"><span class="media-lock-badge" aria-hidden="true">🔒</span></div>`;
   }
 
