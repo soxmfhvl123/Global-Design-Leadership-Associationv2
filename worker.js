@@ -41,7 +41,7 @@ const TEAM = [
 
 // Only paths under these prefixes may ever be written by this Worker,
 // no matter what a caller sends — this is the server-side safety net.
-const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/'];
+const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/'];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 
