@@ -46,15 +46,15 @@
     "firstName": "jin",
     "name": "Jin C.",
     "title": "Design Director",
-    "quote": "test intro Quote (소개글 — 짧은 한 줄, 선택)",
-    "bio": "ntro Description (소개글 — 설명, 선택)",
+    "quote": "Shaping distinctive brand impressions with enduring impact.",
+    "bio": "Based in Seoul and New York, Jin C. is a Design Director specializing in branding and creative direction. With a focus on strategic clarity and refined aesthetics, he leads projects from concept to execution—delivering timeless visual identities that elevate brand presence across platforms.",
     "tags": [
       "Branding",
-      "test"
+      "Creative Direction"
     ],
-    "behanceUrl": "cdj.kr",
+    "behanceUrl": "https://cdj.kr/",
     "instagramUrl": "https://www.instagram.com/boboxinxinn/",
-    "linkedinUrl": "cdj.kr",
+    "linkedinUrl": "https://cdj.kr/",
     "cvPath": null,
     "photoPath": "assets/uploads/team/jin-c/photo.jpg"
   },
