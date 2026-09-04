@@ -44,6 +44,9 @@ const TEAM_DATA_PATH = 'assets/data/team.json';
 // Fallback roster, used only if assets/data/team.json doesn't exist in the repo yet
 // (e.g. before the first "Add Teammate" / team Publish from admin has ever run).
 const SEED_TEAM = [
+  { firstName: 'jongung', slug: 'jongung-p', name: 'Jongung P.' },
+  { firstName: 'eunyoung', slug: 'eunyoung-k', name: 'Eunyoung K.' },
+  { firstName: 'jaeha', slug: 'jaeha-h', name: 'Jaeha H.' },
   { firstName: 'jin', slug: 'jin-c', name: 'Jin C.' },
   { firstName: 'seyeon', slug: 'seyeon-s', name: 'Seyeon S.' },
   { firstName: 'bomi', slug: 'bomi-k', name: 'Bomi K.' },

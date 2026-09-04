@@ -490,6 +490,16 @@
               <input type="text" id="mp-title" placeholder="예: Design Director"/>
             </div>
           </div>
+          <div class="admin-media-field">
+            <label>Profile Photo (프로필 사진, 선택 — 등록 안 하면 회색 박스로 표시돼요)</label>
+            <div class="admin-media-row">
+              <div class="admin-media-preview empty" id="preview-mp-photo"></div>
+              <div class="admin-media-controls">
+                <input type="file" id="mp-photo-file" accept="image/*"/>
+                <button class="btn-text" type="button" id="mp-remove-photo-btn">사진 삭제</button>
+              </div>
+            </div>
+          </div>
           <div class="admin-field">
             <label for="mp-quote">Intro Quote (소개글 — 짧은 한 줄, 선택)</label>
             <input type="text" id="mp-quote" placeholder="예: Design leadership begins with clarity of purpose."/>
@@ -684,9 +694,12 @@
 
   /* ═══════════════════ SEED DATA (used only if assets/data/team.json doesn't exist yet) ═══════════════════ */
   const SEED_TEAM = [
-    { slug: 'jin-c', firstName: 'jin', name: 'Jin C.', title: 'Design Director', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
-    { slug: 'seyeon-s', firstName: 'seyeon', name: 'Seyeon S.', title: 'Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
-    { slug: 'bomi-k', firstName: 'bomi', name: 'Bomi K.', title: 'UI/UX Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null },
+    { slug: 'jongung-p', firstName: 'jongung', name: 'Jongung P.', title: 'Chief Strategist', quote: '', bio: 'Design Leadership & Innovation Strategist · PhD Candidate in Global Design Leadership & Innovation', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
+    { slug: 'eunyoung-k', firstName: 'eunyoung', name: 'Eunyoung K.', title: 'Chief Strategist', quote: '', bio: 'Design Leadership & Innovation Strategist · PhD Candidate in Global Design Leadership & Innovation', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
+    { slug: 'jaeha-h', firstName: 'jaeha', name: 'Jaeha H.', title: 'Lead Strategist', quote: '', bio: 'Design Journalist & Cultural Intelligence Strategist', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
+    { slug: 'jin-c', firstName: 'jin', name: 'Jin C.', title: 'Design Director', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
+    { slug: 'seyeon-s', firstName: 'seyeon', name: 'Seyeon S.', title: 'Researcher', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
+    { slug: 'bomi-k', firstName: 'bomi', name: 'Bomi K.', title: 'UI/UX Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
   ];
 
   /* ═══════════════════ STATE ═══════════════════ */
@@ -984,7 +997,7 @@
     }
     teamListEl.innerHTML = team.map((m, i) => `
       <div class="admin-project-row">
-        <div class="admin-project-thumb" style="background:#eee;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gray);">${escapeHtml((m.name || '?').slice(0, 1))}</div>
+        <div class="admin-project-thumb" style="${m.photoPath ? `background-image:url('${m.photoPath}');background-size:cover;background-position:center;` : 'background:#eee;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gray);'}">${m.photoPath ? '' : escapeHtml((m.name || '?').slice(0, 1))}</div>
         <div class="admin-project-info">
           <div class="title">${escapeHtml(m.name)}${m.slug === (currentPerson && currentPerson.slug) ? ' (나)' : ''}</div>
           <div class="meta">${escapeHtml(m.title || '')} · 로그인 ID: ${escapeHtml(m.firstName)}</div>
@@ -1024,7 +1037,7 @@
     if (!m) {
       // Shouldn't normally happen (login already resolves against the team roster),
       // but keeps the form usable rather than broken if the two ever drift out of sync.
-      m = { slug: currentPerson.slug, firstName: currentPerson.slug, name: currentPerson.name, title: '', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null };
+      m = { slug: currentPerson.slug, firstName: currentPerson.slug, name: currentPerson.name, title: '', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null };
       team.push(m);
     }
     return m;
@@ -1045,7 +1058,43 @@
     document.getElementById('mp-cv-file').value = '';
     const pendingCv = pendingTeamUploads[m.slug] && pendingTeamUploads[m.slug].cv;
     mpCvCurrent.textContent = pendingCv ? `새로 올릴 파일: ${pendingCv.name}` : (m.cvPath ? `현재 파일: ${m.cvPath.split('/').pop()}` : '등록된 CV 없음');
+    document.getElementById('mp-photo-file').value = '';
+    renderMyProfilePhotoPreview();
   }
+
+  function renderMyProfilePhotoPreview() {
+    const m = myTeamMember();
+    const previewEl = document.getElementById('preview-mp-photo');
+    if (!m) { previewEl.classList.add('empty'); previewEl.innerHTML = ''; return; }
+    const pending = pendingTeamUploads[m.slug] && pendingTeamUploads[m.slug].photo;
+    previewEl.innerHTML = '';
+    if (pending) {
+      previewEl.classList.remove('empty');
+      previewEl.innerHTML = `<img src="${URL.createObjectURL(pending)}"/>`;
+    } else if (m.photoPath) {
+      previewEl.classList.remove('empty');
+      previewEl.innerHTML = `<img src="${m.photoPath}"/>`;
+    } else {
+      previewEl.classList.add('empty');
+    }
+  }
+
+  document.getElementById('mp-photo-file').addEventListener('change', e => {
+    const m = myTeamMember();
+    const file = e.target.files[0];
+    if (!file || !m) return;
+    if (!pendingTeamUploads[m.slug]) pendingTeamUploads[m.slug] = {};
+    pendingTeamUploads[m.slug].photo = file;
+    renderMyProfilePhotoPreview();
+  });
+  document.getElementById('mp-remove-photo-btn').addEventListener('click', () => {
+    const m = myTeamMember();
+    if (!m) return;
+    if (pendingTeamUploads[m.slug]) delete pendingTeamUploads[m.slug].photo;
+    m.photoPath = null;
+    document.getElementById('mp-photo-file').value = '';
+    renderMyProfilePhotoPreview();
+  });
 
   document.getElementById('mp-cv-file').addEventListener('change', e => {
     const m = myTeamMember();
@@ -1117,7 +1166,7 @@
       slug, firstName, name,
       title: ntTitle.value.trim(),
       quote: '', bio: '', tags: [],
-      behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null,
+      behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null,
     });
     addTeammateForm.classList.remove('show');
     renderTeamList();
@@ -1651,6 +1700,7 @@
     if (m.linkedinUrl) social.push(`<a class="social-icon-btn" href="${escapeHtml(m.linkedinUrl)}" target="_blank" rel="noopener" aria-label="LinkedIn">${SOCIAL_ICON_SVG.linkedin}</a>`);
     if (m.cvPath) social.push(`<a class="social-icon-btn" href="../${m.cvPath}" download aria-label="Download résumé">${SOCIAL_ICON_SVG.cv}</a>`);
     return `<section class="profile-section" aria-labelledby="profile-name">
+      ${m.photoPath ? `<div class="profile-photo-wrap"><img class="profile-photo" src="../${m.photoPath}" alt="${escapeHtml(m.name)}"></div>` : ''}
       <h1 class="profile-name" id="profile-name">${escapeHtml(m.name)}</h1>
 
       <div class="profile-bio">
@@ -1845,6 +1895,7 @@
     }
 
   ${MEDIA_CSS_INJECT}
+  ${PROFILE_PHOTO_CSS_INJECT}
   </style>
 </head>
 <body>
@@ -1964,7 +2015,7 @@
   function buildTeamGridHtml(list) {
     const cards = list.map(m => `
         <a class="team-member-card" href="team/${m.slug}.html" aria-label="View ${escapeHtml(m.name)} portfolio">
-          <div class="team-member-photo"></div>
+          <div class="team-member-photo"${m.photoPath ? ` style="background-image:url('${m.photoPath}');background-size:cover;background-position:center;"` : ''}></div>
           <p class="team-member-name">${escapeHtml(m.name)}</p>
           <p class="team-member-role">${escapeHtml(m.title || '')}</p>
         </a>`).join('');
@@ -2770,6 +2821,13 @@
     .media-lock-badge { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; pointer-events: none; }
 `;
 
+  // Retroactively injected into any team page saved before the profile-photo feature existed
+  // (mirrors the MEDIA_CSS_INJECT pattern above).
+  const PROFILE_PHOTO_CSS_INJECT = `
+    .profile-photo-wrap { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; background: #d8d8d8; flex-shrink: 0; }
+    .profile-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+`;
+
   // Uploads every pending file for one project to GitHub under assets/uploads/{slug}/{field}.{ext}
   // (shared across the whole team, since all 9 portfolios show the same project catalog).
   async function uploadPendingMediaForProject(p) {
@@ -2831,6 +2889,16 @@
       m.cvPath = path;
       log(`  ✅ ${path}`);
     }
+    if (pending.photo) {
+      const file = pending.photo;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/team/${m.slug}/photo.${ext}`;
+      log(`  ↳ 프로필 사진 업로드 중... (${file.name || 'photo'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload profile photo for ${m.name}`);
+      m.photoPath = path;
+      log(`  ✅ ${path}`);
+    }
   }
 
   document.getElementById('publish-btn').addEventListener('click', async () => {
@@ -2875,6 +2943,9 @@
             .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(projects));
           if (!newHtml.includes('.media-lock-wrap')) {
             newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
+          }
+          if (!newHtml.includes('.profile-photo-wrap')) {
+            newHtml = newHtml.replace('</style>', PROFILE_PHOTO_CSS_INJECT + '\n  </style>');
           }
         }
         await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
