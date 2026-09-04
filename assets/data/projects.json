@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "why-2025-global-forum-identity",
+    "title": "WHY: 2025 Global Forum Identity",
+    "subtitle": "Branding · Event Design",
+    "desc": "A visual identity for WHY: 2025, a global forum on design leadership. The system had to work across a stage backdrop, delegate materials, and a live broadcast, so it was built around a single adaptable mark rather than a fixed lockup.",
+    "background": "WHY: 2025 needed an identity that could survive very different environments in the same week — a stage backdrop seen from the back of a hall, delegate badges and printed materials seen up close, and a live broadcast compressed into a small frame.",
+    "insight": "Rather than lock the forum to one static composition, the system was built around a single adaptable mark that rescales and recomposes for each surface, keeping WHY: 2025 recognizable everywhere without ever looking like three different events."
+  },
+  {
+    "slug": "hongik-idas-program-rebrand",
+    "title": "Hongik IDAS Program Rebrand",
+    "subtitle": "Identity Design · Education",
+    "desc": "A rebrand for a graduate design-management program, translating an academic mission into a mark and system that reads clearly on diplomas, signage, and admissions materials alike.",
+    "background": "A graduate design-management program needed its identity to speak to two audiences at once: prospective students weighing a serious academic choice, and the institution's own diplomas, signage, and formal materials that outlive any single marketing cycle.",
+    "insight": "The rebrand translates the program's academic mission into a mark restrained enough to sit comfortably on a diploma, yet distinctive enough to stand out in an admissions brochure — one system doing double duty across the program's most formal and most persuasive materials."
+  },
+  {
+    "slug": "clab-research-archive-website",
+    "title": "CLAB Research Archive Website",
+    "subtitle": "UX Design · Digital",
+    "desc": "An interface for browsing years of design-leadership research, prioritizing fast scanning over decoration so returning researchers can find a paper or case study in a few clicks.",
+    "background": "Years of design-leadership research had accumulated with no single way to browse it, so returning researchers were re-finding papers through search engines instead of the archive itself.",
+    "insight": "The interface was built around fast scanning rather than decoration — clear filters, consistent card layouts, and minimal visual noise — so a returning researcher can locate a specific paper or case study in a few clicks instead of a few minutes."
+  },
+  {
+    "slug": "human-factors-leadership-visual-system",
+    "title": "Human Factors in Leadership Visual System",
+    "subtitle": "Design Research · Branding",
+    "desc": "A visual system for CLAB's seminar series on human factors in leadership, built to travel between printed programs, a lecture hall backdrop, and a set of social recap graphics.",
+    "background": "CLAB's seminar series on human factors in leadership runs across a printed program, a lecture hall backdrop, and a set of social recap graphics produced right after each session, so the visual system had to travel light and assemble quickly between formats.",
+    "insight": "A shared set of typographic and graphic rules — rather than a single fixed layout — lets the same identity scale from a printed program to a projected backdrop to a same-day social recap without a new design pass for every format."
+  },
+  {
+    "slug": "gdla-annual-report-2025",
+    "title": "GDLA Annual Report 2025",
+    "subtitle": "Editorial · Typography",
+    "desc": "An editorial system for the association's annual report, using a single typographic voice to hold a year of statistics, essays, and project summaries together without a photograph in sight.",
+    "background": "A year of statistics, essays, and project summaries needed to read as one coherent report rather than a bound stack of separate documents, without leaning on photography to carry the visual interest.",
+    "insight": "The editorial system uses a single typographic voice — considered scale, spacing, and hierarchy — to hold numbers, narrative, and project recaps together, proving a report can feel visually rich through typography alone."
+  }
+]
