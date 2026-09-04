@@ -41,7 +41,9 @@ const TEAM = [
 
 // Only paths under these prefixes may ever be written by this Worker,
 // no matter what a caller sends — this is the server-side safety net.
-const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/'];
+const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/', 'articles/'];
+// A few generated files live at exact top-level paths rather than under a prefix.
+const WRITE_EXACT_PATHS = ['articles.html'];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 
@@ -125,7 +127,9 @@ async function requireAuth(request, env) {
 }
 
 function pathIsAllowed(path) {
-  return typeof path === 'string' && WRITE_PREFIXES.some((p) => path.startsWith(p));
+  if (typeof path !== 'string') return false;
+  if (WRITE_EXACT_PATHS.includes(path)) return true;
+  return WRITE_PREFIXES.some((p) => path.startsWith(p));
 }
 
 async function githubFetch(env, path, opts) {
