@@ -643,7 +643,7 @@
           </a>
         </div>
 
-        <button class="see-more-btn" type="button">See More</button>
+        <button class="see-more-btn" type="button" id="see-more-btn">See More</button>
       </div>
     </section>
 
@@ -713,20 +713,47 @@
     if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
   });
 
-  // ─── Category filter ───
+  // ─── Category filter + paginated list (10 at a time via "See More") ───
+  const PAGE_SIZE = 10;
   const filterForm = document.getElementById('filter-form');
   const rows = Array.from(document.querySelectorAll('.article-row-item'));
   const countEl = document.getElementById('articles-count');
-  filterForm.addEventListener('change', () => {
-    const selected = filterForm.querySelector('input[name="cat"]:checked').value;
-    let visible = 0;
-    rows.forEach(row => {
-      const show = selected === 'All' || row.dataset.cat === selected;
-      row.style.display = show ? '' : 'none';
-      if (show) visible++;
+  const seeMoreBtn = document.getElementById('see-more-btn');
+  let visibleCount = PAGE_SIZE;
+
+  function currentCategory() {
+    const checked = filterForm.querySelector('input[name="cat"]:checked');
+    return checked ? checked.value : 'All';
+  }
+
+  function renderList() {
+    const selected = currentCategory();
+    const matching = rows.filter(row => selected === 'All' || row.dataset.cat === selected);
+    matching.forEach((row, i) => {
+      row.style.display = i < visibleCount ? '' : 'none';
     });
-    countEl.textContent = visible + ' Articles';
+    rows.forEach(row => {
+      if (!matching.includes(row)) row.style.display = 'none';
+    });
+    countEl.textContent = matching.length + ' Articles';
+    if (seeMoreBtn) {
+      seeMoreBtn.style.display = matching.length > visibleCount ? '' : 'none';
+    }
+  }
+
+  filterForm.addEventListener('change', () => {
+    visibleCount = PAGE_SIZE;
+    renderList();
   });
+
+  if (seeMoreBtn) {
+    seeMoreBtn.addEventListener('click', () => {
+      visibleCount += PAGE_SIZE;
+      renderList();
+    });
+  }
+
+  renderList();
 
   // ─── Sort tabs (visual only — no backing data to sort by popularity) ───
   document.querySelectorAll('.sort-tab').forEach(tab => {
