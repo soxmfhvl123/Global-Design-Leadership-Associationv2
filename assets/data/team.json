@@ -46,14 +46,17 @@
     "firstName": "jin",
     "name": "Jin C.",
     "title": "Design Director",
-    "quote": "",
-    "bio": "",
-    "tags": [],
-    "behanceUrl": "",
-    "instagramUrl": "",
-    "linkedinUrl": "",
+    "quote": "test intro Quote (소개글 — 짧은 한 줄, 선택)",
+    "bio": "ntro Description (소개글 — 설명, 선택)",
+    "tags": [
+      "Branding",
+      "test"
+    ],
+    "behanceUrl": "cdj.kr",
+    "instagramUrl": "https://www.instagram.com/boboxinxinn/",
+    "linkedinUrl": "cdj.kr",
     "cvPath": null,
-    "photoPath": null
+    "photoPath": "assets/uploads/team/jin-c/photo.jpg"
   },
   {
     "slug": "seyeon-s",
