@@ -529,7 +529,16 @@
     .nav-header-2 { padding: 0 24px; }
     .mobile-nav { padding: 24px 24px 32px; }
   }
-</style>
+
+    .media-lock-wrap { position: relative; overflow: hidden; }
+    .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
+    .media-lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.28); border: none; color: #fff; cursor: pointer; width: 100%; height: 100%; font-family: var(--font); font-size: 14px; letter-spacing: -0.4px; }
+    .media-lock-overlay .lock-icon { font-size: 22px; pointer-events: none; }
+    .media-lock-overlay:hover { background: rgba(0,0,0,0.4); }
+    .media-lock-badge { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; pointer-events: none; }
+
+  </style>
 </head>
 <body>
 
@@ -582,34 +591,11 @@
       <h2 class="article-section-title" id="latest-news-title" style="padding:29px 0 104px">Latest News</h2>
       <div class="card-grid">
         <div class="card">
-          <a href="article.html"><img class="card-thumb" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다"></a>
-          <p class="card-eyebrow">Article</p>
-          <p class="card-title">[칼럼] 경계를 디자인하다</p>
+          <a href="articles/designing-the-boundary.html" aria-label="See article: [칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄"><img class="card-thumb media-img" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄"></a>
+          <p class="card-title">[칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄</p>
           <p class="card-tags">Design</p>
-          <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회'에서 홍익대학교 IDAS 캐시 리 교수가 「Designing the Boundary」를 주제로 기조연설을 맡았다.</p>
-          <a class="text-link" href="article.html" aria-label="See article: Designing the Boundary">
-            <span class="text-wrapper-7">See Project</span>
-            <span class="text-wrapper-7" aria-hidden="true">→</span>
-          </a>
-        </div>
-        <div class="card">
-          <div class="card-thumb ph-c1"></div>
-          <p class="card-eyebrow">Article</p>
-          <p class="card-title">'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy</p>
-          <p class="card-tags">Career</p>
-          <p class="card-excerpt">CLAB launched its first global seminar, Human Factors in Leadership, at IDAS in collaboration with UNDP, exploring DEIA in design leadership.</p>
-          <a class="text-link" href="index.html#article" aria-label="See article: Human Factors in Leadership Workshop">
-            <span class="text-wrapper-7">See Project</span>
-            <span class="text-wrapper-7" aria-hidden="true">→</span>
-          </a>
-        </div>
-        <div class="card">
-          <div class="card-thumb ph-c2"></div>
-          <p class="card-eyebrow">Article</p>
-          <p class="card-title">CLab Fall 2025 Thesis Final Presentation Highlights</p>
-          <p class="card-tags">Design</p>
-          <p class="card-excerpt">CLab 석사과정 학생들의 2025년 가을학기 졸업논문 발표회 현장을 정리했다.</p>
-          <a class="text-link" href="index.html#article" aria-label="See article: CLab Fall 2025 Thesis Final Presentation">
+          <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'은 'Borders(경계)'를 주제로 디자인·문화·사회 전반에 걸친 경계의 의미를 탐색했다. 이 자리에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수는 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡아, 기술이 인간의 삶으로 빠르게 파고드는 시대에 디자인이 무엇을 지켜야 하는지를 물었다.</p>
+          <a class="text-link" href="articles/designing-the-boundary.html" aria-label="See article: [칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄">
             <span class="text-wrapper-7">See Project</span>
             <span class="text-wrapper-7" aria-hidden="true">→</span>
           </a>
@@ -638,7 +624,7 @@
 
       <div class="articles-list-col">
         <div class="articles-list-header">
-          <p class="articles-count" id="articles-count">8 Articles</p>
+          <p class="articles-count" id="articles-count">1 Articles</p>
           <div class="sort-tabs">
             <button class="sort-tab active" type="button" data-sort="newest">Newest</button>
             <button class="sort-tab" type="button" data-sort="popular">Most popular</button>
@@ -646,90 +632,12 @@
         </div>
 
         <div id="article-list">
-          <a class="article-row-item" href="article.html" data-cat="Design">
-            <img class="article-row-thumb" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다">
+          <a class="article-row-item" href="articles/designing-the-boundary.html" data-cat="Design">
+            <img class="article-row-thumb media-img" src="assets/images/Frame 2147238105.png" alt="[칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄">
             <div class="article-row-body">
-              <p class="card-eyebrow">Article</p>
               <p class="card-title">[칼럼] 경계를 디자인하다 — 가속의 시대, 디자인이 지켜야 할 인간의 존엄</p>
               <p class="card-tags">Design · 2026.05.09</p>
-              <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수가 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡았다.</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="Career">
-            <div class="article-row-thumb ph-r1"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Article</p>
-              <p class="card-title">'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy</p>
-              <p class="card-tags">Career · 2025.11.25</p>
-              <p class="card-excerpt">CLAB launched its first global seminar, Human Factors in Leadership, at IDAS in collaboration with UNDP (United Nations Development Programme), exploring DEIA in design leadership and the evolving role of designers as leaders in a rapidly changing world.</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="Design">
-            <div class="article-row-thumb ph-r2"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Article</p>
-              <p class="card-title">CLab Fall 2025 Thesis Final Presentation Highlights</p>
-              <p class="card-tags">Design · 2025.11.25</p>
-              <p class="card-excerpt">CLab 석사과정 학생들의 2025년 가을학기 졸업논문 발표회 현장을 정리했다.</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="AI">
-            <div class="article-row-thumb ph-r3"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Article</p>
-              <p class="card-title">Spring 2025 Industry Talk: Branding in the AI Era</p>
-              <p class="card-tags">AI · 2025.03.18</p>
-              <p class="card-excerpt">AI 시대의 브랜딩 전략을 주제로 진행된 2025년 봄학기 산업 특강을 소개한다.</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#our-works" data-cat="Business">
-            <div class="article-row-thumb ph-r4"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Article</p>
-              <p class="card-title">CLab × Hyundai Executive Leadership Program Launch</p>
-              <p class="card-tags">Business · 2024.03.04</p>
-              <p class="card-excerpt">현대자동차와 함께하는 여성 임원 리더십 프로그램의 출범 소식을 전한다.</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="UX">
-            <div class="article-row-thumb ph-c1"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Thesis</p>
-              <p class="card-title">UX Constellation Model: An Innovative Framework for User Experience Design</p>
-              <p class="card-tags">UX · 2025.07 · KCI</p>
-              <p class="card-excerpt">Jong Min Moon · Design Convergence Study</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="AI">
-            <div class="article-row-thumb ph-c2"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Thesis</p>
-              <p class="card-title">Non-Cognitive Skills Deficit in Generative AI-Based Work in the Graphic Design Industry</p>
-              <p class="card-tags">AI · 2025.04 · KCI</p>
-              <p class="card-excerpt">Hye Su Kang · Korean Business Association</p>
-              <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
-            </div>
-          </a>
-
-          <a class="article-row-item" href="index.html#article" data-cat="Design">
-            <div class="article-row-thumb ph-c3"></div>
-            <div class="article-row-body">
-              <p class="card-eyebrow">Thesis</p>
-              <p class="card-title">Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Individual Emotional Stability</p>
-              <p class="card-tags">Design · 2025.07 · KCI</p>
-              <p class="card-excerpt">Seon Hwa Kim · Korea Convergence Society</p>
+              <p class="card-excerpt">지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'은 'Borders(경계)'를 주제로 디자인·문화·사회 전반에 걸친 경계의 의미를 탐색했다. 이 자리에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수는 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡아, 기술이 인간의 삶으로 빠르게 파고드는 시대에 디자인이 무엇을 지켜야 하는지를 물었다.</p>
               <span class="text-link" aria-hidden="true"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7">→</span></span>
             </div>
           </a>

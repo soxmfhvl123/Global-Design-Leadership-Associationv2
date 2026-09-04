@@ -6,15 +6,20 @@
  * this Worker, and this Worker talks to GitHub on the page's behalf.
  *
  * Endpoints:
- *   POST /api/login   { name, password }        -> { token, person }
- *   GET  /api/session (Bearer token)             -> { person }
- *   GET  /api/file?path=...    (Bearer token)    -> { content, sha }   content = base64
- *   PUT  /api/file    (Bearer token) { path, contentBase64, sha, message }
+ *   POST /api/login       { name, password }            -> { token, person }
+ *   GET  /api/session     (Bearer token)                 -> { person }
+ *   GET  /api/file?path=... (Bearer token)               -> { content, sha }   content = base64
+ *   PUT  /api/file        (Bearer token) { path, contentBase64, sha, message }
+ *   POST /api/track-view  { slug, count }  (no auth — called by public article pages)
+ *                                                        -> { slug, views }
  *
  * Required secrets (set with `wrangler secret put <NAME>`):
  *   GITHUB_TOKEN     - a GitHub Personal Access Token with `repo` scope
  *   ADMIN_PASSWORD   - the shared team login password
  *   SESSION_SECRET   - random string used to sign session tokens
+ *
+ * Required binding (see wrangler.toml):
+ *   VIEWS            - a Workers KV namespace, used to store live article view counts
  *
  * Nothing else needs to be configured by hand — everyone on the team
  * logs in with just their first name + the shared password, and the
@@ -24,6 +29,13 @@
 const GH_OWNER = 'soxmfhvl123';
 const GH_REPO = 'Global-Design-Leadership-Associationv2';
 const GH_BRANCH = 'main';
+
+// Historical view counts for articles that were live (with a hardcoded number in their
+// HTML) before we started tracking real visits in KV — so switching to live counting
+// doesn't reset what they already had back down to zero.
+const VIEW_SEED = {
+  'designing-the-boundary': 963,
+};
 
 // Allowed login names -> which team page + display name they control.
 // Add a new teammate by adding one line here — nothing else to change.
@@ -132,6 +144,10 @@ function pathIsAllowed(path) {
   return WRITE_PREFIXES.some((p) => path.startsWith(p));
 }
 
+function isValidSlug(s) {
+  return typeof s === 'string' && /^[a-z0-9-]{1,100}$/.test(s);
+}
+
 async function githubFetch(env, path, opts) {
   return fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/${path}`, {
     ...opts,
@@ -168,6 +184,25 @@ export default {
           env.SESSION_SECRET
         );
         return json({ token, person: { slug: person.slug, name: person.name } }, 200, origin);
+      }
+
+      // Public — called from every article page on every visit, no login involved.
+      // Counts a real visit once (count !== false) and always returns the current total,
+      // so a page can show the live number even on a repeat view it doesn't want to count again.
+      if (url.pathname === '/api/track-view' && request.method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        const slug = String(body.slug || '');
+        if (!isValidSlug(slug)) return json({ error: 'Invalid slug.' }, 400, origin);
+        if (!env.VIEWS) return json({ error: 'View counter is not configured yet.' }, 500, origin);
+        const key = `views:${slug}`;
+        const stored = await env.VIEWS.get(key);
+        let current = stored !== null ? parseInt(stored, 10) : (VIEW_SEED[slug] || 0);
+        if (!Number.isFinite(current)) current = VIEW_SEED[slug] || 0;
+        if (body.count !== false) {
+          current += 1;
+          await env.VIEWS.put(key, String(current));
+        }
+        return json({ slug, views: current }, 200, origin);
       }
 
       if (url.pathname === '/api/session' && request.method === 'GET') {

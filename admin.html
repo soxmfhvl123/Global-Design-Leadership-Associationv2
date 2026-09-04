@@ -414,14 +414,11 @@
               <input type="text" id="a-author" placeholder="예: IDAS 교수 홍길동"/>
             </div>
             <div class="admin-field">
-              <label for="a-date">Date</label>
+              <label for="a-date">Date (새 글은 오늘 날짜로 자동 입력, 필요하면 수정 가능)</label>
               <input type="text" id="a-date" placeholder="예: 2026.05.09"/>
             </div>
-            <div class="admin-field">
-              <label for="a-views">Views (선택)</label>
-              <input type="text" id="a-views" placeholder="비워두면 표시 안 함"/>
-            </div>
           </div>
+          <p class="admin-empty" style="margin-top:-4px;">조회수는 이제 자동으로 집계돼요 — 실제로 그 페이지를 방문할 때마다 실시간으로 올라가고, 따로 입력할 필요 없어요.</p>
           <div class="admin-field">
             <label for="a-lead">Lead / 요약</label>
             <textarea id="a-lead" placeholder="목록·카드에 보이는 요약 문단이면서, 상세페이지 상단 리드 문단으로도 쓰여요"></textarea>
@@ -616,7 +613,6 @@
       category: "Design",
       author: "IDAS 교수 이캐시연주",
       date: "2026.05.09",
-      views: "963",
       lead: "지난 5월 9일 가천대학교에서 열린 '2026 KICD 춘계 국제학술대회 및 국제초대전'은 'Borders(경계)'를 주제로 디자인·문화·사회 전반에 걸친 경계의 의미를 탐색했다. 이 자리에서 홍익대학교 IDAS 캐시 리(Cathy Lee) 교수는 「Designing the Boundary(경계를 디자인하다)」를 주제로 기조연설을 맡아, 기술이 인간의 삶으로 빠르게 파고드는 시대에 디자인이 무엇을 지켜야 하는지를 물었다.",
       coverImagePath: "assets/images/Frame 2147238105.png",
       locked: false,
@@ -720,6 +716,12 @@
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function todayDateString() {
+    const d = new Date();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}.${mm}.${dd}`;
   }
   function slugify(s, fallback) {
     return String(s).toLowerCase()
@@ -1253,8 +1255,7 @@
       document.getElementById('a-title').value = '';
       document.getElementById('a-category').value = ARTICLE_CATEGORIES[0];
       document.getElementById('a-author').value = '';
-      document.getElementById('a-date').value = '';
-      document.getElementById('a-views').value = '';
+      document.getElementById('a-date').value = todayDateString();
       document.getElementById('a-lead').value = '';
       aLocked.checked = false; aLockPassword.value = '';
       document.getElementById('a-slug-preview').textContent = 'article-slug';
@@ -1267,7 +1268,6 @@
       document.getElementById('a-category').value = a.category || ARTICLE_CATEGORIES[0];
       document.getElementById('a-author').value = a.author || '';
       document.getElementById('a-date').value = a.date || '';
-      document.getElementById('a-views').value = a.views || '';
       document.getElementById('a-lead').value = a.lead || '';
       aLocked.checked = !!a.locked; aLockPassword.value = '';
       articleManualSlug = a.slug;
@@ -1311,7 +1311,6 @@
       category: document.getElementById('a-category').value,
       author: document.getElementById('a-author').value.trim(),
       date: document.getElementById('a-date').value.trim(),
-      views: document.getElementById('a-views').value.trim(),
       lead: document.getElementById('a-lead').value.trim(),
       coverImagePath: prev.coverImagePath || null,
       locked: aLocked,
@@ -2060,7 +2059,7 @@
       <h1 class="article-title" id="article-title">${escapeHtml(a.title)}</h1>
       <div class="article-byline">
         <p>${escapeHtml(a.author)}</p>
-        <p>${escapeHtml(a.date)}${a.views ? ' · 조회수 ' + escapeHtml(a.views) : ''}</p>
+        <p>${escapeHtml(a.date)} · 조회수 <span id="view-count">–</span></p>
       </div>
       <p class="article-lead">${escapeHtml(a.lead)}</p>
     </section>
@@ -2125,6 +2124,23 @@
   document.addEventListener('click', (e) => {
     if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
   });
+  // Live view counter — counts once per browser session per article, then just displays
+  // the latest total on repeat visits without inflating it further.
+  (function () {
+    var slug = '${a.slug}';
+    var countEl = document.getElementById('view-count');
+    var storageKey = 'gdla-viewed-' + slug;
+    var alreadyCounted = false;
+    try { alreadyCounted = sessionStorage.getItem(storageKey) === '1'; } catch (e) {}
+    fetch('${WORKER_URL}/api/track-view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: slug, count: !alreadyCounted })
+    }).then(function (res) { return res.json(); }).then(function (data) {
+      if (countEl && typeof data.views === 'number') countEl.textContent = data.views;
+      if (!alreadyCounted) { try { sessionStorage.setItem(storageKey, '1'); } catch (e) {} }
+    }).catch(function () { if (countEl) countEl.textContent = '–'; });
+  })();
 <\/script>
 </body>
 </html>

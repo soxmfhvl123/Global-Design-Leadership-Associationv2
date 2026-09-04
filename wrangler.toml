@@ -6,3 +6,11 @@ compatibility_date = "2025-01-01"
 #   GITHUB_TOKEN    - GitHub Personal Access Token, "repo" scope, for soxmfhvl123/Global-Design-Leadership-Associationv2
 #   ADMIN_PASSWORD  - the shared team login password (everyone logs in with their first name + this password)
 #   SESSION_SECRET  - random string used to sign login sessions (e.g. output of: openssl rand -hex 32)
+
+# Workers KV namespace used to store live article view counts (see /api/track-view in worker.js).
+# 1. Cloudflare dashboard -> Workers & Pages -> KV -> Create a namespace (any name, e.g. "gdla-views")
+# 2. Copy its Namespace ID and paste it below as the `id` value (this ID is not a secret)
+# 3. Uncomment the two lines below, commit, and push — the next auto-deploy will pick it up
+# [[kv_namespaces]]
+# binding = "VIEWS"
+# id = "PASTE_NAMESPACE_ID_HERE"
