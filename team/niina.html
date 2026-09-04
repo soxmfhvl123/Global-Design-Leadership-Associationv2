@@ -168,6 +168,15 @@
       .mobile-nav { padding: 24px 24px 32px; }
     }
 
+  
+    .media-lock-wrap { position: relative; overflow: hidden; }
+    .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
+    .media-lock-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.28); border: none; color: #fff; cursor: pointer; width: 100%; height: 100%; font-family: var(--font); font-size: 14px; letter-spacing: -0.4px; }
+    .media-lock-overlay .lock-icon { font-size: 22px; pointer-events: none; }
+    .media-lock-overlay:hover { background: rgba(0,0,0,0.4); }
+    .media-lock-badge { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; pointer-events: none; }
+
   </style>
 </head>
 <body>
@@ -233,30 +242,6 @@
       </div>
       <div class="works-grid">
         <div class="work-card">
-          <a class="work-thumb-link" href="../our-works/clab-press-bi-design.html" aria-label="See project: CLAB Press BI Design"><div class="work-card-image" role="img" aria-label="CLAB Press BI Design thumbnail"></div></a>
-          <div class="work-card-body">
-            <p class="work-eyebrow">Project</p>
-            <div class="work-titles">
-              <p class="work-title">CLAB Press BI Design</p>
-              <p class="work-subtitle">Brand Identity</p>
-            </div>
-            <p class="work-desc">A brand identity for CLAB Press, the imprint that turns CLAB's research, programs, conversations, and project outcomes into publishable knowledge assets. The system unifies content production, publishing, and knowledge IP under one refined editorial voice.</p>
-            <a class="text-link" href="../our-works/clab-press-bi-design.html" aria-label="See project: CLAB Press BI Design"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="work-card">
-          <a class="work-thumb-link" href="../our-works/unii-bi-design.html" aria-label="See project: Unii (Pet-care product system) BI Design"><div class="work-card-image" role="img" aria-label="Unii (Pet-care product system) BI Design thumbnail"></div></a>
-          <div class="work-card-body">
-            <p class="work-eyebrow">Project</p>
-            <div class="work-titles">
-              <p class="work-title">Unii (Pet-care product system) BI Design</p>
-              <p class="work-subtitle">Design Research, Branding</p>
-            </div>
-            <p class="work-desc">Brand identity and visual design for unii, a pet-care product system built around the bond between people and their pets. Designed not around functions but around the rituals that make us care, the system unifies logotype, graphic language, and tone into one warm, restrained visual identity.</p>
-            <a class="text-link" href="../our-works/unii-bi-design.html" aria-label="See project: Unii (Pet-care product system) BI Design"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="work-card">
           <a class="work-thumb-link" href="../our-works/why-2025-global-forum-identity.html" aria-label="See project: WHY: 2025 Global Forum Identity"><div class="work-card-image" role="img" aria-label="WHY: 2025 Global Forum Identity thumbnail"></div></a>
           <div class="work-card-body">
             <p class="work-eyebrow">Project</p>
@@ -268,6 +253,30 @@
             <a class="text-link" href="../our-works/why-2025-global-forum-identity.html" aria-label="See project: WHY: 2025 Global Forum Identity"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
           </div>
         </div>
+        <div class="work-card">
+          <a class="work-thumb-link" href="../our-works/hongik-idas-program-rebrand.html" aria-label="See project: Hongik IDAS Program Rebrand"><div class="work-card-image" role="img" aria-label="Hongik IDAS Program Rebrand thumbnail"></div></a>
+          <div class="work-card-body">
+            <p class="work-eyebrow">Project</p>
+            <div class="work-titles">
+              <p class="work-title">Hongik IDAS Program Rebrand</p>
+              <p class="work-subtitle">Identity Design · Education</p>
+            </div>
+            <p class="work-desc">A rebrand for a graduate design-management program, translating an academic mission into a mark and system that reads clearly on diplomas, signage, and admissions materials alike.</p>
+            <a class="text-link" href="../our-works/hongik-idas-program-rebrand.html" aria-label="See project: Hongik IDAS Program Rebrand"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="work-card">
+          <a class="work-thumb-link" href="../our-works/clab-research-archive-website.html" aria-label="See project: CLAB Research Archive Website"><div class="work-card-image" role="img" aria-label="CLAB Research Archive Website thumbnail"></div></a>
+          <div class="work-card-body">
+            <p class="work-eyebrow">Project</p>
+            <div class="work-titles">
+              <p class="work-title">CLAB Research Archive Website</p>
+              <p class="work-subtitle">UX Design · Digital</p>
+            </div>
+            <p class="work-desc">An interface for browsing years of design-leadership research, prioritizing fast scanning over decoration so returning researchers can find a paper or case study in a few clicks.</p>
+            <a class="text-link" href="../our-works/clab-research-archive-website.html" aria-label="See project: CLAB Research Archive Website"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -275,7 +284,7 @@
     <section class="works-list-section" aria-label="More works">
       <div class="section-divider" aria-hidden="true"></div>
       <div class="works-list-header">
-        <p class="articles-count">8 Works</p>
+        <p class="articles-count">5 Works</p>
         <div class="sort-tabs">
           <button class="sort-tab active" type="button">Newest</button>
           <button class="sort-tab" type="button">Most popular</button>
@@ -283,31 +292,7 @@
       </div>
       <div class="works-row-list">
         <div class="work-row-item">
-          <a class="work-thumb-link" href="../our-works/hongik-idas-program-rebrand.html" aria-label="See project: Hongik IDAS Program Rebrand"><div class="work-row-thumb"></div></a>
-          <div class="work-row-body">
-            <p class="work-eyebrow">Project</p>
-            <div class="work-titles">
-              <p class="work-title">Hongik IDAS Program Rebrand</p>
-              <p class="work-subtitle">Identity Design · Education</p>
-            </div>
-            <p class="work-desc">A rebrand for a graduate design-management program, translating an academic mission into a mark and system that reads clearly on diplomas, signage, and admissions materials alike.</p>
-            <a class="text-link" href="../our-works/hongik-idas-program-rebrand.html" aria-label="See project: Hongik IDAS Program Rebrand"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="work-row-item">
-          <a class="work-thumb-link" href="../our-works/clab-research-archive-website.html" aria-label="See project: CLAB Research Archive Website"><div class="work-row-thumb"></div></a>
-          <div class="work-row-body">
-            <p class="work-eyebrow">Project</p>
-            <div class="work-titles">
-              <p class="work-title">CLAB Research Archive Website</p>
-              <p class="work-subtitle">UX Design · Digital</p>
-            </div>
-            <p class="work-desc">An interface for browsing years of design-leadership research, prioritizing fast scanning over decoration so returning researchers can find a paper or case study in a few clicks.</p>
-            <a class="text-link" href="../our-works/clab-research-archive-website.html" aria-label="See project: CLAB Research Archive Website"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="work-row-item">
-          <a class="work-thumb-link" href="../our-works/human-factors-leadership-visual-system.html" aria-label="See project: Human Factors in Leadership Visual System"><div class="work-row-thumb"></div></a>
+          <a class="work-thumb-link" href="../our-works/human-factors-leadership-visual-system.html" aria-label="See project: Human Factors in Leadership Visual System"><div class="work-row-thumb" role="img" aria-label="Human Factors in Leadership Visual System thumbnail"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -319,7 +304,7 @@
           </div>
         </div>
         <div class="work-row-item">
-          <a class="work-thumb-link" href="../our-works/gdla-annual-report-2025.html" aria-label="See project: GDLA Annual Report 2025"><div class="work-row-thumb"></div></a>
+          <a class="work-thumb-link" href="../our-works/gdla-annual-report-2025.html" aria-label="See project: GDLA Annual Report 2025"><div class="work-row-thumb" role="img" aria-label="GDLA Annual Report 2025 thumbnail"></div></a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -328,18 +313,6 @@
             </div>
             <p class="work-desc">An editorial system for the association's annual report, using a single typographic voice to hold a year of statistics, essays, and project summaries together without a photograph in sight.</p>
             <a class="text-link" href="../our-works/gdla-annual-report-2025.html" aria-label="See project: GDLA Annual Report 2025"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
-          </div>
-        </div>
-        <div class="work-row-item">
-          <a class="work-thumb-link" href="../our-works/gdla-ci-design.html" aria-label="See project: Global Design Leadership Association CI Design"><div class="work-row-thumb"></div></a>
-          <div class="work-row-body">
-            <p class="work-eyebrow">Project</p>
-            <div class="work-titles">
-              <p class="work-title">Global Design Leadership Association CI Design</p>
-              <p class="work-subtitle">Branding · Corporate Identity</p>
-            </div>
-            <p class="work-desc">A corporate identity for the Global Design Leadership Association (GDLA), built around a bold typographic wordmark. The system codifies the association's authority and global outlook into a flexible visual language that reads with equal clarity across print, screen, and space.</p>
-            <a class="text-link" href="../our-works/gdla-ci-design.html" aria-label="See project: Global Design Leadership Association CI Design"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
