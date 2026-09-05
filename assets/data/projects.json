@@ -14,7 +14,8 @@
     "lockHash": null,
     "coverPath": "assets/uploads/test/cover.png",
     "backgroundPath": "assets/uploads/test/background.png",
-    "insightPath": "assets/uploads/test/insight.png"
+    "insightPath": "assets/uploads/test/insight.png",
+    "ownerSlug": "jin-c"
   },
   {
     "slug": "1",
@@ -31,6 +32,7 @@
     "lockHash": null,
     "coverPath": "assets/uploads/1/cover.jpg",
     "backgroundPath": "assets/uploads/1/background.jpg",
-    "insightPath": "assets/uploads/1/insight.jpg"
+    "insightPath": "assets/uploads/1/insight.jpg",
+    "ownerSlug": "jin-c"
   }
 ]
