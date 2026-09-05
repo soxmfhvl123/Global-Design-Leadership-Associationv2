@@ -32,5 +32,46 @@
     ],
     "locked": false,
     "lockHash": null
+  },
+  {
+    "slug": "test-seyeon",
+    "title": "test seyeon",
+    "ownerSlug": "seyeon-s",
+    "subtitle": "branding identity",
+    "desc": "test seyeon",
+    "coverImagePath": "assets/uploads/test-seyeon/cover.jpg",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Background test"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/test-seyeon/block-1.jpg",
+        "caption": "캡션 (선택)",
+        "text": "본문 텍스트본문 텍스트",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "Insight"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/test-seyeon/block-3.jpg",
+        "caption": "",
+        "text": "",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/test-seyeon/block-4.jpg",
+        "caption": "캡션 (선택)",
+        "text": "본문 텍스트",
+        "reverse": false
+      }
+    ],
+    "locked": true,
+    "lockHash": "MTExMQ=="
   }
 ]
