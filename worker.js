@@ -56,7 +56,7 @@ const SEED_TEAM = [
 // no matter what a caller sends — this is the server-side safety net.
 const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/', 'articles/'];
 // A few generated files live at exact top-level paths rather than under a prefix.
-const WRITE_EXACT_PATHS = ['articles.html', 'about.html'];
+const WRITE_EXACT_PATHS = ['articles.html', 'about.html', 'index.html'];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 
