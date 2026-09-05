@@ -26,5 +26,19 @@
     "videoPath": null,
     "locked": false,
     "lockHash": null
+  },
+  {
+    "slug": "test-3-blur",
+    "title": "TEST 3 BLUR",
+    "subtitle": "TEST 3 BLUR",
+    "desc": "TEST 3 BLUR",
+    "background": "TEST 3 BLUR",
+    "insight": "TEST 3 BLUR",
+    "coverImagePath": "assets/uploads/test-3-blur/cover.jpg",
+    "backgroundImagePath": "assets/uploads/test-3-blur/background.jpg",
+    "insightImagePath": "assets/uploads/test-3-blur/insight.jpg",
+    "videoPath": null,
+    "locked": true,
+    "lockHash": "MTExMQ=="
   }
 ]
