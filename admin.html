@@ -1188,6 +1188,15 @@
   let manualSlug = null;
 
   const MEDIA_FIELDS = ['cover', 'background', 'insight', 'video'];
+  // MEDIA_FIELDS entries are short form names used for upload inputs/keys, but the actual
+  // project object properties they read/write use a longer "...ImagePath" name for the
+  // image ones (video kept its short name for historical reasons) — this maps between them.
+  const MEDIA_FIELD_PROP = {
+    cover: 'coverImagePath',
+    background: 'backgroundImagePath',
+    insight: 'insightImagePath',
+    video: 'videoPath',
+  };
 
   function currentUploadKey() {
     return editingIndex === -1 ? NEW_KEY : projects[editingIndex].slug;
@@ -1196,7 +1205,7 @@
     const previewEl = document.getElementById(`preview-${field}`);
     const key = currentUploadKey();
     const pending = pendingUploads[key] && pendingUploads[key][field];
-    const existingPath = editingIndex !== -1 ? projects[editingIndex][`${field}Path`] : null;
+    const existingPath = editingIndex !== -1 ? projects[editingIndex][MEDIA_FIELD_PROP[field]] : null;
     previewEl.innerHTML = '';
     if (pending) {
       const url = URL.createObjectURL(pending);
@@ -1225,7 +1234,7 @@
     document.getElementById(`remove-${field}-btn`).addEventListener('click', () => {
       const key = currentUploadKey();
       if (pendingUploads[key]) delete pendingUploads[key][field];
-      if (editingIndex !== -1) projects[editingIndex][`${field}Path`] = null;
+      if (editingIndex !== -1) projects[editingIndex][MEDIA_FIELD_PROP[field]] = null;
       document.getElementById(`f-${field}-file`).value = '';
       renderMediaPreview(field);
     });
@@ -2242,7 +2251,6 @@
       <h1 class="article-title" id="article-title">${escapeHtml(p.title)}</h1>
       <div class="article-byline">
         <p>${escapeHtml(p.subtitle)}</p>
-        <p>GDLA Studio</p>
       </div>
       <p class="article-lead">${escapeHtml(p.desc)}</p>
     </section>
@@ -2840,7 +2848,7 @@
       log(`  ↳ ${field} 업로드 중... (${file.name || field}, ${Math.round(file.size / 1024)}KB)`);
       const base64 = await fileToBase64(file);
       await putFileRawBase64(path, base64, `Upload ${field} for ${p.title}`);
-      p[`${field}Path`] = path;
+      p[MEDIA_FIELD_PROP[field]] = path;
       log(`  ✅ ${path}`);
     }
   }
