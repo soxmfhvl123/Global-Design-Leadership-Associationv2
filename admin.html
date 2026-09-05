@@ -304,8 +304,8 @@
               <input type="text" id="f-title" placeholder="Project name"/>
             </div>
             <div class="admin-field">
-              <label for="f-subtitle">Category</label>
-              <input type="text" id="f-subtitle" placeholder="e.g. Branding · Identity"/>
+              <label for="f-subtitle">Category / Tags (쉼표로 구분, 선택)</label>
+              <input type="text" id="f-subtitle" placeholder="예: Branding, Strategy, Creative Direction"/>
             </div>
           </div>
           <div class="admin-field">
@@ -753,6 +753,30 @@
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+  // Projects' Category/Tags field now works exactly like the profile's Category/Tags field
+  // (comma-separated input -> array of pills), via the same "f-subtitle" input id/element
+  // for continuity — only its label, placeholder and save/populate logic changed to match
+  // mp-tags. Falls back to the older single `subtitle` string for projects saved before
+  // this existed (splitting on comma too, so "branding, identity" becomes two tags instead
+  // of one long one).
+  function projectTagsList(p) {
+    if (p.tags && p.tags.length) return p.tags;
+    if (p.subtitle) return p.subtitle.split(',').map(t => t.trim()).filter(Boolean);
+    return [];
+  }
+  // Comma-joined plain text — for compact, single-line contexts (work cards/rows, the
+  // homepage marquee, the admin project list) where wrapping pill chips would break layout.
+  function projectTagsText(p) {
+    return projectTagsList(p).join(', ');
+  }
+  // Pill-badge markup — for spacious contexts (the project's own detail page), mirroring
+  // the team profile page's tag-pill treatment exactly (reuses the same .profile-tags/
+  // .tag-pill classes).
+  function projectTagsPillHtml(p) {
+    const tags = projectTagsList(p);
+    if (!tags.length) return '';
+    return `<div class="profile-tags">${tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`;
+  }
   function todayDateString() {
     const d = new Date();
     const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -897,7 +921,7 @@
         <div class="admin-project-thumb" style="${p.coverImagePath ? `background-image:url('${p.coverImagePath}');background-size:cover;background-position:center;` : ''}"></div>
         <div class="admin-project-info">
           <div class="title">${escapeHtml(p.title)}${p.locked ? ' 🔒' : ''}</div>
-          <div class="meta">${escapeHtml(p.subtitle)} · by ${escapeHtml(ownerLabel)}</div>
+          <div class="meta">${escapeHtml(projectTagsText(p))} · by ${escapeHtml(ownerLabel)}</div>
         </div>
         <span class="admin-project-badge">${i < 3 ? 'Latest Works' : 'More Works'}</span>
         <div class="admin-project-actions">
@@ -1407,7 +1431,7 @@
     } else {
       const p = projects[index];
       document.getElementById('form-title').textContent = 'Edit Project';
-      fTitle.value = p.title; fSubtitle.value = p.subtitle; fDesc.value = p.desc;
+      fTitle.value = p.title; fSubtitle.value = projectTagsText(p); fDesc.value = p.desc;
       fLocked.checked = !!p.locked; fLockPassword.value = '';
       manualSlug = p.slug;
       slugPreview.textContent = p.slug;
@@ -1446,7 +1470,11 @@
       // that shows it under Latest Works / More Works. Kept as-is on every later edit so
       // editing someone else's project (e.g. to fix a typo) never reassigns ownership.
       ownerSlug: prev.ownerSlug || (currentPerson && currentPerson.slug) || null,
-      subtitle: fSubtitle.value.trim(),
+      // Same comma-separated -> array pattern as the profile's Category/Tags field
+      // (mp-tags). `subtitle` (old single-string field) is no longer written, but
+      // projectTagsList()/projectTagsText()/projectTagsPillHtml() still read it as a
+      // fallback for projects saved before this existed.
+      tags: fSubtitle.value.split(',').map(t => t.trim()).filter(Boolean),
       desc: fDesc.value.trim(),
       coverImagePath: prev.coverImagePath || null,
       blocks: currentProjectBlocks.map(b => ({ ...b })),
@@ -1792,7 +1820,7 @@
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
               <p class="work-title">${escapeHtml(p.title)}</p>
-              <p class="work-subtitle">${escapeHtml(p.subtitle)}</p>
+              <p class="work-subtitle">${escapeHtml(projectTagsText(p))}</p>
             </div>
             <p class="work-desc">${escapeHtml(p.desc)}</p>
             <a class="text-link" href="${prefix}our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
@@ -1807,7 +1835,7 @@
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
               <p class="work-title">${escapeHtml(p.title)}</p>
-              <p class="work-subtitle">${escapeHtml(p.subtitle)}</p>
+              <p class="work-subtitle">${escapeHtml(projectTagsText(p))}</p>
             </div>
             <p class="work-desc">${escapeHtml(p.desc)}</p>
             <a class="text-link" href="${prefix}our-works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
@@ -2254,7 +2282,7 @@
             <div class="text-wrapper-4">Project</div>
             <div class="titles">
               <h3 class="p" id="project-${idx}-title">${escapeHtml(p.title)}</h3>
-              <p class="text-wrapper-5">${escapeHtml(p.subtitle)}</p>
+              <p class="text-wrapper-5">${escapeHtml(projectTagsText(p))}</p>
             </div>
           </div>
           <div class="project-body-copy">
@@ -2432,6 +2460,8 @@
   .article-title { font-family: var(--header-header-1-font-family); font-weight: var(--header-header-1-font-weight); font-size: var(--header-header-1-font-size); letter-spacing: var(--header-header-1-letter-spacing); line-height: 112%; color: #000; width: 100%; }
   .article-byline { display: flex; flex-direction: column; gap: 8px; }
   .article-byline p { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 24px; letter-spacing: -1.2px; color: #000; }
+  .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag-pill { background: #d9d9d9; height: 36px; display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 2px; font-size: 16px; font-weight: 400; letter-spacing: -0.48px; color: #000; white-space: nowrap; }
   .article-lead { font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: 150%; color: #000; width: 100%; max-width: 900px; margin-top: 190px; }
   .article-section-title { width: 100%; padding: 40px 0 30px; font-family: var(--header-header-1-font-family); font-weight: var(--header-header-1-font-weight); font-size: var(--header-header-1-font-size); letter-spacing: var(--header-header-1-letter-spacing); line-height: var(--header-header-1-line-height); color: #000; }
   .article-row-block { width: 100%; padding: 0; }
@@ -2556,7 +2586,7 @@
       </div>
       <h1 class="article-title" id="article-title">${escapeHtml(p.title)}</h1>
       <div class="article-byline">
-        <p>${escapeHtml(p.subtitle)}</p>
+        ${projectTagsPillHtml(p)}
       </div>
       <p class="article-lead">${escapeHtml(p.desc)}</p>
     </section>
