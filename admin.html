@@ -2198,10 +2198,26 @@
 
   // Replaces index.html's old hand-authored "Our Works" placeholder (fake projects, a
   // custom marquee-carousel layout) with the merged catalog from every team member's
-  // published projects, latest first. IMPORTANT: everything inside here uses <div>, never
-  // <section> — the Publish patch below finds this whole block with a non-greedy regex
-  // that stops at the FIRST </section>, so a nested <section> would truncate the match on
-  // the very next publish (same landmine as every other generated-page regex patch).
+  // published projects, latest first. The DESIGN MANAGEMENT sidebar list is kept verbatim
+  // from the original hand-authored markup — it's static site copy, not project data, so
+  // it isn't generated. NOTE: it's a <section> nested inside our outer <section> — that's
+  // fine here because the Publish patch below finds this whole block by literal HTML
+  // comment markers (<!-- ═══ OUR WORKS ═══ --> ... <!-- ═══ THESIS ═══ -->), not by
+  // counting </section> tags, so the nested section does not truncate the match.
+  const DESIGN_MANAGEMENT_SIDEBAR_HTML = `<div class="stats-content">
+        <div class="stats-body">
+          <section class="branding-list" aria-labelledby="design-management-title">
+            <h3 class="text-wrapper-3" id="design-management-title">DESIGN MANAGEMENT</h3>
+            <div class="flexcontainer-2">
+              <p class="div">Vision &amp; Strategy</p>
+              <p class="div">Leadership &amp; Innovation</p>
+              <p class="div">Curriculum &amp; Practice</p>
+              <p class="div">Industry Collaboration</p>
+              <p class="div">Career &amp; Impact</p>
+            </div>
+          </section>
+        </div>
+      </div>`;
   function buildIndexWorksSectionHtml(list) {
     if (!list.length) {
       return `<section class="stats-section" id="our-works" aria-labelledby="our-works-title">
@@ -2209,6 +2225,7 @@
       <div class="our-work-content">
         <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
       </div>
+      ${DESIGN_MANAGEMENT_SIDEBAR_HTML}
       <p style="font-family:'Instrument Sans',Helvetica;font-size:16px;color:var(--gray);">아직 발행된 프로젝트가 없어요 — 팀원이 각자 프로젝트를 올리고 발행하면 여기 자동으로 모여요.</p>
     </section>`;
     }
@@ -2219,6 +2236,7 @@
       <div class="our-work-content">
         <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
       </div>
+      ${DESIGN_MANAGEMENT_SIDEBAR_HTML}
       <div class="works-grid">${latest3.map(p => renderWorkCard(p, '')).join('')}
       </div>
       <div class="works-list-header">
