@@ -234,13 +234,25 @@
         <h2 class="section-heading-xl" id="works-heading">Latest Works</h2>
       </div>
       <div class="works-grid">
+        <div class="work-card">
+          <a class="work-thumb-link" href="../our-works/test-seyeon.html" aria-label="See project: test seyeon"><div class="work-card-image media-lock-wrap"><img class="media-img blurred" src="../assets/uploads/test-seyeon/cover.jpg" alt="test seyeon"><span class="media-lock-badge" aria-hidden="true">🔒</span></div></a>
+          <div class="work-card-body">
+            <p class="work-eyebrow">Project</p>
+            <div class="work-titles">
+              <p class="work-title">test seyeon</p>
+              <p class="work-subtitle">branding identity</p>
+            </div>
+            <p class="work-desc">test seyeon</p>
+            <a class="text-link" href="../our-works/test-seyeon.html" aria-label="See project: test seyeon"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="works-list-section" aria-label="More works">
       <div class="section-divider" aria-hidden="true"></div>
       <div class="works-list-header">
-        <p class="articles-count">0 Works</p>
+        <p class="articles-count" id="works-count">1 Works</p>
         <div class="sort-tabs">
           <button class="sort-tab active" type="button">Newest</button>
           <button class="sort-tab" type="button">Most popular</button>
@@ -248,7 +260,7 @@
       </div>
       <div class="works-row-list">
       </div>
-      <a class="see-more-btn" href="../index.html#our-works">See More</a>
+      <button class="see-more-btn" type="button" id="see-more-works-btn">See More</button>
     </section>
 
     <!-- ═══ CONNECT WITH US ═══ -->
@@ -322,6 +334,26 @@
       tab.classList.add('active');
     });
   });
+</script>
+
+<script data-works-pagination-v1="1">
+  (function () {
+    var PAGE_SIZE = 10;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.work-row-item'));
+    var seeMoreBtn = document.getElementById('see-more-works-btn');
+    var visibleCount = PAGE_SIZE;
+    function render() {
+      rows.forEach(function (row, i) { row.style.display = i < visibleCount ? '' : 'none'; });
+      if (seeMoreBtn) seeMoreBtn.style.display = rows.length > visibleCount ? '' : 'none';
+    }
+    if (seeMoreBtn) {
+      seeMoreBtn.addEventListener('click', function () {
+        visibleCount += PAGE_SIZE;
+        render();
+      });
+    }
+    render();
+  })();
 </script>
 </body>
 </html>
