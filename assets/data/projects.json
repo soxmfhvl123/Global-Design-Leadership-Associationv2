@@ -15,5 +15,22 @@
     "coverPath": "assets/uploads/test/cover.png",
     "backgroundPath": "assets/uploads/test/background.png",
     "insightPath": "assets/uploads/test/insight.png"
+  },
+  {
+    "slug": "1",
+    "title": "1",
+    "subtitle": "2",
+    "desc": "3",
+    "background": "4",
+    "insight": "5",
+    "coverImagePath": null,
+    "backgroundImagePath": null,
+    "insightImagePath": null,
+    "videoPath": null,
+    "locked": false,
+    "lockHash": null,
+    "coverPath": "assets/uploads/1/cover.jpg",
+    "backgroundPath": "assets/uploads/1/background.jpg",
+    "insightPath": "assets/uploads/1/insight.jpg"
   }
 ]
