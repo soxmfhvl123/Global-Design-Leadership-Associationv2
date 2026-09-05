@@ -324,46 +324,19 @@
             </div>
           </div>
 
-          <div class="admin-field">
-            <label for="f-background">Detail Page — Background</label>
-            <textarea id="f-background" placeholder="프로젝트 상세페이지 Background 문단"></textarea>
+          <div class="admin-section-head" style="margin-top:8px;">
+            <h2 style="font-size:20px;">상세페이지 본문 블록</h2>
           </div>
-          <div class="admin-media-field">
-            <label>Background Image</label>
-            <div class="admin-media-row">
-              <div class="admin-media-preview empty" id="preview-background"></div>
-              <div class="admin-media-controls">
-                <input type="file" id="f-background-file" accept="image/*"/>
-                <button class="btn-text" type="button" id="remove-background-btn">이미지 삭제</button>
-              </div>
-            </div>
+          <p class="hint" style="margin:0;">Background / Insight 문단+사진을 자유롭게 추가·삭제·순서변경 할 수 있어요. 동영상 블록을 맨 위로 옮기면 상세페이지 맨 위에 동영상이 먼저 나와요.</p>
+          <div class="block-type-buttons project-block-type-buttons">
+            <button class="btn-outline small" type="button" data-block-type="heading">+ 소제목</button>
+            <button class="btn-outline small" type="button" data-block-type="row">+ 이미지 + 텍스트</button>
+            <button class="btn-outline small" type="button" data-block-type="text">+ 텍스트만 (긴 본문용)</button>
+            <button class="btn-outline small" type="button" data-block-type="quote">+ 인용구</button>
+            <button class="btn-outline small" type="button" data-block-type="full">+ 풀블리드 이미지</button>
+            <button class="btn-outline small" type="button" data-block-type="video">+ 풀블리드 동영상</button>
           </div>
-
-          <div class="admin-field">
-            <label for="f-insight">Detail Page — Insight</label>
-            <textarea id="f-insight" placeholder="프로젝트 상세페이지 Insight 문단"></textarea>
-          </div>
-          <div class="admin-media-field">
-            <label>Insight Image</label>
-            <div class="admin-media-row">
-              <div class="admin-media-preview empty" id="preview-insight"></div>
-              <div class="admin-media-controls">
-                <input type="file" id="f-insight-file" accept="image/*"/>
-                <button class="btn-text" type="button" id="remove-insight-btn">이미지 삭제</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="admin-media-field">
-            <label>Project Video (선택)</label>
-            <div class="admin-media-row">
-              <div class="admin-media-preview empty" id="preview-video"></div>
-              <div class="admin-media-controls">
-                <input type="file" id="f-video-file" accept="video/*"/>
-                <button class="btn-text" type="button" id="remove-video-btn">동영상 삭제</button>
-              </div>
-            </div>
-          </div>
+          <div id="project-block-editor-list" style="display:flex;flex-direction:column;gap:16px;"></div>
 
           <label class="admin-lock-toggle">
             <input type="checkbox" id="f-locked"/>
@@ -1182,25 +1155,18 @@
   const fTitle = document.getElementById('f-title');
   const fSubtitle = document.getElementById('f-subtitle');
   const fDesc = document.getElementById('f-desc');
-  const fBackground = document.getElementById('f-background');
-  const fInsight = document.getElementById('f-insight');
   const fLocked = document.getElementById('f-locked');
   const fLockPassword = document.getElementById('f-lock-password');
   const lockPanel = document.getElementById('lock-panel');
   const slugPreview = document.getElementById('slug-preview');
   let editingIndex = -1;
   let manualSlug = null;
+  let currentProjectBlocks = []; // working copy of the project detail page's content blocks
 
-  const MEDIA_FIELDS = ['cover', 'background', 'insight', 'video'];
-  // MEDIA_FIELDS entries are short form names used for upload inputs/keys, but the actual
-  // project object properties they read/write use a longer "...ImagePath" name for the
-  // image ones (video kept its short name for historical reasons) — this maps between them.
-  const MEDIA_FIELD_PROP = {
-    cover: 'coverImagePath',
-    background: 'backgroundImagePath',
-    insight: 'insightImagePath',
-    video: 'videoPath',
-  };
+  // Only the card thumbnail is a fixed field now — Background/Insight/Video are all
+  // free-form content blocks (see the block editor below), same idea as Articles.
+  const MEDIA_FIELDS = ['cover'];
+  const MEDIA_FIELD_PROP = { cover: 'coverImagePath' };
 
   function currentUploadKey() {
     return editingIndex === -1 ? NEW_KEY : projects[editingIndex].slug;
@@ -1248,27 +1214,208 @@
     lockPanel.classList.toggle('show', fLocked.checked);
   });
 
+  /* ─── Project detail-page block editor (mirrors the Article block editor; adds a
+     'video' block type so a project's video can be placed anywhere, e.g. at the top) ─── */
+  function getPendingProjectBlockFiles() {
+    const key = currentUploadKey();
+    if (!pendingUploads[key]) pendingUploads[key] = {};
+    if (!pendingUploads[key].blocks) pendingUploads[key].blocks = {};
+    return pendingUploads[key].blocks;
+  }
+  function swapPendingProjectBlockFiles(i, j) {
+    const files = getPendingProjectBlockFiles();
+    const a = files[i], b = files[j];
+    if (b !== undefined) files[i] = b; else delete files[i];
+    if (a !== undefined) files[j] = a; else delete files[j];
+  }
+  function reindexPendingProjectBlockFilesAfterRemove(removedIndex) {
+    const key = currentUploadKey();
+    const files = getPendingProjectBlockFiles();
+    const newFiles = {};
+    Object.keys(files).map(Number).sort((x, y) => x - y).forEach(idx => {
+      if (idx < removedIndex) newFiles[idx] = files[idx];
+      else if (idx > removedIndex) newFiles[idx - 1] = files[idx];
+    });
+    pendingUploads[key].blocks = newFiles;
+  }
+  function blockMediaPreviewInner(files, i, existingPath, mediaType) {
+    if (files[i]) {
+      const url = URL.createObjectURL(files[i]);
+      return mediaType === 'video' ? `<video src="${url}" muted></video>` : `<img src="${url}"/>`;
+    }
+    if (existingPath) {
+      return mediaType === 'video' ? `<video src="${existingPath}" muted></video>` : `<img src="${existingPath}"/>`;
+    }
+    return '';
+  }
+  function blockMediaEmptyClass(files, i, existingPath) {
+    return (files[i] || existingPath) ? '' : 'empty';
+  }
+  function syncProjectBlocksFromDom() {
+    const items = Array.from(document.querySelectorAll('#project-block-editor-list .block-editor-item'));
+    items.forEach((item, i) => {
+      const b = currentProjectBlocks[i];
+      if (!b) return;
+      const get = (f) => { const el = item.querySelector(`[data-f="${f}"]`); return el ? el.value.trim() : ''; };
+      if (b.type === 'heading') {
+        b.text = get('text');
+      } else if (b.type === 'row') {
+        b.caption = get('caption');
+        b.text = get('text');
+        const revEl = item.querySelector('[data-f="reverse"]');
+        b.reverse = revEl ? revEl.checked : false;
+      } else if (b.type === 'text') {
+        b.text = get('text');
+      } else if (b.type === 'quote') {
+        b.short = get('short');
+        b.sub = get('sub');
+        b.body = get('body');
+      } else if (b.type === 'full' || b.type === 'video') {
+        b.caption = get('caption');
+      }
+    });
+  }
+  function renderProjectBlockEditorItem(b, i) {
+    const head = `
+      <div class="block-editor-head">
+        <span class="type-label">${blockTypeLabel(b.type)}</span>
+        <div class="block-editor-actions">
+          <button class="admin-icon-btn" type="button" title="위로" onclick="moveProjectBlock(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" type="button" title="아래로" onclick="moveProjectBlock(${i}, 1)">▼</button>
+          <button class="admin-icon-btn danger" type="button" title="삭제" onclick="removeProjectBlock(${i})">🗑</button>
+        </div>
+      </div>`;
+    const files = getPendingProjectBlockFiles();
+    let body = '';
+    if (b.type === 'heading') {
+      body = `<div class="admin-field"><label>소제목 텍스트</label><input type="text" data-f="text" value="${escapeHtml(b.text)}" placeholder="예: Background"/></div>`;
+    } else if (b.type === 'row') {
+      body = `
+        <div class="admin-media-field">
+          <label>이미지</label>
+          <div class="admin-media-row">
+            <div class="admin-media-preview ${blockMediaEmptyClass(files, i, b.image)}">${blockMediaPreviewInner(files, i, b.image, 'image')}</div>
+            <div class="admin-media-controls"><input type="file" accept="image/*" data-project-block-file="${i}"/></div>
+          </div>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:14px;letter-spacing:-0.4px;"><input type="checkbox" data-f="reverse" ${b.reverse ? 'checked' : ''} style="width:16px;height:16px;"/> 이미지를 오른쪽에 배치 (reverse)</label>
+        <div class="admin-field"><label>캡션 (선택)</label><textarea data-f="caption" placeholder="이미지 위에 작게 표시되는 설명 (줄바꿈 가능)">${escapeHtml(b.caption)}</textarea></div>
+        <div class="admin-field"><label>본문 텍스트</label><textarea data-f="text" placeholder="이미지 옆에 들어가는 본문">${escapeHtml(b.text)}</textarea></div>`;
+    } else if (b.type === 'text') {
+      body = `<div class="admin-field"><label>본문 텍스트 (길게 써도 돼요)</label><textarea data-f="text" style="min-height:140px;" placeholder="긴 본문 문단 — 빈 줄로 문단을 구분할 수 있어요">${escapeHtml(b.text)}</textarea></div>`;
+    } else if (b.type === 'quote') {
+      body = `
+        <div class="admin-field"><label>짧은 인용구</label><input type="text" data-f="short" value="${escapeHtml(b.short)}" placeholder="큰 글씨로 강조되는 한 줄"/></div>
+        <div class="admin-field"><label>인용구 부제 (선택)</label><input type="text" data-f="sub" value="${escapeHtml(b.sub)}" placeholder="작게 표시되는 부제/번역"/></div>
+        <div class="admin-field"><label>인용구 본문</label><textarea data-f="body" placeholder="빈 줄로 문단을 구분할 수 있어요">${escapeHtml(b.body)}</textarea></div>`;
+    } else if (b.type === 'full') {
+      body = `
+        <div class="admin-media-field">
+          <label>풀블리드 이미지 (가로 전체 폭)</label>
+          <div class="admin-media-row">
+            <div class="admin-media-preview ${blockMediaEmptyClass(files, i, b.image)}">${blockMediaPreviewInner(files, i, b.image, 'image')}</div>
+            <div class="admin-media-controls"><input type="file" accept="image/*" data-project-block-file="${i}"/></div>
+          </div>
+        </div>
+        <div class="admin-field"><label>캡션 (선택)</label><textarea data-f="caption" placeholder="이미지 아래 작게 표시되는 설명">${escapeHtml(b.caption)}</textarea></div>`;
+    } else if (b.type === 'video') {
+      body = `
+        <div class="admin-media-field">
+          <label>풀블리드 동영상 (가로 전체 폭)</label>
+          <div class="admin-media-row">
+            <div class="admin-media-preview ${blockMediaEmptyClass(files, i, b.video)}">${blockMediaPreviewInner(files, i, b.video, 'video')}</div>
+            <div class="admin-media-controls"><input type="file" accept="video/*" data-project-block-file="${i}"/></div>
+          </div>
+        </div>
+        <div class="admin-field"><label>캡션 (선택)</label><textarea data-f="caption" placeholder="동영상 아래 작게 표시되는 설명">${escapeHtml(b.caption)}</textarea></div>`;
+    }
+    return `<div class="block-editor-item">${head}${body}</div>`;
+  }
+  function renderProjectBlockEditor() {
+    const listEl = document.getElementById('project-block-editor-list');
+    if (!currentProjectBlocks.length) {
+      listEl.innerHTML = '<p class="admin-empty">아직 블록이 없어요. 위 버튼으로 첫 블록을 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = currentProjectBlocks.map((b, i) => renderProjectBlockEditorItem(b, i)).join('');
+    listEl.querySelectorAll('input[type=file][data-project-block-file]').forEach(inp => {
+      inp.addEventListener('change', e => {
+        syncProjectBlocksFromDom();
+        const idx = Number(inp.dataset.projectBlockFile);
+        const file = e.target.files[0];
+        if (file) getPendingProjectBlockFiles()[idx] = file;
+        renderProjectBlockEditor();
+      });
+    });
+  }
+  document.querySelectorAll('#project-form .project-block-type-buttons button[data-block-type]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      syncProjectBlocksFromDom();
+      currentProjectBlocks.push(defaultBlock(btn.dataset.blockType));
+      renderProjectBlockEditor();
+    });
+  });
+  window.moveProjectBlock = function (i, dir) {
+    syncProjectBlocksFromDom();
+    const j = i + dir;
+    if (j < 0 || j >= currentProjectBlocks.length) return;
+    [currentProjectBlocks[i], currentProjectBlocks[j]] = [currentProjectBlocks[j], currentProjectBlocks[i]];
+    swapPendingProjectBlockFiles(i, j);
+    renderProjectBlockEditor();
+  };
+  window.removeProjectBlock = function (i) {
+    syncProjectBlocksFromDom();
+    currentProjectBlocks.splice(i, 1);
+    reindexPendingProjectBlockFilesAfterRemove(i);
+    renderProjectBlockEditor();
+  };
+  // The default starting layout for a brand-new project — same Background/Insight shape
+  // as before, but now just a starting point: freely edit, reorder, add, or remove blocks.
+  function defaultProjectBlocks() {
+    return [
+      { type: 'heading', text: 'Background' },
+      { type: 'row', image: null, caption: '', text: '', reverse: false },
+      { type: 'heading', text: 'Insight' },
+      { type: 'row', image: null, caption: '', text: '', reverse: true },
+    ];
+  }
+  // Projects saved before the block editor existed have no .blocks yet — rebuild an
+  // equivalent set of blocks from their old fixed Background/Insight/Video fields so
+  // nothing is lost the first time they're opened for editing under the new system.
+  function legacyProjectBlocks(p) {
+    const blocks = [
+      { type: 'heading', text: 'Background' },
+      { type: 'row', image: p.backgroundImagePath || null, caption: '', text: p.background || '', reverse: false },
+      { type: 'heading', text: 'Insight' },
+      { type: 'row', image: p.insightImagePath || null, caption: '', text: p.insight || '', reverse: true },
+    ];
+    if (p.videoPath) blocks.push({ type: 'video', video: p.videoPath, caption: '' });
+    return blocks;
+  }
+
   function openForm(index) {
     editingIndex = index;
     manualSlug = null;
     if (index === -1) {
       document.getElementById('form-title').textContent = 'Add New Project';
-      fTitle.value = ''; fSubtitle.value = ''; fDesc.value = ''; fBackground.value = ''; fInsight.value = '';
+      fTitle.value = ''; fSubtitle.value = ''; fDesc.value = '';
       fLocked.checked = false; fLockPassword.value = '';
       slugPreview.textContent = 'project-slug';
       delete pendingUploads[NEW_KEY];
+      currentProjectBlocks = defaultProjectBlocks();
     } else {
       const p = projects[index];
       document.getElementById('form-title').textContent = 'Edit Project';
       fTitle.value = p.title; fSubtitle.value = p.subtitle; fDesc.value = p.desc;
-      fBackground.value = p.background; fInsight.value = p.insight;
       fLocked.checked = !!p.locked; fLockPassword.value = '';
       manualSlug = p.slug;
       slugPreview.textContent = p.slug;
+      currentProjectBlocks = (p.blocks && p.blocks.length) ? JSON.parse(JSON.stringify(p.blocks)) : legacyProjectBlocks(p);
     }
     lockPanel.classList.toggle('show', fLocked.checked);
     MEDIA_FIELDS.forEach(f => { document.getElementById(`f-${f}-file`).value = ''; });
     renderAllMediaPreviews();
+    renderProjectBlockEditor();
     formEl.classList.add('show');
     formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -1280,6 +1427,7 @@
   });
 
   document.getElementById('save-project-btn').addEventListener('click', () => {
+    syncProjectBlocksFromDom();
     const title = fTitle.value.trim();
     if (!title) { alert('Title을 입력해주세요.'); return; }
     if (fLocked.checked && !fLockPassword.value.trim() && !(editingIndex !== -1 && projects[editingIndex].lockHash)) {
@@ -1299,12 +1447,8 @@
       ownerSlug: prev.ownerSlug || (currentPerson && currentPerson.slug) || null,
       subtitle: fSubtitle.value.trim(),
       desc: fDesc.value.trim(),
-      background: fBackground.value.trim(),
-      insight: fInsight.value.trim(),
       coverImagePath: prev.coverImagePath || null,
-      backgroundImagePath: prev.backgroundImagePath || null,
-      insightImagePath: prev.insightImagePath || null,
-      videoPath: prev.videoPath || null,
+      blocks: currentProjectBlocks.map(b => ({ ...b })),
       locked: fLocked.checked,
       lockHash: fLocked.checked ? (fLockPassword.value.trim() ? simpleHash(fLockPassword.value.trim()) : prev.lockHash) : null,
     };
@@ -1394,7 +1538,7 @@
   });
 
   function blockTypeLabel(t) {
-    return { heading: '소제목', row: '이미지 + 텍스트', text: '텍스트', quote: '인용구', full: '풀블리드 이미지' }[t] || t;
+    return { heading: '소제목', row: '이미지 + 텍스트', text: '텍스트', quote: '인용구', full: '풀블리드 이미지', video: '풀블리드 동영상' }[t] || t;
   }
   function defaultBlock(type) {
     if (type === 'heading') return { type, text: '' };
@@ -1402,6 +1546,7 @@
     if (type === 'text') return { type, text: '' };
     if (type === 'quote') return { type, short: '', sub: '', body: '' };
     if (type === 'full') return { type, image: null, caption: '' };
+    if (type === 'video') return { type, video: null, caption: '' };
     return { type: 'text', text: '' };
   }
   function blockImagePreviewInner(i, existingPath) {
@@ -1504,7 +1649,7 @@
     });
   }
 
-  document.querySelectorAll('.block-type-buttons button[data-block-type]').forEach(btn => {
+  document.querySelectorAll('#article-form .block-type-buttons button[data-block-type]').forEach(btn => {
     btn.addEventListener('click', () => {
       syncBlocksFromDom();
       currentBlocks.push(defaultBlock(btn.dataset.blockType));
@@ -2066,7 +2211,49 @@
     </section>`;
   }
 
+  // Renders one project content block. Mirrors articleBlockHtml, plus a 'video' type
+  // (full-bleed video — e.g. so a project's video can be moved to the very top of the
+  // page just by dragging its block above the others) that articles don't need.
+  function projectBlockHtml(b, p, idx) {
+    if (b.type === 'heading') {
+      const style = idx === 0 ? 'padding:0 0 110px' : 'padding:90px 0 30px';
+      return `<h2 class="article-section-title" style="${style}">${escapeHtml(b.text)}</h2>`;
+    }
+    if (b.type === 'row') {
+      return `<div class="article-row-block" style="padding-bottom:80px">
+      ${b.caption ? `<p class="article-caption">${escapeHtml(b.caption)}</p>` : ''}
+      <div class="article-row${b.reverse ? ' reverse' : ''}">
+        ${renderStandaloneMedia(b.image, p.title + ' visual', 'article-row-image', p.locked, p.lockHash, 'img')}
+        <p class="article-row-text">${escapeHtml(b.text)}</p>
+      </div>
+    </div>`;
+    }
+    if (b.type === 'text') {
+      return `<p class="article-text-block">${escapeHtml(b.text)}</p>`;
+    }
+    if (b.type === 'quote') {
+      return `<div class="article-quote-block">
+      <p class="article-quote-short">${escapeHtml(b.short)}${b.sub ? `<span>${escapeHtml(b.sub)}</span>` : ''}</p>
+      <p class="article-quote-body">${escapeHtml(b.body)}</p>
+    </div>`;
+    }
+    if (b.type === 'full') {
+      return `<div class="article-row-block" style="padding-bottom:80px">
+      ${b.caption ? `<p class="article-caption">${escapeHtml(b.caption)}</p>` : ''}
+      ${renderStandaloneMedia(b.image, p.title + ' image', 'article-full-image', p.locked, p.lockHash, 'img')}
+    </div>`;
+    }
+    if (b.type === 'video') {
+      return `<section class="project-video-section" aria-label="Project video">
+      ${b.caption ? `<p class="article-caption">${escapeHtml(b.caption)}</p>` : ''}
+      ${renderStandaloneMedia(b.video, p.title + ' video', 'article-row-image', p.locked, p.lockHash, 'video')}
+    </section>`;
+    }
+    return '';
+  }
+
   function buildProjectDetailHtml(p, others) {
+    const blocksHtml = (p.blocks || []).map((b, i) => projectBlockHtml(b, p, i)).join('\n    ');
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2151,7 +2338,15 @@
   .article-row { display: flex; align-items: center; gap: 40px; width: 100%; }
   .article-row.reverse { flex-direction: row-reverse; }
   .article-row-image { width: 500px; height: 500px; object-fit: cover; flex-shrink: 0; background: #d8d8d8; border-radius: 2px; }
-  .article-row-text { flex: 1; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 28px; letter-spacing: -1.4px; line-height: 145%; color: #000; }
+  .article-row-text { flex: 1; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 28px; letter-spacing: -1.4px; line-height: 145%; color: #000; white-space: pre-line; }
+  .article-caption { font-family: "Instrument Sans", Helvetica; font-weight: 500; font-size: 18px; letter-spacing: -0.5px; line-height: 150%; color: var(--paragraph-2); padding-bottom: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--divider); white-space: pre-line; }
+  .article-text-block { width: 100%; max-width: 900px; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 28px; letter-spacing: -1.4px; line-height: 145%; color: #000; padding: 0 0 80px; white-space: pre-line; }
+  .article-full-image { width: 100%; border-radius: 2px; overflow: hidden; margin-bottom: 80px; }
+  .article-full-image .media-img { width: 100%; height: auto; display: block; object-fit: cover; }
+  .article-quote-block { width: 100%; padding: 0 0 80px; display: flex; flex-direction: column; gap: 28px; }
+  .article-quote-short { font-family: "Instrument Sans", Helvetica; font-weight: 500; font-size: 32px; letter-spacing: -1.6px; line-height: 135%; color: #000; }
+  .article-quote-short span { display: block; font-weight: 400; font-size: 24px; letter-spacing: -1.2px; color: var(--paragraph-2); margin-top: 8px; }
+  .article-quote-body { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 28px; letter-spacing: -1.4px; line-height: 155%; color: #000; white-space: pre-line; }
   .media-lock-wrap { position: relative; overflow: hidden; }
   .media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .media-img.blurred { filter: blur(18px); transform: scale(1.08); }
@@ -2211,6 +2406,9 @@
     .article-row { flex-direction: column !important; gap: 24px; }
     .article-row-image { width: 100%; height: auto; aspect-ratio: 1/1; }
     .article-row-text { font-size: 20px; letter-spacing: -1px; line-height: 140%; }
+    .article-text-block { font-size: 20px; letter-spacing: -1px; line-height: 140%; }
+    .article-quote-short { font-size: 24px; letter-spacing: -1.2px; }
+    .article-quote-body { font-size: 18px; letter-spacing: -0.5px; line-height: 150%; }
     .other-projects-grid { grid-template-columns: 1fr; gap: 30px; }
     .connect-with-us-2 { gap: 20px; }
     .text-wrapper-17 { font-size: 28px; letter-spacing: -1.4px; }
@@ -2262,24 +2460,7 @@
       </div>
       <p class="article-lead">${escapeHtml(p.desc)}</p>
     </section>
-    <h2 class="article-section-title" style="padding:0 0 110px">Background</h2>
-    <div class="article-row-block" style="padding-bottom:148px">
-      <div class="article-row">
-        ${renderStandaloneMedia(p.backgroundImagePath, p.title + ' background visual', 'article-row-image', p.locked, p.lockHash, 'img')}
-        <p class="article-row-text">${escapeHtml(p.background)}</p>
-      </div>
-    </div>
-    <h2 class="article-section-title" style="padding:110px 0 110px">Insight</h2>
-    <div class="article-row-block" style="padding-bottom:80px">
-      <div class="article-row reverse">
-        ${renderStandaloneMedia(p.insightImagePath, p.title + ' insight visual', 'article-row-image', p.locked, p.lockHash, 'img')}
-        <p class="article-row-text">${escapeHtml(p.insight)}</p>
-      </div>
-    </div>
-    ${p.videoPath ? `
-    <section class="project-video-section" aria-label="Project video">
-      ${renderStandaloneMedia(p.videoPath, p.title + ' video', 'article-row-image', p.locked, p.lockHash, 'video')}
-    </section>` : ''}
+    ${blocksHtml}
     ${buildOtherProjectsHtml(others)}
     <section class="connect-with-us" aria-labelledby="connect-title">
       <div class="connect-with-us-2">
@@ -2844,8 +3025,10 @@
     .profile-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
 `;
 
-  // Uploads every pending file for one project to GitHub under assets/uploads/{slug}/{field}.{ext}
-  // (shared across the whole team, since all 9 portfolios show the same project catalog).
+  // Uploads every pending file for one project to GitHub: the cover thumbnail under
+  // assets/uploads/{slug}/cover.{ext}, plus one file per content block (Background/Insight
+  // images, full-bleed images/videos, wherever the user placed them) under
+  // assets/uploads/{slug}/block-{idx}.{ext} — mirrors uploadPendingMediaForArticle.
   async function uploadPendingMediaForProject(p) {
     const pending = pendingUploads[p.slug] || {};
     for (const field of MEDIA_FIELDS) {
@@ -2857,6 +3040,20 @@
       const base64 = await fileToBase64(file);
       await putFileRawBase64(path, base64, `Upload ${field} for ${p.title}`);
       p[MEDIA_FIELD_PROP[field]] = path;
+      log(`  ✅ ${path}`);
+    }
+    const blockFiles = pending.blocks || {};
+    for (const idxStr of Object.keys(blockFiles)) {
+      const idx = Number(idxStr);
+      const file = blockFiles[idx];
+      const block = p.blocks && p.blocks[idx];
+      if (!file || !block) continue;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/${p.slug}/block-${idx}.${ext}`;
+      log(`  ↳ block ${idx} 미디어 업로드 중... (${file.name || 'media'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload block ${idx} media for ${p.title}`);
+      if (block.type === 'video') block.video = path; else block.image = path;
       log(`  ✅ ${path}`);
     }
   }
