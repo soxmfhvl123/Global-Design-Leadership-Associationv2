@@ -911,7 +911,10 @@
       listEl.innerHTML = '<p class="admin-empty">아직 프로젝트가 없어요. "+ Add New Project"로 첫 프로젝트를 추가해보세요.</p>';
       return;
     }
-    listEl.innerHTML = projects.map((p, i) => `
+    listEl.innerHTML = projects.map((p, i) => {
+      const owner = team.find(t => t.slug === p.ownerSlug);
+      const ownerLabel = owner ? owner.name : (p.ownerSlug || '알 수 없음');
+      return `
       <div class="admin-project-row">
         <div class="admin-project-order">
           <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveProject(${i}, -1)">▲</button>
@@ -920,7 +923,7 @@
         <div class="admin-project-thumb" style="${p.coverImagePath ? `background-image:url('${p.coverImagePath}');background-size:cover;background-position:center;` : ''}"></div>
         <div class="admin-project-info">
           <div class="title">${escapeHtml(p.title)}${p.locked ? ' 🔒' : ''}</div>
-          <div class="meta">${escapeHtml(p.subtitle)}</div>
+          <div class="meta">${escapeHtml(p.subtitle)} · by ${escapeHtml(ownerLabel)}</div>
         </div>
         <span class="admin-project-badge">${i < 3 ? 'Latest Works' : 'More Works'}</span>
         <div class="admin-project-actions">
@@ -928,7 +931,8 @@
           <button class="admin-icon-btn danger" title="삭제" onclick="deleteProject(${i})">🗑</button>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   window.moveProject = function (i, dir) {
@@ -1289,6 +1293,10 @@
     const data = {
       slug,
       title,
+      // Whoever first creates a project "owns" it — their portfolio page is the only one
+      // that shows it under Latest Works / More Works. Kept as-is on every later edit so
+      // editing someone else's project (e.g. to fix a typo) never reassigns ownership.
+      ownerSlug: prev.ownerSlug || (currentPerson && currentPerson.slug) || null,
       subtitle: fSubtitle.value.trim(),
       desc: fDesc.value.trim(),
       background: fBackground.value.trim(),
@@ -2937,18 +2945,21 @@
 
       for (const m of team) {
         const teamPath = `team/${m.slug}.html`;
+        // Each person's portfolio only shows the projects THEY added — not the whole
+        // company catalog. (ownerSlug is set once, at creation, in the save-project handler.)
+        const myProjects = projects.filter(p => p.ownerSlug === m.slug);
         log(teamPath + ' 확인 중...');
         const teamFile = await getFile(teamPath);
         let newHtml;
         if (!teamFile) {
           // Brand-new teammate (just added via "Add Teammate") — no page exists yet, so build one from scratch.
-          newHtml = buildTeamPageHtml(m, projects);
+          newHtml = buildTeamPageHtml(m, myProjects);
         } else {
           newHtml = teamFile.content
             .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(m.name)} — Global Design Leadership Association</title>`)
             .replace(/<section class="profile-section"[\s\S]*?<\/section>/, buildProfileSectionHtml(m))
-            .replace(/<section class="works-section"[\s\S]*?<\/section>/, buildWorksSectionHtml(projects))
-            .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(projects));
+            .replace(/<section class="works-section"[\s\S]*?<\/section>/, buildWorksSectionHtml(myProjects))
+            .replace(/<section class="works-list-section"[\s\S]*?<\/section>/, buildWorksListSectionHtml(myProjects));
           if (!newHtml.includes('.media-lock-wrap')) {
             newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
           }
@@ -2972,7 +2983,8 @@
 
       for (const p of projects) {
         const path = `our-works/${p.slug}.html`;
-        const others = projects.filter(x => x.slug !== p.slug).slice(0, 3);
+        // "Other projects" continues the SAME person's portfolio, not the whole company's.
+        const others = projects.filter(x => x.slug !== p.slug && x.ownerSlug === p.ownerSlug).slice(0, 3);
         const html = buildProjectDetailHtml(p, others);
         log(path + ' 확인 중...');
         await putFile(path, html, `Update project page via admin: ${p.title} (${currentPerson.name})`);
