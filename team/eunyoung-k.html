@@ -240,7 +240,7 @@
     <section class="works-list-section" aria-label="More works">
       <div class="section-divider" aria-hidden="true"></div>
       <div class="works-list-header">
-        <p class="articles-count">0 Works</p>
+        <p class="articles-count" id="works-count">0 Works</p>
         <div class="sort-tabs">
           <button class="sort-tab active" type="button">Newest</button>
           <button class="sort-tab" type="button">Most popular</button>
@@ -248,7 +248,7 @@
       </div>
       <div class="works-row-list">
       </div>
-      <a class="see-more-btn" href="../index.html#our-works">See More</a>
+      <button class="see-more-btn" type="button" id="see-more-works-btn">See More</button>
     </section>
 
     <!-- ═══ CONNECT WITH US ═══ -->
@@ -322,6 +322,26 @@
       tab.classList.add('active');
     });
   });
+</script>
+
+<script data-works-pagination-v1="1">
+  (function () {
+    var PAGE_SIZE = 10;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.work-row-item'));
+    var seeMoreBtn = document.getElementById('see-more-works-btn');
+    var visibleCount = PAGE_SIZE;
+    function render() {
+      rows.forEach(function (row, i) { row.style.display = i < visibleCount ? '' : 'none'; });
+      if (seeMoreBtn) seeMoreBtn.style.display = rows.length > visibleCount ? '' : 'none';
+    }
+    if (seeMoreBtn) {
+      seeMoreBtn.addEventListener('click', function () {
+        visibleCount += PAGE_SIZE;
+        render();
+      });
+    }
+    render();
+  })();
 </script>
 </body>
 </html>
