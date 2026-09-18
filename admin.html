@@ -777,6 +777,137 @@
     if (!tags.length) return '';
     return `<div class="profile-tags">${tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`;
   }
+  /* ═══════════════════ SITE NAV: Forum dropdown + Research Lab ═══════════════════
+     New nav items requested across the whole public site: a "Forum" link that shows a
+     hover dropdown of WHY forum years, and an external "Research Lab" link. The site has
+     TWO unrelated nav markup/CSS conventions already (a historical split, not something
+     this change introduces):
+       - style 1 ("links-contain"/"link-2"/"text-links"): index.html, about.html,
+         articles.html, and the generated project/article detail pages.
+       - style 2 ("nav-header"/"nav-links-wrap"): generated team pages only.
+     Both get the same dropdown content/behavior via shared .forum-dropdown CSS; only the
+     wrapping markup differs per style. Update FORUM_DROPDOWN_LIST_HTML here if forum years
+     or links ever change — every nav on the site pulls from this one place. */
+  const RESEARCH_LAB_URL = 'https://www.clabresearchcenter.com/';
+  // Why2026 has no hosted link yet (PPT only) — shown as plain non-clickable text, same as
+  // the still-TBD items, until there's a URL to point it at.
+  const FORUM_DROPDOWN_LIST_HTML = `<a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
+      <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
+      <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>`;
+  const FORUM_DROPDOWN_CSS_INJECT = `
+    .nav-has-dropdown { position: relative; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 14px; background: #fff; border: 1px solid #000; padding: 20px 24px; min-width: 220px; z-index: 250; }
+    .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
+    .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
+    .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
+    a.forum-dropdown-item:hover { opacity: 0.6; }
+    .forum-dropdown-item.is-tbd { color: rgba(118,118,118,1); }
+    .mobile-forum summary { font-family: "Instrument Sans", Helvetica; font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); cursor: pointer; list-style: none; }
+    .mobile-forum summary::-webkit-details-marker { display: none; }
+    .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
+    .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
+`;
+  // Desktop nav links for "style 1" pages (index.html, about.html, articles.html,
+  // project/article detail pages). `prefix` is '' at the repo root, '../' one dir down.
+  function navLinksHtml(prefix = '') {
+    const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
+    return `<div class="link-wrapper"><a class="link-2" href="${prefix}about.html">About</a></div>
+        <div class="link-wrapper nav-has-dropdown">
+          <a class="link-2" href="#" aria-haspopup="true">Forum</a>
+          <div class="forum-dropdown">
+            <p class="forum-dropdown-title">Forum</p>
+            ${FORUM_DROPDOWN_LIST_HTML}
+          </div>
+        </div>
+        <div class="link-wrapper"><a class="link-2" href="${prefix}articles.html">Article</a></div>
+        <div class="link-wrapper"><a class="link-2" href="${contactHref}">Contact</a></div>
+        <div class="link-wrapper"><a class="link-2" href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>`;
+  }
+  // Desktop nav links for "style 2" pages (team pages only — .nav-links-wrap has no
+  // per-item wrapper div, just bare <a> children).
+  function navHeaderLinksHtml(prefix = '') {
+    const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
+    return `<a href="${prefix}about.html">About</a>
+      <div class="nav-has-dropdown">
+        <a href="#" aria-haspopup="true">Forum</a>
+        <div class="forum-dropdown">
+          <p class="forum-dropdown-title">Forum</p>
+          ${FORUM_DROPDOWN_LIST_HTML}
+        </div>
+      </div>
+      <a href="${prefix}articles.html">Article</a>
+      <a href="${contactHref}">Contact</a>
+      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>`;
+  }
+  // Mobile slide-down nav content — shared by both styles (both use the same
+  // ".mobile-nav" overlay markup/CSS). Forum expands in place via <details>, since hover
+  // doesn't exist on touch.
+  function mobileNavLinksHtml(prefix = '') {
+    const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
+    return `<a href="${prefix}about.html" onclick="closeMobileNav()">About</a>
+    <details class="mobile-forum">
+      <summary>Forum</summary>
+      <div class="mobile-forum-list">${FORUM_DROPDOWN_LIST_HTML}</div>
+    </details>
+    <a href="${prefix}articles.html" onclick="closeMobileNav()">Article</a>
+    <a href="${contactHref}" onclick="closeMobileNav()">Contact</a>
+    <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
+  }
+  // Retroactively replaces the nav on an already-published "style 1" page (index.html,
+  // about.html, articles.html) with the Forum-dropdown + Research Lab version, and injects
+  // the CSS it needs if missing. Safe to re-run on every Publish — it's a full block
+  // replace, not an append, so it converges to the same result every time.
+  function patchStyle1Nav(html, prefix = '') {
+    let out = html.replace(
+      /<nav class="links-contain" aria-label="Primary">[\s\S]*?<\/nav>/,
+      `<nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        ${navLinksHtml(prefix)}
+      </div>
+    </nav>`
+    );
+    out = out.replace(
+      /<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">[\s\S]*?<\/nav>/,
+      `<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    ${mobileNavLinksHtml(prefix)}
+  </nav>`
+    );
+    if (!out.includes('.forum-dropdown {')) {
+      out = out.replace('</style>', FORUM_DROPDOWN_CSS_INJECT + '\n  </style>');
+    }
+    return out;
+  }
+  // Same idea, for team pages' different ("style 2") nav markup. Applied unconditionally
+  // in the team-page Publish loop (both the brand-new-page and existing-page branches),
+  // so it's harmless/idempotent either way.
+  function patchTeamPageNav(html) {
+    let out = html.replace(
+      /<header class="nav-header">[\s\S]*?<\/header>/,
+      `<header class="nav-header">
+    <div class="nav-logo-wrap">
+      <a href="../index.html">Global Design Leadership Association</a>
+    </div>
+    <nav class="nav-links-wrap" aria-label="Primary">
+      ${navHeaderLinksHtml('../')}
+    </nav>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>`
+    );
+    out = out.replace(
+      /<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">[\s\S]*?<\/nav>/,
+      `<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    ${mobileNavLinksHtml('../')}
+  </nav>`
+    );
+    if (!out.includes('.forum-dropdown {')) {
+      out = out.replace('</style>', FORUM_DROPDOWN_CSS_INJECT + '\n  </style>');
+    }
+    return out;
+  }
   function todayDateString() {
     const d = new Date();
     const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -2093,6 +2224,7 @@
 
   ${MEDIA_CSS_INJECT}
   ${PROFILE_PHOTO_CSS_INJECT}
+  ${FORUM_DROPDOWN_CSS_INJECT}
   </style>
 </head>
 <body>
@@ -2105,9 +2237,7 @@
       <a href="../index.html">Global Design Leadership Association</a>
     </div>
     <nav class="nav-links-wrap" aria-label="Primary">
-      <a href="../about.html">About</a>
-      <a href="../articles.html">Article</a>
-      <a href="../index.html#contact">Contact</a>
+      ${navHeaderLinksHtml('../')}
     </nav>
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
       <span></span><span></span><span></span>
@@ -2115,9 +2245,7 @@
   </header>
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <a href="../about.html" onclick="closeMobileNav()">About</a>
-    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
-    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
+    ${mobileNavLinksHtml('../')}
   </nav>
 
   <div class="nav-spacer"></div>
@@ -2232,14 +2360,20 @@
   // do not confuse the two. All the CSS here (.project-article, .marquee-container,
   // .marquee-inner, .marquee-item, @keyframes marqueeLeft, etc.) already exists in
   // index.html's own stylesheet from the original hand-authored version, so nothing new
-  // needs to be injected for it. The DESIGN MANAGEMENT sidebar list is kept verbatim from
-  // the original hand-authored markup — it's static site copy, not project data, so it
-  // isn't generated. NOTE: it's a <section> nested inside our outer <section> — that's fine
-  // here because the Publish patch below finds this whole block by literal HTML comment
-  // markers (<!-- ═══ OUR WORKS ═══ --> ... <!-- ═══ THESIS ═══ -->), not by counting
-  // </section> tags, so the nested section does not truncate the match.
-  const DESIGN_MANAGEMENT_SIDEBAR_HTML = `<div class="stats-content">
-        <div class="stats-body">
+  // needs to be injected for it. The DESIGN MANAGEMENT list is kept verbatim from the
+  // original hand-authored markup — it's static site copy, not project data, so it isn't
+  // generated. Per the 2026-09 Figma update it moved out from under "Our Works" into its
+  // own standalone "Specialties" section, reusing the .awards-section/.awards-content/
+  // .text-wrapper-8/.awards-list pattern already used by the Thesis and News sections
+  // below on this same page (confirmed via their CSS: that pattern is just a generic
+  // "big heading left, content list right" 2-column layout, and .branding-list/
+  // .flexcontainer-2 have no dependency on their old .stats-body/.stats-content parent,
+  // so they drop into .awards-list unchanged).
+  const SPECIALTIES_SECTION_HTML = `<section class="awards-section" id="specialties" aria-labelledby="specialties-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="specialties-title">Specialties</h2>
+        <div class="awards-list">
           <section class="branding-list" aria-labelledby="design-management-title">
             <h3 class="text-wrapper-3" id="design-management-title">DESIGN MANAGEMENT</h3>
             <div class="flexcontainer-2">
@@ -2251,7 +2385,8 @@
             </div>
           </section>
         </div>
-      </div>`;
+      </div>
+    </section>`;
   // Every real image a project has (cover + any Row/Full-bleed block images), in display
   // order — used to fill the homepage marquee. Video blocks are skipped (marquee is images).
   function collectProjectImages(p) {
@@ -2296,15 +2431,19 @@
       </article>`;
   }
   function buildIndexWorksSectionHtml(list) {
+    // Both "Our Works" and the standalone "Specialties" section below it are returned
+    // together here so both stay inside the <!-- ═══ OUR WORKS ═══ --> ... <!-- ═══ THESIS ═══ -->
+    // comment-marker boundaries that the Publish patch replaces as one block.
     if (!list.length) {
       return `<section class="stats-section" id="our-works" aria-labelledby="our-works-title">
       <div class="divider-line" aria-hidden="true"></div>
       <div class="our-work-content">
         <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
       </div>
-      ${DESIGN_MANAGEMENT_SIDEBAR_HTML}
       <p style="font-family:'Instrument Sans',Helvetica;font-size:16px;color:#767676;">아직 발행된 프로젝트가 없어요 — 팀원이 각자 프로젝트를 올리고 발행하면 여기 자동으로 모여요.</p>
-    </section>`;
+    </section>
+
+    ${SPECIALTIES_SECTION_HTML}`;
     }
     const latest3 = list.slice(0, 3);
     return `<section class="stats-section" id="our-works" aria-labelledby="our-works-title">
@@ -2312,9 +2451,10 @@
       <div class="our-work-content">
         <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
       </div>
-      ${DESIGN_MANAGEMENT_SIDEBAR_HTML}
       ${latest3.map((p, i) => buildIndexProjectArticleHtml(p, i + 1)).join('\n      ')}
-    </section>`;
+    </section>
+
+    ${SPECIALTIES_SECTION_HTML}`;
   }
 
   function buildOtherProjectsHtml(others) {
@@ -2554,6 +2694,7 @@
     .nav-header-2 { padding: 0 24px; }
     .mobile-nav { padding: 24px 24px 32px; }
   }
+  ${FORUM_DROPDOWN_CSS_INJECT}
 </style>
 </head>
 <body>
@@ -2564,9 +2705,7 @@
     </div>
     <nav class="links-contain" aria-label="Primary">
       <div class="text-links">
-        <div class="link-wrapper"><a class="link-2" href="../about.html">About</a></div>
-        <div class="link-wrapper"><a class="link-2" href="../articles.html">Article</a></div>
-        <div class="link-wrapper"><a class="link-2" href="../index.html#contact">Contact</a></div>
+        ${navLinksHtml('../')}
       </div>
     </nav>
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
@@ -2574,9 +2713,7 @@
     </button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <a href="../about.html" onclick="closeMobileNav()">About</a>
-    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
-    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
+    ${mobileNavLinksHtml('../')}
   </nav>
   <div class="nav-spacer"></div>
   <main class="article-main">
@@ -2970,6 +3107,7 @@
     .nav-header-2 { padding: 0 24px; }
     .mobile-nav { padding: 24px 24px 32px; }
   }
+  ${FORUM_DROPDOWN_CSS_INJECT}
 </style>
 </head>
 <body>
@@ -2980,9 +3118,7 @@
     </div>
     <nav class="links-contain" aria-label="Primary">
       <div class="text-links">
-        <div class="link-wrapper"><a class="link-2" href="../about.html">About</a></div>
-        <div class="link-wrapper"><a class="link-2" href="../articles.html">Article</a></div>
-        <div class="link-wrapper"><a class="link-2" href="../index.html#contact">Contact</a></div>
+        ${navLinksHtml('../')}
       </div>
     </nav>
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
@@ -2990,9 +3126,7 @@
     </button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <a href="../about.html" onclick="closeMobileNav()">About</a>
-    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
-    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
+    ${mobileNavLinksHtml('../')}
   </nav>
   <div class="nav-spacer"></div>
   <main class="article-main">
@@ -3195,6 +3329,35 @@
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
 `;
 
+  // 2026-09 homepage hero update (per Figma): the old dark 3-panel "GLOBAL NETWORK /
+  // ACADEMIC ALLIANCE / INDUSTRY IMPACT" screenshot strip is removed entirely, and a new
+  // hero photo is placed above the "Global Design. Design Leadership." heading instead
+  // (reuses the existing .screenshot class — full-width, height:auto, object-fit:cover —
+  // so no new CSS is needed). Also swaps the partners section image to the updated photo.
+  // Safe to re-run every Publish: removing the old strip is a no-op once it's already
+  // gone, inserting the new hero photo is guarded so it's never duplicated, and the
+  // partners src swap only touches the literal old filename.
+  function patchIndexHeroAndPartners(html) {
+    let out = html.replace(
+      /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
+      '\n\n    '
+    );
+    if (!out.includes('assets/images/hero.png')) {
+      out = out.replace(
+        '<!-- ═══ HERO / INTRO ═══ -->',
+        `<!-- ═══ HERO PHOTO ═══ -->
+    <img class="screenshot" src="assets/images/hero.png" alt="Global Design Leadership Association"/>
+
+    <!-- ═══ HERO / INTRO ═══ -->`
+      );
+    }
+    out = out.replace(
+      'src="assets/images/screenshot_partners.png"',
+      'src="assets/images/partners_updated.png"'
+    );
+    return out;
+  }
+
   // Uploads every pending file for one project to GitHub: the cover thumbnail under
   // assets/uploads/{slug}/cover.{ext}, plus one file per content block (Background/Insight
   // images, full-bleed images/videos, wherever the user placed them) under
@@ -3337,6 +3500,8 @@
         if (!newHtml.includes(WORKS_PAGINATION_MARKER)) {
           newHtml = newHtml.replace('</body>', WORKS_PAGINATION_JS_INJECT + '\n</body>');
         }
+        // Forum dropdown + Research Lab nav — safe to re-run every publish (see patchTeamPageNav).
+        newHtml = patchTeamPageNav(newHtml);
         await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
         log('✅ ' + teamPath + ' 업데이트 완료');
       }
@@ -3344,7 +3509,8 @@
       log(ABOUT_PATH + ' 팀 섹션 확인 중...');
       const aboutFile = await getFile(ABOUT_PATH);
       if (aboutFile) {
-        const newAboutHtml = aboutFile.content.replace(/<section class="team-section"[\s\S]*?<\/section>/, buildTeamGridHtml(team));
+        let newAboutHtml = aboutFile.content.replace(/<section class="team-section"[\s\S]*?<\/section>/, buildTeamGridHtml(team));
+        newAboutHtml = patchStyle1Nav(newAboutHtml, '');
         await putFile(ABOUT_PATH, newAboutHtml, `Update team section via admin (${currentPerson.name})`);
         log('✅ ' + ABOUT_PATH + ' 업데이트 완료');
       } else {
@@ -3367,6 +3533,8 @@
         if (!newIndexHtml.includes('.marquee-item.blurred')) {
           newIndexHtml = newIndexHtml.replace('</style>', WORKS_SECTION_CSS_INJECT + '\n  </style>');
         }
+        newIndexHtml = patchStyle1Nav(newIndexHtml, '');
+        newIndexHtml = patchIndexHeroAndPartners(newIndexHtml);
         await putFile(INDEX_PATH, newIndexHtml, `Update homepage Our Works via admin (${currentPerson.name})`);
         log('✅ ' + INDEX_PATH + ' 업데이트 완료');
       } else {
@@ -3403,6 +3571,7 @@
           if (!newHtml.includes('.media-lock-wrap')) {
             newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
           }
+          newHtml = patchStyle1Nav(newHtml, '');
           await putFile(ARTICLES_LIST_PATH, newHtml, `Update article list via admin (${currentPerson.name})`);
           log('✅ ' + ARTICLES_LIST_PATH + ' 업데이트 완료');
         } else {
