@@ -1336,11 +1336,24 @@
     /* ═══ FORUM DROPDOWN CSS END ═══ */
 
   
+    /* ═══ HERO SLIDESHOW CSS START ═══ */
+    .hero-slideshow { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
+    .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+    .hero-slide.active { opacity: 1; }
+    @media (max-width: 768px) { .hero-slideshow { aspect-ratio: 4 / 5; } }
+    /* ═══ HERO SLIDESHOW CSS END ═══ */
+
+  
     /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
     .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 144px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
     .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
     @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (max-width: 768px) {
+      .partner-marquee-section { padding: 36px 0; }
+      .partner-marquee-track { gap: 32px; }
+      .partner-marquee-logo { height: 56px; }
+    }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
   </style>
@@ -1403,15 +1416,16 @@
 
   <main class="main">
 
-    <!-- ═══ HERO PHOTO ═══ -->
+    <!-- ═══ HERO PHOTO START ═══ -->
     <img class="screenshot" src="assets/images/hero.png" alt="Global Design Leadership Association"/>
+    <!-- ═══ HERO PHOTO END ═══ -->
 
     <!-- ═══ HERO / INTRO ═══ -->
     <section class="intro-section" id="about" aria-labelledby="intro-title">
       <h1 class="intro-h1" id="intro-title">Global Design. Design Leadership.</h1>
       <div class="flexcontainer">
-        <p class="div">Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership&nbsp; to create social value and expand global collaboration and knowledge ecosystems.</p>
-        <p class="div">CLAB, its research laboratory, manifests this mission as human-centered innovation&nbsp; — designing the future of human value through research, education, and enduring practice.</p>
+        <p class="div">Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.</p>
+        <p class="div">CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice.</p>
       </div>
       <div class="frame-logos">
         <img class="img" src="assets/logo/logo-gdla.png.png" alt="Association mark"/>
@@ -1471,7 +1485,7 @@
         <h2 class="text-wrapper-8" id="thesis-title">Thesis</h2>
         <div class="awards-list">
 
-          <a href="#" aria-label="Open: Therapeutic Effects of Digital Spatial Design in Theme Park Gardens">
+          <a href="#" aria-label="Open: Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Visitors' Psychological Well-being">
             <div class="award">
               <p class="div">Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Visitors' Psychological Well-being</p>
               <div class="frame-2">
@@ -1482,7 +1496,7 @@
           </a>
           <div class="divider-2" aria-hidden="true"></div>
 
-          <a href="#" aria-label="Open: UX Constellation Model">
+          <a href="#" aria-label="Open: UX Constellation Model: A Framework for Mapping User Experience Dimensions">
             <div class="award">
               <p class="div">UX Constellation Model: A Framework for Mapping User Experience Dimensions</p>
               <div class="frame-2">
@@ -1493,7 +1507,7 @@
           </a>
           <div class="divider-2" aria-hidden="true"></div>
 
-          <a href="#" aria-label="Open: Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce">
+          <a href="#" aria-label="Open: Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce: Zalando &amp; ASOS">
             <div class="award">
               <p class="div">Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce: Zalando &amp; ASOS</p>
               <div class="frame-2">
@@ -1514,7 +1528,6 @@
             </div>
           </a>
           <div class="divider-2" aria-hidden="true"></div>
-
           <a class="text-link" href="#" aria-label="See more thesis">
             <span class="text-wrapper-7">See More</span>
             <span class="text-wrapper-7" aria-hidden="true">→</span>
@@ -1605,7 +1618,6 @@
             </div>
           </a>
           <div class="divider-2" aria-hidden="true"></div>
-
           <a class="text-link" href="#" aria-label="See more news">
             <span class="text-wrapper-7">See More</span>
             <span class="text-wrapper-7" aria-hidden="true">→</span>
@@ -1703,6 +1715,21 @@
       });
     }
     render();
+  })();
+</script>
+
+<script data-hero-slideshow-js-v1="1">
+  (function () {
+    var wrap = document.querySelector('[data-hero-slideshow]');
+    if (!wrap) return;
+    var slides = Array.prototype.slice.call(wrap.querySelectorAll('.hero-slide'));
+    if (slides.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 4500);
   })();
 </script>
 </body>
