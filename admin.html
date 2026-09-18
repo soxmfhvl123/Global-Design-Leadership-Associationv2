@@ -3380,11 +3380,23 @@
   const PARTNER_MARQUEE_CSS = `
     /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
     .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 96px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
-    .partner-marquee-logo { flex-shrink: 0; height: 96px; width: auto; object-fit: contain; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 144px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
     @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 `;
+  // Strip-and-reinsert (not a static "already injected?" guard) so that any future edit to
+  // PARTNER_MARQUEE_CSS (e.g. resizing the logos again) actually reaches already-published
+  // pages on the next Publish, instead of silently no-op'ing forever once injected once —
+  // same fix as reinjectForumDropdownCss above, same bug it would otherwise have.
+  function reinjectPartnerMarqueeCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ PARTNER LOGO MARQUEE CSS START ═══ \*\/[\s\S]*?\/\* ═══ PARTNER LOGO MARQUEE CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', PARTNER_MARQUEE_CSS + '\n  </style>');
+    return out;
+  }
   function buildPartnerMarqueeHtml() {
     const itemsHtml = PARTNER_LOGOS.map(l =>
       `<img class="partner-marquee-logo" src="assets/logo/partners/${l.file}" alt="${escapeHtml(l.alt)}">`
@@ -3435,9 +3447,7 @@
         `${buildPartnerMarqueeHtml()}\n\n    <!-- ═══ CONNECT WITH US 2 ═══ -->`
       );
     }
-    if (!out.includes('/* ═══ PARTNER LOGO MARQUEE CSS START ═══ */')) {
-      out = out.replace('</style>', PARTNER_MARQUEE_CSS + '\n  </style>');
-    }
+    out = reinjectPartnerMarqueeCss(out);
     // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
     // is removed entirely per request — it's a self-contained block bounded by its own
     // HTML comment markers, so it's safe to strip in one shot; a no-op once already gone.
