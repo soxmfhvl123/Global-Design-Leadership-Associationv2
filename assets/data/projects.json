@@ -1,44 +1,31 @@
 [
   {
     "slug": "add-new-project",
-    "title": "Add New Project",
+    "title": "WHY: 2025 Our First Step Together",
     "ownerSlug": "jin-c",
     "tags": [
-      "branding",
-      "identity",
-      "test"
+      "Category placeholder"
     ],
-    "desc": "Card Description test",
+    "desc": "Description placeholder",
     "coverImagePath": "assets/uploads/add-new-project/cover.png",
     "blocks": [
       {
         "type": "heading",
-        "text": "소제목 텍스트 소제목 텍스트"
+        "text": "Description1"
       },
       {
         "type": "row",
         "image": "assets/uploads/add-new-project/block-1.png",
-        "caption": "캡션 (선택)",
-        "text": "본문 텍스트 들어감",
+        "caption": "Description",
+        "text": "Description",
         "reverse": false
       },
       {
-        "type": "heading",
-        "text": "Insight"
-      },
-      {
         "type": "row",
-        "image": "assets/uploads/add-new-project/block-3.png",
-        "caption": "캡션 (선택)",
-        "text": "본문 텍스트 들어감",
+        "image": "assets/uploads/add-new-project/block-2.png",
+        "caption": "Description",
+        "text": "Description",
         "reverse": true
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/add-new-project/block-4.png",
-        "caption": "",
-        "text": "",
-        "reverse": false
       }
     ],
     "locked": false,
