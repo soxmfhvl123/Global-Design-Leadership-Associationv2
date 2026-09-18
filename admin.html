@@ -85,13 +85,48 @@
     }
     .btn-text:hover { color: #000; }
 
-    /* ADMIN DASHBOARD */
-    .admin-main { display: none; width: 100%; padding: 40px 0 120px; flex-direction: column; gap: 64px; }
-    .admin-main.show { display: flex; }
-    .admin-topbar { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; border-bottom: 1px solid #000; padding-bottom: 24px; flex-wrap: wrap; gap: 16px; }
-    .admin-topbar h1 { font-size: 48px; font-weight: 400; letter-spacing: -2.4px; color: #000; }
-    .admin-topbar .sub { font-size: 16px; color: var(--gray); margin-top: 6px; }
-    .admin-topbar-actions { display: flex; align-items: center; gap: 20px; }
+    /* ADMIN DASHBOARD — sidebar + content shell, redesigned 2026-09 for a simpler,
+       CMS-style "pick a section, see one thing at a time" layout (like Readymag /
+       Webflow's dashboards) instead of one long scrolling page. */
+    .admin-main { display: none; width: 100%; padding: 32px 0 120px; }
+    .admin-main.show { display: block; }
+    .admin-shell { display: flex; align-items: flex-start; gap: 56px; width: 100%; }
+
+    .admin-sidebar { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 66px; max-height: calc(100vh - 86px); }
+    .admin-sidebar-top h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.7px; line-height: 1.3; color: #000; }
+    .admin-sidebar-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.4px; color: var(--gray); text-transform: uppercase; margin: 0 0 4px; }
+    .admin-sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+    .admin-nav-item {
+      display: flex; align-items: center; gap: 10px; text-align: left; width: 100%;
+      padding: 11px 14px; border: none; background: none; border-radius: 8px;
+      font-family: var(--font); font-size: 16px; letter-spacing: -0.4px; color: var(--gray);
+      cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+    }
+    .admin-nav-item:hover { background: #f2f2f2; color: #000; }
+    .admin-nav-item.active { background: #000; color: #fff; font-weight: 600; }
+    .admin-sidebar-bottom { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.12); margin-top: auto; }
+    .admin-sidebar-bottom a { font-size: 14px; color: #000; text-decoration: underline; }
+
+    .admin-content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 56px; padding-top: 6px; }
+    .admin-view { display: none; flex-direction: column; gap: 56px; }
+    .admin-view.active { display: flex; }
+    .admin-view-head { display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #000; padding-bottom: 20px; }
+    .admin-view-head h1 { font-size: 34px; font-weight: 400; letter-spacing: -1.7px; color: #000; }
+    .admin-view-head p { font-size: 15px; color: var(--gray); }
+
+    /* Dashboard overview cards */
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+    .dash-card { border: 1px solid #000; padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+    .dash-card .dash-num { font-size: 38px; font-weight: 400; letter-spacing: -1.9px; }
+    .dash-card .dash-label { font-size: 14px; color: var(--gray); }
+
+    @media (max-width: 900px) {
+      .admin-shell { flex-direction: column; gap: 24px; }
+      .admin-sidebar { width: 100%; position: static; max-height: none; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid #000; }
+      .admin-sidebar-top { flex-shrink: 0; }
+      .admin-sidebar-nav { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+      .admin-sidebar-bottom { flex-direction: row; align-items: center; gap: 16px; border-top: none; padding-top: 0; margin-top: 0; margin-left: auto; }
+    }
 
     .admin-panel { display: flex; flex-direction: column; gap: 16px; padding: 28px; border: 1px solid #000; }
     .admin-panel h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.9px; }
@@ -202,7 +237,7 @@
 
       .admin-login { padding: 80px 0 100px; }
       .admin-login h1 { font-size: 36px; letter-spacing: -1.8px; }
-      .admin-topbar h1 { font-size: 32px; letter-spacing: -1.6px; }
+      .admin-view-head h1 { font-size: 26px; letter-spacing: -1.3px; }
       .admin-section-head h2 { font-size: 24px; letter-spacing: -1.2px; }
       .admin-project-row { flex-wrap: wrap; }
       .admin-project-order { order: 3; flex-direction: row; }
@@ -273,25 +308,78 @@
 
     <!-- ═══ ADMIN DASHBOARD ═══ -->
     <div class="admin-main" id="admin-main">
+      <div class="admin-shell">
 
-      <div class="admin-topbar">
+        <!-- ═══ SIDEBAR NAV ═══ -->
+        <aside class="admin-sidebar">
+          <div class="admin-sidebar-top">
+            <p class="admin-sidebar-eyebrow">Team Admin</p>
+            <h1 id="admin-title">Team Admin</h1>
+          </div>
+          <nav class="admin-sidebar-nav">
+            <button class="admin-nav-item active" type="button" data-view="dashboard" onclick="showAdminView('dashboard')">Dashboard</button>
+            <button class="admin-nav-item" type="button" data-view="hero" onclick="showAdminView('hero')">Hero</button>
+            <button class="admin-nav-item" type="button" data-view="works" onclick="showAdminView('works')">Our Works</button>
+            <button class="admin-nav-item" type="button" data-view="articles" onclick="showAdminView('articles')">Articles</button>
+            <button class="admin-nav-item" type="button" data-view="team" onclick="showAdminView('team')">Team</button>
+            <button class="admin-nav-item" type="button" data-view="publish" onclick="showAdminView('publish')">Publish</button>
+          </nav>
+          <div class="admin-sidebar-bottom">
+            <a href="#" id="my-portfolio-link-2" target="_blank">내 포트폴리오 보기 ↗</a>
+            <button class="btn-text" id="logout-btn" type="button">Log out</button>
+          </div>
+        </aside>
+
+        <div class="admin-content">
+
+        <!-- ═══ DASHBOARD ═══ -->
+        <section class="admin-view active" id="view-dashboard" data-view="dashboard">
+          <div class="admin-view-head">
+            <h1>Dashboard</h1>
+            <p>여기서 추가·수정한 내용은 왼쪽 메뉴의 "Publish"를 눌러야 실제 사이트(팀원 전체 포트폴리오)에 반영돼요.</p>
+          </div>
+          <div class="dash-grid">
+            <div class="dash-card"><div class="dash-num" id="dash-hero-count">0</div><div class="dash-label">Hero Slides</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-projects-count">0</div><div class="dash-label">Projects</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-articles-count">0</div><div class="dash-label">Articles</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-team-count">0</div><div class="dash-label">Team Members</div></div>
+          </div>
+          <div class="admin-panel">
+            <h2>준비됐으면 Publish 하세요</h2>
+            <p class="hint">왼쪽 메뉴에서 히어로 이미지·프로젝트·Article·팀 정보를 수정한 다음, "Publish" 메뉴에서 실제 사이트에 반영해주세요. 반영까지 1분 정도 걸려요.</p>
+            <button class="btn-outline primary" type="button" style="align-self:flex-start;" onclick="showAdminView('publish')">Publish로 이동 →</button>
+          </div>
+        </section>
+
+        <!-- ═══ HERO SLIDESHOW ═══ -->
+        <section class="admin-view" id="view-hero" data-view="hero">
+          <div class="admin-view-head">
+            <h1>Hero</h1>
+            <p>홈페이지 맨 위 히어로 이미지예요. 사진을 여러 장 올리면 자동으로 넘어가는 슬라이드쇼가 되고, 한 장만 있으면 지금처럼 고정된 사진 한 장으로 보여요.</p>
+          </div>
+          <div>
+            <div class="admin-section-head">
+              <h2>Hero Slides</h2>
+              <button class="btn-outline" id="add-hero-slide-btn" type="button">+ Add Slide</button>
+            </div>
+            <p class="hint" style="margin-top:8px;">맨 위 슬라이드가 제일 먼저 보여요. 화살표로 순서를 바꿀 수 있고, 최소 한 장은 남아있어야 해요.</p>
+            <input type="file" id="hero-slide-file-input" accept="image/*" multiple style="display:none;"/>
+            <div class="admin-project-list" id="hero-slide-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══ PROJECTS ═══ -->
+        <section class="admin-view" id="view-works" data-view="works">
+        <div class="admin-view-head">
+          <h1>Our Works</h1>
+          <p>이 프로젝트 목록은 팀원 전체 포트폴리오에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 각 포트폴리오의 "Latest Works"에, 나머지는 "More Works" 목록에 자동으로 표시돼요.</p>
+        </div>
         <div>
-          <h1 id="admin-title">Team Admin</h1>
-          <p class="sub">여기서 추가·수정한 내용은 "Publish"를 눌러야 실제 사이트(팀원 전체 포트폴리오)에 반영돼요.</p>
-        </div>
-        <div class="admin-topbar-actions">
-          <a href="#" id="my-portfolio-link-2" target="_blank">내 포트폴리오 보기 ↗</a>
-          <button class="btn-text" id="logout-btn" type="button">Log out</button>
-        </div>
-      </div>
-
-      <!-- ═══ PROJECTS ═══ -->
-      <div>
-        <div class="admin-section-head">
-          <h2>Our Works</h2>
-          <button class="btn-outline" id="add-project-btn" type="button">+ Add New Project</button>
-        </div>
-        <p class="hint" style="margin-top:8px;">이 프로젝트 목록은 팀원 전체 포트폴리오에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 각 포트폴리오의 "Latest Works"에, 나머지는 "More Works" 목록에 자동으로 표시돼요. 화살표로 순서를 바꿀 수 있어요.</p>
+          <div class="admin-section-head">
+            <h2>Project List</h2>
+            <button class="btn-outline" id="add-project-btn" type="button">+ Add New Project</button>
+          </div>
+        <p class="hint" style="margin-top:8px;">화살표로 순서를 바꿀 수 있어요.</p>
 
         <div class="admin-project-list" id="project-list"></div>
 
@@ -357,14 +445,20 @@
           </div>
         </div>
       </div>
+        </section>
 
-      <!-- ═══ ARTICLES ═══ -->
-      <div>
-        <div class="admin-section-head">
-          <h2>Articles</h2>
-          <button class="btn-outline" id="add-article-btn" type="button">+ Add New Article</button>
+        <!-- ═══ ARTICLES ═══ -->
+        <section class="admin-view" id="view-articles" data-view="articles">
+        <div class="admin-view-head">
+          <h1>Articles</h1>
+          <p>이 목록도 팀원 전체가 공유하는 Article 페이지에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 "Latest News"에 표시돼요.</p>
         </div>
-        <p class="hint" style="margin-top:8px;">이 목록도 팀원 전체가 공유하는 Article 페이지에 공통으로 표시돼요 (누구든 로그인해서 관리할 수 있어요). 위 3개는 "Latest News"에 표시되고, 화살표로 순서를 바꿀 수 있어요.</p>
+        <div>
+          <div class="admin-section-head">
+            <h2>Article List</h2>
+            <button class="btn-outline" id="add-article-btn" type="button">+ Add New Article</button>
+        </div>
+        <p class="hint" style="margin-top:8px;">화살표로 순서를 바꿀 수 있어요.</p>
 
         <div class="admin-project-list" id="article-list-admin"></div>
 
@@ -440,13 +534,18 @@
           </div>
         </div>
       </div>
+        </section>
 
-      <!-- ═══ TEAM ═══ -->
-      <div>
-        <div class="admin-section-head">
-          <h2>Team</h2>
+        <!-- ═══ TEAM ═══ -->
+        <section class="admin-view" id="view-team" data-view="team">
+        <div class="admin-view-head">
+          <h1>Team</h1>
+          <p>팀원 소개(소개글·직함·SNS 링크·CV·카테고리)를 관리해요. 본인 프로필은 아래 "내 프로필 수정"에서 직접 고치고, 새로 합류한 팀원은 "새 팀원 등록"으로 추가하세요.</p>
         </div>
-        <p class="hint" style="margin-top:8px;">팀원 소개(소개글·직함·SNS 링크·CV·카테고리)를 관리해요. 본인 프로필은 아래 "내 프로필 수정"에서 직접 고치고, 새로 합류한 팀원은 "새 팀원 등록"으로 추가하세요. Publish를 눌러야 실제 사이트(about.html · 각자의 포트폴리오 페이지)에 반영돼요.</p>
+        <div>
+          <div class="admin-section-head">
+            <h2>Team List</h2>
+          </div>
 
         <div class="admin-project-list" id="team-list"></div>
 
@@ -539,15 +638,24 @@
           </div>
         </div>
       </div>
+        </section>
 
-      <!-- ═══ PUBLISH ═══ -->
-      <div class="admin-panel">
-        <h2>Publish</h2>
-        <p class="hint">프로젝트 목록·Articles 목록·Team 목록, 각 상세페이지(our-works/*.html, articles/*.html), 팀원 전체의 포트폴리오 페이지(team/*.html), articles.html, about.html의 팀 섹션, 새로 올린 이미지·동영상·CV까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 반영까지 1분 정도 걸려요. 업로드하는 파일은 개당 대략 20MB 이하로 올려주세요.</p>
-        <button class="btn-outline primary" id="publish-btn" type="button" style="align-self:flex-start;">Publish to Live Site</button>
-        <div class="admin-log" id="publish-log"></div>
+        <!-- ═══ PUBLISH ═══ -->
+        <section class="admin-view" id="view-publish" data-view="publish">
+        <div class="admin-view-head">
+          <h1>Publish</h1>
+          <p>여기서 눌러야 실제 사이트에 반영돼요. 반영까지 1분 정도 걸려요.</p>
+        </div>
+        <div class="admin-panel">
+          <h2>Publish to Live Site</h2>
+          <p class="hint">히어로 슬라이드·프로젝트 목록·Articles 목록·Team 목록, 각 상세페이지(our-works/*.html, articles/*.html), 팀원 전체의 포트폴리오 페이지(team/*.html), articles.html, about.html의 팀 섹션, 새로 올린 이미지·동영상·CV까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 업로드하는 파일은 개당 대략 20MB 이하로 올려주세요.</p>
+          <button class="btn-outline primary" id="publish-btn" type="button" style="align-self:flex-start;">Publish to Live Site</button>
+          <div class="admin-log" id="publish-log"></div>
+        </div>
+        </section>
+
+        </div>
       </div>
-
     </div>
 
   </main>
@@ -599,6 +707,7 @@
   const ARTICLES_PATH = 'assets/data/articles.json';
   const ARTICLES_LIST_PATH = 'articles.html';
   const TEAM_PATH     = 'assets/data/team.json';
+  const HERO_PATH     = 'assets/data/hero.json';
   const ABOUT_PATH    = 'about.html';
   const INDEX_PATH    = 'index.html';
   // Matches the filter sidebar already hardcoded in articles.html — keep in sync if that list changes.
@@ -676,6 +785,14 @@
     { slug: 'bomi-k', firstName: 'bomi', name: 'Bomi K.', title: 'UI/UX Designer', quote: '', bio: '', tags: [], behanceUrl: '', instagramUrl: '', linkedinUrl: '', cvPath: null, photoPath: null },
   ];
 
+  /* ═══════════════════ SEED DATA (used only if assets/data/hero.json doesn't exist yet) ═══════════════════ */
+  // Ports the single hero photo that was already live (assets/images/hero.png) into the
+  // new slideshow-capable format as its one slide, so nothing changes visually until the
+  // team actually adds more slides from the new Hero panel.
+  const SEED_HERO = [
+    { id: 'seed-hero-1', path: 'assets/images/hero.png', alt: 'Global Design Leadership Association' }
+  ];
+
   /* ═══════════════════ STATE ═══════════════════ */
   let projects = [];
   // In-memory only (NOT persisted) — keyed by project slug while editing, or NEW_KEY while adding.
@@ -691,6 +808,12 @@
   let team = [];
   // In-memory only (NOT persisted) — keyed by member slug. { cv: File }
   let pendingTeamUploads = {};
+
+  let heroSlides = [];
+  // In-memory only (NOT persisted) — keyed by slide id, holds the raw File until Publish uploads it.
+  let pendingHeroUploads = {};
+  // In-memory only — object URLs for previewing not-yet-uploaded slides, so we don't leak them.
+  let heroObjectUrls = {};
 
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -747,6 +870,19 @@
       log && log('⚠️ 저장된 Team 목록을 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
     }
     team = JSON.parse(JSON.stringify(SEED_TEAM));
+  }
+
+  async function loadHero() {
+    try {
+      const file = await getFile(HERO_PATH);
+      if (file) {
+        heroSlides = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ 히어로 슬라이드를 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    heroSlides = JSON.parse(JSON.stringify(SEED_HERO));
   }
 
   function escapeHtml(s) {
@@ -999,6 +1135,8 @@
     loginScreen.style.display = 'none';
     adminMain.classList.add('show');
     logShow(); logClear();
+    log('히어로 슬라이드 불러오는 중...');
+    await loadHero();
     log('프로젝트 목록 불러오는 중...');
     await loadProjects();
     log('Article 목록 불러오는 중...');
@@ -1006,12 +1144,33 @@
     log('Team 목록 불러오는 중...');
     await loadTeam();
     logClear();
+    renderHeroList();
     renderProjectList();
     renderArticleAdminList();
     populateCategorySelect();
     renderTeamList();
     populateMyProfileForm();
+    updateDashboardCounts();
+    let lastView = 'dashboard';
+    try { lastView = localStorage.getItem('gdla_admin_last_view') || 'dashboard'; } catch (e) {}
+    showAdminView(lastView);
   }
+
+  function updateDashboardCounts() {
+    const setCount = (id, n) => { const el = document.getElementById(id); if (el) el.textContent = n; };
+    setCount('dash-hero-count', heroSlides.length);
+    setCount('dash-projects-count', projects.length);
+    setCount('dash-articles-count', articles.length);
+    setCount('dash-team-count', team.length);
+  }
+
+  /* ═══════════════════ SIDEBAR VIEW SWITCHING ═══════════════════ */
+  window.showAdminView = function (view) {
+    document.querySelectorAll('.admin-view').forEach(el => el.classList.toggle('active', el.dataset.view === view));
+    document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.toggle('active', el.dataset.view === view));
+    try { localStorage.setItem('gdla_admin_last_view', view); } catch (e) {}
+    try { window.scrollTo(0, 0); } catch (e) {}
+  };
 
   async function tryLogin() {
     const name = document.getElementById('login-username').value.trim().toLowerCase();
@@ -1184,6 +1343,74 @@
     renderTeamList();
     if (currentPerson && m.slug === currentPerson.slug) populateMyProfileForm();
   };
+
+  /* ═══════════════════ HERO SLIDESHOW LIST RENDER ═══════════════════ */
+  function heroSlidePreviewSrc(s) {
+    const pending = pendingHeroUploads[s.id];
+    if (pending) {
+      if (!heroObjectUrls[s.id]) heroObjectUrls[s.id] = URL.createObjectURL(pending);
+      return heroObjectUrls[s.id];
+    }
+    return s.path;
+  }
+
+  function renderHeroList() {
+    const listEl = document.getElementById('hero-slide-list');
+    if (!listEl) return;
+    if (!heroSlides.length) {
+      listEl.innerHTML = '<p class="admin-empty">등록된 히어로 이미지가 없어요. "+ Add Slide"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = heroSlides.map((s, i) => {
+      const src = heroSlidePreviewSrc(s);
+      return `
+      <div class="admin-project-row">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveHeroSlide(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === heroSlides.length - 1 ? 'disabled' : ''} onclick="moveHeroSlide(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-thumb" style="${src ? `background-image:url('${src}');background-size:cover;background-position:center;` : ''}"></div>
+        <div class="admin-project-info">
+          <div class="title">Slide ${i + 1}</div>
+          <div class="meta">${i === 0 ? '홈페이지에 제일 먼저 보여요' : ''}${pendingHeroUploads[s.id] ? ' · 업로드 대기중 (Publish 시 업로드)' : ''}</div>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteHeroSlide(${i})">🗑</button>
+        </div>
+      </div>
+    `;
+    }).join('');
+  }
+
+  window.moveHeroSlide = function (i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= heroSlides.length) return;
+    [heroSlides[i], heroSlides[j]] = [heroSlides[j], heroSlides[i]];
+    renderHeroList();
+  };
+  window.deleteHeroSlide = function (i) {
+    const s = heroSlides[i];
+    if (heroSlides.length <= 1) { alert('최소 한 장의 히어로 이미지가 있어야 해요.'); return; }
+    if (!confirm('이 히어로 이미지를 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    delete pendingHeroUploads[s.id];
+    if (heroObjectUrls[s.id]) { URL.revokeObjectURL(heroObjectUrls[s.id]); delete heroObjectUrls[s.id]; }
+    heroSlides.splice(i, 1);
+    renderHeroList();
+  };
+
+  document.getElementById('add-hero-slide-btn').addEventListener('click', () => {
+    document.getElementById('hero-slide-file-input').click();
+  });
+  document.getElementById('hero-slide-file-input').addEventListener('change', (e) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach((file, idx) => {
+      const id = `hero-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`;
+      heroSlides.push({ id, path: null, alt: '' });
+      pendingHeroUploads[id] = file;
+    });
+    e.target.value = '';
+    renderHeroList();
+  });
 
   /* ═══════════════════ MY PROFILE (self-serve edit) ═══════════════════ */
   const mpName = document.getElementById('mp-name');
@@ -3346,6 +3573,87 @@
   })();
 <\/script>`;
 
+  // 2026-09 hero slideshow: the homepage hero can now be one photo (rendered exactly as
+  // before, a plain full-width <img class="screenshot">) or a slideshow of several photos
+  // that crossfade automatically, managed from the admin's new "Hero" panel. Uses
+  // strip-and-reinject markers throughout (HTML block + CSS + JS), not a static "already
+  // there?" guard, so a later change (add/remove/reorder a slide) always reaches an
+  // already-published index.html on the next Publish instead of silently no-op'ing —
+  // the same bug class the partner marquee CSS had (see reinjectPartnerMarqueeCss).
+  function buildHeroHtml(slides) {
+    if (!slides || !slides.length) return '';
+    if (slides.length === 1) {
+      return `<img class="screenshot" src="${slides[0].path}" alt="${escapeHtml(slides[0].alt || 'Global Design Leadership Association')}"/>`;
+    }
+    const slidesHtml = slides.map((s, i) =>
+      `<img class="hero-slide${i === 0 ? ' active' : ''}" src="${s.path}" alt="${escapeHtml(s.alt || 'Global Design Leadership Association')}"/>`
+    ).join('\n      ');
+    return `<div class="hero-slideshow" data-hero-slideshow>
+      ${slidesHtml}
+    </div>`;
+  }
+  function reinjectHeroHtml(html, slides) {
+    let out = html;
+    // Strip a previously marker-wrapped hero block (any earlier version of this feature).
+    out = out.replace(
+      /\s*<!-- ═══ HERO PHOTO START ═══ -->[\s\S]*?<!-- ═══ HERO PHOTO END ═══ -->\s*/,
+      '\n\n    '
+    );
+    // Backward compat: strip the original, unmarked single-image hero insertion from before
+    // the slideshow feature existed — bounded by the old "HERO PHOTO" comment on one side
+    // and the still-present "HERO / INTRO" comment on the other (not consumed, via lookahead).
+    out = out.replace(
+      /\s*<!-- ═══ HERO PHOTO ═══ -->[\s\S]*?(?=<!-- ═══ HERO \/ INTRO ═══ -->)/,
+      '\n\n    '
+    );
+    const block = `<!-- ═══ HERO PHOTO START ═══ -->
+    ${buildHeroHtml(slides)}
+    <!-- ═══ HERO PHOTO END ═══ -->
+
+    `;
+    out = out.replace('<!-- ═══ HERO / INTRO ═══ -->', block + '<!-- ═══ HERO / INTRO ═══ -->');
+    return out;
+  }
+  const HERO_SLIDESHOW_CSS = `
+    /* ═══ HERO SLIDESHOW CSS START ═══ */
+    .hero-slideshow { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
+    .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+    .hero-slide.active { opacity: 1; }
+    @media (max-width: 768px) { .hero-slideshow { aspect-ratio: 4 / 5; } }
+    /* ═══ HERO SLIDESHOW CSS END ═══ */
+`;
+  function reinjectHeroSlideshowCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ HERO SLIDESHOW CSS START ═══ \*\/[\s\S]*?\/\* ═══ HERO SLIDESHOW CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', HERO_SLIDESHOW_CSS + '\n  </style>');
+    return out;
+  }
+  const HERO_SLIDESHOW_JS_INJECT = `
+<script data-hero-slideshow-js-v1="1">
+  (function () {
+    var wrap = document.querySelector('[data-hero-slideshow]');
+    if (!wrap) return;
+    var slides = Array.prototype.slice.call(wrap.querySelectorAll('.hero-slide'));
+    if (slides.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 4500);
+  })();
+<\/script>`;
+  function reinjectHeroSlideshowJs(html) {
+    let out = html.replace(
+      /\s*<script data-hero-slideshow-js-v1="1">[\s\S]*?<\/script>\s*/,
+      '\n'
+    );
+    out = out.replace('</body>', HERO_SLIDESHOW_JS_INJECT + '\n</body>');
+    return out;
+  }
+
   // The homepage's Our Works section reuses index.html's OWN original marquee CSS
   // (.project-article, .marquee-container, .marquee-inner, .marquee-item, @keyframes
   // marqueeLeft, etc.) unchanged — see buildIndexProjectArticleHtml above. The only two
@@ -3414,20 +3722,14 @@
   // section, the yellow concept-cards section, and replaces the static partners photo with
   // the logo marquee above. Safe to re-run every Publish: every removal is a no-op once
   // already gone, and every insertion is guarded so it's never duplicated.
-  function patchIndexHeroAndPartners(html) {
+  function patchIndexHeroAndPartners(html, heroSlides) {
     let out = html.replace(
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
       '\n\n    '
     );
-    if (!out.includes('assets/images/hero.png')) {
-      out = out.replace(
-        '<!-- ═══ HERO / INTRO ═══ -->',
-        `<!-- ═══ HERO PHOTO ═══ -->
-    <img class="screenshot" src="assets/images/hero.png" alt="Global Design Leadership Association"/>
-
-    <!-- ═══ HERO / INTRO ═══ -->`
-      );
-    }
+    out = reinjectHeroHtml(out, heroSlides && heroSlides.length ? heroSlides : SEED_HERO);
+    out = reinjectHeroSlideshowCss(out);
+    out = reinjectHeroSlideshowJs(out);
     // The static partners photo (whichever filename it currently points at — the very
     // first hand-authored one, or the briefly-used partners_updated.png) is removed
     // entirely and replaced by the logo marquee below.
@@ -3565,13 +3867,35 @@
     }
   }
 
+  async function uploadPendingHeroSlides() {
+    for (const s of heroSlides) {
+      const file = pendingHeroUploads[s.id];
+      if (!file) continue;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/hero/${s.id}.${ext}`;
+      log(`  ↳ 히어로 이미지 업로드 중... (${file.name || 'slide'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload hero slide via admin (${currentPerson.name})`);
+      s.path = path;
+      log(`  ✅ ${path}`);
+    }
+  }
+
   document.getElementById('publish-btn').addEventListener('click', async () => {
     if (!projects.length && !articles.length && !team.length) { alert('발행할 내용이 없어요.'); return; }
     const btn = document.getElementById('publish-btn');
     btn.disabled = true;
     logClear(); logShow();
     try {
-      log('이미지·동영상 업로드 확인 중...');
+      log('히어로 이미지 업로드 확인 중...');
+      await uploadPendingHeroSlides();
+      pendingHeroUploads = {};
+
+      log(`${HERO_PATH} 저장 중...`);
+      await putFile(HERO_PATH, JSON.stringify(heroSlides, null, 2), `Update hero slideshow via admin (${currentPerson.name})`);
+      log('✅ ' + HERO_PATH + ' 저장 완료');
+
+      log('\n이미지·동영상 업로드 확인 중...');
       for (const p of projects) {
         await uploadPendingMediaForProject(p);
       }
@@ -3655,7 +3979,7 @@
           newIndexHtml = newIndexHtml.replace('</style>', WORKS_SECTION_CSS_INJECT + '\n  </style>');
         }
         newIndexHtml = patchStyle1Nav(newIndexHtml, '');
-        newIndexHtml = patchIndexHeroAndPartners(newIndexHtml);
+        newIndexHtml = patchIndexHeroAndPartners(newIndexHtml, heroSlides);
         await putFile(INDEX_PATH, newIndexHtml, `Update homepage Our Works via admin (${currentPerson.name})`);
         log('✅ ' + INDEX_PATH + ' 업데이트 완료');
       } else {
