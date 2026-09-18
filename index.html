@@ -1315,14 +1315,7 @@
   
     .marquee-ph { background: #d8d8d8; }
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
-/* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
-    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 80px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
-    .partner-marquee-logo { flex-shrink: 0; height: 56px; width: auto; object-fit: contain; }
-    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
-
-    /* ═══ FORUM DROPDOWN CSS START ═══ */
+/* ═══ FORUM DROPDOWN CSS START ═══ */
     .nav-has-dropdown { position: relative; }
     /* Style-2 pages (.nav-links-wrap: about.html, team pages) have no per-item wrapper —
        every other nav item is a bare <a>, which flexbox "blockifies" as a direct flex
@@ -1341,6 +1334,14 @@
     .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
     .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
     /* ═══ FORUM DROPDOWN CSS END ═══ */
+
+  
+    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
+    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 144px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
+    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
   </style>
 </head>
