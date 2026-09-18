@@ -804,9 +804,8 @@
   const FORUM_DROPDOWN_CSS_INJECT = `
     /* ═══ FORUM DROPDOWN CSS START ═══ */
     .nav-has-dropdown { position: relative; }
-    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 34px 24px 20px; min-width: 220px; z-index: 250; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 16px 24px 20px; min-width: 220px; z-index: 250; }
     .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
-    .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
     .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
     a.forum-dropdown-item:hover { opacity: 0.6; }
     .forum-dropdown-item.is-tbd { color: rgba(118,118,118,1); }
@@ -824,7 +823,6 @@
         <div class="link-wrapper nav-has-dropdown">
           <a class="link-2" href="#" aria-haspopup="true">Forum</a>
           <div class="forum-dropdown">
-            <p class="forum-dropdown-title">Forum</p>
             ${FORUM_DROPDOWN_LIST_HTML}
           </div>
         </div>
@@ -840,7 +838,6 @@
       <div class="nav-has-dropdown">
         <a href="#" aria-haspopup="true">Forum</a>
         <div class="forum-dropdown">
-          <p class="forum-dropdown-title">Forum</p>
           ${FORUM_DROPDOWN_LIST_HTML}
         </div>
       </div>
@@ -3357,15 +3354,50 @@
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
 `;
 
+  // 2026-09 partners update: the static partners photo is replaced entirely by a live,
+  // auto-scrolling logo marquee (right-to-left, looping) built from the 12 individual
+  // partner/collaborator logo files the user placed under assets/logo/partners/. Reuses
+  // the same "double the items, animate translateX(0) -> -50%" technique as the homepage
+  // project marquee, under its own class names/keyframe so it doesn't collide with that.
+  const PARTNER_LOGOS = [
+    { file: 'seoul-design-foundation.png', alt: 'Seoul Design Foundation' },
+    { file: 'hyundai-motor-group.png', alt: 'Hyundai Motor Group' },
+    { file: 'camera-nazionale-moda-italiana.png', alt: 'Camera Nazionale della Moda Italiana' },
+    { file: 'milano-fashion-institute.png', alt: 'Milano Fashion Institute' },
+    { file: 'undp.png', alt: 'UNDP' },
+    { file: 'duobo-lg-laps.png', alt: 'Duobo by LG Laps' },
+    { file: 'genesis.png', alt: 'Genesis' },
+    { file: 'kfda.png', alt: 'KFDA' },
+    { file: 'seoul-metropolitan-government.png', alt: 'Seoul Metropolitan Government' },
+    { file: 'cartier.png', alt: 'Cartier' },
+    { file: 'bcefw.png', alt: 'Budapest Central European Fashion Week' },
+    { file: 'ddp.png', alt: 'DDP' },
+  ];
+  const PARTNER_MARQUEE_CSS = `
+    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
+    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 80px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 56px; width: auto; object-fit: contain; }
+    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
+`;
+  function buildPartnerMarqueeHtml() {
+    const itemsHtml = PARTNER_LOGOS.map(l =>
+      `<img class="partner-marquee-logo" src="assets/logo/partners/${l.file}" alt="${escapeHtml(l.alt)}">`
+    ).join('');
+    return `<section class="partner-marquee-section" aria-label="Partners and collaborators">
+      <div class="partner-marquee-track">${itemsHtml}${itemsHtml}</div>
+    </section>`;
+  }
+
   // 2026-09 homepage hero update (per Figma): the old dark 3-panel "GLOBAL NETWORK /
   // ACADEMIC ALLIANCE / INDUSTRY IMPACT" screenshot strip is removed entirely, and a new
   // hero photo is placed above the "Global Design. Design Leadership." heading instead
   // (reuses the existing .screenshot class — full-width, height:auto, object-fit:cover —
-  // so no new CSS is needed). Also swaps the partners section image to the updated photo,
-  // and removes the "President & Founder" (Cathy Yeonchoo Lee) section entirely (follow-up
-  // request). Safe to re-run every Publish: removing the old strip / President & Founder
-  // block is a no-op once already gone, inserting the new hero photo is guarded so it's
-  // never duplicated, and the partners src swap only touches the literal old filename.
+  // so no new CSS is needed). Also removes the "President & Founder" (Cathy Yeonchoo Lee)
+  // section, the yellow concept-cards section, and replaces the static partners photo with
+  // the logo marquee above. Safe to re-run every Publish: every removal is a no-op once
+  // already gone, and every insertion is guarded so it's never duplicated.
   function patchIndexHeroAndPartners(html) {
     let out = html.replace(
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
@@ -3380,20 +3412,27 @@
     <!-- ═══ HERO / INTRO ═══ -->`
       );
     }
+    // The static partners photo (whichever filename it currently points at — the very
+    // first hand-authored one, or the briefly-used partners_updated.png) is removed
+    // entirely and replaced by the logo marquee below.
     out = out.replace(
-      'src="assets/images/screenshot_partners.png"',
-      'src="assets/images/partners_updated.png"'
+      /\s*<img class="screenshot-2" src="assets\/images\/(?:screenshot_partners|partners_updated)\.png" alt="[^"]*"\/>\s*/,
+      '\n\n    '
     );
-    // The original .screenshot-2 rule hardcodes aspect-ratio: 2.92 (tuned to the OLD
-    // screenshot_partners.png's proportions) with object-fit: cover, so the new
-    // partners_updated.png (a 16:9 photo, ratio ~1.78) was getting badly cropped top/bottom.
-    // Overriding to height:auto (same treatment as the hero .screenshot image) shows the
-    // whole photo uncropped regardless of its ratio. Guarded so it's only injected once.
-    if (!out.includes('/* partners-photo-uncropped-fix */')) {
+    // A dead leftover from when screenshot-2 still existed — harmless once the <img> is
+    // gone, but cleaned up here so it doesn't linger as dead CSS.
+    out = out.replace(
+      /\s*\/\* partners-photo-uncropped-fix \*\/\s*\.screenshot-2 \{[^}]*\}\s*/,
+      '\n'
+    );
+    if (!out.includes('partner-marquee-section')) {
       out = out.replace(
-        '</style>',
-        `\n    /* partners-photo-uncropped-fix */\n    .screenshot-2 { aspect-ratio: auto !important; height: auto !important; }\n  </style>`
+        '<!-- ═══ CONNECT WITH US 2 ═══ -->',
+        `${buildPartnerMarqueeHtml()}\n\n    <!-- ═══ CONNECT WITH US 2 ═══ -->`
       );
+    }
+    if (!out.includes('/* ═══ PARTNER LOGO MARQUEE CSS START ═══ */')) {
+      out = out.replace('</style>', PARTNER_MARQUEE_CSS + '\n  </style>');
     }
     // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
     // is removed entirely per request — it's a self-contained block bounded by its own
