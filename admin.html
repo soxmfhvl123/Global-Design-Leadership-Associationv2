@@ -3356,11 +3356,29 @@
       'src="assets/images/screenshot_partners.png"',
       'src="assets/images/partners_updated.png"'
     );
+    // The original .screenshot-2 rule hardcodes aspect-ratio: 2.92 (tuned to the OLD
+    // screenshot_partners.png's proportions) with object-fit: cover, so the new
+    // partners_updated.png (a 16:9 photo, ratio ~1.78) was getting badly cropped top/bottom.
+    // Overriding to height:auto (same treatment as the hero .screenshot image) shows the
+    // whole photo uncropped regardless of its ratio. Guarded so it's only injected once.
+    if (!out.includes('/* partners-photo-uncropped-fix */')) {
+      out = out.replace(
+        '</style>',
+        `\n    /* partners-photo-uncropped-fix */\n    .screenshot-2 { aspect-ratio: auto !important; height: auto !important; }\n  </style>`
+      );
+    }
     // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
     // is removed entirely per request — it's a self-contained block bounded by its own
     // HTML comment markers, so it's safe to strip in one shot; a no-op once already gone.
     out = out.replace(
       /\s*<!-- ═══ PRESIDENT & FOUNDER ═══ -->[\s\S]*?<\/section>\s*/,
+      '\n\n    '
+    );
+    // The yellow 5-card "Human Value / Leadership / Narrative / Design / Empowerment"
+    // concept-cards screenshot right after the partners photo is removed entirely per
+    // request. It's a single self-contained <img>, no wrapping section to worry about.
+    out = out.replace(
+      /\s*<img class="screenshot-3" src="assets\/images\/screenshot_concept_cards\.png" alt="[^"]*"\/>\s*/,
       '\n\n    '
     );
     return out;
