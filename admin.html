@@ -64,6 +64,8 @@
       font-family: var(--font); letter-spacing: -1px; background: transparent; color: #000; width: 100%;
     }
     .admin-field input:focus, .admin-field textarea:focus { outline: none; border-bottom-width: 2px; }
+    .admin-field-inline { border: none; border-bottom: 1px solid rgba(0,0,0,0.2); padding: 4px 0; font-family: var(--font); font-size: 15px; letter-spacing: -0.3px; background: transparent; color: #000; width: 100%; max-width: 280px; }
+    .admin-field-inline:focus { outline: none; border-bottom-color: #000; }
     .admin-error { color: #c0392b; font-size: 16px; letter-spacing: -0.48px; display: none; }
     .admin-error.show { display: block; }
     .admin-login-note { font-size: 14px; color: var(--gray); line-height: 1.5; }
@@ -319,8 +321,12 @@
           <nav class="admin-sidebar-nav">
             <button class="admin-nav-item active" type="button" data-view="dashboard" onclick="showAdminView('dashboard')">Dashboard</button>
             <button class="admin-nav-item" type="button" data-view="hero" onclick="showAdminView('hero')">Hero</button>
+            <button class="admin-nav-item" type="button" data-view="specialties" onclick="showAdminView('specialties')">Specialties</button>
             <button class="admin-nav-item" type="button" data-view="works" onclick="showAdminView('works')">Our Works</button>
+            <button class="admin-nav-item" type="button" data-view="thesis" onclick="showAdminView('thesis')">Thesis</button>
+            <button class="admin-nav-item" type="button" data-view="news" onclick="showAdminView('news')">News</button>
             <button class="admin-nav-item" type="button" data-view="articles" onclick="showAdminView('articles')">Articles</button>
+            <button class="admin-nav-item" type="button" data-view="partners" onclick="showAdminView('partners')">Partners</button>
             <button class="admin-nav-item" type="button" data-view="team" onclick="showAdminView('team')">Team</button>
             <button class="admin-nav-item" type="button" data-view="publish" onclick="showAdminView('publish')">Publish</button>
           </nav>
@@ -343,6 +349,9 @@
             <div class="dash-card"><div class="dash-num" id="dash-projects-count">0</div><div class="dash-label">Projects</div></div>
             <div class="dash-card"><div class="dash-num" id="dash-articles-count">0</div><div class="dash-label">Articles</div></div>
             <div class="dash-card"><div class="dash-num" id="dash-team-count">0</div><div class="dash-label">Team Members</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-thesis-count">0</div><div class="dash-label">Thesis</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-news-count">0</div><div class="dash-label">News</div></div>
+            <div class="dash-card"><div class="dash-num" id="dash-partners-count">0</div><div class="dash-label">Partner Logos</div></div>
           </div>
           <div class="admin-panel">
             <h2>준비됐으면 Publish 하세요</h2>
@@ -365,6 +374,160 @@
             <p class="hint" style="margin-top:8px;">맨 위 슬라이드가 제일 먼저 보여요. 화살표로 순서를 바꿀 수 있고, 최소 한 장은 남아있어야 해요.</p>
             <input type="file" id="hero-slide-file-input" accept="image/*" multiple style="display:none;"/>
             <div class="admin-project-list" id="hero-slide-list"></div>
+          </div>
+
+          <div>
+            <div class="admin-section-head">
+              <h2>Heading & Text</h2>
+            </div>
+            <p class="hint" style="margin-top:8px;">히어로 사진 아래에 나오는 큰 제목과 소개 문단이에요.</p>
+            <div class="admin-field" style="margin-top:12px;">
+              <label for="sc-hero-heading">Heading</label>
+              <input type="text" id="sc-hero-heading" oninput="updateSiteField('heroHeading', this.value)" placeholder="예: Global Design. Design Leadership."/>
+            </div>
+            <div class="admin-field">
+              <label for="sc-hero-p1">Paragraph 1</label>
+              <textarea id="sc-hero-p1" oninput="updateSiteParagraph(0, this.value)"></textarea>
+            </div>
+            <div class="admin-field">
+              <label for="sc-hero-p2">Paragraph 2</label>
+              <textarea id="sc-hero-p2" oninput="updateSiteParagraph(1, this.value)"></textarea>
+            </div>
+          </div>
+
+          <div>
+            <div class="admin-section-head">
+              <h2>Logos</h2>
+            </div>
+            <p class="hint" style="margin-top:8px;">소개 문단 아래에 나란히 나오는 두 개의 작은 로고예요.</p>
+            <div class="row" style="margin-top:12px;">
+              <div class="admin-media-field">
+                <label>Association Mark</label>
+                <div class="admin-media-row">
+                  <div class="admin-media-preview empty" id="preview-sc-gdla-logo"></div>
+                  <div class="admin-media-controls">
+                    <input type="file" id="sc-gdla-logo-file" accept="image/*"/>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-media-field">
+                <label>CLAB Logo</label>
+                <div class="admin-media-row">
+                  <div class="admin-media-preview empty" id="preview-sc-clab-logo"></div>
+                  <div class="admin-media-controls">
+                    <input type="file" id="sc-clab-logo-file" accept="image/*"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ SPECIALTIES ═══ -->
+        <section class="admin-view" id="view-specialties" data-view="specialties">
+          <div class="admin-view-head">
+            <h1>Specialties</h1>
+            <p>홈페이지 Specialties 섹션이에요. 그룹 이름과 태그 목록을 수정할 수 있어요.</p>
+          </div>
+          <div>
+            <div class="admin-field">
+              <label for="sc-specialties-title">Group Title</label>
+              <input type="text" id="sc-specialties-title" oninput="updateSiteField('specialtiesGroupTitle', this.value)" placeholder="예: DESIGN MANAGEMENT"/>
+            </div>
+            <div class="admin-field">
+              <label for="sc-specialties-items">Tags (한 줄에 하나씩)</label>
+              <textarea id="sc-specialties-items" oninput="updateSiteSpecialtiesItems(this.value)" style="min-height:150px;" placeholder="Vision & Strategy&#10;Leadership & Innovation&#10;Curriculum & Practice"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ THESIS ═══ -->
+        <section class="admin-view" id="view-thesis" data-view="thesis">
+          <div class="admin-view-head">
+            <h1>Thesis</h1>
+            <p>홈페이지 Thesis 목록이에요. 화살표로 순서를 바꿀 수 있어요.</p>
+          </div>
+          <div>
+            <div class="admin-section-head">
+              <h2>Thesis List</h2>
+              <button class="btn-outline" id="add-thesis-btn" type="button">+ Add Thesis</button>
+            </div>
+            <div class="admin-project-list" id="thesis-list"></div>
+            <div class="admin-form" id="thesis-form" style="margin-top:24px;">
+              <h2 id="thesis-form-title">Add Thesis</h2>
+              <div class="admin-field">
+                <label for="t-title">Title</label>
+                <input type="text" id="t-title" placeholder="논문 제목"/>
+              </div>
+              <div class="admin-field">
+                <label for="t-meta">Meta (날짜 · 저널 · 저자 등)</label>
+                <input type="text" id="t-meta" placeholder="예: 2025.07 · KCI · Hong Gildong, Korea Design Society"/>
+              </div>
+              <div class="admin-field">
+                <label for="t-url">Link URL (선택, 비워두면 #)</label>
+                <input type="text" id="t-url" placeholder="https://..."/>
+              </div>
+              <div class="admin-form-actions">
+                <button class="btn-text" id="cancel-thesis-form-btn" type="button">Cancel</button>
+                <button class="btn-outline primary" id="save-thesis-btn" type="button">Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ NEWS ═══ -->
+        <section class="admin-view" id="view-news" data-view="news">
+          <div class="admin-view-head">
+            <h1>News</h1>
+            <p>홈페이지 News 목록이에요. 화살표로 순서를 바꿀 수 있어요.</p>
+          </div>
+          <div>
+            <div class="admin-section-head">
+              <h2>News List</h2>
+              <button class="btn-outline" id="add-news-btn" type="button">+ Add News</button>
+            </div>
+            <div class="admin-project-list" id="news-list"></div>
+            <div class="admin-form" id="news-form" style="margin-top:24px;">
+              <h2 id="news-form-title">Add News</h2>
+              <div class="row">
+                <div class="admin-field">
+                  <label for="n-category">Category</label>
+                  <input type="text" id="n-category" placeholder="예: Workshop, Event, Industry"/>
+                </div>
+                <div class="admin-field">
+                  <label for="n-date">Date</label>
+                  <input type="text" id="n-date" placeholder="예: 2026.03.18"/>
+                </div>
+              </div>
+              <div class="admin-field">
+                <label for="n-title">Title</label>
+                <input type="text" id="n-title" placeholder="뉴스 제목"/>
+              </div>
+              <div class="admin-field">
+                <label for="n-url">Link URL (선택, 비워두면 #)</label>
+                <input type="text" id="n-url" placeholder="https://..."/>
+              </div>
+              <div class="admin-form-actions">
+                <button class="btn-text" id="cancel-news-form-btn" type="button">Cancel</button>
+                <button class="btn-outline primary" id="save-news-btn" type="button">Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ PARTNER LOGOS ═══ -->
+        <section class="admin-view" id="view-partners" data-view="partners">
+          <div class="admin-view-head">
+            <h1>Partners</h1>
+            <p>홈페이지 하단에 흐르는 파트너 로고예요. 로고를 추가·삭제하고 순서를 바꿀 수 있어요. 이름을 적어두면 스크린리더에 표시돼요.</p>
+          </div>
+          <div>
+            <div class="admin-section-head">
+              <h2>Partner Logos</h2>
+              <button class="btn-outline" id="add-partner-logo-btn" type="button">+ Add Logo</button>
+            </div>
+            <input type="file" id="partner-logo-file-input" accept="image/*" multiple style="display:none;"/>
+            <div class="admin-project-list" id="partner-logo-list"></div>
           </div>
         </section>
 
@@ -708,6 +871,10 @@
   const ARTICLES_LIST_PATH = 'articles.html';
   const TEAM_PATH     = 'assets/data/team.json';
   const HERO_PATH     = 'assets/data/hero.json';
+  const PARTNERS_PATH = 'assets/data/partners.json';
+  const SITE_PATH     = 'assets/data/site.json';
+  const THESIS_PATH   = 'assets/data/thesis.json';
+  const NEWS_PATH     = 'assets/data/news.json';
   const ABOUT_PATH    = 'about.html';
   const INDEX_PATH    = 'index.html';
   // Matches the filter sidebar already hardcoded in articles.html — keep in sync if that list changes.
@@ -793,6 +960,57 @@
     { id: 'seed-hero-1', path: 'assets/images/hero.png', alt: 'Global Design Leadership Association' }
   ];
 
+  /* ═══════════════════ SEED DATA (used only if assets/data/partners.json doesn't exist yet) ═══════════════════ */
+  // Ports the 12 hand-placed partner logos into the new admin-manageable format.
+  const SEED_PARTNERS = [
+    { id: 'seed-partner-1', path: 'assets/logo/partners/seoul-design-foundation.png', alt: 'Seoul Design Foundation' },
+    { id: 'seed-partner-2', path: 'assets/logo/partners/hyundai-motor-group.png', alt: 'Hyundai Motor Group' },
+    { id: 'seed-partner-3', path: 'assets/logo/partners/camera-nazionale-moda-italiana.png', alt: 'Camera Nazionale della Moda Italiana' },
+    { id: 'seed-partner-4', path: 'assets/logo/partners/milano-fashion-institute.png', alt: 'Milano Fashion Institute' },
+    { id: 'seed-partner-5', path: 'assets/logo/partners/undp.png', alt: 'UNDP' },
+    { id: 'seed-partner-6', path: 'assets/logo/partners/duobo-lg-laps.png', alt: 'Duobo by LG Laps' },
+    { id: 'seed-partner-7', path: 'assets/logo/partners/genesis.png', alt: 'Genesis' },
+    { id: 'seed-partner-8', path: 'assets/logo/partners/kfda.png', alt: 'KFDA' },
+    { id: 'seed-partner-9', path: 'assets/logo/partners/seoul-metropolitan-government.png', alt: 'Seoul Metropolitan Government' },
+    { id: 'seed-partner-10', path: 'assets/logo/partners/cartier.png', alt: 'Cartier' },
+    { id: 'seed-partner-11', path: 'assets/logo/partners/bcefw.png', alt: 'Budapest Central European Fashion Week' },
+    { id: 'seed-partner-12', path: 'assets/logo/partners/ddp.png', alt: 'DDP' },
+  ];
+
+  /* ═══════════════════ SEED DATA (used only if assets/data/site.json doesn't exist yet) ═══════════════════ */
+  // Ports the hero heading/paragraphs/logo marks and the Specialties section text that were
+  // already hand-authored directly into index.html, so nothing changes visually until the
+  // team edits them from the new admin panels.
+  const SEED_SITE_CONTENT = {
+    heroHeading: 'Global Design. Design Leadership.',
+    heroParagraphs: [
+      'Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.',
+      'CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice.'
+    ],
+    heroLogos: [
+      { path: 'assets/logo/logo-gdla.png.png', alt: 'Association mark' },
+      { path: 'assets/logo/logo-clab.png.png', alt: 'CLAB logo' }
+    ],
+    specialtiesGroupTitle: 'DESIGN MANAGEMENT',
+    specialtiesItems: ['Vision & Strategy', 'Leadership & Innovation', 'Curriculum & Practice', 'Industry Collaboration', 'Career & Impact']
+  };
+
+  /* ═══════════════════ SEED DATA (used only if assets/data/thesis.json doesn't exist yet) ═══════════════════ */
+  const SEED_THESIS = [
+    { id: 'seed-thesis-1', title: "Therapeutic Effects of Digital Spatial Design in Theme Park Gardens on Visitors' Psychological Well-being", meta: '2025.07 · KCI · Seon Hwa Kim, Korea Convergence Society', url: '#' },
+    { id: 'seed-thesis-2', title: 'UX Constellation Model: A Framework for Mapping User Experience Dimensions', meta: '2025.07 · KCI · Jong Min Moon, Design Convergence Study', url: '#' },
+    { id: 'seed-thesis-3', title: 'Impact of Digital–Design Integration on Customer Experience in Fashion E-Commerce: Zalando & ASOS', meta: '2025.07 · KCI · Da Jeong Lee, Korean Contents and Industry Association', url: '#' },
+    { id: 'seed-thesis-4', title: 'Non-Cognitive Skills Deficit in Generative AI-Based Work in the Graphic Design Industry', meta: '2025.04 · KCI · Hye Su Kang, Korean Business Association', url: '#' },
+  ];
+
+  /* ═══════════════════ SEED DATA (used only if assets/data/news.json doesn't exist yet) ═══════════════════ */
+  const SEED_NEWS = [
+    { id: 'seed-news-1', category: 'Workshop', title: "'Human Factors in Leadership' Workshop Highlights the Role of DEIA in Design and Policy", date: '2025.11.25', url: '#' },
+    { id: 'seed-news-2', category: 'Event', title: 'CLab Fall 2025 Thesis Final Presentation Highlights', date: '2025.11.25', url: '#' },
+    { id: 'seed-news-3', category: 'Industry', title: 'Spring 2025 Industry Talk: Branding in the AI Era', date: '2025.03.18', url: '#' },
+    { id: 'seed-news-4', category: 'Collaboration', title: 'CLab × Hyundai Executive Leadership Program Launch', date: '2024.03.04', url: '#' },
+  ];
+
   /* ═══════════════════ STATE ═══════════════════ */
   let projects = [];
   // In-memory only (NOT persisted) — keyed by project slug while editing, or NEW_KEY while adding.
@@ -814,6 +1032,18 @@
   let pendingHeroUploads = {};
   // In-memory only — object URLs for previewing not-yet-uploaded slides, so we don't leak them.
   let heroObjectUrls = {};
+
+  let partnerLogos = [];
+  let pendingPartnerUploads = {};
+  let partnerObjectUrls = {};
+
+  let siteContent = {};
+
+  let thesisItems = [];
+  let editingThesisIndex = -1; // -1 = "add new"
+
+  let newsItems = [];
+  let editingNewsIndex = -1; // -1 = "add new"
 
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -883,6 +1113,58 @@
       log && log('⚠️ 히어로 슬라이드를 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
     }
     heroSlides = JSON.parse(JSON.stringify(SEED_HERO));
+  }
+
+  async function loadPartners() {
+    try {
+      const file = await getFile(PARTNERS_PATH);
+      if (file) {
+        partnerLogos = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ 파트너 로고를 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    partnerLogos = JSON.parse(JSON.stringify(SEED_PARTNERS));
+  }
+
+  async function loadSiteContent() {
+    try {
+      const file = await getFile(SITE_PATH);
+      if (file) {
+        siteContent = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ 사이트 텍스트를 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    siteContent = JSON.parse(JSON.stringify(SEED_SITE_CONTENT));
+  }
+
+  async function loadThesis() {
+    try {
+      const file = await getFile(THESIS_PATH);
+      if (file) {
+        thesisItems = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ Thesis 목록을 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    thesisItems = JSON.parse(JSON.stringify(SEED_THESIS));
+  }
+
+  async function loadNews() {
+    try {
+      const file = await getFile(NEWS_PATH);
+      if (file) {
+        newsItems = JSON.parse(file.content);
+        return;
+      }
+    } catch (e) {
+      log && log('⚠️ News 목록을 불러오지 못해 기본 데이터로 시작해요: ' + e.message);
+    }
+    newsItems = JSON.parse(JSON.stringify(SEED_NEWS));
   }
 
   function escapeHtml(s) {
@@ -1137,6 +1419,14 @@
     logShow(); logClear();
     log('히어로 슬라이드 불러오는 중...');
     await loadHero();
+    log('사이트 텍스트 불러오는 중...');
+    await loadSiteContent();
+    log('파트너 로고 불러오는 중...');
+    await loadPartners();
+    log('Thesis 목록 불러오는 중...');
+    await loadThesis();
+    log('News 목록 불러오는 중...');
+    await loadNews();
     log('프로젝트 목록 불러오는 중...');
     await loadProjects();
     log('Article 목록 불러오는 중...');
@@ -1145,6 +1435,10 @@
     await loadTeam();
     logClear();
     renderHeroList();
+    populateSiteContentForm();
+    renderPartnerList();
+    renderThesisList();
+    renderNewsList();
     renderProjectList();
     renderArticleAdminList();
     populateCategorySelect();
@@ -1159,9 +1453,12 @@
   function updateDashboardCounts() {
     const setCount = (id, n) => { const el = document.getElementById(id); if (el) el.textContent = n; };
     setCount('dash-hero-count', heroSlides.length);
+    setCount('dash-partners-count', partnerLogos.length);
     setCount('dash-projects-count', projects.length);
     setCount('dash-articles-count', articles.length);
     setCount('dash-team-count', team.length);
+    setCount('dash-thesis-count', thesisItems.length);
+    setCount('dash-news-count', newsItems.length);
   }
 
   /* ═══════════════════ SIDEBAR VIEW SWITCHING ═══════════════════ */
@@ -1410,6 +1707,317 @@
     });
     e.target.value = '';
     renderHeroList();
+  });
+
+  /* ═══════════════════ PARTNER LOGOS LIST RENDER ═══════════════════ */
+  function partnerLogoPreviewSrc(p) {
+    const pending = pendingPartnerUploads[p.id];
+    if (pending) {
+      if (!partnerObjectUrls[p.id]) partnerObjectUrls[p.id] = URL.createObjectURL(pending);
+      return partnerObjectUrls[p.id];
+    }
+    return p.path;
+  }
+
+  function renderPartnerList() {
+    const listEl = document.getElementById('partner-logo-list');
+    if (!listEl) return;
+    if (!partnerLogos.length) {
+      listEl.innerHTML = '<p class="admin-empty">등록된 파트너 로고가 없어요. "+ Add Logo"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = partnerLogos.map((p, i) => {
+      const src = partnerLogoPreviewSrc(p);
+      return `
+      <div class="admin-project-row">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="movePartnerLogo(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === partnerLogos.length - 1 ? 'disabled' : ''} onclick="movePartnerLogo(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-thumb" style="${src ? `background-image:url('${src}');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#f2f2f2;` : ''}"></div>
+        <div class="admin-project-info">
+          <input type="text" class="admin-field-inline" value="${escapeHtml(p.alt || '')}" placeholder="파트너 이름 (예: Hyundai Motor Group)" oninput="updatePartnerAlt(${i}, this.value)"/>
+          ${pendingPartnerUploads[p.id] ? '<div class="meta">업로드 대기중 (Publish 시 업로드)</div>' : ''}
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn danger" title="삭제" onclick="deletePartnerLogo(${i})">🗑</button>
+        </div>
+      </div>
+    `;
+    }).join('');
+  }
+
+  window.updatePartnerAlt = function (i, val) {
+    if (partnerLogos[i]) partnerLogos[i].alt = val;
+  };
+  window.movePartnerLogo = function (i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= partnerLogos.length) return;
+    [partnerLogos[i], partnerLogos[j]] = [partnerLogos[j], partnerLogos[i]];
+    renderPartnerList();
+  };
+  window.deletePartnerLogo = function (i) {
+    if (!confirm('이 파트너 로고를 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    const p = partnerLogos[i];
+    delete pendingPartnerUploads[p.id];
+    if (partnerObjectUrls[p.id]) { URL.revokeObjectURL(partnerObjectUrls[p.id]); delete partnerObjectUrls[p.id]; }
+    partnerLogos.splice(i, 1);
+    renderPartnerList();
+  };
+
+  document.getElementById('add-partner-logo-btn').addEventListener('click', () => {
+    document.getElementById('partner-logo-file-input').click();
+  });
+  document.getElementById('partner-logo-file-input').addEventListener('change', (e) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach((file, idx) => {
+      const id = `partner-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`;
+      partnerLogos.push({ id, path: null, alt: '' });
+      pendingPartnerUploads[id] = file;
+    });
+    e.target.value = '';
+    renderPartnerList();
+  });
+
+  /* ═══════════════════ SITE CONTENT (Hero text/logos + Specialties) ═══════════════════ */
+  let pendingSiteLogoUploads = {}; // keyed by 'gdla' | 'clab'
+  let siteLogoObjectUrls = {};
+
+  function ensureSiteContentShape() {
+    if (!siteContent.heroParagraphs) siteContent.heroParagraphs = ['', ''];
+    if (!siteContent.heroLogos || !siteContent.heroLogos.length) {
+      siteContent.heroLogos = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.heroLogos));
+    }
+    if (!siteContent.specialtiesItems) siteContent.specialtiesItems = [];
+  }
+  window.updateSiteField = function (field, value) {
+    ensureSiteContentShape();
+    siteContent[field] = value;
+  };
+  window.updateSiteParagraph = function (idx, value) {
+    ensureSiteContentShape();
+    siteContent.heroParagraphs[idx] = value;
+  };
+  window.updateSiteSpecialtiesItems = function (value) {
+    ensureSiteContentShape();
+    siteContent.specialtiesItems = value.split('\n').map(s => s.trim()).filter(Boolean);
+  };
+
+  function renderSiteLogoPreview(key, logo) {
+    const el = document.getElementById(`preview-sc-${key}-logo`);
+    if (!el) return;
+    const pending = pendingSiteLogoUploads[key];
+    let src = null;
+    if (pending) {
+      if (!siteLogoObjectUrls[key]) siteLogoObjectUrls[key] = URL.createObjectURL(pending);
+      src = siteLogoObjectUrls[key];
+    } else if (logo && logo.path) {
+      src = logo.path;
+    }
+    if (src) {
+      el.classList.remove('empty');
+      el.innerHTML = `<img src="${src}" alt=""/>`;
+    } else {
+      el.classList.add('empty');
+      el.innerHTML = '';
+    }
+  }
+
+  function populateSiteContentForm() {
+    if (!siteContent || !Object.keys(siteContent).length) {
+      siteContent = JSON.parse(JSON.stringify(SEED_SITE_CONTENT));
+    }
+    ensureSiteContentShape();
+    document.getElementById('sc-hero-heading').value = siteContent.heroHeading || '';
+    document.getElementById('sc-hero-p1').value = siteContent.heroParagraphs[0] || '';
+    document.getElementById('sc-hero-p2').value = siteContent.heroParagraphs[1] || '';
+    document.getElementById('sc-specialties-title').value = siteContent.specialtiesGroupTitle || '';
+    document.getElementById('sc-specialties-items').value = (siteContent.specialtiesItems || []).join('\n');
+    renderSiteLogoPreview('gdla', siteContent.heroLogos[0]);
+    renderSiteLogoPreview('clab', siteContent.heroLogos[1]);
+  }
+
+  ['gdla', 'clab'].forEach((key) => {
+    const input = document.getElementById(`sc-${key}-logo-file`);
+    if (input) {
+      input.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        pendingSiteLogoUploads[key] = file;
+        ensureSiteContentShape();
+        renderSiteLogoPreview(key, siteContent.heroLogos[key === 'gdla' ? 0 : 1]);
+      });
+    }
+  });
+
+  async function uploadPendingSiteLogos() {
+    ensureSiteContentShape();
+    for (const key of ['gdla', 'clab']) {
+      const file = pendingSiteLogoUploads[key];
+      if (!file) continue;
+      const idx = key === 'gdla' ? 0 : 1;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/site/${key}-logo.${ext}`;
+      log(`  ↳ ${key === 'gdla' ? 'Association mark' : 'CLAB logo'} 업로드 중... (${file.name || 'logo'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload site logo via admin (${currentPerson.name})`);
+      siteContent.heroLogos[idx].path = path;
+      log(`  ✅ ${path}`);
+    }
+  }
+
+  /* ═══════════════════ THESIS LIST (add/edit/delete/reorder) ═══════════════════ */
+  function renderThesisList() {
+    const listEl = document.getElementById('thesis-list');
+    if (!listEl) return;
+    if (!thesisItems.length) {
+      listEl.innerHTML = '<p class="admin-empty">아직 Thesis가 없어요. "+ Add Thesis"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = thesisItems.map((t, i) => `
+      <div class="admin-project-row">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveThesis(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === thesisItems.length - 1 ? 'disabled' : ''} onclick="moveThesis(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-info">
+          <div class="title">${escapeHtml(t.title)}</div>
+          <div class="meta">${escapeHtml(t.meta || '')}</div>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn" title="수정" onclick="editThesis(${i})">✎</button>
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteThesis(${i})">🗑</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.moveThesis = function (i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= thesisItems.length) return;
+    [thesisItems[i], thesisItems[j]] = [thesisItems[j], thesisItems[i]];
+    renderThesisList();
+  };
+  window.deleteThesis = function (i) {
+    if (!confirm('이 Thesis를 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    thesisItems.splice(i, 1);
+    renderThesisList();
+  };
+  window.editThesis = function (i) {
+    editingThesisIndex = i;
+    const t = thesisItems[i];
+    document.getElementById('thesis-form-title').textContent = 'Edit Thesis';
+    document.getElementById('t-title').value = t.title || '';
+    document.getElementById('t-meta').value = t.meta || '';
+    document.getElementById('t-url').value = (t.url && t.url !== '#') ? t.url : '';
+    document.getElementById('thesis-form').classList.add('show');
+  };
+  function closeThesisForm() {
+    editingThesisIndex = -1;
+    document.getElementById('thesis-form').classList.remove('show');
+    document.getElementById('t-title').value = '';
+    document.getElementById('t-meta').value = '';
+    document.getElementById('t-url').value = '';
+  }
+  document.getElementById('add-thesis-btn').addEventListener('click', () => {
+    editingThesisIndex = -1;
+    document.getElementById('thesis-form-title').textContent = 'Add Thesis';
+    document.getElementById('t-title').value = '';
+    document.getElementById('t-meta').value = '';
+    document.getElementById('t-url').value = '';
+    document.getElementById('thesis-form').classList.add('show');
+  });
+  document.getElementById('cancel-thesis-form-btn').addEventListener('click', closeThesisForm);
+  document.getElementById('save-thesis-btn').addEventListener('click', () => {
+    const title = document.getElementById('t-title').value.trim();
+    if (!title) { alert('제목을 입력해주세요.'); return; }
+    const meta = document.getElementById('t-meta').value.trim();
+    const url = document.getElementById('t-url').value.trim() || '#';
+    if (editingThesisIndex >= 0) {
+      thesisItems[editingThesisIndex] = { ...thesisItems[editingThesisIndex], title, meta, url };
+    } else {
+      thesisItems.push({ id: `thesis-${Date.now()}`, title, meta, url });
+    }
+    closeThesisForm();
+    renderThesisList();
+  });
+
+  /* ═══════════════════ NEWS LIST (add/edit/delete/reorder) ═══════════════════ */
+  function renderNewsList() {
+    const listEl = document.getElementById('news-list');
+    if (!listEl) return;
+    if (!newsItems.length) {
+      listEl.innerHTML = '<p class="admin-empty">아직 News가 없어요. "+ Add News"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = newsItems.map((n, i) => `
+      <div class="admin-project-row">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveNews(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === newsItems.length - 1 ? 'disabled' : ''} onclick="moveNews(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-info">
+          <div class="title">${escapeHtml(n.title)}</div>
+          <div class="meta">${escapeHtml(n.category || '')}${n.date ? ' · ' + escapeHtml(n.date) : ''}</div>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn" title="수정" onclick="editNews(${i})">✎</button>
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteNews(${i})">🗑</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.moveNews = function (i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= newsItems.length) return;
+    [newsItems[i], newsItems[j]] = [newsItems[j], newsItems[i]];
+    renderNewsList();
+  };
+  window.deleteNews = function (i) {
+    if (!confirm('이 News를 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    newsItems.splice(i, 1);
+    renderNewsList();
+  };
+  window.editNews = function (i) {
+    editingNewsIndex = i;
+    const n = newsItems[i];
+    document.getElementById('news-form-title').textContent = 'Edit News';
+    document.getElementById('n-category').value = n.category || '';
+    document.getElementById('n-date').value = n.date || '';
+    document.getElementById('n-title').value = n.title || '';
+    document.getElementById('n-url').value = (n.url && n.url !== '#') ? n.url : '';
+    document.getElementById('news-form').classList.add('show');
+  };
+  function closeNewsForm() {
+    editingNewsIndex = -1;
+    document.getElementById('news-form').classList.remove('show');
+    document.getElementById('n-category').value = '';
+    document.getElementById('n-date').value = '';
+    document.getElementById('n-title').value = '';
+    document.getElementById('n-url').value = '';
+  }
+  document.getElementById('add-news-btn').addEventListener('click', () => {
+    editingNewsIndex = -1;
+    document.getElementById('news-form-title').textContent = 'Add News';
+    document.getElementById('n-category').value = '';
+    document.getElementById('n-date').value = '';
+    document.getElementById('n-title').value = '';
+    document.getElementById('n-url').value = '';
+    document.getElementById('news-form').classList.add('show');
+  });
+  document.getElementById('cancel-news-form-btn').addEventListener('click', closeNewsForm);
+  document.getElementById('save-news-btn').addEventListener('click', () => {
+    const title = document.getElementById('n-title').value.trim();
+    if (!title) { alert('제목을 입력해주세요.'); return; }
+    const category = document.getElementById('n-category').value.trim();
+    const date = document.getElementById('n-date').value.trim();
+    const url = document.getElementById('n-url').value.trim() || '#';
+    if (editingNewsIndex >= 0) {
+      newsItems[editingNewsIndex] = { ...newsItems[editingNewsIndex], category, date, title, url };
+    } else {
+      newsItems.push({ id: `news-${Date.now()}`, category, date, title, url });
+    }
+    closeNewsForm();
+    renderNewsList();
   });
 
   /* ═══════════════════ MY PROFILE (self-serve edit) ═══════════════════ */
@@ -3667,30 +4275,22 @@
 `;
 
   // 2026-09 partners update: the static partners photo is replaced entirely by a live,
-  // auto-scrolling logo marquee (right-to-left, looping) built from the 12 individual
-  // partner/collaborator logo files the user placed under assets/logo/partners/. Reuses
-  // the same "double the items, animate translateX(0) -> -50%" technique as the homepage
-  // project marquee, under its own class names/keyframe so it doesn't collide with that.
-  const PARTNER_LOGOS = [
-    { file: 'seoul-design-foundation.png', alt: 'Seoul Design Foundation' },
-    { file: 'hyundai-motor-group.png', alt: 'Hyundai Motor Group' },
-    { file: 'camera-nazionale-moda-italiana.png', alt: 'Camera Nazionale della Moda Italiana' },
-    { file: 'milano-fashion-institute.png', alt: 'Milano Fashion Institute' },
-    { file: 'undp.png', alt: 'UNDP' },
-    { file: 'duobo-lg-laps.png', alt: 'Duobo by LG Laps' },
-    { file: 'genesis.png', alt: 'Genesis' },
-    { file: 'kfda.png', alt: 'KFDA' },
-    { file: 'seoul-metropolitan-government.png', alt: 'Seoul Metropolitan Government' },
-    { file: 'cartier.png', alt: 'Cartier' },
-    { file: 'bcefw.png', alt: 'Budapest Central European Fashion Week' },
-    { file: 'ddp.png', alt: 'DDP' },
-  ];
+  // auto-scrolling logo marquee (right-to-left, looping). Was originally a hardcoded list
+  // of 12 files; now data-driven from the admin's "Partners" panel (partnerLogos / SEED_PARTNERS)
+  // so logos can be added/removed/reordered without touching code. Reuses the same "double
+  // the items, animate translateX(0) -> -50%" technique as the homepage project marquee,
+  // under its own class names/keyframe so it doesn't collide with that.
   const PARTNER_MARQUEE_CSS = `
     /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
     .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 144px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
     .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
     @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (max-width: 768px) {
+      .partner-marquee-section { padding: 36px 0; }
+      .partner-marquee-track { gap: 32px; }
+      .partner-marquee-logo { height: 56px; }
+    }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 `;
   // Strip-and-reinsert (not a static "already injected?" guard) so that any future edit to
@@ -3705,13 +4305,162 @@
     out = out.replace('</style>', PARTNER_MARQUEE_CSS + '\n  </style>');
     return out;
   }
-  function buildPartnerMarqueeHtml() {
-    const itemsHtml = PARTNER_LOGOS.map(l =>
-      `<img class="partner-marquee-logo" src="assets/logo/partners/${l.file}" alt="${escapeHtml(l.alt)}">`
+  function buildPartnerMarqueeHtml(partners) {
+    const list = partners && partners.length ? partners : SEED_PARTNERS;
+    const itemsHtml = list.map(l =>
+      `<img class="partner-marquee-logo" src="${l.path}" alt="${escapeHtml(l.alt || '')}">`
     ).join('');
     return `<section class="partner-marquee-section" aria-label="Partners and collaborators">
       <div class="partner-marquee-track">${itemsHtml}${itemsHtml}</div>
     </section>`;
+  }
+  // Strip-and-reinsert (not a static "already there?" guard) so add/remove/reorder from the
+  // admin's Partners panel always reaches an already-published index.html on the next
+  // Publish — the same bug class the old hardcoded-list guard would otherwise have had.
+  function reinjectPartnerMarqueeHtml(html, partners) {
+    let out = html.replace(
+      /\s*<section class="partner-marquee-section"[\s\S]*?<\/section>\s*/,
+      '\n\n    '
+    );
+    out = out.replace(
+      '<!-- ═══ CONNECT WITH US 2 ═══ -->',
+      `${buildPartnerMarqueeHtml(partners)}\n\n    <!-- ═══ CONNECT WITH US 2 ═══ -->`
+    );
+    return out;
+  }
+
+  // 2026-09 site-content update: the hero heading/intro paragraphs/two small logo marks,
+  // the Specialties tag list, the Thesis list, and the News list all become admin-editable
+  // (assets/data/site.json, thesis.json, news.json) instead of hand-authored HTML. Each is
+  // a full-block regenerate + replace (not a value-only patch), always reinjected fresh on
+  // every Publish so edits/reorders/deletes reliably reach an already-published page.
+  function buildHeroIntroHtml(site) {
+    const s = (site && Object.keys(site).length) ? site : SEED_SITE_CONTENT;
+    const paragraphs = (s.heroParagraphs && s.heroParagraphs.length ? s.heroParagraphs : SEED_SITE_CONTENT.heroParagraphs);
+    const logos = (s.heroLogos && s.heroLogos.length ? s.heroLogos : SEED_SITE_CONTENT.heroLogos);
+    const parasHtml = paragraphs.map(p => `<p class="div">${escapeHtml(p)}</p>`).join('\n        ');
+    const logosHtml = logos.map(l => `<img class="img" src="${l.path}" alt="${escapeHtml(l.alt || '')}"/>`).join('\n        ');
+    return `<section class="intro-section" id="about" aria-labelledby="intro-title">
+      <h1 class="intro-h1" id="intro-title">${escapeHtml(s.heroHeading || SEED_SITE_CONTENT.heroHeading)}</h1>
+      <div class="flexcontainer">
+        ${parasHtml}
+      </div>
+      <div class="frame-logos">
+        ${logosHtml}
+      </div>
+    </section>`;
+  }
+  function reinjectHeroIntro(html, site) {
+    return html.replace(
+      /<section class="intro-section" id="about" aria-labelledby="intro-title">[\s\S]*?<\/section>/,
+      buildHeroIntroHtml(site)
+    );
+  }
+
+  function buildSpecialtiesHtml(site) {
+    const s = (site && Object.keys(site).length) ? site : SEED_SITE_CONTENT;
+    const groupTitle = s.specialtiesGroupTitle || SEED_SITE_CONTENT.specialtiesGroupTitle;
+    const items = (s.specialtiesItems && s.specialtiesItems.length ? s.specialtiesItems : SEED_SITE_CONTENT.specialtiesItems);
+    const itemsHtml = items.map(it => `<p class="div">${escapeHtml(it)}</p>`).join('\n              ');
+    return `<section class="awards-section" id="specialties" aria-labelledby="specialties-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="specialties-title">Specialties</h2>
+        <div class="awards-list">
+          <section class="branding-list" aria-labelledby="design-management-title">
+            <h3 class="text-wrapper-3" id="design-management-title">${escapeHtml(groupTitle)}</h3>
+            <div class="flexcontainer-2">
+              ${itemsHtml}
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    `;
+  }
+  function reinjectSpecialties(html, site) {
+    return html.replace(
+      /<section class="awards-section" id="specialties"[\s\S]*?(?=<!-- ═══ THESIS ═══ -->)/,
+      buildSpecialtiesHtml(site)
+    );
+  }
+
+  function buildThesisHtml(items) {
+    const list = items && items.length ? items : SEED_THESIS;
+    const rows = list.map(t => `
+          <a href="${escapeHtml(t.url || '#')}" aria-label="Open: ${escapeHtml(t.title)}">
+            <div class="award">
+              <p class="div">${escapeHtml(t.title)}</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">${escapeHtml(t.meta || '')}</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>`).join('\n');
+    return `<!-- ═══ THESIS ═══ -->
+    <section class="awards-section" id="article" aria-labelledby="thesis-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="thesis-title">Thesis</h2>
+        <div class="awards-list">
+${rows}
+          <a class="text-link" href="#" aria-label="See more thesis">
+            <span class="text-wrapper-7">See More</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    `;
+  }
+  function reinjectThesis(html, items) {
+    return html.replace(
+      /<!-- ═══ THESIS ═══ -->[\s\S]*?(?=<!-- ═══ STATS ═══ -->)/,
+      buildThesisHtml(items)
+    );
+  }
+
+  function buildNewsHtml(items) {
+    const list = items && items.length ? items : SEED_NEWS;
+    const rows = list.map(n => `
+          <a href="${escapeHtml(n.url || '#')}" aria-label="Open: ${escapeHtml(n.title)}">
+            <div class="award">
+              <div class="frame-2">
+                <div class="text-wrapper-10">${escapeHtml(n.category || '')}</div>
+              </div>
+              <p class="div">${escapeHtml(n.title)}</p>
+              <div class="frame-2">
+                <div class="text-wrapper-10">${escapeHtml(n.date || '')}</div>
+                <div class="text-wrapper-11" aria-hidden="true">→</div>
+              </div>
+            </div>
+          </a>
+          <div class="divider-2" aria-hidden="true"></div>`).join('\n');
+    return `<!-- ═══ NEWS ═══ -->
+    <section class="awards-section" aria-labelledby="news-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="news-title">News</h2>
+        <div class="awards-list">
+${rows}
+          <a class="text-link" href="#" aria-label="See more news">
+            <span class="text-wrapper-7">See More</span>
+            <span class="text-wrapper-7" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    `;
+  }
+  function reinjectNews(html, items) {
+    return html.replace(
+      /<!-- ═══ NEWS ═══ -->[\s\S]*?(?=<section class="partner-marquee-section")/,
+      buildNewsHtml(items)
+    );
   }
 
   // 2026-09 homepage hero update (per Figma): the old dark 3-panel "GLOBAL NETWORK /
@@ -3722,7 +4471,7 @@
   // section, the yellow concept-cards section, and replaces the static partners photo with
   // the logo marquee above. Safe to re-run every Publish: every removal is a no-op once
   // already gone, and every insertion is guarded so it's never duplicated.
-  function patchIndexHeroAndPartners(html, heroSlides) {
+  function patchIndexHeroAndPartners(html, heroSlides, partnerLogos, siteContent, thesisItems, newsItems) {
     let out = html.replace(
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
       '\n\n    '
@@ -3730,6 +4479,7 @@
     out = reinjectHeroHtml(out, heroSlides && heroSlides.length ? heroSlides : SEED_HERO);
     out = reinjectHeroSlideshowCss(out);
     out = reinjectHeroSlideshowJs(out);
+    out = reinjectHeroIntro(out, siteContent);
     // The static partners photo (whichever filename it currently points at — the very
     // first hand-authored one, or the briefly-used partners_updated.png) is removed
     // entirely and replaced by the logo marquee below.
@@ -3743,13 +4493,11 @@
       /\s*\/\* partners-photo-uncropped-fix \*\/\s*\.screenshot-2 \{[^}]*\}\s*/,
       '\n'
     );
-    if (!out.includes('partner-marquee-section')) {
-      out = out.replace(
-        '<!-- ═══ CONNECT WITH US 2 ═══ -->',
-        `${buildPartnerMarqueeHtml()}\n\n    <!-- ═══ CONNECT WITH US 2 ═══ -->`
-      );
-    }
+    out = reinjectPartnerMarqueeHtml(out, partnerLogos && partnerLogos.length ? partnerLogos : SEED_PARTNERS);
     out = reinjectPartnerMarqueeCss(out);
+    out = reinjectSpecialties(out, siteContent);
+    out = reinjectThesis(out, thesisItems && thesisItems.length ? thesisItems : SEED_THESIS);
+    out = reinjectNews(out, newsItems && newsItems.length ? newsItems : SEED_NEWS);
     // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
     // is removed entirely per request — it's a self-contained block bounded by its own
     // HTML comment markers, so it's safe to strip in one shot; a no-op once already gone.
@@ -3881,6 +4629,20 @@
     }
   }
 
+  async function uploadPendingPartnerLogos() {
+    for (const p of partnerLogos) {
+      const file = pendingPartnerUploads[p.id];
+      if (!file) continue;
+      const ext = extFromFile(file);
+      const path = `assets/uploads/partners/${p.id}.${ext}`;
+      log(`  ↳ 파트너 로고 업로드 중... (${file.name || 'logo'}, ${Math.round(file.size / 1024)}KB)`);
+      const base64 = await fileToBase64(file);
+      await putFileRawBase64(path, base64, `Upload partner logo via admin (${currentPerson.name})`);
+      p.path = path;
+      log(`  ✅ ${path}`);
+    }
+  }
+
   document.getElementById('publish-btn').addEventListener('click', async () => {
     if (!projects.length && !articles.length && !team.length) { alert('발행할 내용이 없어요.'); return; }
     const btn = document.getElementById('publish-btn');
@@ -3894,6 +4656,30 @@
       log(`${HERO_PATH} 저장 중...`);
       await putFile(HERO_PATH, JSON.stringify(heroSlides, null, 2), `Update hero slideshow via admin (${currentPerson.name})`);
       log('✅ ' + HERO_PATH + ' 저장 완료');
+
+      log('\n파트너 로고 업로드 확인 중...');
+      await uploadPendingPartnerLogos();
+      pendingPartnerUploads = {};
+
+      log(`${PARTNERS_PATH} 저장 중...`);
+      await putFile(PARTNERS_PATH, JSON.stringify(partnerLogos, null, 2), `Update partner logos via admin (${currentPerson.name})`);
+      log('✅ ' + PARTNERS_PATH + ' 저장 완료');
+
+      log('\n사이트 로고 업로드 확인 중...');
+      await uploadPendingSiteLogos();
+      pendingSiteLogoUploads = {};
+
+      log(`${SITE_PATH} 저장 중...`);
+      await putFile(SITE_PATH, JSON.stringify(siteContent, null, 2), `Update site content via admin (${currentPerson.name})`);
+      log('✅ ' + SITE_PATH + ' 저장 완료');
+
+      log(`${THESIS_PATH} 저장 중...`);
+      await putFile(THESIS_PATH, JSON.stringify(thesisItems, null, 2), `Update thesis list via admin (${currentPerson.name})`);
+      log('✅ ' + THESIS_PATH + ' 저장 완료');
+
+      log(`${NEWS_PATH} 저장 중...`);
+      await putFile(NEWS_PATH, JSON.stringify(newsItems, null, 2), `Update news list via admin (${currentPerson.name})`);
+      log('✅ ' + NEWS_PATH + ' 저장 완료');
 
       log('\n이미지·동영상 업로드 확인 중...');
       for (const p of projects) {
@@ -3979,7 +4765,7 @@
           newIndexHtml = newIndexHtml.replace('</style>', WORKS_SECTION_CSS_INJECT + '\n  </style>');
         }
         newIndexHtml = patchStyle1Nav(newIndexHtml, '');
-        newIndexHtml = patchIndexHeroAndPartners(newIndexHtml, heroSlides);
+        newIndexHtml = patchIndexHeroAndPartners(newIndexHtml, heroSlides, partnerLogos, siteContent, thesisItems, newsItems);
         await putFile(INDEX_PATH, newIndexHtml, `Update homepage Our Works via admin (${currentPerson.name})`);
         log('✅ ' + INDEX_PATH + ' 업데이트 완료');
       } else {
