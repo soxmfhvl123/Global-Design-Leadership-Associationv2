@@ -1316,6 +1316,19 @@
     .marquee-ph { background: #d8d8d8; }
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
 
+  
+    .nav-has-dropdown { position: relative; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 14px; background: #fff; border: 1px solid #000; padding: 20px 24px; min-width: 220px; z-index: 250; }
+    .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
+    .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
+    .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
+    a.forum-dropdown-item:hover { opacity: 0.6; }
+    .forum-dropdown-item.is-tbd { color: rgba(118,118,118,1); }
+    .mobile-forum summary { font-family: "Instrument Sans", Helvetica; font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); cursor: pointer; list-style: none; }
+    .mobile-forum summary::-webkit-details-marker { display: none; }
+    .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
+    .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
+
   </style>
 </head>
 <body>
@@ -1334,8 +1347,20 @@
     <nav class="links-contain" aria-label="Primary">
       <div class="text-links">
         <div class="link-wrapper"><a class="link-2" href="about.html">About</a></div>
+        <div class="link-wrapper nav-has-dropdown">
+          <a class="link-2" href="#" aria-haspopup="true">Forum</a>
+          <div class="forum-dropdown">
+            <p class="forum-dropdown-title">Forum</p>
+            <a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
+      <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
+      <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>
+          </div>
+        </div>
         <div class="link-wrapper"><a class="link-2" href="articles.html">Article</a></div>
         <div class="link-wrapper"><a class="link-2" href="#contact">Contact</a></div>
+        <div class="link-wrapper"><a class="link-2" href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>
       </div>
     </nav>
     <!-- Mobile hamburger -->
@@ -1347,14 +1372,26 @@
   <!-- Mobile nav overlay -->
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     <a href="about.html" onclick="closeMobileNav()">About</a>
+    <details class="mobile-forum">
+      <summary>Forum</summary>
+      <div class="mobile-forum-list"><a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
+      <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
+      <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
+      <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span></div>
+    </details>
     <a href="articles.html" onclick="closeMobileNav()">Article</a>
     <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>
   </nav>
 
   <!-- Nav height spacer -->
   <div class="nav-spacer"></div>
 
   <main class="main">
+
+    <!-- ═══ HERO PHOTO ═══ -->
+    <img class="screenshot" src="assets/images/hero.png" alt="Global Design Leadership Association"/>
 
     <!-- ═══ HERO / INTRO ═══ -->
     <section class="intro-section" id="about" aria-labelledby="intro-title">
@@ -1369,30 +1406,11 @@
       </div>
     </section>
 
-    <!-- ═══ Hero cards screenshot ═══ -->
-    <img class="screenshot"
-         src="assets/images/screenshot_hero_cards.png"
-         alt="Global Network, Academic Alliance, Industry Impact"/>
-
     <!-- ═══ OUR WORKS ═══ -->
     <section class="stats-section" id="our-works" aria-labelledby="our-works-title">
       <div class="divider-line" aria-hidden="true"></div>
       <div class="our-work-content">
         <h2 class="text-wrapper-2" id="our-works-title">Our Works</h2>
-      </div>
-      <div class="stats-content">
-        <div class="stats-body">
-          <section class="branding-list" aria-labelledby="design-management-title">
-            <h3 class="text-wrapper-3" id="design-management-title">DESIGN MANAGEMENT</h3>
-            <div class="flexcontainer-2">
-              <p class="div">Vision &amp; Strategy</p>
-              <p class="div">Leadership &amp; Innovation</p>
-              <p class="div">Curriculum &amp; Practice</p>
-              <p class="div">Industry Collaboration</p>
-              <p class="div">Career &amp; Impact</p>
-            </div>
-          </section>
-        </div>
       </div>
       <article class="project-article" aria-labelledby="project-1-title">
         <a class="marquee-container" href="our-works/test-seyeon.html" aria-label="See project: test seyeon">
@@ -1436,6 +1454,25 @@
           </div>
         </div>
       </article>
+    </section>
+
+    <section class="awards-section" id="specialties" aria-labelledby="specialties-title">
+      <div class="divider-line" aria-hidden="true"></div>
+      <div class="awards-content">
+        <h2 class="text-wrapper-8" id="specialties-title">Specialties</h2>
+        <div class="awards-list">
+          <section class="branding-list" aria-labelledby="design-management-title">
+            <h3 class="text-wrapper-3" id="design-management-title">DESIGN MANAGEMENT</h3>
+            <div class="flexcontainer-2">
+              <p class="div">Vision &amp; Strategy</p>
+              <p class="div">Leadership &amp; Innovation</p>
+              <p class="div">Curriculum &amp; Practice</p>
+              <p class="div">Industry Collaboration</p>
+              <p class="div">Career &amp; Impact</p>
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ THESIS ═══ -->
@@ -1636,7 +1673,7 @@
       </div>
     </section>
 
-    <img class="screenshot-2" src="assets/images/screenshot_partners.png" alt="Partner and collaboration showcase"/>
+    <img class="screenshot-2" src="assets/images/partners_updated.png" alt="Partner and collaboration showcase"/>
     <img class="screenshot-3" src="assets/images/screenshot_concept_cards.png" alt="Human Value, Leadership, Narrative, Design, Empowerment"/>
 
     <!-- ═══ CONNECT WITH US 2 ═══ -->
