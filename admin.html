@@ -796,9 +796,15 @@
       <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
       <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
       <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>`;
+  // Wrapped in its own start/end comment markers so patchStyle1Nav/patchTeamPageNav can
+  // find-and-replace any previously-injected copy wholesale (see there) — plain "already
+  // injected?" guards would otherwise leave old CSS stuck forever on pages that only get
+  // regex-patched (index.html/about.html/articles.html), never fully regenerated, so a
+  // fix made here would never reach them on a later Publish.
   const FORUM_DROPDOWN_CSS_INJECT = `
+    /* ═══ FORUM DROPDOWN CSS START ═══ */
     .nav-has-dropdown { position: relative; }
-    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 14px; background: #fff; border: 1px solid #000; padding: 20px 24px; min-width: 220px; z-index: 250; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 34px 24px 20px; min-width: 220px; z-index: 250; }
     .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
     .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
     .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
@@ -808,6 +814,7 @@
     .mobile-forum summary::-webkit-details-marker { display: none; }
     .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
     .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
+    /* ═══ FORUM DROPDOWN CSS END ═══ */
 `;
   // Desktop nav links for "style 1" pages (index.html, about.html, articles.html,
   // project/article detail pages). `prefix` is '' at the repo root, '../' one dir down.
@@ -855,6 +862,27 @@
     <a href="${contactHref}" onclick="closeMobileNav()">Contact</a>
     <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
+  // Strips any previously-injected FORUM_DROPDOWN_CSS_INJECT block (by its start/end
+  // comment markers, regardless of which version was injected) and re-inserts the current
+  // one fresh. Used instead of an "already injected?" guard so that a future edit to
+  // FORUM_DROPDOWN_CSS_INJECT (like the 2026-09 hover-gap fix) actually reaches pages that
+  // only get regex-patched here (index.html/about.html/articles.html) rather than getting
+  // stuck with whatever version was injected the first time.
+  function reinjectForumDropdownCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ FORUM DROPDOWN CSS START ═══ \*\/[\s\S]*?\/\* ═══ FORUM DROPDOWN CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    // Backward-compat: pages already published before these START/END markers existed
+    // have an unmarked copy of this CSS block (bounded by its first/last known rules) —
+    // strip that old copy too, or it lingers forever once the fresh marked copy is added.
+    out = out.replace(
+      /\s*\.nav-has-dropdown \{ position: relative; \}[\s\S]*?\.mobile-forum-list \.forum-dropdown-item \{ font-size: 18px; \}\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', FORUM_DROPDOWN_CSS_INJECT + '\n  </style>');
+    return out;
+  }
   // Retroactively replaces the nav on an already-published "style 1" page (index.html,
   // about.html, articles.html) with the Forum-dropdown + Research Lab version, and injects
   // the CSS it needs if missing. Safe to re-run on every Publish — it's a full block
@@ -874,23 +902,25 @@
     ${mobileNavLinksHtml(prefix)}
   </nav>`
     );
-    if (!out.includes('.forum-dropdown {')) {
-      out = out.replace('</style>', FORUM_DROPDOWN_CSS_INJECT + '\n  </style>');
-    }
+    out = reinjectForumDropdownCss(out);
     return out;
   }
-  // Same idea, for team pages' different ("style 2") nav markup. Applied unconditionally
-  // in the team-page Publish loop (both the brand-new-page and existing-page branches),
-  // so it's harmless/idempotent either way.
-  function patchTeamPageNav(html) {
+  // Same idea, for "style 2" nav markup (`.nav-header`/`.nav-links-wrap`) — used by team
+  // pages (prefix '../', one directory down) and, as of 2026-09, also by about.html at the
+  // repo root (prefix ''), since about.html turned out to already be on style 2 rather than
+  // style 1 — patchStyle1Nav's desktop-nav regex was silently not matching it, which is why
+  // the Forum/Research Lab update wasn't showing up there. Applied unconditionally in the
+  // team-page Publish loop and the about.html step, so it's harmless/idempotent either way
+  // (a no-op if the page isn't actually style 2).
+  function patchTeamPageNav(html, prefix = '../') {
     let out = html.replace(
       /<header class="nav-header">[\s\S]*?<\/header>/,
       `<header class="nav-header">
     <div class="nav-logo-wrap">
-      <a href="../index.html">Global Design Leadership Association</a>
+      <a href="${prefix}index.html">Global Design Leadership Association</a>
     </div>
     <nav class="nav-links-wrap" aria-label="Primary">
-      ${navHeaderLinksHtml('../')}
+      ${navHeaderLinksHtml(prefix)}
     </nav>
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
       <span></span><span></span><span></span>
@@ -900,12 +930,10 @@
     out = out.replace(
       /<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">[\s\S]*?<\/nav>/,
       `<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    ${mobileNavLinksHtml('../')}
+    ${mobileNavLinksHtml(prefix)}
   </nav>`
     );
-    if (!out.includes('.forum-dropdown {')) {
-      out = out.replace('</style>', FORUM_DROPDOWN_CSS_INJECT + '\n  </style>');
-    }
+    out = reinjectForumDropdownCss(out);
     return out;
   }
   function todayDateString() {
@@ -3536,7 +3564,10 @@
       const aboutFile = await getFile(ABOUT_PATH);
       if (aboutFile) {
         let newAboutHtml = aboutFile.content.replace(/<section class="team-section"[\s\S]*?<\/section>/, buildTeamGridHtml(team));
+        // about.html turned out to be "style 2" nav markup (not style 1) — run both patches;
+        // whichever one doesn't match the page's actual style is a harmless no-op.
         newAboutHtml = patchStyle1Nav(newAboutHtml, '');
+        newAboutHtml = patchTeamPageNav(newAboutHtml, '');
         await putFile(ABOUT_PATH, newAboutHtml, `Update team section via admin (${currentPerson.name})`);
         log('✅ ' + ABOUT_PATH + ' 업데이트 완료');
       } else {
