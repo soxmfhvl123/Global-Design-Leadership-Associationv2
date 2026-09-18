@@ -3380,8 +3380,8 @@
   const PARTNER_MARQUEE_CSS = `
     /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
     .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 80px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
-    .partner-marquee-logo { flex-shrink: 0; height: 56px; width: auto; object-fit: contain; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 96px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 96px; width: auto; object-fit: contain; }
     @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 `;
@@ -3450,6 +3450,17 @@
     // request. It's a single self-contained <img>, no wrapping section to worry about.
     out = out.replace(
       /\s*<img class="screenshot-3" src="assets\/images\/screenshot_concept_cards\.png" alt="[^"]*"\/>\s*/,
+      '\n\n    '
+    );
+    // The page originally had two identical "Connect with us..." CTAs (a pre-existing
+    // duplicate, not something this update introduced) — one right before where the
+    // partners photo/marquee sits, one right before the footer. With the sections that
+    // used to separate them now gone, they read as an obvious duplicate, so the first one
+    // (id="connect-title") is removed; the second (id="connect-title-2", right before the
+    // footer) stays as the page's one closing CTA. Matched on the literal comment marker
+    // "═══ CONNECT WITH US ═══" (no "2"), so it can't accidentally also match the second.
+    out = out.replace(
+      /\s*<!-- ═══ CONNECT WITH US ═══ -->\s*<section class="connect-with-us" aria-labelledby="connect-title">[\s\S]*?<\/section>\s*/,
       '\n\n    '
     );
     return out;
