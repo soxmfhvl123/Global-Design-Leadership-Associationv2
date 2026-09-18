@@ -3333,10 +3333,11 @@
   // ACADEMIC ALLIANCE / INDUSTRY IMPACT" screenshot strip is removed entirely, and a new
   // hero photo is placed above the "Global Design. Design Leadership." heading instead
   // (reuses the existing .screenshot class — full-width, height:auto, object-fit:cover —
-  // so no new CSS is needed). Also swaps the partners section image to the updated photo.
-  // Safe to re-run every Publish: removing the old strip is a no-op once it's already
-  // gone, inserting the new hero photo is guarded so it's never duplicated, and the
-  // partners src swap only touches the literal old filename.
+  // so no new CSS is needed). Also swaps the partners section image to the updated photo,
+  // and removes the "President & Founder" (Cathy Yeonchoo Lee) section entirely (follow-up
+  // request). Safe to re-run every Publish: removing the old strip / President & Founder
+  // block is a no-op once already gone, inserting the new hero photo is guarded so it's
+  // never duplicated, and the partners src swap only touches the literal old filename.
   function patchIndexHeroAndPartners(html) {
     let out = html.replace(
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
@@ -3354,6 +3355,13 @@
     out = out.replace(
       'src="assets/images/screenshot_partners.png"',
       'src="assets/images/partners_updated.png"'
+    );
+    // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
+    // is removed entirely per request — it's a self-contained block bounded by its own
+    // HTML comment markers, so it's safe to strip in one shot; a no-op once already gone.
+    out = out.replace(
+      /\s*<!-- ═══ PRESIDENT & FOUNDER ═══ -->[\s\S]*?<\/section>\s*/,
+      '\n\n    '
     );
     return out;
   }
