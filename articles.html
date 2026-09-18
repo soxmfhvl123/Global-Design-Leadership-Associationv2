@@ -540,9 +540,15 @@
 
     /* ═══ FORUM DROPDOWN CSS START ═══ */
     .nav-has-dropdown { position: relative; }
-    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 34px 24px 20px; min-width: 220px; z-index: 250; }
+    /* Style-2 pages (.nav-links-wrap: about.html, team pages) have no per-item wrapper —
+       every other nav item is a bare <a>, which flexbox "blockifies" as a direct flex
+       child under the wrap's align-items:flex-end. The Forum <a> is one level deeper
+       (inside this div), so without this it stays a plain inline element and its line
+       box doesn't line up with its siblings' — this restores the same flex/blockify
+       behavior for just this one wrapped item so "Forum" sits on the same baseline. */
+    .nav-links-wrap .nav-has-dropdown { display: inline-flex; align-items: flex-end; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 16px 24px 20px; min-width: 220px; z-index: 250; }
     .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
-    .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
     .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
     a.forum-dropdown-item:hover { opacity: 0.6; }
     .forum-dropdown-item.is-tbd { color: rgba(118,118,118,1); }
@@ -573,7 +579,6 @@
         <div class="link-wrapper nav-has-dropdown">
           <a class="link-2" href="#" aria-haspopup="true">Forum</a>
           <div class="forum-dropdown">
-            <p class="forum-dropdown-title">Forum</p>
             <a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
       <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
       <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
