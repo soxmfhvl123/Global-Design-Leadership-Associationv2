@@ -1316,9 +1316,9 @@
     .marquee-ph { background: #d8d8d8; }
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
 
-  
+    /* ═══ FORUM DROPDOWN CSS START ═══ */
     .nav-has-dropdown { position: relative; }
-    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 14px; background: #fff; border: 1px solid #000; padding: 20px 24px; min-width: 220px; z-index: 250; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 34px 24px 20px; min-width: 220px; z-index: 250; }
     .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
     .forum-dropdown-title { font-family: "Instrument Sans", Helvetica; font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: #000; margin: 0; }
     .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
@@ -1328,7 +1328,11 @@
     .mobile-forum summary::-webkit-details-marker { display: none; }
     .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
     .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
+    /* ═══ FORUM DROPDOWN CSS END ═══ */
 
+  
+    /* partners-photo-uncropped-fix */
+    .screenshot-2 { aspect-ratio: auto !important; height: auto !important; }
   </style>
 </head>
 <body>
@@ -1625,45 +1629,6 @@
       </div>
     </section>
 
-    <!-- ═══ PRESIDENT & FOUNDER ═══ -->
-    <section class="our-team-section" aria-labelledby="team-title">
-      <div class="divider-3" aria-hidden="true"></div>
-      <div class="team-content">
-        <h2 class="president-founder" id="team-title">President &amp; Founder</h2>
-        <div class="frame-4">
-          <div class="team-content-wrapper">
-            <article class="team-content-2">
-              <img class="image" src="assets/images/Image.png" alt="Portrait of Cathy Yeonchoo Lee"/>
-              <div class="frame-5">
-                <div class="description">
-                  <h3 class="text-wrapper-14">Cathy Yeonchoo Lee</h3>
-                  <p class="text-wrapper-15">Professor</p>
-                </div>
-                <div class="row">
-                  <div class="person">
-                    <div class="flexcontainer-3">
-                      <p class="div">Ekatrina Newyork Founder &amp; Creative Director</p>
-                      <p class="div">Ann Taylor Accessories Design Director</p>
-                      <p class="div">Gap Inc. Old Navy Handbag Designer</p>
-                    </div>
-                    <div class="person-wrapper">
-                      <div class="person">
-                        <div class="text-wrapper-16">Global Fashion Trend Research</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <a class="text-link" href="#" aria-label="See more members">
-            <span class="text-wrapper-7">See More Members</span>
-            <span class="text-wrapper-7" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- ═══ CONNECT WITH US ═══ -->
     <section class="connect-with-us" aria-labelledby="connect-title">
       <div class="connect-with-us-2">
@@ -1674,7 +1639,6 @@
     </section>
 
     <img class="screenshot-2" src="assets/images/partners_updated.png" alt="Partner and collaboration showcase"/>
-    <img class="screenshot-3" src="assets/images/screenshot_concept_cards.png" alt="Human Value, Leadership, Narrative, Design, Empowerment"/>
 
     <!-- ═══ CONNECT WITH US 2 ═══ -->
     <section class="connect-with-us" aria-labelledby="connect-title-2">
