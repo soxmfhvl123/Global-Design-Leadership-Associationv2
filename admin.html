@@ -1333,30 +1333,71 @@
     </details>
     ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
+  // 2026-09: footer redesign per the Figma "Home" spec — matches the reference screenshot's
+  // Office block exactly: just the IDAS + Hongik University marks (the association's own
+  // GDLA/CLAB marks were dropped from here — they're already shown as the site name in the
+  // nav), "OFFICE" as a plain label (replacing "Clab Research Center"), and the official
+  // IDAS office Tel/Fax/Email in place of the old personal mobile number. Same content on
+  // every page (index/about/articles/team/project/article detail) for consistency. Applied
+  // as a full-block replace (not an append/guard) so any future edit here reaches every
+  // already-published page on the next Publish, same pattern as the other reinject*
+  // functions in this file. Auto-detects the '../' prefix from whatever the page's OWN
+  // existing footer already uses, so it works whether called on a root page or one nested
+  // a directory down (team/*, our-works/*, articles/*).
+  function buildFooterHtml(prefix = '') {
+    return `<footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="logo" src="${prefix}assets/logo/Hongik_University.svg.webp" alt="Hongik University"/>
+        <img class="image-2" src="${prefix}assets/logo/Idas_logo.png" alt="IDAS"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <div class="text-wrapper-18">OFFICE</div>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82-2-320-1114<br/>Fax. +82-2-320-1122<br/>Email. webmaster@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="#"><div class="text-wrapper-19">Behance</div></a>
+            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>`;
+  }
+  function reinjectFooter(html) {
+    const m = html.match(/<footer class="footer-section" id="contact">[\s\S]*?<\/footer>/);
+    if (!m) return html; // page has no footer id="contact" — leave it alone
+    const prefix = /src="\.\.\/assets\/logo\//.test(m[0]) ? '../' : '';
+    return html.replace(m[0], buildFooterHtml(prefix));
+  }
   // Small, always-safe fixes applied to every generated site page right before it's written.
-  // Each half here is a plain idempotent find/replace (re-running produces the same output),
-  // so — unlike the CSS/HTML block injections elsewhere in this file — these are NOT gated
-  // behind an "already applied?" guard; they just always run.
+  // Each part here is a plain idempotent find/replace or full-block rebuild (re-running
+  // produces the same output), so — unlike the CSS/HTML block injections elsewhere in this
+  // file — none of this is gated behind an "already applied?" guard; it just always runs.
   //  1) Mobile full-bleed images (.screenshot/-2/-3 use negative margin-left + width:
   //     calc(100% + Npx) to bleed past the content column) were creating REAL horizontal
   //     page scroll/shift on mobile, because nothing clipped the overflow. Adding
   //     overflow-x: hidden to html/body keeps the bleed purely visual within the viewport.
-  //  2) The footer's GDLA mark and CLAB wordmark were committed as tiny 60×60px files
-  //     (assets/logo/image_5654.png, assets/logo/CLAB_LOGO_BLACK_1.png) — blurry on any
-  //     retina/high-DPI screen. The exact same marks already exist at full resolution
-  //     (392×392) as assets/logo/logo-gdla.png.png / logo-clab.png.png (used in the Hero
-  //     section), so we point the footer at those instead — same logos, sharp everywhere.
-  //     (IDAS and Hongik University's footer marks have no higher-res file in the repo yet,
-  //     so they're left as-is until a sharper source is provided.)
+  //  2) Footer content/logos — see buildFooterHtml/reinjectFooter above.
   function applyGlobalPageFixes(html) {
     let out = html.replace(/html,\s*body\s*\{[^}]*\}/, (m) => {
       let inner = m.slice(m.indexOf('{') + 1, -1).replace(/overflow-x\s*:\s*[^;]+;?\s*/g, '').trim();
       if (inner && !inner.endsWith(';')) inner += ';';
       return `html, body { ${inner ? inner + ' ' : ''}overflow-x: hidden; }`;
     });
-    out = out
-      .replace(/src="((?:\.\.\/)?)assets\/logo\/image_5654\.png"/g, 'src="$1assets/logo/logo-gdla.png.png"')
-      .replace(/src="((?:\.\.\/)?)assets\/logo\/CLAB_LOGO_BLACK_1\.png"/g, 'src="$1assets/logo/logo-clab.png.png"');
+    out = reinjectFooter(out);
     return out;
   }
   // Strips any previously-injected FORUM_DROPDOWN_CSS_INJECT block (by its start/end
