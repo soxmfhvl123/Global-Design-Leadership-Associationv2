@@ -21,5 +21,10 @@
     "Curriculum & Practice",
     "Industry Collaboration",
     "Career & Impact"
-  ]
+  ],
+  "navVisibility": {
+    "about": false,
+    "article": false,
+    "contact": false
+  }
 }
