@@ -1355,12 +1355,12 @@
         <div class="office-contain">
           <div class="office-contain-2">
             <div class="text-wrapper-18">OFFICE</div>
-            <p class="text-wrapper-19">94, Wausan-ro, Mapo-gu, Seoul 04066, Republic of Korea</p>
+            <p class="text-wrapper-19">94, Wausan-ro, Mapo-<br/>gu, Seoul 04066,<br/>Republic of Korea</p>
           </div>
           <div class="contact-contain">
             <div class="text-wrapper-18">CONTACT</div>
             <div class="div-2">
-              <p class="text-wrapper-18">Tel. +82-2-320-1114<br/>Fax. +82-2-320-1122<br/>Email. webmaster@hongik.ac.kr</p>
+              <p class="text-wrapper-18">Tel. +82-2-320-1114<br/>Fax. +82-2-320-1122<br/>Email.<br/>webmaster@hongik.ac.kr</p>
             </div>
           </div>
         </div>
@@ -1382,6 +1382,18 @@
     const prefix = /src="\.\.\/assets\/logo\//.test(m[0]) ? '../' : '';
     return html.replace(m[0], buildFooterHtml(prefix));
   }
+  // The mobile (≤768px) breakpoint was shrinking the footer's OFFICE/CONTACT/SOCIAL text
+  // to 16px with 150% line-height, which — vs. the Figma mobile spec, which just reuses the
+  // same 20px/-1px/20px sizing as desktop — reads noticeably smaller AND makes the gap
+  // between each label ("OFFICE"/"CONTACT"/"SOCIAL") and its content look proportionally
+  // too wide (the extra line-height leading on top of the flex `gap`). text-wrapper-18/19
+  // are used nowhere else on the page (footer-only), so this is safe to just match desktop.
+  function reinjectFooterMobileTypeCss(html) {
+    return html.replace(
+      /\.text-wrapper-18,\s*\.text-wrapper-19\s*\{[^}]*\}/,
+      '.text-wrapper-18, .text-wrapper-19 { font-size: 20px; letter-spacing: -1px; line-height: 20px; }'
+    );
+  }
   // Small, always-safe fixes applied to every generated site page right before it's written.
   // Each part here is a plain idempotent find/replace or full-block rebuild (re-running
   // produces the same output), so — unlike the CSS/HTML block injections elsewhere in this
@@ -1398,6 +1410,7 @@
       return `html, body { ${inner ? inner + ' ' : ''}overflow-x: hidden; }`;
     });
     out = reinjectFooter(out);
+    out = reinjectFooterMobileTypeCss(out);
     return out;
   }
   // Strips any previously-injected FORUM_DROPDOWN_CSS_INJECT block (by its start/end
