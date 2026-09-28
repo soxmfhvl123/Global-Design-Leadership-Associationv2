@@ -26,5 +26,8 @@
     "about": false,
     "article": false,
     "contact": false
+  },
+  "sectionVisibility": {
+    "thesis": false
   }
 }
