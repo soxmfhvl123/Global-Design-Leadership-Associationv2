@@ -354,8 +354,8 @@
             <div class="dash-card"><div class="dash-num" id="dash-partners-count">0</div><div class="dash-label">Partner Logos</div></div>
           </div>
           <div class="admin-panel">
-            <h2>메뉴 표시 설정 (임시)</h2>
-            <p class="hint">체크를 끄면 방문자용 메뉴에서만 사라져요. About·Article·Contact 페이지와 내용은 전혀 삭제되지 않고 그대로 남아있으니, 나중에 다시 체크하면 즉시 원래대로 돌아와요. 변경 후 Publish를 눌러야 실제 사이트에 반영돼요.</p>
+            <h2>메뉴·섹션 표시 설정 (임시)</h2>
+            <p class="hint">체크를 끄면 방문자용 메뉴/홈페이지에서만 사라져요. About·Article·Contact 페이지, Thesis 목록과 내용은 전혀 삭제되지 않고 그대로 남아있으니, 나중에 다시 체크하면 즉시 원래대로 돌아와요. 변경 후 Publish를 눌러야 실제 사이트에 반영돼요.</p>
             <div style="display:flex; gap:24px; flex-wrap:wrap;">
               <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                 <input type="checkbox" id="nav-visibility-about" onchange="updateNavVisibility('about', this.checked)"/> About 메뉴 표시
@@ -365,6 +365,9 @@
               </label>
               <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                 <input type="checkbox" id="nav-visibility-contact" onchange="updateNavVisibility('contact', this.checked)"/> Contact 메뉴 표시
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="section-visibility-thesis" onchange="updateSectionVisibility('thesis', this.checked)"/> Thesis 섹션 표시 (홈페이지)
               </label>
             </div>
           </div>
@@ -1013,7 +1016,12 @@
     // the nav (the page/section itself, and all its content and code, stays fully intact —
     // this only removes the nav LINK). Flip back to true (checkbox in admin Dashboard) to
     // restore. Defaults to hidden here since that's the state requested when this shipped.
-    navVisibility: { about: false, article: false, contact: false }
+    navVisibility: { about: false, article: false, contact: false },
+    // Same idea, but for whole homepage SECTIONS rather than nav links (starting with
+    // Thesis). false = section not rendered into index.html at all, but thesisItems /
+    // newsItems data and the admin CRUD panels are untouched — toggle back to true +
+    // Publish to bring it straight back.
+    sectionVisibility: { thesis: false }
   };
 
   /* ═══════════════════ SEED DATA (used only if assets/data/thesis.json doesn't exist yet) ═══════════════════ */
@@ -1160,6 +1168,9 @@
         // very next Publish without requiring an extra manual step.
         if (!siteContent.navVisibility) {
           siteContent.navVisibility = { about: false, article: false, contact: false };
+        }
+        if (!siteContent.sectionVisibility) {
+          siteContent.sectionVisibility = { thesis: false };
         }
         return;
       }
@@ -1534,6 +1545,8 @@
     setChecked('nav-visibility-about', nav.about);
     setChecked('nav-visibility-article', nav.article);
     setChecked('nav-visibility-contact', nav.contact);
+    const sec = (siteContent && siteContent.sectionVisibility) || SEED_SITE_CONTENT.sectionVisibility;
+    setChecked('section-visibility-thesis', sec.thesis);
   }
 
   // Wired to the Dashboard checkboxes. Mutates siteContent directly (same pattern as the
@@ -1543,6 +1556,15 @@
       siteContent.navVisibility = { about: false, article: false, contact: false };
     }
     siteContent.navVisibility[key] = !!checked;
+  };
+  // Same as updateNavVisibility but for whole homepage sections (e.g. Thesis). Never
+  // touches the underlying data (thesisItems, etc.) or the admin CRUD panel — only what
+  // gets rendered into index.html on the next Publish.
+  window.updateSectionVisibility = function (key, checked) {
+    if (!siteContent.sectionVisibility) {
+      siteContent.sectionVisibility = { thesis: false };
+    }
+    siteContent.sectionVisibility[key] = !!checked;
   };
 
   /* ═══════════════════ SIDEBAR VIEW SWITCHING ═══════════════════ */
@@ -1875,6 +1897,9 @@
     if (!siteContent.specialtiesItems) siteContent.specialtiesItems = [];
     if (!siteContent.navVisibility) {
       siteContent.navVisibility = { about: false, article: false, contact: false };
+    }
+    if (!siteContent.sectionVisibility) {
+      siteContent.sectionVisibility = { thesis: false };
     }
   }
   window.updateSiteField = function (field, value) {
@@ -4473,7 +4498,14 @@
     );
   }
 
-  function buildThesisHtml(items) {
+  function buildThesisHtml(items, visible = true) {
+    if (!visible) {
+      // Hidden (see SEED_SITE_CONTENT.sectionVisibility) but NOT deleted — thesisItems and
+      // the admin's Thesis CRUD panel are completely untouched. Keeping the START marker
+      // (with nothing after it) lets reinjectThesis find its anchor and rebuild the full
+      // section the moment this is toggled back on.
+      return `<!-- ═══ THESIS ═══ -->\n\n    `;
+    }
     const list = items && items.length ? items : SEED_THESIS;
     const rows = list.map(t => `
           <a href="${escapeHtml(t.url || '#')}" aria-label="Open: ${escapeHtml(t.title)}">
@@ -4503,10 +4535,10 @@ ${rows}
 
     `;
   }
-  function reinjectThesis(html, items) {
+  function reinjectThesis(html, items, visible = true) {
     return html.replace(
       /<!-- ═══ THESIS ═══ -->[\s\S]*?(?=<!-- ═══ STATS ═══ -->)/,
-      buildThesisHtml(items)
+      buildThesisHtml(items, visible)
     );
   }
 
@@ -4583,7 +4615,11 @@ ${rows}
     out = reinjectPartnerMarqueeHtml(out, partnerLogos && partnerLogos.length ? partnerLogos : SEED_PARTNERS);
     out = reinjectPartnerMarqueeCss(out);
     out = reinjectSpecialties(out, siteContent);
-    out = reinjectThesis(out, thesisItems && thesisItems.length ? thesisItems : SEED_THESIS);
+    out = reinjectThesis(
+      out,
+      thesisItems && thesisItems.length ? thesisItems : SEED_THESIS,
+      !!(siteContent && siteContent.sectionVisibility && siteContent.sectionVisibility.thesis)
+    );
     out = reinjectNews(out, newsItems && newsItems.length ? newsItems : SEED_NEWS);
     // 2026-09 follow-up: the "President & Founder" (Cathy Yeonchoo Lee) homepage section
     // is removed entirely per request — it's a self-contained block bounded by its own
