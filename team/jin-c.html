@@ -15,7 +15,7 @@
       --font: "Instrument Sans", Helvetica, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: #fff; }
+    html, body { margin: 0; padding: 0; background: #fff; overflow-x: hidden; }
     * { -webkit-font-smoothing: antialiased; font-family: var(--font); }
     a { text-decoration: none; color: inherit; }
     img { display: block; }
@@ -213,7 +213,6 @@
       <a href="../index.html">Global Design Leadership Association</a>
     </div>
     <nav class="nav-links-wrap" aria-label="Primary">
-      <a href="../about.html">About</a>
       <div class="nav-has-dropdown">
         <a href="#" aria-haspopup="true">Forum</a>
         <div class="forum-dropdown">
@@ -224,8 +223,6 @@
       <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>
         </div>
       </div>
-      <a href="../articles.html">Article</a>
-      <a href="../index.html#contact">Contact</a>
       <a href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>
     </nav>
     <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
@@ -234,7 +231,6 @@
   </header>
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-    <a href="../about.html" onclick="closeMobileNav()">About</a>
     <details class="mobile-forum">
       <summary>Forum</summary>
       <div class="mobile-forum-list"><a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
@@ -243,8 +239,6 @@
       <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
       <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span></div>
     </details>
-    <a href="../articles.html" onclick="closeMobileNav()">Article</a>
-    <a href="../index.html#contact" onclick="closeMobileNav()">Contact</a>
     <a href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>
   </nav>
 
@@ -326,8 +320,8 @@
   <footer class="footer-section" id="contact">
     <div class="footer-content">
       <div class="logo-contain-2">
-        <img class="image-2" src="../assets/logo/image_5654.png" alt="Association mark"/>
-        <img class="clab-logo-black" src="../assets/logo/CLAB_LOGO_BLACK_1.png" alt="CLAB logo"/>
+        <img class="image-2" src="../assets/logo/logo-gdla.png.png" alt="Association mark"/>
+        <img class="clab-logo-black" src="../assets/logo/logo-clab.png.png" alt="CLAB logo"/>
         <img class="image-2" src="../assets/logo/image_2.png" alt="IDAS"/>
         <img class="logo" src="../assets/logo/Logo.png" alt="Hongik University"/>
       </div>
