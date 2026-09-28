@@ -30,11 +30,6 @@
     "alt": "Duobo by LG Laps"
   },
   {
-    "id": "seed-partner-7",
-    "path": "assets/logo/partners/genesis.png",
-    "alt": "Genesis"
-  },
-  {
     "id": "seed-partner-8",
     "path": "assets/logo/partners/kfda.png",
     "alt": "KFDA"
@@ -58,5 +53,10 @@
     "id": "seed-partner-12",
     "path": "assets/logo/partners/ddp.png",
     "alt": "DDP"
+  },
+  {
+    "id": "partner-1790600500325-0-2am5f",
+    "path": "assets/uploads/partners/partner-1790600500325-0-2am5f.png",
+    "alt": "Genesis"
   }
 ]
