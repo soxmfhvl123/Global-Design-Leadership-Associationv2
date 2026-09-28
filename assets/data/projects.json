@@ -1,30 +1,32 @@
 [
   {
     "slug": "add-new-project",
-    "title": "WHY: 2025 Our First Step Together",
+    "title": "WHY: 2025 Future Begins with Questions",
     "ownerSlug": "jin-c",
     "tags": [
-      "Category placeholder"
+      "Global Forum",
+      "Design Leadership",
+      "Future Strategy"
     ],
-    "desc": "Description placeholder",
+    "desc": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
     "coverImagePath": "assets/uploads/add-new-project/cover.png",
     "blocks": [
       {
         "type": "heading",
-        "text": "Description1"
+        "text": "Our Beginnings: The Shift from 'What & How' to 'Why'"
       },
       {
         "type": "row",
         "image": "assets/uploads/add-new-project/block-1.png",
-        "caption": "Description",
-        "text": "Description",
+        "caption": "",
+        "text": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
         "reverse": false
       },
       {
         "type": "row",
         "image": "assets/uploads/add-new-project/block-2.png",
-        "caption": "Description",
-        "text": "Description",
+        "caption": "",
+        "text": "We have grown by continuously reflecting on what we create and how we advance. Every step of our journey has held its own meaning and value, leading us to where we stand today. Today, the world seeks not only what we create and how we create it, but crucially the 'WHY' behind it all.",
         "reverse": true
       }
     ],
