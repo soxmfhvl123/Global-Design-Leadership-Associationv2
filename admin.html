@@ -354,6 +354,21 @@
             <div class="dash-card"><div class="dash-num" id="dash-partners-count">0</div><div class="dash-label">Partner Logos</div></div>
           </div>
           <div class="admin-panel">
+            <h2>메뉴 표시 설정 (임시)</h2>
+            <p class="hint">체크를 끄면 방문자용 메뉴에서만 사라져요. About·Article·Contact 페이지와 내용은 전혀 삭제되지 않고 그대로 남아있으니, 나중에 다시 체크하면 즉시 원래대로 돌아와요. 변경 후 Publish를 눌러야 실제 사이트에 반영돼요.</p>
+            <div style="display:flex; gap:24px; flex-wrap:wrap;">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="nav-visibility-about" onchange="updateNavVisibility('about', this.checked)"/> About 메뉴 표시
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="nav-visibility-article" onchange="updateNavVisibility('article', this.checked)"/> Article 메뉴 표시
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="nav-visibility-contact" onchange="updateNavVisibility('contact', this.checked)"/> Contact 메뉴 표시
+              </label>
+            </div>
+          </div>
+          <div class="admin-panel">
             <h2>준비됐으면 Publish 하세요</h2>
             <p class="hint">왼쪽 메뉴에서 히어로 이미지·프로젝트·Article·팀 정보를 수정한 다음, "Publish" 메뉴에서 실제 사이트에 반영해주세요. 반영까지 1분 정도 걸려요.</p>
             <button class="btn-outline primary" type="button" style="align-self:flex-start;" onclick="showAdminView('publish')">Publish로 이동 →</button>
@@ -992,7 +1007,13 @@
       { path: 'assets/logo/logo-clab.png.png', alt: 'CLAB logo' }
     ],
     specialtiesGroupTitle: 'DESIGN MANAGEMENT',
-    specialtiesItems: ['Vision & Strategy', 'Leadership & Innovation', 'Curriculum & Practice', 'Industry Collaboration', 'Career & Impact']
+    specialtiesItems: ['Vision & Strategy', 'Leadership & Innovation', 'Curriculum & Practice', 'Industry Collaboration', 'Career & Impact'],
+    // 2026-09: temporary hide for About / Article / Contact nav links while the site runs
+    // a temporary sales/business operation with unfinished sections. false = hidden from
+    // the nav (the page/section itself, and all its content and code, stays fully intact —
+    // this only removes the nav LINK). Flip back to true (checkbox in admin Dashboard) to
+    // restore. Defaults to hidden here since that's the state requested when this shipped.
+    navVisibility: { about: false, article: false, contact: false }
   };
 
   /* ═══════════════════ SEED DATA (used only if assets/data/thesis.json doesn't exist yet) ═══════════════════ */
@@ -1133,6 +1154,13 @@
       const file = await getFile(SITE_PATH);
       if (file) {
         siteContent = JSON.parse(file.content);
+        // Backward-compat: site.json saved before the nav-visibility feature existed has no
+        // navVisibility key at all — default it to hidden (matching the temporary hide
+        // requested when this shipped) rather than shown, so the hide takes effect on the
+        // very next Publish without requiring an extra manual step.
+        if (!siteContent.navVisibility) {
+          siteContent.navVisibility = { about: false, article: false, contact: false };
+        }
         return;
       }
     } catch (e) {
@@ -1242,47 +1270,83 @@
 `;
   // Desktop nav links for "style 1" pages (index.html, about.html, articles.html,
   // project/article detail pages). `prefix` is '' at the repo root, '../' one dir down.
+  // Reads the current About/Article/Contact nav-visibility state. Falls back to the SEED
+  // default (all hidden) if siteContent hasn't loaded yet — see SEED_SITE_CONTENT.navVisibility
+  // for why. Nothing here deletes about.html, articles.html, or the footer Contact section —
+  // it only decides whether the nav LINK to each is rendered.
+  function currentNavVisibility() {
+    return (siteContent && siteContent.navVisibility) || SEED_SITE_CONTENT.navVisibility;
+  }
   function navLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
-    return `<div class="link-wrapper"><a class="link-2" href="${prefix}about.html">About</a></div>
-        <div class="link-wrapper nav-has-dropdown">
+    const nav = currentNavVisibility();
+    const aboutHtml = nav.about ? `<div class="link-wrapper"><a class="link-2" href="${prefix}about.html">About</a></div>\n        ` : '';
+    const articleHtml = nav.article ? `<div class="link-wrapper"><a class="link-2" href="${prefix}articles.html">Article</a></div>\n        ` : '';
+    const contactHtml = nav.contact ? `<div class="link-wrapper"><a class="link-2" href="${contactHref}">Contact</a></div>\n        ` : '';
+    return `${aboutHtml}<div class="link-wrapper nav-has-dropdown">
           <a class="link-2" href="#" aria-haspopup="true">Forum</a>
           <div class="forum-dropdown">
             ${FORUM_DROPDOWN_LIST_HTML}
           </div>
         </div>
-        <div class="link-wrapper"><a class="link-2" href="${prefix}articles.html">Article</a></div>
-        <div class="link-wrapper"><a class="link-2" href="${contactHref}">Contact</a></div>
-        <div class="link-wrapper"><a class="link-2" href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>`;
+        ${articleHtml}${contactHtml}<div class="link-wrapper"><a class="link-2" href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>`;
   }
   // Desktop nav links for "style 2" pages (team pages only — .nav-links-wrap has no
   // per-item wrapper div, just bare <a> children).
   function navHeaderLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
-    return `<a href="${prefix}about.html">About</a>
-      <div class="nav-has-dropdown">
+    const nav = currentNavVisibility();
+    const aboutHtml = nav.about ? `<a href="${prefix}about.html">About</a>\n      ` : '';
+    const articleHtml = nav.article ? `<a href="${prefix}articles.html">Article</a>\n      ` : '';
+    const contactHtml = nav.contact ? `<a href="${contactHref}">Contact</a>\n      ` : '';
+    return `${aboutHtml}<div class="nav-has-dropdown">
         <a href="#" aria-haspopup="true">Forum</a>
         <div class="forum-dropdown">
           ${FORUM_DROPDOWN_LIST_HTML}
         </div>
       </div>
-      <a href="${prefix}articles.html">Article</a>
-      <a href="${contactHref}">Contact</a>
-      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>`;
+      ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
   // Mobile slide-down nav content — shared by both styles (both use the same
   // ".mobile-nav" overlay markup/CSS). Forum expands in place via <details>, since hover
   // doesn't exist on touch.
   function mobileNavLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
-    return `<a href="${prefix}about.html" onclick="closeMobileNav()">About</a>
-    <details class="mobile-forum">
+    const nav = currentNavVisibility();
+    const aboutHtml = nav.about ? `<a href="${prefix}about.html" onclick="closeMobileNav()">About</a>\n    ` : '';
+    const articleHtml = nav.article ? `<a href="${prefix}articles.html" onclick="closeMobileNav()">Article</a>\n    ` : '';
+    const contactHtml = nav.contact ? `<a href="${contactHref}" onclick="closeMobileNav()">Contact</a>\n    ` : '';
+    return `${aboutHtml}<details class="mobile-forum">
       <summary>Forum</summary>
       <div class="mobile-forum-list">${FORUM_DROPDOWN_LIST_HTML}</div>
     </details>
-    <a href="${prefix}articles.html" onclick="closeMobileNav()">Article</a>
-    <a href="${contactHref}" onclick="closeMobileNav()">Contact</a>
-    <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
+    ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
+  }
+  // Small, always-safe fixes applied to every generated site page right before it's written.
+  // Each half here is a plain idempotent find/replace (re-running produces the same output),
+  // so — unlike the CSS/HTML block injections elsewhere in this file — these are NOT gated
+  // behind an "already applied?" guard; they just always run.
+  //  1) Mobile full-bleed images (.screenshot/-2/-3 use negative margin-left + width:
+  //     calc(100% + Npx) to bleed past the content column) were creating REAL horizontal
+  //     page scroll/shift on mobile, because nothing clipped the overflow. Adding
+  //     overflow-x: hidden to html/body keeps the bleed purely visual within the viewport.
+  //  2) The footer's GDLA mark and CLAB wordmark were committed as tiny 60×60px files
+  //     (assets/logo/image_5654.png, assets/logo/CLAB_LOGO_BLACK_1.png) — blurry on any
+  //     retina/high-DPI screen. The exact same marks already exist at full resolution
+  //     (392×392) as assets/logo/logo-gdla.png.png / logo-clab.png.png (used in the Hero
+  //     section), so we point the footer at those instead — same logos, sharp everywhere.
+  //     (IDAS and Hongik University's footer marks have no higher-res file in the repo yet,
+  //     so they're left as-is until a sharper source is provided.)
+  function applyGlobalPageFixes(html) {
+    let out = html.replace(/html,\s*body\s*\{[^}]*\}/, (m) => {
+      let inner = m.slice(m.indexOf('{') + 1, -1).replace(/overflow-x\s*:\s*[^;]+;?\s*/g, '').trim();
+      if (inner && !inner.endsWith(';')) inner += ';';
+      return `html, body { ${inner ? inner + ' ' : ''}overflow-x: hidden; }`;
+    });
+    out = out
+      .replace(/src="((?:\.\.\/)?)assets\/logo\/image_5654\.png"/g, 'src="$1assets/logo/logo-gdla.png.png"')
+      .replace(/src="((?:\.\.\/)?)assets\/logo\/CLAB_LOGO_BLACK_1\.png"/g, 'src="$1assets/logo/logo-clab.png.png"');
+    return out;
   }
   // Strips any previously-injected FORUM_DROPDOWN_CSS_INJECT block (by its start/end
   // comment markers, regardless of which version was injected) and re-inserts the current
@@ -1459,7 +1523,27 @@
     setCount('dash-team-count', team.length);
     setCount('dash-thesis-count', thesisItems.length);
     setCount('dash-news-count', newsItems.length);
+    syncNavVisibilityCheckboxes();
   }
+
+  // Keeps the Dashboard's About/Article/Contact checkboxes in sync with siteContent —
+  // called once on load and again any time siteContent is reloaded/reset.
+  function syncNavVisibilityCheckboxes() {
+    const nav = currentNavVisibility();
+    const setChecked = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+    setChecked('nav-visibility-about', nav.about);
+    setChecked('nav-visibility-article', nav.article);
+    setChecked('nav-visibility-contact', nav.contact);
+  }
+
+  // Wired to the Dashboard checkboxes. Mutates siteContent directly (same pattern as the
+  // other reactive site-content fields) — no separate Save step, just Publish when ready.
+  window.updateNavVisibility = function (key, checked) {
+    if (!siteContent.navVisibility) {
+      siteContent.navVisibility = { about: false, article: false, contact: false };
+    }
+    siteContent.navVisibility[key] = !!checked;
+  };
 
   /* ═══════════════════ SIDEBAR VIEW SWITCHING ═══════════════════ */
   window.showAdminView = function (view) {
@@ -1789,6 +1873,9 @@
       siteContent.heroLogos = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.heroLogos));
     }
     if (!siteContent.specialtiesItems) siteContent.specialtiesItems = [];
+    if (!siteContent.navVisibility) {
+      siteContent.navVisibility = { about: false, article: false, contact: false };
+    }
   }
   window.updateSiteField = function (field, value) {
     ensureSiteContentShape();
@@ -4730,6 +4817,7 @@ ${rows}
         }
         // Forum dropdown + Research Lab nav — safe to re-run every publish (see patchTeamPageNav).
         newHtml = patchTeamPageNav(newHtml);
+        newHtml = applyGlobalPageFixes(newHtml);
         await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
         log('✅ ' + teamPath + ' 업데이트 완료');
       }
@@ -4742,6 +4830,7 @@ ${rows}
         // whichever one doesn't match the page's actual style is a harmless no-op.
         newAboutHtml = patchStyle1Nav(newAboutHtml, '');
         newAboutHtml = patchTeamPageNav(newAboutHtml, '');
+        newAboutHtml = applyGlobalPageFixes(newAboutHtml);
         await putFile(ABOUT_PATH, newAboutHtml, `Update team section via admin (${currentPerson.name})`);
         log('✅ ' + ABOUT_PATH + ' 업데이트 완료');
       } else {
@@ -4766,6 +4855,7 @@ ${rows}
         }
         newIndexHtml = patchStyle1Nav(newIndexHtml, '');
         newIndexHtml = patchIndexHeroAndPartners(newIndexHtml, heroSlides, partnerLogos, siteContent, thesisItems, newsItems);
+        newIndexHtml = applyGlobalPageFixes(newIndexHtml);
         await putFile(INDEX_PATH, newIndexHtml, `Update homepage Our Works via admin (${currentPerson.name})`);
         log('✅ ' + INDEX_PATH + ' 업데이트 완료');
       } else {
@@ -4776,7 +4866,7 @@ ${rows}
         const path = `our-works/${p.slug}.html`;
         // "Other projects" continues the SAME person's portfolio, not the whole company's.
         const others = projects.filter(x => x.slug !== p.slug && x.ownerSlug === p.ownerSlug).slice(0, 3);
-        const html = buildProjectDetailHtml(p, others);
+        const html = applyGlobalPageFixes(buildProjectDetailHtml(p, others));
         log(path + ' 확인 중...');
         await putFile(path, html, `Update project page via admin: ${p.title} (${currentPerson.name})`);
         log('✅ ' + path + ' 저장 완료');
@@ -4803,6 +4893,7 @@ ${rows}
             newHtml = newHtml.replace('</style>', MEDIA_CSS_INJECT + '\n  </style>');
           }
           newHtml = patchStyle1Nav(newHtml, '');
+          newHtml = applyGlobalPageFixes(newHtml);
           await putFile(ARTICLES_LIST_PATH, newHtml, `Update article list via admin (${currentPerson.name})`);
           log('✅ ' + ARTICLES_LIST_PATH + ' 업데이트 완료');
         } else {
@@ -4812,7 +4903,7 @@ ${rows}
         for (const a of articles) {
           const path = `articles/${a.slug}.html`;
           const others = articles.filter(x => x.slug !== a.slug).slice(0, 3);
-          const html = buildArticleDetailHtml(a, others);
+          const html = applyGlobalPageFixes(buildArticleDetailHtml(a, others));
           log(path + ' 확인 중...');
           await putFile(path, html, `Update article page via admin: ${a.title} (${currentPerson.name})`);
           log('✅ ' + path + ' 저장 완료');
