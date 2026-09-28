@@ -1333,17 +1333,19 @@
     </details>
     ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
-  // 2026-09: footer redesign per the Figma "Home" spec — matches the reference screenshot's
-  // Office block exactly: just the IDAS + Hongik University marks (the association's own
-  // GDLA/CLAB marks were dropped from here — they're already shown as the site name in the
-  // nav), "OFFICE" as a plain label (replacing "Clab Research Center"), and the official
-  // IDAS office Tel/Fax/Email in place of the old personal mobile number. Same content on
-  // every page (index/about/articles/team/project/article detail) for consistency. Applied
-  // as a full-block replace (not an append/guard) so any future edit here reaches every
-  // already-published page on the next Publish, same pattern as the other reinject*
-  // functions in this file. Auto-detects the '../' prefix from whatever the page's OWN
-  // existing footer already uses, so it works whether called on a root page or one nested
-  // a directory down (team/*, our-works/*, articles/*).
+  // 2026-09: footer redesign — LAYOUT/typography from the Figma "Home" mobile spec (just
+  // the IDAS + Hongik University marks — the association's own GDLA/CLAB marks were dropped
+  // from here since they're already shown as the site name in the nav — plus the address's
+  // hard 3-line wrap), but the actual TEXT CONTENT (org label + phone + email) stays the
+  // real desktop data ("Clab Research Center" / +82 10 3232 3072 / cathylee@hongik.ac.kr) —
+  // the Figma mock's "OFFICE" label and official IDAS Tel/Fax/Email were placeholder styling
+  // reference only, not real content to publish. Same content on every page (index/about/
+  // articles/team/project/article detail) for consistency. Applied as a full-block replace
+  // (not an append/guard) so any future edit here reaches every already-published page on
+  // the next Publish, same pattern as the other reinject* functions in this file.
+  // Auto-detects the '../' prefix from whatever the page's OWN existing footer already
+  // uses, so it works whether called on a root page or one nested a directory down
+  // (team/*, our-works/*, articles/*).
   function buildFooterHtml(prefix = '') {
     return `<footer class="footer-section" id="contact">
     <div class="footer-content">
@@ -1354,13 +1356,13 @@
       <div class="footer-text">
         <div class="office-contain">
           <div class="office-contain-2">
-            <div class="text-wrapper-18">OFFICE</div>
+            <div class="text-wrapper-18">Clab Research Center</div>
             <p class="text-wrapper-19">94, Wausan-ro, Mapo-<br/>gu, Seoul 04066,<br/>Republic of Korea</p>
           </div>
           <div class="contact-contain">
             <div class="text-wrapper-18">CONTACT</div>
             <div class="div-2">
-              <p class="text-wrapper-18">Tel. +82-2-320-1114<br/>Fax. +82-2-320-1122<br/>Email.<br/>webmaster@hongik.ac.kr</p>
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
             </div>
           </div>
         </div>
