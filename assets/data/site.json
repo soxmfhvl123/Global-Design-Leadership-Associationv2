@@ -1,0 +1,25 @@
+{
+  "heroHeading": "Global Design. Design Leadership.",
+  "heroParagraphs": [
+    "Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.",
+    "CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice."
+  ],
+  "heroLogos": [
+    {
+      "path": "assets/logo/logo-gdla.png.png",
+      "alt": "Association mark"
+    },
+    {
+      "path": "assets/logo/logo-clab.png.png",
+      "alt": "CLAB logo"
+    }
+  ],
+  "specialtiesGroupTitle": "DESIGN MANAGEMENT",
+  "specialtiesItems": [
+    "Vision & Strategy",
+    "Leadership & Innovation",
+    "Curriculum & Practice",
+    "Industry Collaboration",
+    "Career & Impact"
+  ]
+}

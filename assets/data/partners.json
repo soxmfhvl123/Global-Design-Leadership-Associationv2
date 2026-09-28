@@ -1,0 +1,62 @@
+[
+  {
+    "id": "seed-partner-1",
+    "path": "assets/logo/partners/seoul-design-foundation.png",
+    "alt": "Seoul Design Foundation"
+  },
+  {
+    "id": "seed-partner-2",
+    "path": "assets/logo/partners/hyundai-motor-group.png",
+    "alt": "Hyundai Motor Group"
+  },
+  {
+    "id": "seed-partner-3",
+    "path": "assets/logo/partners/camera-nazionale-moda-italiana.png",
+    "alt": "Camera Nazionale della Moda Italiana"
+  },
+  {
+    "id": "seed-partner-4",
+    "path": "assets/logo/partners/milano-fashion-institute.png",
+    "alt": "Milano Fashion Institute"
+  },
+  {
+    "id": "seed-partner-5",
+    "path": "assets/logo/partners/undp.png",
+    "alt": "UNDP"
+  },
+  {
+    "id": "seed-partner-6",
+    "path": "assets/logo/partners/duobo-lg-laps.png",
+    "alt": "Duobo by LG Laps"
+  },
+  {
+    "id": "seed-partner-7",
+    "path": "assets/logo/partners/genesis.png",
+    "alt": "Genesis"
+  },
+  {
+    "id": "seed-partner-8",
+    "path": "assets/logo/partners/kfda.png",
+    "alt": "KFDA"
+  },
+  {
+    "id": "seed-partner-9",
+    "path": "assets/logo/partners/seoul-metropolitan-government.png",
+    "alt": "Seoul Metropolitan Government"
+  },
+  {
+    "id": "seed-partner-10",
+    "path": "assets/logo/partners/cartier.png",
+    "alt": "Cartier"
+  },
+  {
+    "id": "seed-partner-11",
+    "path": "assets/logo/partners/bcefw.png",
+    "alt": "Budapest Central European Fashion Week"
+  },
+  {
+    "id": "seed-partner-12",
+    "path": "assets/logo/partners/ddp.png",
+    "alt": "DDP"
+  }
+]
