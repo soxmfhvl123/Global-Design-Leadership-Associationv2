@@ -1246,13 +1246,15 @@
      wrapping markup differs per style. Update FORUM_DROPDOWN_LIST_HTML here if forum years
      or links ever change — every nav on the site pulls from this one place. */
   const RESEARCH_LAB_URL = 'https://www.clabresearchcenter.com/';
-  // Why2026 has no hosted link yet (PPT only) — shown as plain non-clickable text, same as
-  // the still-TBD items, until there's a URL to point it at.
-  const FORUM_DROPDOWN_LIST_HTML = `<a class="forum-dropdown-item" href="https://whyglobalforum.com/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
-      <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
-      <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
-      <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
-      <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>`;
+  // 2026-09: Why2026 (PPT-only, no hosted link) and the still-TBD items (Why Institute,
+  // Why Salon) are temporarily hidden from the Forum dropdown per request — NOT deleted,
+  // just commented out of the rendered list below, so they can be restored later by simply
+  // uncommenting these lines once each has a real URL:
+  //   <span class="forum-dropdown-item is-tbd">Why2026 (PPT)</span>
+  //   <span class="forum-dropdown-item is-tbd">Why Institute (TBD)</span>
+  //   <span class="forum-dropdown-item is-tbd">Why Salon (TBD)</span>
+  const FORUM_DROPDOWN_LIST_HTML = `<a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/2025/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <a class="forum-dropdown-item" href="https://soxmfhvl123.github.io/WHY-2027-Global-Forum/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>`;
   // Wrapped in its own start/end comment markers so patchStyle1Nav/patchTeamPageNav can
   // find-and-replace any previously-injected copy wholesale (see there) — plain "already
   // injected?" guards would otherwise leave old CSS stuck forever on pages that only get
