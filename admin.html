@@ -138,7 +138,13 @@
     .admin-section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .admin-section-head h2 { font-size: 32px; font-weight: 400; letter-spacing: -1.6px; }
 
-    .admin-project-list { display: flex; flex-direction: column; border-top: 1px solid #000; }
+    /* 2026-09: without this gap, a list with no extra hint paragraph in between (Thesis,
+       News, Article, Partners) had its border-top line sitting flush against the "+ Add..."
+       button right above it — only Projects looked right, because it happens to have its own
+       "화살표로 순서를 바꿀 수 있어요." hint paragraph in between pushing the list down. Adding
+       the gap here (instead of one-off margins on each list) fixes all of them consistently,
+       Projects included (it just gets a little extra breathing room after its existing hint). */
+    .admin-project-list { display: flex; flex-direction: column; border-top: 1px solid #000; margin-top: 16px; }
     .admin-project-row { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.12); }
     .admin-project-thumb { width: 64px; height: 64px; background: #d8d8d8; border-radius: 2px; flex-shrink: 0; }
     .admin-project-info { flex: 1; min-width: 0; }
@@ -164,6 +170,8 @@
     .admin-form-actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
     .admin-slug-preview { font-size: 13px; color: var(--gray); }
     .admin-slug-preview code { background: #f2f2f2; padding: 2px 6px; }
+    .admin-slug-input { font: inherit; font-size: 13px; border: none; background: transparent; padding: 0; width: 140px; color: var(--gray); }
+    .admin-slug-input:focus { outline: 1px solid #999; background: #fff; }
 
     /* MEDIA UPLOAD FIELDS (in the add/edit form) */
     .admin-media-field { display: flex; flex-direction: column; gap: 10px; }
@@ -619,7 +627,7 @@
             <p class="hint" style="margin:0;">⚠️ 이건 실제 암호화가 아니라 화면에서 블러만 걸어주는 가벼운 잠금이에요. 페이지 소스를 보면 우회될 수 있으니, 정말 민감한 파일은 올리지 마세요.</p>
           </div>
 
-          <p class="admin-slug-preview">상세페이지 주소: <code>our-works/<span id="slug-preview">project-slug</span>.html</code></p>
+          <p class="admin-slug-preview">상세페이지 주소: <code>our-works/<input type="text" id="f-slug" class="admin-slug-input" placeholder="project-slug"/>.html</code> <span class="hint" style="display:inline;">(직접 수정 가능)</span></p>
           <div class="admin-form-actions">
             <button class="btn-text" id="cancel-form-btn" type="button">Cancel</button>
             <button class="btn-outline primary" id="save-project-btn" type="button">Save Project</button>
@@ -829,7 +837,7 @@
         </div>
         <div class="admin-panel">
           <h2>Publish to Live Site</h2>
-          <p class="hint">히어로 슬라이드·프로젝트 목록·Articles 목록·Team 목록, 각 상세페이지(our-works/*.html, articles/*.html), 팀원 전체의 포트폴리오 페이지(team/*.html), articles.html, about.html의 팀 섹션, 새로 올린 이미지·동영상·CV까지 전부 GitHub 저장소에 직접 커밋해요. 토큰 입력 없이, 로그인만 되어 있으면 바로 게시할 수 있어요 (실제 GitHub 저장은 서버 쪽에서 안전하게 처리돼요). 업로드하는 파일은 개당 대략 20MB 이하로 올려주세요.</p>
+          <p class="hint">이 버튼 하나로 지금까지 admin에서 수정한 모든 내용(히어로, 프로젝트, 아티클, 팀, 새로 올린 이미지·동영상·CV까지 전부)이 실제 홈페이지에 반영돼요. 복잡한 설정 없이 로그인만 되어 있으면 바로 눌러도 돼요. 파일은 한 개당 20MB 이하로 올려주세요.</p>
           <button class="btn-outline primary" id="publish-btn" type="button" style="align-self:flex-start;">Publish to Live Site</button>
           <div class="admin-log" id="publish-log"></div>
         </div>
@@ -2350,9 +2358,16 @@
   const fLocked = document.getElementById('f-locked');
   const fLockPassword = document.getElementById('f-lock-password');
   const lockPanel = document.getElementById('lock-panel');
-  const slugPreview = document.getElementById('slug-preview');
+  // 2026-09: the slug used to be a read-only preview auto-derived from the Title and frozen
+  // in place on every later edit (via `manualSlug`), so once a project's URL was set (often
+  // from a placeholder title like "Add New Project" -> "add-new-project") there was no way
+  // to fix it without touching code. It's now a real, directly-editable input — see the save
+  // handler below, which always derives the slug from this field (falling back to the title
+  // only when it's left blank), and slugManuallyEdited, which stops the old
+  // auto-fill-from-title behavior once the user has typed into the slug field themselves.
+  const slugInput = document.getElementById('f-slug');
   let editingIndex = -1;
-  let manualSlug = null;
+  let slugManuallyEdited = false;
   let currentProjectBlocks = []; // working copy of the project detail page's content blocks
 
   // Only the card thumbnail is a fixed field now — Background/Insight/Video are all
@@ -2587,12 +2602,12 @@
 
   function openForm(index) {
     editingIndex = index;
-    manualSlug = null;
     if (index === -1) {
       document.getElementById('form-title').textContent = 'Add New Project';
       fTitle.value = ''; fSubtitle.value = ''; fDesc.value = '';
       fLocked.checked = false; fLockPassword.value = '';
-      slugPreview.textContent = 'project-slug';
+      slugInput.value = '';
+      slugManuallyEdited = false;
       delete pendingUploads[NEW_KEY];
       currentProjectBlocks = defaultProjectBlocks();
     } else {
@@ -2600,8 +2615,10 @@
       document.getElementById('form-title').textContent = 'Edit Project';
       fTitle.value = p.title; fSubtitle.value = projectTagsText(p); fDesc.value = p.desc;
       fLocked.checked = !!p.locked; fLockPassword.value = '';
-      manualSlug = p.slug;
-      slugPreview.textContent = p.slug;
+      slugInput.value = p.slug;
+      // Existing projects keep their current slug on later title edits unless the user
+      // deliberately changes the slug field itself (see the fTitle listener below).
+      slugManuallyEdited = true;
       currentProjectBlocks = (p.blocks && p.blocks.length) ? JSON.parse(JSON.stringify(p.blocks)) : legacyProjectBlocks(p);
     }
     lockPanel.classList.toggle('show', fLocked.checked);
@@ -2615,8 +2632,9 @@
   document.getElementById('add-project-btn').addEventListener('click', () => openForm(-1));
   document.getElementById('cancel-form-btn').addEventListener('click', () => formEl.classList.remove('show'));
   fTitle.addEventListener('input', () => {
-    if (editingIndex === -1) slugPreview.textContent = slugify(fTitle.value) || 'project-slug';
+    if (editingIndex === -1 && !slugManuallyEdited) slugInput.value = slugify(fTitle.value);
   });
+  slugInput.addEventListener('input', () => { slugManuallyEdited = true; });
 
   document.getElementById('save-project-btn').addEventListener('click', () => {
     syncProjectBlocksFromDom();
@@ -2626,9 +2644,14 @@
       alert('보안 처리를 켰으면 잠금 비밀번호를 입력해주세요.');
       return;
     }
-    const base = slugify(title);
+    // Always derive the slug from the (now directly editable) slug field, falling back to
+    // the title only when that field is left blank — see slugInput/slugManuallyEdited above.
+    // (slugify() on its own always returns a truthy string, defaulting to 'project' when its
+    // input is empty, so the blank check has to happen before calling it, not after.)
+    const rawSlugInput = slugInput.value.trim();
+    const base = rawSlugInput ? slugify(rawSlugInput) : slugify(title);
     const oldSlug = editingIndex !== -1 ? projects[editingIndex].slug : null;
-    const slug = editingIndex === -1 ? uniqueSlug(base) : (manualSlug || uniqueSlug(base, oldSlug));
+    const slug = uniqueSlug(base, oldSlug);
     const prev = editingIndex !== -1 ? projects[editingIndex] : {};
     const data = {
       slug,
