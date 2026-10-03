@@ -3535,17 +3535,28 @@
   // One project rendered exactly like the original hand-authored marquee project blocks —
   // images (or generic placeholder tiles, if the project has none yet) scroll right-to-left
   // via the page's existing @keyframes marqueeLeft, doubled once so the loop is seamless.
+  // 460px items + 10px spacing: 6 items = 2820px per loop half, wider than any viewport.
+  const MARQUEE_MIN_ITEMS = 6;
+  // Matches the original 30s loop for a 4-image project (~63px/s).
+  const MARQUEE_SECONDS_PER_ITEM = 7.5;
   function buildIndexProjectArticleHtml(p, idx) {
     const href = `our-works/${p.slug}.html`;
     const imgs = collectProjectImages(p);
     const blurClass = p.locked ? ' blurred' : '';
-    const itemsHtml = imgs.length
-      ? imgs.map(src => `<img class="marquee-item${blurClass}" src="${src}" alt="${escapeHtml(p.title)}">`).join('')
-      : '<div class="marquee-ph"></div>'.repeat(3);
+    const setItems = imgs.length
+      ? imgs.map(src => `<img class="marquee-item${blurClass}" src="${src}" alt="${escapeHtml(p.title)}">`)
+      : Array(3).fill('<div class="marquee-ph"></div>');
+    // One loop "half" must be wider than the widest viewport, or a project with only a few
+    // images shows an empty gap at the end of each loop — so repeat the set up to at least
+    // MARQUEE_MIN_ITEMS. Duration scales with the item count so every project scrolls at
+    // the same speed regardless of how many images it has.
+    const reps = Math.ceil(MARQUEE_MIN_ITEMS / setItems.length);
+    const itemCount = setItems.length * reps;
+    const itemsHtml = setItems.join('').repeat(reps);
     const marqueeInner = itemsHtml + itemsHtml; // doubled once so transform:translateX(-50%) loops seamlessly
     return `<article class="project-article" aria-labelledby="project-${idx}-title">
         <a class="marquee-container" href="${href}" aria-label="See project: ${escapeHtml(p.title)}">
-          <div class="marquee-inner">${marqueeInner}</div>
+          <div class="marquee-inner" style="animation-duration:${itemCount * MARQUEE_SECONDS_PER_ITEM}s">${marqueeInner}</div>
         </a>
         <div class="project-description">
           <div class="project-title">
@@ -4537,6 +4548,23 @@
   // tiles (the original only had specific ph-p2a/b/c colors for the two hardcoded fake
   // projects) and a blur filter for locked projects' marquee images, so those are the only
   // two retroactively injected here (guarded by .marquee-item.blurred below).
+  // The original .marquee-inner uses `gap: 10px`, which makes translateX(-50%) land half a
+  // gap (5px) short of the loop seam — a visible jump every loop. Spacing via margin-right
+  // on each item instead keeps both halves exactly equal. Strip-and-reinject by markers.
+  const MARQUEE_SEAM_CSS = `
+    /* ═══ MARQUEE SEAM FIX CSS START ═══ */
+    .marquee-inner { gap: 0; }
+    .marquee-item, .marquee-ph { margin-right: 10px; }
+    /* ═══ MARQUEE SEAM FIX CSS END ═══ */
+`;
+  function reinjectMarqueeSeamCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ MARQUEE SEAM FIX CSS START ═══ \*\/[\s\S]*?\/\* ═══ MARQUEE SEAM FIX CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', MARQUEE_SEAM_CSS + '\n  </style>');
+    return out;
+  }
   const WORKS_SECTION_CSS_INJECT = `
     .marquee-ph { background: #d8d8d8; }
     .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
@@ -4795,6 +4823,7 @@ ${rows}
     out = reinjectHeroSlideshowJs(out);
     out = reinjectHeroIntro(out, siteContent);
     out = reinjectIntroFeaturesCss(out);
+    out = reinjectMarqueeSeamCss(out);
     // The static partners photo (whichever filename it currently points at — the very
     // first hand-authored one, or the briefly-used partners_updated.png) is removed
     // entirely and replaced by the logo marquee below.
