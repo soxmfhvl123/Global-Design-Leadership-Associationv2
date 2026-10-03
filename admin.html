@@ -508,7 +508,7 @@
         <section class="admin-view" id="view-news" data-view="news">
           <div class="admin-view-head">
             <h1>News</h1>
-            <p>홈페이지 News 목록이에요. 화살표로 순서를 바꿀 수 있어요.</p>
+            <p>홈페이지 News 목록이에요. 사이트에는 항상 날짜 최신순으로 자동 정렬돼서 보여요 (날짜가 같으면 여기 순서대로).</p>
           </div>
           <div>
             <div class="admin-section-head">
@@ -4875,8 +4875,19 @@ ${rows}
     );
   }
 
+  // News is always shown newest first, whatever order it was entered in. Dates are typed
+  // by hand in mixed formats ("2024.09.24", "2024. 02. 01", "2024-2-1"), so compare the
+  // digits as YYYYMMDD. Undated items go last; ties keep their admin order (stable sort).
+  function newsDateKey(n) {
+    const m = String(n.date || '').match(/(\d{4})\D*(\d{1,2})?\D*(\d{1,2})?/);
+    if (!m) return -1;
+    return Number(m[1]) * 10000 + Number(m[2] || 0) * 100 + Number(m[3] || 0);
+  }
+  function sortNewsNewestFirst(list) {
+    return list.slice().sort((a, b) => newsDateKey(b) - newsDateKey(a));
+  }
   function buildNewsHtml(items) {
-    const list = items && items.length ? items : SEED_NEWS;
+    const list = sortNewsNewestFirst(items && items.length ? items : SEED_NEWS);
     const rows = list.map(n => `
           <a href="${escapeHtml(n.url || '#')}" aria-label="Open: ${escapeHtml(n.title)}">
             <div class="award">
