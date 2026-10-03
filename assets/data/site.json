@@ -1,19 +1,24 @@
 {
-  "heroHeading": "Global Design. Design Leadership.",
-  "heroParagraphs": [
-    "Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.",
-    "CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice."
-  ],
-  "heroLogos": [
+  "introLead": "Global Design Leadership Association",
+  "introText": "is an organization to create social value and integrating design and leadership through forums, education, research, and public-interest initiatives.",
+  "features": [
     {
-      "path": "assets/logo/logo-gdla.png.png",
-      "alt": "Association mark"
+      "id": "seed-feature-1",
+      "title": "From Designer\nto Entrepreneur",
+      "description": "We'll explore how to use AI to build your own business system, turn your creative work into a sustainable business, protect your IP, and set yourself up as an entrepreneur.",
+      "image": "assets/uploads/site/feature-1.png"
     },
     {
-      "path": "assets/logo/logo-clab.png.png",
-      "alt": "CLAB logo"
+      "id": "seed-feature-2",
+      "title": "Build Your Own Business System",
+      "description": "If you're working at a company, we'll also talk about how to grow from a creative role into a leadership position—and eventually make your way to the C-suite.",
+      "image": "assets/uploads/site/feature-2.png"
     }
   ],
+  "footerLinks": {
+    "instagram": "https://www.instagram.com/clab_leadership_and_branding/",
+    "linkedin": ""
+  },
   "specialtiesGroupTitle": "DESIGN MANAGEMENT",
   "specialtiesItems": [
     "Vision & Strategy",

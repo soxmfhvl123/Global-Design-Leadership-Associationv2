@@ -1356,6 +1356,29 @@
     }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
+  
+    /* ═══ INTRO FEATURES CSS START ═══ */
+    .main > .intro-section:first-child { padding-top: 120px; }
+    .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
+    .intro-statement strong { display: block; font-weight: 600; }
+    .feature-rows { display: flex; flex-direction: column; gap: 100px; width: 100%; margin-top: 200px; }
+    .feature-row { display: flex; align-items: center; justify-content: space-between; gap: 8%; width: 100%; }
+    .feature-row--flip { flex-direction: row-reverse; justify-content: flex-end; }
+    .feature-text { display: flex; flex-direction: column; gap: 16px; flex: 0 1 62%; }
+    .feature-title { margin: 0; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 72px; letter-spacing: -3.6px; line-height: 110%; color: #000; }
+    .feature-desc { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 121%; color: #000; }
+    .feature-img { flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; object-fit: cover; display: block; background: #d8d8d8; }
+    @media (max-width: 768px) {
+      .main > .intro-section:first-child { padding-top: 48px; }
+      .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
+      .feature-rows { gap: 60px; margin-top: 80px; }
+      .feature-row, .feature-row--flip { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
+      .feature-text { flex: none; }
+      .feature-img { flex: none; width: 100%; max-width: none; }
+      .feature-title { font-size: 36px; letter-spacing: -1.8px; }
+    }
+    /* ═══ INTRO FEATURES CSS END ═══ */
+
   </style>
 </head>
 <body>
@@ -1410,14 +1433,22 @@
 
     <!-- ═══ HERO / INTRO ═══ -->
     <section class="intro-section" id="about" aria-labelledby="intro-title">
-      <h1 class="intro-h1" id="intro-title">Global Design. Design Leadership.</h1>
-      <div class="flexcontainer">
-        <p class="div">Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.</p>
-        <p class="div">CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice.</p>
-      </div>
-      <div class="frame-logos">
-        <img class="img" src="assets/logo/logo-gdla.png.png" alt="Association mark"/>
-        <img class="img" src="assets/logo/logo-clab.png.png" alt="CLAB logo"/>
+      <h1 class="intro-statement" id="intro-title"><strong>Global Design Leadership Association</strong> is an organization to create social value and integrating design and leadership through forums, education, research, and public-interest initiatives.</h1>
+      <div class="feature-rows">
+        <div class="feature-row">
+          <div class="feature-text">
+            <h2 class="feature-title">From Designer<br/>to Entrepreneur</h2>
+            <p class="feature-desc">We'll explore how to use AI to build your own business system, turn your creative work into a sustainable business, protect your IP, and set yourself up as an entrepreneur.</p>
+          </div>
+          <img class="feature-img" src="assets/uploads/site/feature-1.png" alt="From Designer to Entrepreneur"/>
+        </div>
+        <div class="feature-row feature-row--flip">
+          <div class="feature-text">
+            <h2 class="feature-title">Build Your Own Business System</h2>
+            <p class="feature-desc">If you're working at a company, we'll also talk about how to grow from a creative role into a leadership position—and eventually make your way to the C-suite.</p>
+          </div>
+          <img class="feature-img" src="assets/uploads/site/feature-2.png" alt="Build Your Own Business System"/>
+        </div>
       </div>
     </section>
 
@@ -1645,8 +1676,8 @@
         <div class="social-contain">
           <div class="text-wrapper-18">SOCIAL</div>
           <div class="div-2">
-            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
-            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+            <a href="https://www.instagram.com/clab_leadership_and_branding/" target="_blank" rel="noopener"><div class="text-wrapper-18">Instagram</div></a>
+            <div class="text-wrapper-19">LinkedIn</div>
           </div>
         </div>
       </div>

@@ -336,6 +336,7 @@
             <button class="admin-nav-item" type="button" data-view="articles" onclick="showAdminView('articles')">Articles</button>
             <button class="admin-nav-item" type="button" data-view="partners" onclick="showAdminView('partners')">Partners</button>
             <button class="admin-nav-item" type="button" data-view="team" onclick="showAdminView('team')">Team</button>
+            <button class="admin-nav-item" type="button" data-view="footer" onclick="showAdminView('footer')">Footer</button>
             <button class="admin-nav-item" type="button" data-view="publish" onclick="showAdminView('publish')">Publish</button>
           </nav>
           <div class="admin-sidebar-bottom">
@@ -390,62 +391,41 @@
         <section class="admin-view" id="view-hero" data-view="hero">
           <div class="admin-view-head">
             <h1>Hero</h1>
-            <p>홈페이지 맨 위 히어로 이미지예요. 사진을 여러 장 올리면 자동으로 넘어가는 슬라이드쇼가 되고, 한 장만 있으면 지금처럼 고정된 사진 한 장으로 보여요.</p>
+            <p>홈페이지 맨 위 히어로 이미지예요. 사진을 여러 장 올리면 자동으로 넘어가는 슬라이드쇼가 되고, 한 장만 있으면 고정된 사진 한 장, 하나도 없으면 사진 없이 소개 문구부터 바로 보여요.</p>
           </div>
           <div>
             <div class="admin-section-head">
               <h2>Hero Slides</h2>
               <button class="btn-outline" id="add-hero-slide-btn" type="button">+ Add Slide</button>
             </div>
-            <p class="hint" style="margin-top:8px;">맨 위 슬라이드가 제일 먼저 보여요. 화살표로 순서를 바꿀 수 있고, 최소 한 장은 남아있어야 해요.</p>
+            <p class="hint" style="margin-top:8px;">맨 위 슬라이드가 제일 먼저 보여요. 화살표로 순서를 바꿀 수 있고, 모두 지워도 괜찮아요.</p>
             <input type="file" id="hero-slide-file-input" accept="image/*" multiple style="display:none;"/>
             <div class="admin-project-list" id="hero-slide-list"></div>
           </div>
 
           <div>
             <div class="admin-section-head">
-              <h2>Heading & Text</h2>
+              <h2>Intro Statement</h2>
             </div>
-            <p class="hint" style="margin-top:8px;">히어로 사진 아래에 나오는 큰 제목과 소개 문단이에요.</p>
+            <p class="hint" style="margin-top:8px;">히어로 사진 아래(사진이 없으면 맨 위)에 나오는 큰 소개 문구예요. 굵은 첫 줄 아래에 일반 굵기 문장이 이어져요.</p>
             <div class="admin-field" style="margin-top:12px;">
-              <label for="sc-hero-heading">Heading</label>
-              <input type="text" id="sc-hero-heading" oninput="updateSiteField('heroHeading', this.value)" placeholder="예: Global Design. Design Leadership."/>
+              <label for="sc-intro-lead">Bold Lead</label>
+              <input type="text" id="sc-intro-lead" oninput="updateSiteField('introLead', this.value)" placeholder="예: Global Design Leadership Association"/>
             </div>
             <div class="admin-field">
-              <label for="sc-hero-p1">Paragraph 1</label>
-              <textarea id="sc-hero-p1" oninput="updateSiteParagraph(0, this.value)"></textarea>
-            </div>
-            <div class="admin-field">
-              <label for="sc-hero-p2">Paragraph 2</label>
-              <textarea id="sc-hero-p2" oninput="updateSiteParagraph(1, this.value)"></textarea>
+              <label for="sc-intro-text">Text</label>
+              <textarea id="sc-intro-text" oninput="updateSiteField('introText', this.value)" placeholder="예: is an organization to create social value and ..."></textarea>
             </div>
           </div>
 
           <div>
             <div class="admin-section-head">
-              <h2>Logos</h2>
+              <h2>Feature Rows</h2>
+              <button class="btn-outline" id="add-feature-row-btn" type="button">+ Add Row</button>
             </div>
-            <p class="hint" style="margin-top:8px;">소개 문단 아래에 나란히 나오는 두 개의 작은 로고예요.</p>
-            <div class="row" style="margin-top:12px;">
-              <div class="admin-media-field">
-                <label>Association Mark</label>
-                <div class="admin-media-row">
-                  <div class="admin-media-preview empty" id="preview-sc-gdla-logo"></div>
-                  <div class="admin-media-controls">
-                    <input type="file" id="sc-gdla-logo-file" accept="image/*"/>
-                  </div>
-                </div>
-              </div>
-              <div class="admin-media-field">
-                <label>CLAB Logo</label>
-                <div class="admin-media-row">
-                  <div class="admin-media-preview empty" id="preview-sc-clab-logo"></div>
-                  <div class="admin-media-controls">
-                    <input type="file" id="sc-clab-logo-file" accept="image/*"/>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p class="hint" style="margin-top:8px;">소개 문구 아래에 나오는 "제목 + 설명 + 사진" 줄이에요. 사진은 한 줄씩 번갈아 오른쪽·왼쪽에 놓여요. 제목에서 줄바꿈(Enter)하면 사이트에서도 그 자리에서 줄이 바뀌어요. 사진을 누르면 바꿀 수 있어요.</p>
+            <input type="file" id="feature-row-file-input" accept="image/*" style="display:none;"/>
+            <div class="admin-project-list" id="feature-row-list"></div>
           </div>
         </section>
 
@@ -463,6 +443,24 @@
             <div class="admin-field">
               <label for="sc-specialties-items">Tags (한 줄에 하나씩)</label>
               <textarea id="sc-specialties-items" oninput="updateSiteSpecialtiesItems(this.value)" style="min-height:150px;" placeholder="Vision & Strategy&#10;Leadership & Innovation&#10;Curriculum & Practice"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ FOOTER ═══ -->
+        <section class="admin-view" id="view-footer" data-view="footer">
+          <div class="admin-view-head">
+            <h1>Footer</h1>
+            <p>모든 페이지 맨 아래 SOCIAL 영역의 링크예요. 링크를 비워두면 글자만 보이고 클릭은 안 돼요.</p>
+          </div>
+          <div>
+            <div class="admin-field">
+              <label for="sc-footer-instagram">Instagram URL</label>
+              <input type="url" id="sc-footer-instagram" oninput="updateFooterLink('instagram', this.value)" placeholder="https://www.instagram.com/..."/>
+            </div>
+            <div class="admin-field" style="margin-top:12px;">
+              <label for="sc-footer-linkedin">LinkedIn URL</label>
+              <input type="url" id="sc-footer-linkedin" oninput="updateFooterLink('linkedin', this.value)" placeholder="https://www.linkedin.com/..."/>
             </div>
           </div>
         </section>
@@ -1004,19 +1002,33 @@
   ];
 
   /* ═══════════════════ SEED DATA (used only if assets/data/site.json doesn't exist yet) ═══════════════════ */
-  // Ports the hero heading/paragraphs/logo marks and the Specialties section text that were
-  // already hand-authored directly into index.html, so nothing changes visually until the
-  // team edits them from the new admin panels.
+  // 2026-10 homepage update (Figma "Lab homepage — GDLA WIP"): the old "Global Design.
+  // Design Leadership." heading + two paragraphs + GDLA/CLAB logo marks are replaced by one
+  // big intro statement (bold lead + regular text) followed by alternating "title +
+  // description + photo" feature rows. Older site.json files still carry heroHeading /
+  // heroParagraphs / heroLogos — they're simply no longer rendered.
   const SEED_SITE_CONTENT = {
-    heroHeading: 'Global Design. Design Leadership.',
-    heroParagraphs: [
-      'Global Design Leadership Association is a non-profit association advancing the convergence of design and leadership  to create social value and expand global collaboration and knowledge ecosystems.',
-      'CLAB, its research laboratory, manifests this mission as human-centered innovation  — designing the future of human value through research, education, and enduring practice.'
+    introLead: 'Global Design Leadership Association',
+    introText: 'is an organization to create social value and integrating design and leadership through forums, education, research, and public-interest initiatives.',
+    features: [
+      {
+        id: 'seed-feature-1',
+        title: 'From Designer\nto Entrepreneur',
+        description: "We'll explore how to use AI to build your own business system, turn your creative work into a sustainable business, protect your IP, and set yourself up as an entrepreneur.",
+        image: 'assets/uploads/site/feature-1.png'
+      },
+      {
+        id: 'seed-feature-2',
+        title: 'Build Your Own Business System',
+        description: "If you're working at a company, we'll also talk about how to grow from a creative role into a leadership position—and eventually make your way to the C-suite.",
+        image: 'assets/uploads/site/feature-2.png'
+      }
     ],
-    heroLogos: [
-      { path: 'assets/logo/logo-gdla.png.png', alt: 'Association mark' },
-      { path: 'assets/logo/logo-clab.png.png', alt: 'CLAB logo' }
-    ],
+    // Footer SOCIAL links (every page). Empty string = rendered as plain text, not a link.
+    footerLinks: {
+      instagram: 'https://www.instagram.com/clab_leadership_and_branding/',
+      linkedin: ''
+    },
     specialtiesGroupTitle: 'DESIGN MANAGEMENT',
     specialtiesItems: ['Vision & Strategy', 'Leadership & Innovation', 'Curriculum & Practice', 'Industry Collaboration', 'Career & Impact'],
     // 2026-09: temporary hide for About / Article / Contact nav links while the site runs
@@ -1356,7 +1368,12 @@
   // Auto-detects the '../' prefix from whatever the page's OWN existing footer already
   // uses, so it works whether called on a root page or one nested a directory down
   // (team/*, our-works/*, articles/*).
+  function footerSocialLinkHtml(label, url, cls) {
+    const inner = `<div class="${cls}">${label}</div>`;
+    return url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${inner}</a>` : inner;
+  }
   function buildFooterHtml(prefix = '') {
+    const links = (siteContent && siteContent.footerLinks) || SEED_SITE_CONTENT.footerLinks;
     return `<footer class="footer-section" id="contact">
     <div class="footer-content">
       <div class="logo-contain-2">
@@ -1379,8 +1396,8 @@
         <div class="social-contain">
           <div class="text-wrapper-18">SOCIAL</div>
           <div class="div-2">
-            <a href="#"><div class="text-wrapper-18">Instagram</div></a>
-            <a href="#"><div class="text-wrapper-19">LinkedIn</div></a>
+            ${footerSocialLinkHtml('Instagram', links.instagram, 'text-wrapper-18')}
+            ${footerSocialLinkHtml('LinkedIn', links.linkedin, 'text-wrapper-19')}
           </div>
         </div>
       </div>
@@ -1858,7 +1875,6 @@
   };
   window.deleteHeroSlide = function (i) {
     const s = heroSlides[i];
-    if (heroSlides.length <= 1) { alert('최소 한 장의 히어로 이미지가 있어야 해요.'); return; }
     if (!confirm('이 히어로 이미지를 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
     delete pendingHeroUploads[s.id];
     if (heroObjectUrls[s.id]) { URL.revokeObjectURL(heroObjectUrls[s.id]); delete heroObjectUrls[s.id]; }
@@ -1950,14 +1966,18 @@
     renderPartnerList();
   });
 
-  /* ═══════════════════ SITE CONTENT (Hero text/logos + Specialties) ═══════════════════ */
-  let pendingSiteLogoUploads = {}; // keyed by 'gdla' | 'clab'
-  let siteLogoObjectUrls = {};
-
+  /* ═══════════════════ SITE CONTENT (Intro statement + Specialties + Footer links) ═══════════════════ */
   function ensureSiteContentShape() {
-    if (!siteContent.heroParagraphs) siteContent.heroParagraphs = ['', ''];
-    if (!siteContent.heroLogos || !siteContent.heroLogos.length) {
-      siteContent.heroLogos = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.heroLogos));
+    // Backward-compat: site.json saved before the 2026-10 intro redesign has none of these
+    // keys — seed them (rather than starting blank) so the first Publish after the update
+    // already renders the new design. An explicitly emptied features array stays empty.
+    if (siteContent.introLead == null) siteContent.introLead = SEED_SITE_CONTENT.introLead;
+    if (siteContent.introText == null) siteContent.introText = SEED_SITE_CONTENT.introText;
+    if (!Array.isArray(siteContent.features)) {
+      siteContent.features = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.features));
+    }
+    if (!siteContent.footerLinks) {
+      siteContent.footerLinks = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.footerLinks));
     }
     if (!siteContent.specialtiesItems) siteContent.specialtiesItems = [];
     if (!siteContent.navVisibility) {
@@ -1971,74 +1991,130 @@
     ensureSiteContentShape();
     siteContent[field] = value;
   };
-  window.updateSiteParagraph = function (idx, value) {
+  window.updateFooterLink = function (key, value) {
     ensureSiteContentShape();
-    siteContent.heroParagraphs[idx] = value;
+    siteContent.footerLinks[key] = value.trim();
   };
   window.updateSiteSpecialtiesItems = function (value) {
     ensureSiteContentShape();
     siteContent.specialtiesItems = value.split('\n').map(s => s.trim()).filter(Boolean);
   };
 
-  function renderSiteLogoPreview(key, logo) {
-    const el = document.getElementById(`preview-sc-${key}-logo`);
-    if (!el) return;
-    const pending = pendingSiteLogoUploads[key];
-    let src = null;
-    if (pending) {
-      if (!siteLogoObjectUrls[key]) siteLogoObjectUrls[key] = URL.createObjectURL(pending);
-      src = siteLogoObjectUrls[key];
-    } else if (logo && logo.path) {
-      src = logo.path;
-    }
-    if (src) {
-      el.classList.remove('empty');
-      el.innerHTML = `<img src="${src}" alt=""/>`;
-    } else {
-      el.classList.add('empty');
-      el.innerHTML = '';
-    }
-  }
-
   function populateSiteContentForm() {
     if (!siteContent || !Object.keys(siteContent).length) {
       siteContent = JSON.parse(JSON.stringify(SEED_SITE_CONTENT));
     }
     ensureSiteContentShape();
-    document.getElementById('sc-hero-heading').value = siteContent.heroHeading || '';
-    document.getElementById('sc-hero-p1').value = siteContent.heroParagraphs[0] || '';
-    document.getElementById('sc-hero-p2').value = siteContent.heroParagraphs[1] || '';
+    document.getElementById('sc-intro-lead').value = siteContent.introLead || '';
+    document.getElementById('sc-intro-text').value = siteContent.introText || '';
     document.getElementById('sc-specialties-title').value = siteContent.specialtiesGroupTitle || '';
     document.getElementById('sc-specialties-items').value = (siteContent.specialtiesItems || []).join('\n');
-    renderSiteLogoPreview('gdla', siteContent.heroLogos[0]);
-    renderSiteLogoPreview('clab', siteContent.heroLogos[1]);
+    document.getElementById('sc-footer-instagram').value = siteContent.footerLinks.instagram || '';
+    document.getElementById('sc-footer-linkedin').value = siteContent.footerLinks.linkedin || '';
+    renderFeatureList();
   }
 
-  ['gdla', 'clab'].forEach((key) => {
-    const input = document.getElementById(`sc-${key}-logo-file`);
-    if (input) {
-      input.addEventListener('change', (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        pendingSiteLogoUploads[key] = file;
-        ensureSiteContentShape();
-        renderSiteLogoPreview(key, siteContent.heroLogos[key === 'gdla' ? 0 : 1]);
-      });
+  /* ═══════════════════ FEATURE ROWS (homepage intro, add/edit/delete/reorder) ═══════════════════ */
+  // In-memory only (NOT persisted) — keyed by feature id, holds the raw File until Publish uploads it.
+  let pendingFeatureUploads = {};
+  let featureObjectUrls = {};
+  // Which row the hidden file input is currently picking an image for (null = a new row).
+  let featureFileTargetId = null;
+
+  function featurePreviewSrc(f) {
+    const pending = pendingFeatureUploads[f.id];
+    if (pending) {
+      if (!featureObjectUrls[f.id]) featureObjectUrls[f.id] = URL.createObjectURL(pending);
+      return featureObjectUrls[f.id];
     }
+    return f.image;
+  }
+
+  function renderFeatureList() {
+    const listEl = document.getElementById('feature-row-list');
+    if (!listEl) return;
+    const list = siteContent.features || [];
+    if (!list.length) {
+      listEl.innerHTML = '<p class="admin-empty">Feature row가 없어요. "+ Add Row"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = list.map((f, i) => {
+      const src = featurePreviewSrc(f);
+      return `
+      <div class="admin-project-row" style="align-items:flex-start;">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveFeature(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === list.length - 1 ? 'disabled' : ''} onclick="moveFeature(${i}, 1)">▼</button>
+        </div>
+        <button type="button" class="admin-project-thumb" title="사진 바꾸기" onclick="pickFeatureImage('${f.id}')" style="cursor:pointer;border:none;padding:0;${src ? `background-image:url('${src}');background-size:cover;background-position:center;` : ''}"></button>
+        <div class="admin-project-info" style="display:flex;flex-direction:column;gap:8px;">
+          <textarea class="admin-field-inline" style="max-width:none;min-height:48px;resize:vertical;" placeholder="제목 (Enter로 줄바꿈)" oninput="updateFeature(${i}, 'title', this.value)">${escapeHtml(f.title || '')}</textarea>
+          <textarea class="admin-field-inline" style="max-width:none;min-height:72px;resize:vertical;" placeholder="설명" oninput="updateFeature(${i}, 'description', this.value)">${escapeHtml(f.description || '')}</textarea>
+          <div class="meta">사진 ${i % 2 === 0 ? '오른쪽' : '왼쪽'}${pendingFeatureUploads[f.id] ? ' · 업로드 대기중 (Publish 시 업로드)' : ''}</div>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteFeature(${i})">🗑</button>
+        </div>
+      </div>
+    `;
+    }).join('');
+  }
+
+  window.updateFeature = function (i, field, value) {
+    ensureSiteContentShape();
+    if (siteContent.features[i]) siteContent.features[i][field] = value;
+  };
+  window.moveFeature = function (i, dir) {
+    const list = siteContent.features;
+    const j = i + dir;
+    if (j < 0 || j >= list.length) return;
+    [list[i], list[j]] = [list[j], list[i]];
+    renderFeatureList();
+  };
+  window.deleteFeature = function (i) {
+    if (!confirm('이 줄을 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    const f = siteContent.features[i];
+    delete pendingFeatureUploads[f.id];
+    if (featureObjectUrls[f.id]) { URL.revokeObjectURL(featureObjectUrls[f.id]); delete featureObjectUrls[f.id]; }
+    siteContent.features.splice(i, 1);
+    renderFeatureList();
+  };
+  window.pickFeatureImage = function (id) {
+    featureFileTargetId = id;
+    document.getElementById('feature-row-file-input').click();
+  };
+
+  document.getElementById('add-feature-row-btn').addEventListener('click', () => {
+    featureFileTargetId = null;
+    document.getElementById('feature-row-file-input').click();
+  });
+  document.getElementById('feature-row-file-input').addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    ensureSiteContentShape();
+    let f = featureFileTargetId && siteContent.features.find(x => x.id === featureFileTargetId);
+    if (!f) {
+      f = { id: `feature-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, title: '', description: '', image: null };
+      siteContent.features.push(f);
+    }
+    if (featureObjectUrls[f.id]) { URL.revokeObjectURL(featureObjectUrls[f.id]); delete featureObjectUrls[f.id]; }
+    pendingFeatureUploads[f.id] = file;
+    featureFileTargetId = null;
+    renderFeatureList();
   });
 
-  async function uploadPendingSiteLogos() {
+  async function uploadPendingFeatureImages() {
     ensureSiteContentShape();
-    for (const key of ['gdla', 'clab']) {
-      const file = pendingSiteLogoUploads[key];
+    for (const f of siteContent.features) {
+      const file = pendingFeatureUploads[f.id];
       if (!file) continue;
-      const idx = key === 'gdla' ? 0 : 1;
       const ext = extFromFile(file);
-      const path = `assets/uploads/site/${key}-logo.${ext}`;
-      log(`  ↳ ${key === 'gdla' ? 'Association mark' : 'CLAB logo'} 업로드 중... (${file.name || 'logo'}, ${Math.round(file.size / 1024)}KB)`);
+      const path = `assets/uploads/site/${f.id}.${ext}`;
+      log(`  ↳ Feature 사진 업로드 중... (${file.name || 'image'}, ${Math.round(file.size / 1024)}KB)`);
       const base64 = await fileToBase64(file);
-      await putFileRawBase64(path, base64, `Upload site logo via admin (${currentPerson.name})`);
-      siteContent.heroLogos[idx].path = path;
+      await putFileRawBase64(path, base64, `Upload feature image via admin (${currentPerson.name})`);
+      f.image = path;
       log(`  ✅ ${path}`);
     }
   }
@@ -4528,19 +4604,56 @@
   // every Publish so edits/reorders/deletes reliably reach an already-published page.
   function buildHeroIntroHtml(site) {
     const s = (site && Object.keys(site).length) ? site : SEED_SITE_CONTENT;
-    const paragraphs = (s.heroParagraphs && s.heroParagraphs.length ? s.heroParagraphs : SEED_SITE_CONTENT.heroParagraphs);
-    const logos = (s.heroLogos && s.heroLogos.length ? s.heroLogos : SEED_SITE_CONTENT.heroLogos);
-    const parasHtml = paragraphs.map(p => `<p class="div">${escapeHtml(p)}</p>`).join('\n        ');
-    const logosHtml = logos.map(l => `<img class="img" src="${l.path}" alt="${escapeHtml(l.alt || '')}"/>`).join('\n        ');
+    const lead = s.introLead != null ? s.introLead : SEED_SITE_CONTENT.introLead;
+    const text = s.introText != null ? s.introText : SEED_SITE_CONTENT.introText;
+    const features = Array.isArray(s.features) ? s.features : SEED_SITE_CONTENT.features;
+    const nl2br = (str) => escapeHtml(str || '').replace(/\r?\n/g, '<br/>');
+    const rowsHtml = features.map((f, i) => `
+        <div class="feature-row${i % 2 ? ' feature-row--flip' : ''}">
+          <div class="feature-text">
+            <h2 class="feature-title">${nl2br(f.title)}</h2>
+            <p class="feature-desc">${nl2br(f.description)}</p>
+          </div>
+          ${f.image ? `<img class="feature-img" src="${f.image}" alt="${escapeHtml((f.title || '').replace(/\s+/g, ' '))}"/>` : '<div class="feature-img" aria-hidden="true"></div>'}
+        </div>`).join('');
     return `<section class="intro-section" id="about" aria-labelledby="intro-title">
-      <h1 class="intro-h1" id="intro-title">${escapeHtml(s.heroHeading || SEED_SITE_CONTENT.heroHeading)}</h1>
-      <div class="flexcontainer">
-        ${parasHtml}
-      </div>
-      <div class="frame-logos">
-        ${logosHtml}
-      </div>
+      <h1 class="intro-statement" id="intro-title"><strong>${escapeHtml(lead)}</strong> ${escapeHtml(text)}</h1>${features.length ? `
+      <div class="feature-rows">${rowsHtml}
+      </div>` : ''}
     </section>`;
+  }
+  // 2026-10 intro redesign CSS — strip-and-reinject by markers (same pattern as the hero
+  // slideshow / partner marquee CSS) so later tweaks here reach the published index.html.
+  const INTRO_FEATURES_CSS = `
+    /* ═══ INTRO FEATURES CSS START ═══ */
+    .main > .intro-section:first-child { padding-top: 120px; }
+    .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
+    .intro-statement strong { display: block; font-weight: 600; }
+    .feature-rows { display: flex; flex-direction: column; gap: 100px; width: 100%; margin-top: 200px; }
+    .feature-row { display: flex; align-items: center; justify-content: space-between; gap: 8%; width: 100%; }
+    .feature-row--flip { flex-direction: row-reverse; justify-content: flex-end; }
+    .feature-text { display: flex; flex-direction: column; gap: 16px; flex: 0 1 62%; }
+    .feature-title { margin: 0; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 72px; letter-spacing: -3.6px; line-height: 110%; color: #000; }
+    .feature-desc { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 121%; color: #000; }
+    .feature-img { flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; object-fit: cover; display: block; background: #d8d8d8; }
+    @media (max-width: 768px) {
+      .main > .intro-section:first-child { padding-top: 48px; }
+      .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
+      .feature-rows { gap: 60px; margin-top: 80px; }
+      .feature-row, .feature-row--flip { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
+      .feature-text { flex: none; }
+      .feature-img { flex: none; width: 100%; max-width: none; }
+      .feature-title { font-size: 36px; letter-spacing: -1.8px; }
+    }
+    /* ═══ INTRO FEATURES CSS END ═══ */
+`;
+  function reinjectIntroFeaturesCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ INTRO FEATURES CSS START ═══ \*\/[\s\S]*?\/\* ═══ INTRO FEATURES CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', INTRO_FEATURES_CSS + '\n  </style>');
+    return out;
   }
   function reinjectHeroIntro(html, site) {
     return html.replace(
@@ -4675,10 +4788,13 @@ ${rows}
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
       '\n\n    '
     );
-    out = reinjectHeroHtml(out, heroSlides && heroSlides.length ? heroSlides : SEED_HERO);
+    // An empty list is a real choice (no hero photo at all) — only fall back to the seed
+    // when the data never loaded.
+    out = reinjectHeroHtml(out, heroSlides || SEED_HERO);
     out = reinjectHeroSlideshowCss(out);
     out = reinjectHeroSlideshowJs(out);
     out = reinjectHeroIntro(out, siteContent);
+    out = reinjectIntroFeaturesCss(out);
     // The static partners photo (whichever filename it currently points at — the very
     // first hand-authored one, or the briefly-used partners_updated.png) is removed
     // entirely and replaced by the logo marquee below.
@@ -4868,9 +4984,9 @@ ${rows}
       await putFile(PARTNERS_PATH, JSON.stringify(partnerLogos, null, 2), `Update partner logos via admin (${currentPerson.name})`);
       log('✅ ' + PARTNERS_PATH + ' 저장 완료');
 
-      log('\n사이트 로고 업로드 확인 중...');
-      await uploadPendingSiteLogos();
-      pendingSiteLogoUploads = {};
+      log('\nFeature 사진 업로드 확인 중...');
+      await uploadPendingFeatureImages();
+      pendingFeatureUploads = {};
 
       log(`${SITE_PATH} 저장 중...`);
       await putFile(SITE_PATH, JSON.stringify(siteContent, null, 2), `Update site content via admin (${currentPerson.name})`);
