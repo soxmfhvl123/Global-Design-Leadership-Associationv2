@@ -1385,6 +1385,19 @@
     .marquee-item, .marquee-ph { margin-right: 10px; }
     /* ═══ MARQUEE SEAM FIX CSS END ═══ */
 
+  
+    /* ═══ LIST TEXT FIX CSS START ═══ */
+    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
+    @media (max-width: 768px) {
+      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
+      .award .div { font-size: 18px; letter-spacing: -0.5px; }
+      .award .frame-2 { display: flex; max-width: 100%; }
+      .award .text-wrapper-10 { white-space: normal; }
+      .project-title { min-width: 0; }
+      .titles { flex: 1 1 auto; min-width: 0; }
+    }
+    /* ═══ LIST TEXT FIX CSS END ═══ */
+
   </style>
 </head>
 <body>

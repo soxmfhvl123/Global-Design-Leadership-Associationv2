@@ -4599,6 +4599,32 @@
     .marquee-item, .marquee-ph { margin-right: 10px; }
     /* ═══ MARQUEE SEAM FIX CSS END ═══ */
 `;
+  // Thesis/News row titles are <p class="div"> inside .award, but index.html's stylesheet
+  // only ever styled `.div` inside other containers — so they fell back to the browser's
+  // default font and link-blue. Also fixes mobile overflow: the meta line is nowrap and
+  // the list/project-title columns were content-sized, so long titles ran off the right
+  // edge instead of wrapping. Strip-and-reinject by markers.
+  const LIST_TEXT_FIX_CSS = `
+    /* ═══ LIST TEXT FIX CSS START ═══ */
+    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
+    @media (max-width: 768px) {
+      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
+      .award .div { font-size: 18px; letter-spacing: -0.5px; }
+      .award .frame-2 { display: flex; max-width: 100%; }
+      .award .text-wrapper-10 { white-space: normal; }
+      .project-title { min-width: 0; }
+      .titles { flex: 1 1 auto; min-width: 0; }
+    }
+    /* ═══ LIST TEXT FIX CSS END ═══ */
+`;
+  function reinjectListTextFixCss(html) {
+    let out = html.replace(
+      /\s*\/\* ═══ LIST TEXT FIX CSS START ═══ \*\/[\s\S]*?\/\* ═══ LIST TEXT FIX CSS END ═══ \*\/\s*/,
+      '\n'
+    );
+    out = out.replace('</style>', LIST_TEXT_FIX_CSS + '\n  </style>');
+    return out;
+  }
   function reinjectMarqueeSeamCss(html) {
     let out = html.replace(
       /\s*\/\* ═══ MARQUEE SEAM FIX CSS START ═══ \*\/[\s\S]*?\/\* ═══ MARQUEE SEAM FIX CSS END ═══ \*\/\s*/,
@@ -4921,6 +4947,7 @@ ${rows}
     out = reinjectHeroIntro(out, siteContent);
     out = reinjectIntroFeaturesCss(out);
     out = reinjectMarqueeSeamCss(out);
+    out = reinjectListTextFixCss(out);
     // The static partners photo (whichever filename it currently points at — the very
     // first hand-authored one, or the briefly-used partners_updated.png) is removed
     // entirely and replaced by the logo marquee below.
