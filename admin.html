@@ -3574,6 +3574,37 @@
     });
     return imgs;
   }
+  // The same photo is sometimes uploaded twice under different names (e.g. as the cover
+  // AND as block 1), which showed up as two identical images side by side in the homepage
+  // marquee. Paths can't catch that, so Publish hashes each marquee image's actual bytes
+  // first (computeMarqueeImageKeys) and the marquee keeps only the first of each hash.
+  // path -> content hash; a path that couldn't be fetched (e.g. uploaded seconds ago and
+  // not deployed yet) just falls back to its own path as the key.
+  let marqueeImageKeys = {};
+  async function computeMarqueeImageKeys(projectList) {
+    for (const p of projectList) {
+      for (const path of collectProjectImages(p)) {
+        if (marqueeImageKeys[path]) continue;
+        try {
+          const res = await fetch(path, { cache: 'no-store' });
+          if (!res.ok) throw new Error(res.status);
+          const digest = await crypto.subtle.digest('SHA-256', await res.arrayBuffer());
+          marqueeImageKeys[path] = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (e) {
+          marqueeImageKeys[path] = path;
+        }
+      }
+    }
+  }
+  function uniqueMarqueeImages(p) {
+    const seen = new Set();
+    return collectProjectImages(p).filter(path => {
+      const key = marqueeImageKeys[path] || path;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
   // One project rendered exactly like the original hand-authored marquee project blocks —
   // images (or generic placeholder tiles, if the project has none yet) scroll right-to-left
   // via the page's existing @keyframes marqueeLeft, doubled once so the loop is seamless.
@@ -3583,7 +3614,7 @@
   const MARQUEE_SECONDS_PER_ITEM = 7.5;
   function buildIndexProjectArticleHtml(p, idx) {
     const href = `our-works/${p.slug}.html`;
-    const imgs = collectProjectImages(p);
+    const imgs = uniqueMarqueeImages(p);
     const blurClass = p.locked ? ' blurred' : '';
     const setItems = imgs.length
       ? imgs.map(src => `<img class="marquee-item${blurClass}" src="${src}" alt="${escapeHtml(p.title)}">`)
@@ -5227,6 +5258,7 @@ ${rows}
       if (indexFile) {
         // projects.push()es new entries onto the end, so "latest first" means reversed.
         const latestProjects = projects.slice().reverse();
+        await computeMarqueeImageKeys(latestProjects.slice(0, 3));
         let newIndexHtml = normalizeSectionOrder(indexFile.content).replace(
           /<!-- ═══ OUR WORKS ═══ -->[\s\S]*?<!-- ═══ THESIS ═══ -->/,
           `<!-- ═══ OUR WORKS ═══ -->\n    ${buildIndexWorksSectionHtml(latestProjects)}\n\n    <!-- ═══ THESIS ═══ -->`
