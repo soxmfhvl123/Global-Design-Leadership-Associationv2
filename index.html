@@ -1344,19 +1344,6 @@
     /* ═══ HERO SLIDESHOW CSS END ═══ */
 
   
-    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
-    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
-    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
-    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @media (max-width: 768px) {
-      .partner-marquee-section { padding: 36px 0; display: none; }
-      .partner-marquee-track { gap: 32px; }
-      .partner-marquee-logo { height: 56px; }
-    }
-    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
-
-  
     /* ═══ INTRO FEATURES CSS START ═══ */
     .main > .intro-section:first-child { padding-top: 120px; }
     .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
@@ -1378,6 +1365,19 @@
       .feature-title { font-size: 36px; letter-spacing: -1.8px; }
     }
     /* ═══ INTRO FEATURES CSS END ═══ */
+
+  
+    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
+    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
+    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (max-width: 768px) {
+      .partner-marquee-section { padding: 36px 0; display: none; }
+      .partner-marquee-track { gap: 32px; }
+      .partner-marquee-logo { height: 56px; }
+    }
+    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
   </style>
 </head>
@@ -1428,7 +1428,7 @@
   <main class="main">
 
     <!-- ═══ HERO PHOTO START ═══ -->
-    <img class="screenshot" src="assets/images/hero.png" alt="Global Design Leadership Association"/>
+    
     <!-- ═══ HERO PHOTO END ═══ -->
 
     <!-- ═══ HERO / INTRO ═══ -->
