@@ -24,7 +24,7 @@
   ],
   "navVisibility": {
     "about": false,
-    "article": true,
+    "article": false,
     "contact": false
   },
   "sectionVisibility": {
