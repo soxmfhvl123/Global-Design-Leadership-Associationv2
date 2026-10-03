@@ -381,6 +381,11 @@
             </div>
           </div>
           <div class="admin-panel">
+            <h2>홈페이지 섹션 순서</h2>
+            <p class="hint">화살표로 홈페이지 섹션이 나오는 순서를 바꿀 수 있어요. 히어로 사진은 항상 맨 위에 고정이에요. 변경 후 Publish를 눌러야 실제 사이트에 반영돼요.</p>
+            <div class="admin-project-list" id="section-order-list"></div>
+          </div>
+          <div class="admin-panel">
             <h2>준비됐으면 Publish 하세요</h2>
             <p class="hint">왼쪽 메뉴에서 히어로 이미지·프로젝트·Article·팀 정보를 수정한 다음, "Publish" 메뉴에서 실제 사이트에 반영해주세요. 반영까지 1분 정도 걸려요.</p>
             <button class="btn-outline primary" type="button" style="align-self:flex-start;" onclick="showAdminView('publish')">Publish로 이동 →</button>
@@ -1041,7 +1046,9 @@
     // Thesis). false = section not rendered into index.html at all, but thesisItems /
     // newsItems data and the admin CRUD panels are untouched — toggle back to true +
     // Publish to bring it straight back.
-    sectionVisibility: { thesis: false }
+    sectionVisibility: { thesis: false },
+    // Homepage section order (hero photo is always pinned on top). See HOMEPAGE_SECTIONS.
+    sectionOrder: ['intro', 'works', 'specialties', 'thesis', 'stats', 'news', 'partners', 'connect']
   };
 
   /* ═══════════════════ SEED DATA (used only if assets/data/thesis.json doesn't exist yet) ═══════════════════ */
@@ -1619,6 +1626,40 @@
     syncNavVisibilityCheckboxes();
   }
 
+  /* ═══════════════════ HOMEPAGE SECTION ORDER ═══════════════════ */
+  function currentSectionOrder() {
+    const saved = (siteContent && Array.isArray(siteContent.sectionOrder)) ? siteContent.sectionOrder : [];
+    // Keep only known keys, then append any section missing from the saved order (e.g. one
+    // added in a later admin version) in its canonical spot at the end.
+    const known = saved.filter(k => HOMEPAGE_SECTIONS.some(sec => sec.key === k));
+    HOMEPAGE_SECTIONS.forEach(sec => { if (!known.includes(sec.key)) known.push(sec.key); });
+    return known;
+  }
+  function renderSectionOrderList() {
+    const listEl = document.getElementById('section-order-list');
+    if (!listEl) return;
+    const order = currentSectionOrder();
+    listEl.innerHTML = order.map((key, i) => {
+      const sec = HOMEPAGE_SECTIONS.find(x => x.key === key);
+      return `
+      <div class="admin-project-row" style="padding:12px 0;">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveSection(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === order.length - 1 ? 'disabled' : ''} onclick="moveSection(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-info"><div class="title">${i + 1}. ${escapeHtml(sec.label)}</div></div>
+      </div>`;
+    }).join('');
+  }
+  window.moveSection = function (i, dir) {
+    const order = currentSectionOrder();
+    const j = i + dir;
+    if (j < 0 || j >= order.length) return;
+    [order[i], order[j]] = [order[j], order[i]];
+    siteContent.sectionOrder = order;
+    renderSectionOrderList();
+  };
+
   // Keeps the Dashboard's About/Article/Contact checkboxes in sync with siteContent —
   // called once on load and again any time siteContent is reloaded/reset.
   function syncNavVisibilityCheckboxes() {
@@ -1629,6 +1670,7 @@
     setChecked('nav-visibility-contact', nav.contact);
     const sec = (siteContent && siteContent.sectionVisibility) || SEED_SITE_CONTENT.sectionVisibility;
     setChecked('section-visibility-thesis', sec.thesis);
+    renderSectionOrderList();
   }
 
   // Wired to the Dashboard checkboxes. Mutates siteContent directly (same pattern as the
@@ -4811,6 +4853,61 @@ ${rows}
   // section, the yellow concept-cards section, and replaces the static partners photo with
   // the logo marquee above. Safe to re-run every Publish: every removal is a no-op once
   // already gone, and every insertion is guarded so it's never duplicated.
+  // 2026-10: admin-controlled homepage section order. Every other index.html patch in this
+  // file finds its block by the ORIGINAL (canonical) neighbour order — e.g. Thesis is
+  // "<!-- THESIS --> up to <!-- STATS -->", the partner marquee is inserted right before
+  // "<!-- CONNECT WITH US 2 -->". So Publish first puts the blocks back in canonical order
+  // (normalizeSectionOrder), runs all the usual patches, then rearranges them into the
+  // admin's chosen order (applySectionOrder), wrapping each block in a
+  // <!-- §section:key --> marker so the next Publish can find them again in any order.
+  // `anchor` = the text each block starts with in the canonical layout.
+  const HOMEPAGE_SECTIONS = [
+    { key: 'intro',       label: 'Intro (소개 문구 + Feature Rows)', anchor: '<!-- ═══ HERO / INTRO ═══ -->' },
+    { key: 'works',       label: 'Our Works',                        anchor: '<!-- ═══ OUR WORKS ═══ -->' },
+    { key: 'specialties', label: 'Specialties',                      anchor: '<section class="awards-section" id="specialties"' },
+    { key: 'thesis',      label: 'Thesis',                           anchor: '<!-- ═══ THESIS ═══ -->' },
+    { key: 'stats',       label: 'Stats (30+ / 6 / 20+ 숫자)',        anchor: '<!-- ═══ STATS ═══ -->' },
+    { key: 'news',        label: 'News',                             anchor: '<!-- ═══ NEWS ═══ -->' },
+    { key: 'partners',    label: 'Partners (로고 마퀴)',              anchor: '<section class="partner-marquee-section"' },
+    { key: 'connect',     label: 'Connect with us',                  anchor: '<!-- ═══ CONNECT WITH US 2 ═══ -->' },
+  ];
+  const SECTION_MARKER_RE = /<!-- §section:(\w+) -->/g;
+  const SECTIONS_END_MARKER = '<!-- §sections-end -->';
+  // Joins prefix + blocks + suffix with consistent indentation. `withMarkers` decides
+  // whether each block gets its <!-- §section:key --> marker.
+  function assembleSections(prefix, blocks, suffix, withMarkers) {
+    const body = blocks.map(b => (withMarkers ? `<!-- §section:${b.key} -->\n    ` : '') + b.html.trim()).join('\n\n    ');
+    return prefix.trimEnd() + '\n\n    ' + body + (withMarkers ? `\n\n    ${SECTIONS_END_MARKER}` : '') + '\n\n  ' + suffix.trimStart();
+  }
+  function normalizeSectionOrder(html) {
+    const first = html.search(SECTION_MARKER_RE);
+    const end = html.indexOf(SECTIONS_END_MARKER);
+    if (first < 0 || end < 0) return html; // never reordered yet — already canonical
+    const region = html.slice(first, end);
+    const parts = region.split(SECTION_MARKER_RE); // ['', key1, html1, key2, html2, ...]
+    const byKey = {};
+    for (let i = 1; i < parts.length; i += 2) byKey[parts[i]] = parts[i + 1];
+    const blocks = HOMEPAGE_SECTIONS.filter(sec => byKey[sec.key] != null).map(sec => ({ key: sec.key, html: byKey[sec.key] }));
+    return assembleSections(html.slice(0, first), blocks, html.slice(end + SECTIONS_END_MARKER.length), false);
+  }
+  function applySectionOrder(html, order) {
+    const mainEnd = html.indexOf('</main>');
+    const positions = HOMEPAGE_SECTIONS.map(sec => html.indexOf(sec.anchor));
+    // Bail out (leave the page in canonical order) if any anchor is missing or out of
+    // place, rather than risk cutting a section in half.
+    const ok = mainEnd > 0 && positions.every((pos, i) => pos >= 0 && pos < mainEnd && (i === 0 || pos > positions[i - 1]));
+    if (!ok) {
+      log && log('⚠️ 홈페이지 섹션 위치를 찾지 못해 순서 변경은 건너뛰었어요 (기본 순서로 발행).');
+      return html;
+    }
+    const blocks = HOMEPAGE_SECTIONS.map((sec, i) => ({
+      key: sec.key,
+      html: html.slice(positions[i], i + 1 < positions.length ? positions[i + 1] : mainEnd)
+    }));
+    const ordered = order.map(key => blocks.find(b => b.key === key)).filter(Boolean);
+    return assembleSections(html.slice(0, positions[0]), ordered, html.slice(mainEnd), true);
+  }
+
   function patchIndexHeroAndPartners(html, heroSlides, partnerLogos, siteContent, thesisItems, newsItems) {
     let out = html.replace(
       /\s*<!-- ═══ Hero cards screenshot ═══ -->\s*<img class="screenshot"\s*\n?\s*src="assets\/images\/screenshot_hero_cards\.png"\s*\n?\s*alt="[^"]*"\/>\s*/,
@@ -5103,7 +5200,7 @@ ${rows}
       if (indexFile) {
         // projects.push()es new entries onto the end, so "latest first" means reversed.
         const latestProjects = projects.slice().reverse();
-        let newIndexHtml = indexFile.content.replace(
+        let newIndexHtml = normalizeSectionOrder(indexFile.content).replace(
           /<!-- ═══ OUR WORKS ═══ -->[\s\S]*?<!-- ═══ THESIS ═══ -->/,
           `<!-- ═══ OUR WORKS ═══ -->\n    ${buildIndexWorksSectionHtml(latestProjects)}\n\n    <!-- ═══ THESIS ═══ -->`
         );
@@ -5116,6 +5213,7 @@ ${rows}
         }
         newIndexHtml = patchStyle1Nav(newIndexHtml, '');
         newIndexHtml = patchIndexHeroAndPartners(newIndexHtml, heroSlides, partnerLogos, siteContent, thesisItems, newsItems);
+        newIndexHtml = applySectionOrder(newIndexHtml, currentSectionOrder());
         newIndexHtml = applyGlobalPageFixes(newIndexHtml);
         await putFile(INDEX_PATH, newIndexHtml, `Update homepage Our Works via admin (${currentPerson.name})`);
         log('✅ ' + INDEX_PATH + ' 업데이트 완료');
