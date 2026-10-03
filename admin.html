@@ -3610,6 +3610,10 @@
   // via the page's existing @keyframes marqueeLeft, doubled once so the loop is seamless.
   // 460px items + 10px spacing: 6 items = 2820px per loop half, wider than any viewport.
   const MARQUEE_MIN_ITEMS = 6;
+  // Mobile (260px items + 10px): 3 items = 810px per half, wider than any phone. Extra
+  // repeats beyond this get .marquee-rep and are hidden on mobile — iOS Safari can't fully
+  // paint a very wide animated layer and was drawing photos half-blank (looked rectangular).
+  const MARQUEE_MIN_ITEMS_MOBILE = 3;
   // Matches the original 30s loop for a 4-image project (~63px/s).
   const MARQUEE_SECONDS_PER_ITEM = 7.5;
   function buildIndexProjectArticleHtml(p, idx) {
@@ -3624,12 +3628,16 @@
     // MARQUEE_MIN_ITEMS. Duration scales with the item count so every project scrolls at
     // the same speed regardless of how many images it has.
     const reps = Math.ceil(MARQUEE_MIN_ITEMS / setItems.length);
-    const itemCount = setItems.length * reps;
-    const itemsHtml = setItems.join('').repeat(reps);
+    const repsMobile = Math.min(reps, Math.ceil(MARQUEE_MIN_ITEMS_MOBILE / setItems.length));
+    let itemsHtml = '';
+    for (let r = 0; r < reps; r++) {
+      itemsHtml += r < repsMobile ? setItems.join('') : setItems.map(it => it.replace(/class="(marquee-(?:item|ph))/, 'class="$1 marquee-rep')).join('');
+    }
     const marqueeInner = itemsHtml + itemsHtml; // doubled once so transform:translateX(-50%) loops seamlessly
+    // Durations live in CSS (MARQUEE_SEAM_CSS) so mobile can use its own shorter loop.
     return `<article class="project-article" aria-labelledby="project-${idx}-title">
         <a class="marquee-container" href="${href}" aria-label="See project: ${escapeHtml(p.title)}">
-          <div class="marquee-inner" style="animation-duration:${itemCount * MARQUEE_SECONDS_PER_ITEM}s">${marqueeInner}</div>
+          <div class="marquee-inner" style="--marquee-dur:${setItems.length * reps * MARQUEE_SECONDS_PER_ITEM}s; --marquee-dur-sm:${setItems.length * repsMobile * MARQUEE_SECONDS_PER_ITEM}s">${marqueeInner}</div>
         </a>
         <div class="project-description">
           <div class="project-title">
@@ -4626,8 +4634,13 @@
   // on each item instead keeps both halves exactly equal. Strip-and-reinject by markers.
   const MARQUEE_SEAM_CSS = `
     /* ═══ MARQUEE SEAM FIX CSS START ═══ */
-    .marquee-inner { gap: 0; }
+    .marquee-inner { gap: 0; animation-duration: var(--marquee-dur, 30s); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
     .marquee-item, .marquee-ph { margin-right: 10px; }
+    @keyframes marqueeLeft { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+    @media (max-width: 768px) {
+      .marquee-rep { display: none; }
+      .marquee-inner { animation-duration: var(--marquee-dur-sm, var(--marquee-dur, 30s)); }
+    }
     /* ═══ MARQUEE SEAM FIX CSS END ═══ */
 `;
   // Thesis/News row titles are <p class="div"> inside .award, but index.html's stylesheet
