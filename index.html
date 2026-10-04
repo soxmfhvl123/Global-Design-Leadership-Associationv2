@@ -1371,22 +1371,7 @@
     .marquee-inner { gap: 0; }
     .marquee-item, .marquee-ph { margin-right: 10px; }
     /* ═══ MARQUEE SEAM FIX CSS END ═══ */
-
-  
-    /* ═══ LIST TEXT FIX CSS START ═══ */
-    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
-    @media (max-width: 768px) {
-      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
-      .award .div { font-size: 18px; letter-spacing: -0.5px; }
-      .award .frame-2 { display: flex; max-width: 100%; }
-      .award .text-wrapper-10 { white-space: normal; }
-      .project-title { min-width: 0; }
-      .titles { flex: 1 1 auto; min-width: 0; }
-    }
-    /* ═══ LIST TEXT FIX CSS END ═══ */
-
-  
-    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
+/* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
     .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
     .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
     .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
@@ -1397,6 +1382,21 @@
       .partner-marquee-logo { height: 56px; }
     }
     /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
+
+  
+    /* ═══ LIST TEXT FIX CSS START ═══ */
+    .awards-list .list-extra { display: none; }
+    .awards-list.is-expanded .list-extra { display: block; }
+    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
+    @media (max-width: 768px) {
+      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
+      .award .div { font-size: 18px; letter-spacing: -0.5px; }
+      .award .frame-2 { display: flex; max-width: 100%; }
+      .award .text-wrapper-10 { white-space: normal; }
+      .project-title { min-width: 0; }
+      .titles { flex: 1 1 auto; min-width: 0; }
+    }
+    /* ═══ LIST TEXT FIX CSS END ═══ */
 
   </style>
 </head>
@@ -1591,10 +1591,6 @@
             </div>
           </a>
           <div class="divider-2" aria-hidden="true"></div>
-          <a class="text-link" href="#" aria-label="See more thesis">
-            <span class="text-wrapper-7">See More</span>
-            <span class="text-wrapper-7" aria-hidden="true">→</span>
-          </a>
         </div>
       </div>
     </section>
@@ -1655,10 +1651,6 @@
             </div>
           </a>
           <div class="divider-2" aria-hidden="true"></div>
-          <a class="text-link" href="#" aria-label="See more news">
-            <span class="text-wrapper-7">See More</span>
-            <span class="text-wrapper-7" aria-hidden="true">→</span>
-          </a>
         </div>
       </div>
     </section>
