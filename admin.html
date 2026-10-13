@@ -4840,6 +4840,8 @@
   const INTRO_FEATURES_CSS = `
     /* ═══ INTRO FEATURES CSS START ═══ */
     .main > .intro-section:first-child { padding-top: 40px; }
+    .main > .intro-section:first-child .intro-statement { min-height: calc(100vh - 86px); min-height: calc(100svh - 86px); }
+    .main > .intro-section:first-child .feature-rows { margin-top: 80px; }
     .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
     .intro-statement strong { display: block; font-weight: 600; }
     .feature-rows { display: flex; flex-direction: column; gap: 100px; width: 100%; margin-top: 200px; }
@@ -4853,6 +4855,8 @@
     .feature-img img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; display: block; will-change: transform; }
     @media (max-width: 768px) {
       .main > .intro-section:first-child { padding-top: 24px; }
+      .main > .intro-section:first-child .intro-statement { min-height: calc(100vh - 70px); min-height: calc(100svh - 70px); }
+      .main > .intro-section:first-child .feature-rows { margin-top: 48px; }
       .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
       .feature-rows { gap: 60px; margin-top: 80px; }
       .feature-row, .feature-row--flip { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
