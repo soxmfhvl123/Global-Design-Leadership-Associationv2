@@ -1342,32 +1342,7 @@
     .hero-slide.active { opacity: 1; }
     @media (max-width: 768px) { .hero-slideshow { aspect-ratio: 4 / 5; } }
     /* ═══ HERO SLIDESHOW CSS END ═══ */
-
-  
-    /* ═══ INTRO FEATURES CSS START ═══ */
-    .main > .intro-section:first-child { padding-top: 40px; }
-    .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
-    .intro-statement strong { display: block; font-weight: 600; }
-    .feature-rows { display: flex; flex-direction: column; gap: 100px; width: 100%; margin-top: 200px; }
-    .feature-row { display: flex; align-items: center; justify-content: space-between; gap: 8%; width: 100%; }
-    .feature-row--flip { flex-direction: row-reverse; justify-content: flex-end; }
-    .feature-text { display: flex; flex-direction: column; gap: 16px; flex: 0 1 62%; }
-    .feature-title { margin: 0; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 72px; letter-spacing: -3.6px; line-height: 110%; color: #000; }
-    .feature-desc { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 121%; color: #000; }
-    .feature-img { flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; object-fit: cover; display: block; background: #d8d8d8; }
-    @media (max-width: 768px) {
-      .main > .intro-section:first-child { padding-top: 24px; }
-      .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
-      .feature-rows { gap: 60px; margin-top: 80px; }
-      .feature-row, .feature-row--flip { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
-      .feature-text { flex: none; }
-      .feature-img { flex: none; width: 100%; max-width: none; }
-      .feature-title { font-size: 36px; letter-spacing: -1.8px; }
-    }
-    /* ═══ INTRO FEATURES CSS END ═══ */
-
-  
-    /* ═══ MARQUEE SEAM FIX CSS START ═══ */
+/* ═══ MARQUEE SEAM FIX CSS START ═══ */
     .marquee-inner { gap: 0; }
     .marquee-item, .marquee-ph { margin-right: 10px; }
     /* ═══ MARQUEE SEAM FIX CSS END ═══ */
@@ -1397,6 +1372,31 @@
       .titles { flex: 1 1 auto; min-width: 0; }
     }
     /* ═══ LIST TEXT FIX CSS END ═══ */
+
+  
+    /* ═══ INTRO FEATURES CSS START ═══ */
+    .main > .intro-section:first-child { padding-top: 40px; }
+    .intro-statement { margin: 0; max-width: 82%; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 120%; color: #000; }
+    .intro-statement strong { display: block; font-weight: 600; }
+    .feature-rows { display: flex; flex-direction: column; gap: 100px; width: 100%; margin-top: 200px; }
+    .feature-row { display: flex; align-items: center; justify-content: space-between; gap: 8%; width: 100%; }
+    .feature-row--flip { flex-direction: row-reverse; justify-content: flex-end; }
+    .feature-text { display: flex; flex-direction: column; gap: 16px; flex: 0 1 62%; }
+    .feature-title { margin: 0; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 72px; letter-spacing: -3.6px; line-height: 110%; color: #000; }
+    .feature-desc { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 121%; color: #000; }
+    .feature-img { position: relative; overflow: hidden; flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; display: block; background: #d8d8d8; }
+    /* 120% tall, centred: leaves 10% of travel above/below for the scroll parallax (SCROLL_FX_JS) */
+    .feature-img img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; display: block; will-change: transform; }
+    @media (max-width: 768px) {
+      .main > .intro-section:first-child { padding-top: 24px; }
+      .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
+      .feature-rows { gap: 60px; margin-top: 80px; }
+      .feature-row, .feature-row--flip { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
+      .feature-text { flex: none; }
+      .feature-img { flex: none; width: 100%; max-width: none; }
+      .feature-title { font-size: 36px; letter-spacing: -1.8px; }
+    }
+    /* ═══ INTRO FEATURES CSS END ═══ */
 
   </style>
 </head>
@@ -1460,14 +1460,14 @@
             <h2 class="feature-title">From Designer<br/>to Entrepreneur</h2>
             <p class="feature-desc">We'll explore how to use AI to build your own business system, turn your creative work into a sustainable business, protect your IP, and set yourself up as an entrepreneur.</p>
           </div>
-          <img class="feature-img" src="assets/uploads/site/feature-1.png" alt="From Designer to Entrepreneur"/>
+          <div class="feature-img"><img src="assets/uploads/site/feature-1.png" alt="From Designer to Entrepreneur"/></div>
         </div>
         <div class="feature-row feature-row--flip">
           <div class="feature-text">
             <h2 class="feature-title">Build Your Own Business System</h2>
             <p class="feature-desc">If you're working at a company, we'll also talk about how to grow from a creative role into a leadership position—and eventually make your way to the C-suite.</p>
           </div>
-          <img class="feature-img" src="assets/uploads/site/feature-2.png" alt="Build Your Own Business System"/>
+          <div class="feature-img"><img src="assets/uploads/site/feature-2.png" alt="Build Your Own Business System"/></div>
         </div>
       </div>
     </section>
@@ -1760,6 +1760,63 @@
       i = (i + 1) % slides.length;
       slides[i].classList.add('active');
     }, 4500);
+  })();
+</script>
+
+<script data-scroll-fx-v1="1">
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var photos = Array.prototype.slice.call(document.querySelectorAll('.feature-img img'));
+    var nums = Array.prototype.slice.call(document.querySelectorAll('.stats-content-2 .text-wrapper-13'));
+    // -1 (element centred at the bottom edge of the screen) .. 0 (centred) .. 1 (top edge)
+    function progress(r, vh) {
+      var p = (vh / 2 - (r.top + r.height / 2)) / (vh / 2 + r.height / 2);
+      return Math.max(-1, Math.min(1, p));
+    }
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight, mobile = window.innerWidth <= 768;
+      photos.forEach(function (img) {
+        var r = img.parentNode.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        img.style.transform = 'translate3d(0,' + (progress(r, vh) * r.height * (mobile ? 0.06 : 0.09)).toFixed(1) + 'px,0)';
+      });
+      nums.forEach(function (el, i) {
+        if (mobile) { el.style.transform = ''; return; }
+        var r = el.parentNode.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        el.style.transform = 'translate3d(0,' + (-progress(r, vh) * (24 + i * 28)).toFixed(1) + 'px,0)';
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+
+    // Count-up: "30+" -> 0+ ... 30+, keeping any prefix/suffix. The real value stays in the
+    // HTML (no-JS / crawlers) and is restored exactly at the end.
+    if (!('IntersectionObserver' in window)) return;
+    nums.forEach(function (el) {
+      var m = el.textContent.trim().match(/^(\D*)(\d+)(\D*)$/);
+      if (!m) return;
+      el.setAttribute('data-count-final', el.textContent);
+      el.textContent = m[1] + '0' + m[3];
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        var target = Number(m[2]), start = null, dur = 1400;
+        function step(t) {
+          if (start === null) start = t;
+          var k = Math.min(1, (t - start) / dur);
+          var eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = k < 1 ? m[1] + Math.round(target * eased) + m[3] : el.getAttribute('data-count-final');
+          if (k < 1) window.requestAnimationFrame(step);
+        }
+        window.requestAnimationFrame(step);
+      }, { threshold: 0.6 });
+      io.observe(el);
+    });
   })();
 </script>
 </body>

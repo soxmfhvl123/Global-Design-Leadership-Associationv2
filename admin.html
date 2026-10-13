@@ -4613,6 +4613,77 @@
     }, 4500);
   })();
 <\/script>`;
+  // 2026-10 scroll effects on the homepage:
+  //  - Feature Rows photos drift inside their frame slower than the page (parallax).
+  //  - Stats numbers (30+ / 6 / 20+) rise at three different speeds and meet in line when
+  //    the section is centred (desktop only), and count up from 0 when they come into view.
+  // transform-only (no background-attachment: fixed, which iOS ignores), one rAF per
+  // scroll, and fully skipped when the visitor has "reduce motion" on.
+  const SCROLL_FX_JS_INJECT = `
+<script data-scroll-fx-v1="1">
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var photos = Array.prototype.slice.call(document.querySelectorAll('.feature-img img'));
+    var nums = Array.prototype.slice.call(document.querySelectorAll('.stats-content-2 .text-wrapper-13'));
+    // -1 (element centred at the bottom edge of the screen) .. 0 (centred) .. 1 (top edge)
+    function progress(r, vh) {
+      var p = (vh / 2 - (r.top + r.height / 2)) / (vh / 2 + r.height / 2);
+      return Math.max(-1, Math.min(1, p));
+    }
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight, mobile = window.innerWidth <= 768;
+      photos.forEach(function (img) {
+        var r = img.parentNode.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        img.style.transform = 'translate3d(0,' + (progress(r, vh) * r.height * (mobile ? 0.06 : 0.09)).toFixed(1) + 'px,0)';
+      });
+      nums.forEach(function (el, i) {
+        if (mobile) { el.style.transform = ''; return; }
+        var r = el.parentNode.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        el.style.transform = 'translate3d(0,' + (-progress(r, vh) * (24 + i * 28)).toFixed(1) + 'px,0)';
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+
+    // Count-up: "30+" -> 0+ ... 30+, keeping any prefix/suffix. The real value stays in the
+    // HTML (no-JS / crawlers) and is restored exactly at the end.
+    if (!('IntersectionObserver' in window)) return;
+    nums.forEach(function (el) {
+      var m = el.textContent.trim().match(/^(\\D*)(\\d+)(\\D*)$/);
+      if (!m) return;
+      el.setAttribute('data-count-final', el.textContent);
+      el.textContent = m[1] + '0' + m[3];
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        var target = Number(m[2]), start = null, dur = 1400;
+        function step(t) {
+          if (start === null) start = t;
+          var k = Math.min(1, (t - start) / dur);
+          var eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = k < 1 ? m[1] + Math.round(target * eased) + m[3] : el.getAttribute('data-count-final');
+          if (k < 1) window.requestAnimationFrame(step);
+        }
+        window.requestAnimationFrame(step);
+      }, { threshold: 0.6 });
+      io.observe(el);
+    });
+  })();
+<\/script>`;
+  function reinjectScrollFxJs(html) {
+    let out = html.replace(
+      /\s*<script data-scroll-fx-v1="1">[\s\S]*?<\/script>\s*/,
+      '\n'
+    );
+    out = out.replace('</body>', SCROLL_FX_JS_INJECT + '\n</body>');
+    return out;
+  }
   function reinjectHeroSlideshowJs(html) {
     let out = html.replace(
       /\s*<script data-hero-slideshow-js-v1="1">[\s\S]*?<\/script>\s*/,
@@ -4756,7 +4827,7 @@
             <h2 class="feature-title">${nl2br(f.title)}</h2>
             <p class="feature-desc">${nl2br(f.description)}</p>
           </div>
-          ${f.image ? `<img class="feature-img" src="${f.image}" alt="${escapeHtml((f.title || '').replace(/\s+/g, ' '))}"/>` : '<div class="feature-img" aria-hidden="true"></div>'}
+          ${f.image ? `<div class="feature-img"><img src="${f.image}" alt="${escapeHtml((f.title || '').replace(/\s+/g, ' '))}"/></div>` : '<div class="feature-img" aria-hidden="true"></div>'}
         </div>`).join('');
     return `<section class="intro-section" id="about" aria-labelledby="intro-title">
       <h1 class="intro-statement" id="intro-title"><strong>${escapeHtml(lead)}</strong> ${escapeHtml(text)}</h1>${features.length ? `
@@ -4777,7 +4848,9 @@
     .feature-text { display: flex; flex-direction: column; gap: 16px; flex: 0 1 62%; }
     .feature-title { margin: 0; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 72px; letter-spacing: -3.6px; line-height: 110%; color: #000; }
     .feature-desc { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: 400; font-size: 20px; letter-spacing: -1px; line-height: 121%; color: #000; }
-    .feature-img { flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; object-fit: cover; display: block; background: #d8d8d8; }
+    .feature-img { position: relative; overflow: hidden; flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; display: block; background: #d8d8d8; }
+    /* 120% tall, centred: leaves 10% of travel above/below for the scroll parallax (SCROLL_FX_JS) */
+    .feature-img img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; display: block; will-change: transform; }
     @media (max-width: 768px) {
       .main > .intro-section:first-child { padding-top: 24px; }
       .intro-statement { max-width: none; font-size: 36px; letter-spacing: -1.8px; }
@@ -5011,6 +5084,7 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
     out = reinjectHeroSlideshowJs(out);
     out = reinjectHeroIntro(out, siteContent);
     out = reinjectIntroFeaturesCss(out);
+    out = reinjectScrollFxJs(out);
     out = reinjectMarqueeSeamCss(out);
     out = reinjectListTextFixCss(out);
     // The static partners photo (whichever filename it currently points at — the very
