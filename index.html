@@ -1342,37 +1342,8 @@
     .hero-slide.active { opacity: 1; }
     @media (max-width: 768px) { .hero-slideshow { aspect-ratio: 4 / 5; } }
     /* ═══ HERO SLIDESHOW CSS END ═══ */
-/* ═══ MARQUEE SEAM FIX CSS START ═══ */
-    .marquee-inner { gap: 0; }
-    .marquee-item, .marquee-ph { margin-right: 10px; }
-    /* ═══ MARQUEE SEAM FIX CSS END ═══ */
-/* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
-    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
-    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
-    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
-    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @media (max-width: 768px) {
-      .partner-marquee-section { padding: 36px 0; display: none; }
-      .partner-marquee-track { gap: 32px; }
-      .partner-marquee-logo { height: 56px; }
-    }
-    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
   
-    /* ═══ LIST TEXT FIX CSS START ═══ */
-    .awards-list .list-extra { display: none; }
-    .awards-list.is-expanded .list-extra { display: block; }
-    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
-    @media (max-width: 768px) {
-      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
-      .award .div { font-size: 18px; letter-spacing: -0.5px; }
-      .award .frame-2 { display: flex; max-width: 100%; }
-      .award .text-wrapper-10 { white-space: normal; }
-      .project-title { min-width: 0; }
-      .titles { flex: 1 1 auto; min-width: 0; }
-    }
-    /* ═══ LIST TEXT FIX CSS END ═══ */
-
     /* ═══ INTRO FEATURES CSS START ═══ */
     .main > .intro-section:first-child { padding-top: 40px; }
     .main > .intro-section:first-child .intro-statement { min-height: calc(100vh - 86px); min-height: calc(100svh - 86px); }
@@ -1400,6 +1371,45 @@
       .feature-title { font-size: 36px; letter-spacing: -1.8px; }
     }
     /* ═══ INTRO FEATURES CSS END ═══ */
+
+  
+    /* ═══ MARQUEE SEAM FIX CSS START ═══ */
+    .marquee-inner { gap: 0; animation-duration: var(--marquee-dur, 30s); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    .marquee-item, .marquee-ph { margin-right: 10px; }
+    @keyframes marqueeLeft { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+    @media (max-width: 768px) {
+      .marquee-rep { display: none; }
+      .marquee-inner { animation-duration: var(--marquee-dur-sm, var(--marquee-dur, 30s)); }
+    }
+    /* ═══ MARQUEE SEAM FIX CSS END ═══ */
+
+  
+    /* ═══ LIST TEXT FIX CSS START ═══ */
+    .awards-list .list-extra { display: none; }
+    .awards-list.is-expanded .list-extra { display: block; }
+    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
+    @media (max-width: 768px) {
+      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
+      .award .div { font-size: 18px; letter-spacing: -0.5px; }
+      .award .frame-2 { display: flex; max-width: 100%; }
+      .award .text-wrapper-10 { white-space: normal; }
+      .project-title { min-width: 0; }
+      .titles { flex: 1 1 auto; min-width: 0; }
+    }
+    /* ═══ LIST TEXT FIX CSS END ═══ */
+
+  
+    /* ═══ PARTNER LOGO MARQUEE CSS START ═══ */
+    .partner-marquee-section { width: 100%; overflow: hidden; padding: 60px 0; }
+    .partner-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: partnerMarqueeLeft 36s linear infinite; }
+    .partner-marquee-logo { flex-shrink: 0; height: 144px; width: auto; object-fit: contain; }
+    @keyframes partnerMarqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (max-width: 768px) {
+      .partner-marquee-section { padding: 36px 0; display: none; }
+      .partner-marquee-track { gap: 32px; }
+      .partner-marquee-logo { height: 56px; }
+    }
+    /* ═══ PARTNER LOGO MARQUEE CSS END ═══ */
 
   </style>
 </head>
@@ -1481,7 +1491,7 @@
       <div class="divider-line" aria-hidden="true"></div>
       <article class="project-article" aria-labelledby="project-1-title">
         <a class="marquee-container" href="our-works/project.html" aria-label="See project: Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration">
-          <div class="marquee-inner" style="animation-duration:45s"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"></div>
+          <div class="marquee-inner" style="--marquee-dur:45s; --marquee-dur-sm:22.5s"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/cover.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/block-3.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"><img class="marquee-item marquee-rep" src="assets/uploads/project/block-4.png" alt="Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration"></div>
         </a>
         <div class="project-description">
           <div class="project-title">
@@ -1502,7 +1512,7 @@
       </article>
       <article class="project-article" aria-labelledby="project-2-title">
         <a class="marquee-container" href="our-works/add-new-project.html" aria-label="See project: WHY: 2025 Future Begins with Questions">
-          <div class="marquee-inner" style="animation-duration:45s"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"></div>
+          <div class="marquee-inner" style="--marquee-dur:45s; --marquee-dur-sm:22.5s"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"></div>
         </a>
         <div class="project-description">
           <div class="project-title">
@@ -1750,7 +1760,6 @@
     render();
   })();
 </script>
-
 <script data-hero-slideshow-js-v1="1">
   (function () {
     var wrap = document.querySelector('[data-hero-slideshow]');
