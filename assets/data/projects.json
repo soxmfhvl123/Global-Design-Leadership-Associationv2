@@ -75,5 +75,41 @@
     ],
     "locked": false,
     "lockHash": null
+  },
+  {
+    "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
+    "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
+    "ownerSlug": "jin-c",
+    "tags": [
+      "News"
+    ],
+    "desc": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Background"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.png",
+        "caption": "",
+        "text": "Professor Lee led “Understanding Design Intelligence” with Marília Biill, VP and Head of\nCMF Design at Kia, and Sujeong Choi, Senior Researcher. She also moderated\n“Rediscovering the Everyday” with Yeontaek Lee, CEO of LG Electronics’\nMyTasteCompany.\nFRAME is a culture and arts conference organised by Art Busan. Its first edition featured ten\nsessions and 18 speakers across city, architecture, design, technology and lifestyle.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "Insight"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.png",
+        "caption": "",
+        "text": "Running across both days, the Future Culture track explored new senses and forms of art\nshaped by technology, including AI, design intelligence and biomimicry. The first session\nlooked at how lessons from nature can drive creative innovation. The second traced creative\nthinking from craft to future living.\nAround 200 participants joined FRAME 2025, which opened a new space for dialogue\nbetween the city and the arts.\nThe sessions offered a chance to reflect on the role of design in connecting technology and\neveryday life.",
+        "reverse": true
+      }
+    ],
+    "locked": false,
+    "lockHash": null
   }
 ]
