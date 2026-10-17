@@ -1,39 +1,5 @@
 [
   {
-    "slug": "add-new-project",
-    "title": "WHY: 2025 Future Begins with Questions",
-    "ownerSlug": "jin-c",
-    "tags": [
-      "Global Forum",
-      "Design Leadership",
-      "Future Strategy"
-    ],
-    "desc": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
-    "coverImagePath": "assets/uploads/add-new-project/cover.png",
-    "blocks": [
-      {
-        "type": "heading",
-        "text": "Our Beginnings: The Shift from 'What & How' to 'Why'"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/add-new-project/block-1.png",
-        "caption": "",
-        "text": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
-        "reverse": false
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/add-new-project/block-2.png",
-        "caption": "",
-        "text": "We have grown by continuously reflecting on what we create and how we advance. Every step of our journey has held its own meaning and value, leading us to where we stand today. Today, the world seeks not only what we create and how we create it, but crucially the 'WHY' behind it all.",
-        "reverse": true
-      }
-    ],
-    "locked": false,
-    "lockHash": null
-  },
-  {
     "slug": "project",
     "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
     "ownerSlug": "jin-c",
@@ -77,6 +43,40 @@
     "lockHash": null
   },
   {
+    "slug": "add-new-project",
+    "title": "WHY: 2025 Future Begins with Questions",
+    "ownerSlug": "jin-c",
+    "tags": [
+      "Global Forum",
+      "Design Leadership",
+      "Future Strategy"
+    ],
+    "desc": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
+    "coverImagePath": "assets/uploads/add-new-project/cover.png",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Our Beginnings: The Shift from 'What & How' to 'Why'"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/add-new-project/block-1.png",
+        "caption": "",
+        "text": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/add-new-project/block-2.png",
+        "caption": "",
+        "text": "We have grown by continuously reflecting on what we create and how we advance. Every step of our journey has held its own meaning and value, leading us to where we stand today. Today, the world seeks not only what we create and how we create it, but crucially the 'WHY' behind it all.",
+        "reverse": true
+      }
+    ],
+    "locked": false,
+    "lockHash": null
+  },
+  {
     "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
     "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
     "ownerSlug": "jin-c",
@@ -88,7 +88,7 @@
     "blocks": [
       {
         "type": "heading",
-        "text": "Background"
+        "text": ""
       },
       {
         "type": "row",
@@ -99,7 +99,7 @@
       },
       {
         "type": "heading",
-        "text": "Insight"
+        "text": ""
       },
       {
         "type": "row",
@@ -107,6 +107,41 @@
         "caption": "",
         "text": "Running across both days, the Future Culture track explored new senses and forms of art\nshaped by technology, including AI, design intelligence and biomimicry. The first session\nlooked at how lessons from nature can drive creative innovation. The second traced creative\nthinking from craft to future living.\nAround 200 participants joined FRAME 2025, which opened a new space for dialogue\nbetween the city and the arts.\nThe sessions offered a chance to reflect on the role of design in connecting technology and\neveryday life.",
         "reverse": true
+      }
+    ],
+    "locked": false,
+    "lockHash": null
+  },
+  {
+    "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
+    "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
+    "ownerSlug": "jin-c",
+    "tags": [
+      "News"
+    ],
+    "desc": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.png",
+        "caption": "",
+        "text": "Professor Lee led a conversation with Simon Loasby, Head of Hyundai Design Center, and\nBetty J. Chung, Professor and Academic Director of Korea University Global MBA.\nFRAME is a global art and culture conference hosted by Busan Metropolitan City and\norganised by Art Busan. Now in its second year, it ran over two days and featured 16 leaders\nfrom eight fields across six sessions.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg",
+        "caption": "",
+        "text": "This year’s theme was “People Who Stand by Their Convictions.” The session explored how\nleaders navigate diverse cultures and markets while staying true to their own philosophy and\nidentity. It also examined how cultural perspectives can become a foundation for sustainable\nbusiness and lasting value.",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg",
+        "caption": "",
+        "text": "Both days of FRAME 2026 sold out, drawing around 250 participants. Around 70 per cent\nwere in their 20s and 30s.\nThe session offered a space to explore what global design leadership means where design,\nbusiness and culture meet.",
+        "reverse": false
       }
     ],
     "locked": false,
