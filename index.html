@@ -1359,6 +1359,9 @@
     .feature-img { position: relative; overflow: hidden; flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; display: block; background: #d8d8d8; }
     /* 120% tall, centred: leaves 10% of travel above/below for the scroll parallax (SCROLL_FX_JS) */
     .feature-img img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; display: block; will-change: transform; }
+    /* hero photos sit under the full-screen intro statement, not above it */
+    .intro-hero-photo { width: 100%; }
+    .intro-hero-photo .screenshot { display: block; width: 100%; height: auto; margin: 0; }
     @media (max-width: 768px) {
       .main > .intro-section:first-child { padding-top: 24px; }
       .main > .intro-section:first-child .intro-statement { min-height: calc(100vh - 70px); min-height: calc(100svh - 70px); }
@@ -1435,6 +1438,7 @@
       <a class="forum-dropdown-item" href="http://whyglobalforum.com/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
           </div>
         </div>
+        <div class="link-wrapper"><a class="link-2" href="articles.html">Works</a></div>
         <div class="link-wrapper"><a class="link-2" href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>
       </div>
     </nav>
@@ -1451,6 +1455,7 @@
       <div class="mobile-forum-list"><a class="forum-dropdown-item" href="http://whyglobalforum.com/2025/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
       <a class="forum-dropdown-item" href="http://whyglobalforum.com/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a></div>
     </details>
+    <a href="articles.html" onclick="closeMobileNav()">Works</a>
     <a href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>
   </nav>
 
@@ -1459,14 +1464,17 @@
 
   <main class="main">
 
-    <!-- ═══ HERO PHOTO START ═══ -->
-    
-    <!-- ═══ HERO PHOTO END ═══ -->
-
     <!-- §section:intro -->
     <!-- ═══ HERO / INTRO ═══ -->
     <section class="intro-section" id="about" aria-labelledby="intro-title">
       <h1 class="intro-statement" id="intro-title"><strong>Global Design Leadership Association</strong> is an organization to create social value and integrating design and leadership through forums, education, research, and public-interest initiatives.</h1>
+      <!-- ═══ HERO PHOTO START ═══ -->
+      <div class="intro-hero-photo"><div class="hero-slideshow" data-hero-slideshow>
+      <img class="hero-slide active" src="assets/uploads/hero/hero-1792253327252-0-olz4r.jpg" alt="Global Design Leadership Association"/>
+      <img class="hero-slide" src="assets/uploads/hero/hero-1792253833565-0-3kuw5.webp" alt="Global Design Leadership Association"/>
+      <img class="hero-slide" src="assets/uploads/hero/hero-1792253878782-0-v30ax.jpg" alt="Global Design Leadership Association"/>
+    </div></div>
+      <!-- ═══ HERO PHOTO END ═══ -->
       <div class="feature-rows">
         <div class="feature-row">
           <div class="feature-text">
@@ -1487,76 +1495,6 @@
 
     <!-- §section:works -->
     <!-- ═══ OUR WORKS ═══ -->
-    <section class="stats-section" id="our-works" aria-label="Our Works">
-      <div class="divider-line" aria-hidden="true"></div>
-      <article class="project-article" aria-labelledby="project-1-title">
-        <a class="marquee-container" href="our-works/professor-cathy-lee-moderates-global-mindset-session-at-fram.html" aria-label="See project: Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026">
-          <div class="marquee-inner" style="--marquee-dur:60s; --marquee-dur-sm:30s"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.png" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.png" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.png" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.png" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg" alt="Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026"></div>
-        </a>
-        <div class="project-description">
-          <div class="project-title">
-            <div class="text-wrapper-4">Project</div>
-            <div class="titles">
-              <h3 class="p" id="project-1-title">Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026</h3>
-              <p class="text-wrapper-5">News</p>
-            </div>
-          </div>
-          <div class="project-body-copy">
-            <p class="text-wrapper-6">Professor Cathy Lee of Hongik University’s International Design School for Advanced
-Studies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of
-FRAME 2026 at Nurimaru APEC House in Busan.</p>
-            <a class="text-link" href="our-works/professor-cathy-lee-moderates-global-mindset-session-at-fram.html" aria-label="See project: Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026">
-              <span class="text-wrapper-7">See Project</span>
-              <span class="text-wrapper-7" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </article>
-      <article class="project-article" aria-labelledby="project-2-title">
-        <a class="marquee-container" href="our-works/add-new-project.html" aria-label="See project: WHY: 2025 Future Begins with Questions">
-          <div class="marquee-inner" style="--marquee-dur:45s; --marquee-dur-sm:22.5s"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/cover.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-1.png" alt="WHY: 2025 Future Begins with Questions"><img class="marquee-item marquee-rep" src="assets/uploads/add-new-project/block-2.png" alt="WHY: 2025 Future Begins with Questions"></div>
-        </a>
-        <div class="project-description">
-          <div class="project-title">
-            <div class="text-wrapper-4">Project</div>
-            <div class="titles">
-              <h3 class="p" id="project-2-title">WHY: 2025 Future Begins with Questions</h3>
-              <p class="text-wrapper-5">Global Forum, Design Leadership, Future Strategy</p>
-            </div>
-          </div>
-          <div class="project-body-copy">
-            <p class="text-wrapper-6">In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.</p>
-            <a class="text-link" href="our-works/add-new-project.html" aria-label="See project: WHY: 2025 Future Begins with Questions">
-              <span class="text-wrapper-7">See Project</span>
-              <span class="text-wrapper-7" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </article>
-      <article class="project-article" aria-labelledby="project-3-title">
-        <a class="marquee-container" href="our-works/professor-cathy-lee-moderates-future-culture-sessions-at-fra.html" aria-label="See project: Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025">
-          <div class="marquee-inner" style="--marquee-dur:45s; --marquee-dur-sm:22.5s"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"><img class="marquee-item marquee-rep" src="assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.png" alt="Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025"></div>
-        </a>
-        <div class="project-description">
-          <div class="project-title">
-            <div class="text-wrapper-4">Project</div>
-            <div class="titles">
-              <h3 class="p" id="project-3-title">Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025</h3>
-              <p class="text-wrapper-5">News</p>
-            </div>
-          </div>
-          <div class="project-body-copy">
-            <p class="text-wrapper-6">Professor Cathy Lee of Hongik University’s International Design School for Advanced
-Studies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The
-event took place on 23 and 24 September 2025 at Grand Josun Busan.</p>
-            <a class="text-link" href="our-works/professor-cathy-lee-moderates-future-culture-sessions-at-fra.html" aria-label="See project: Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025">
-              <span class="text-wrapper-7">See Project</span>
-              <span class="text-wrapper-7" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </article>
-    </section>
 
     <!-- §section:specialties -->
     <section class="awards-section" id="specialties" aria-labelledby="specialties-title">
