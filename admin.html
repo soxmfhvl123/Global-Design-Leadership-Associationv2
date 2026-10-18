@@ -677,7 +677,6 @@
               <input type="text" id="a-date" placeholder="예: 2026.05.09"/>
             </div>
           </div>
-          <p class="admin-empty" style="margin-top:-4px;">조회수는 이제 자동으로 집계돼요 — 실제로 그 페이지를 방문할 때마다 실시간으로 올라가고, 따로 입력할 필요 없어요.</p>
           <div class="admin-field">
             <label for="a-lead">Lead / 요약</label>
             <textarea id="a-lead" placeholder="목록·카드에 보이는 요약 문단이면서, 상세페이지 상단 리드 문단으로도 쓰여요"></textarea>
@@ -897,7 +896,7 @@
   const GH_BRANCH     = 'main';
   const PROJECTS_PATH = 'assets/data/projects.json';
   const ARTICLES_PATH = 'assets/data/articles.json';
-  const ARTICLES_LIST_PATH = 'articles.html';
+  const ARTICLES_LIST_PATH = 'works.html';
   const TEAM_PATH     = 'assets/data/team.json';
   const HERO_PATH     = 'assets/data/hero.json';
   const PARTNERS_PATH = 'assets/data/partners.json';
@@ -1321,7 +1320,7 @@
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
     const aboutHtml = nav.about ? `<div class="link-wrapper"><a class="link-2" href="${prefix}about.html">About</a></div>\n        ` : '';
-    const articleHtml = nav.article ? `<div class="link-wrapper"><a class="link-2" href="${prefix}articles.html">Works</a></div>\n        ` : '';
+    const articleHtml = nav.article ? `<div class="link-wrapper"><a class="link-2" href="${prefix}works.html">Works</a></div>\n        ` : '';
     const contactHtml = nav.contact ? `<div class="link-wrapper"><a class="link-2" href="${contactHref}">Contact</a></div>\n        ` : '';
     return `${aboutHtml}<div class="link-wrapper nav-has-dropdown">
           <a class="link-2" href="#" aria-haspopup="true">Forum</a>
@@ -1337,7 +1336,7 @@
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
     const aboutHtml = nav.about ? `<a href="${prefix}about.html">About</a>\n      ` : '';
-    const articleHtml = nav.article ? `<a href="${prefix}articles.html">Works</a>\n      ` : '';
+    const articleHtml = nav.article ? `<a href="${prefix}works.html">Works</a>\n      ` : '';
     const contactHtml = nav.contact ? `<a href="${contactHref}">Contact</a>\n      ` : '';
     return `${aboutHtml}<div class="nav-has-dropdown">
         <a href="#" aria-haspopup="true">Forum</a>
@@ -1354,7 +1353,7 @@
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
     const aboutHtml = nav.about ? `<a href="${prefix}about.html" onclick="closeMobileNav()">About</a>\n    ` : '';
-    const articleHtml = nav.article ? `<a href="${prefix}articles.html" onclick="closeMobileNav()">Works</a>\n    ` : '';
+    const articleHtml = nav.article ? `<a href="${prefix}works.html" onclick="closeMobileNav()">Works</a>\n    ` : '';
     const contactHtml = nav.contact ? `<a href="${contactHref}" onclick="closeMobileNav()">Contact</a>\n    ` : '';
     return `${aboutHtml}<details class="mobile-forum">
       <summary>Forum</summary>
@@ -3127,7 +3126,7 @@
   function renderWorkCard(p, prefix = '../') {
     return `
         <div class="work-card">
-          <a class="work-thumb-link" href="${prefix}articles/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-card-image', p.locked, prefix)}</a>
+          <a class="work-thumb-link" href="${prefix}works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-card-image', p.locked, prefix)}</a>
           <div class="work-card-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -3135,14 +3134,14 @@
               <p class="work-subtitle">${escapeHtml(projectTagsText(p))}</p>
             </div>
             <p class="work-desc">${escapeHtml(p.desc)}</p>
-            <a class="text-link" href="${prefix}articles/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+            <a class="text-link" href="${prefix}works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See Project</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
           </div>
         </div>`;
   }
   function renderWorkRow(p, prefix = '../') {
     return `
         <div class="work-row-item">
-          <a class="work-thumb-link" href="${prefix}articles/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-row-thumb', p.locked, prefix)}</a>
+          <a class="work-thumb-link" href="${prefix}works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}">${renderThumbMedia(p.coverImagePath, p.title, 'work-row-thumb', p.locked, prefix)}</a>
           <div class="work-row-body">
             <p class="work-eyebrow">Project</p>
             <div class="work-titles">
@@ -3150,7 +3149,7 @@
               <p class="work-subtitle">${escapeHtml(projectTagsText(p))}</p>
             </div>
             <p class="work-desc">${escapeHtml(p.desc)}</p>
-            <a class="text-link" href="${prefix}articles/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
+            <a class="text-link" href="${prefix}works/${p.slug}.html" aria-label="See project: ${escapeHtml(p.title)}"><span class="text-wrapper-7">See More</span><span class="text-wrapper-7" aria-hidden="true">→</span></a>
           </div>
         </div>`;
   }
@@ -3621,7 +3620,7 @@
   // Matches the original 30s loop for a 4-image project (~63px/s).
   const MARQUEE_SECONDS_PER_ITEM = 7.5;
   function buildIndexProjectArticleHtml(p, idx) {
-    const href = `our-works/${p.slug}.html`;
+    const href = `works/${p.slug}.html`;
     const imgs = uniqueMarqueeImages(p);
     const blurClass = p.locked ? ' blurred' : '';
     const setItems = imgs.length
@@ -4035,11 +4034,11 @@
   function renderArticleCard(a) {
     return `
         <div class="card">
-          <a href="articles/${a.slug}.html" aria-label="See article: ${escapeHtml(a.title)}">${renderThumbMediaRoot(a.coverImagePath, a.title, 'card-thumb', a.locked)}</a>
+          <a href="works/${a.slug}.html" aria-label="See article: ${escapeHtml(a.title)}">${renderThumbMediaRoot(a.coverImagePath, a.title, 'card-thumb', a.locked)}</a>
           <p class="card-title">${escapeHtml(a.title)}</p>
           <p class="card-tags">${escapeHtml(a.category)}</p>
           <p class="card-excerpt">${escapeHtml(a.lead)}</p>
-          <a class="text-link" href="articles/${a.slug}.html" aria-label="See article: ${escapeHtml(a.title)}">
+          <a class="text-link" href="works/${a.slug}.html" aria-label="See article: ${escapeHtml(a.title)}">
             <span class="text-wrapper-7">See Project</span>
             <span class="text-wrapper-7" aria-hidden="true">→</span>
           </a>
@@ -4047,7 +4046,7 @@
   }
   function renderArticleRow(a) {
     return `
-          <a class="article-row-item" href="articles/${a.slug}.html" data-cat="${escapeHtml(a.category)}">
+          <a class="article-row-item" href="works/${a.slug}.html" data-cat="${escapeHtml(a.category)}">
             ${renderThumbMediaRoot(a.coverImagePath, a.title, 'article-row-thumb', a.locked)}
             <div class="article-row-body">
               <p class="card-title">${escapeHtml(a.title)}</p>
@@ -4098,7 +4097,6 @@
           <p class="articles-count" id="articles-count">${list.length} Works</p>
           <div class="sort-tabs">
             <button class="sort-tab active" type="button" data-sort="newest">Newest</button>
-            <button class="sort-tab" type="button" data-sort="popular">Most popular</button>
           </div>
         </div>
 
@@ -4365,10 +4363,9 @@
         <span class="article-tag">${escapeHtml(a.category)}</span>
       </div>
       <h1 class="article-title" id="article-title">${escapeHtml(a.title)}</h1>
-      <div class="article-byline">
-        <p>${escapeHtml(a.author)}</p>
-        <p>${escapeHtml(a.date)} · 조회수 <span id="view-count">–</span></p>
-      </div>
+      ${a.date ? `<div class="article-byline">
+        <p>${escapeHtml(a.date)}</p>
+      </div>` : ''}
       <p class="article-lead">${escapeHtml(a.lead)}</p>
     </section>
     ${blocksHtml}
@@ -4432,23 +4429,6 @@
   document.addEventListener('click', (e) => {
     if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
   });
-  // Live view counter — counts once per browser session per article, then just displays
-  // the latest total on repeat visits without inflating it further.
-  (function () {
-    var slug = '${a.slug}';
-    var countEl = document.getElementById('view-count');
-    var storageKey = 'gdla-viewed-' + slug;
-    var alreadyCounted = false;
-    try { alreadyCounted = sessionStorage.getItem(storageKey) === '1'; } catch (e) {}
-    fetch('${WORKER_URL}/api/track-view', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: slug, count: !alreadyCounted })
-    }).then(function (res) { return res.json(); }).then(function (data) {
-      if (countEl && typeof data.views === 'number') countEl.textContent = data.views;
-      if (!alreadyCounted) { try { sessionStorage.setItem(storageKey, '1'); } catch (e) {} }
-    }).catch(function () { if (countEl) countEl.textContent = '–'; });
-  })();
 <\/script>
 </body>
 </html>
@@ -4859,9 +4839,11 @@
     .feature-img { position: relative; overflow: hidden; flex: 0 0 30%; max-width: 520px; aspect-ratio: 1.1; display: block; background: #d8d8d8; }
     /* 120% tall, centred: leaves 10% of travel above/below for the scroll parallax (SCROLL_FX_JS) */
     .feature-img img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; display: block; will-change: transform; }
-    /* hero photos sit under the full-screen intro statement, not above it */
-    .intro-hero-photo { width: 100%; }
+    /* hero photos sit directly under the intro statement, on the first screen */
+    .main > .intro-section:first-child:has(.intro-hero-photo) .intro-statement { min-height: 0; }
+    .intro-hero-photo { width: 100%; margin-top: 56px; }
     .intro-hero-photo .screenshot { display: block; width: 100%; height: auto; margin: 0; }
+    @media (max-width: 768px) { .intro-hero-photo { margin-top: 32px; } }
     @media (max-width: 768px) {
       .main > .intro-section:first-child { padding-top: 24px; }
       .main > .intro-section:first-child .intro-statement { min-height: calc(100vh - 70px); min-height: calc(100svh - 70px); }
@@ -5040,7 +5022,7 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
   // `anchor` = the text each block starts with in the canonical layout.
   const HOMEPAGE_SECTIONS = [
     { key: 'intro',       label: 'Intro (소개 문구 + Feature Rows)', anchor: '<!-- ═══ HERO / INTRO ═══ -->' },
-    { key: 'works',       label: 'Our Works (merged into Works — not shown)', anchor: '<!-- ═══ OUR WORKS ═══ -->' },
+    { key: 'works',       label: 'Works (마퀴)',                      anchor: '<!-- ═══ OUR WORKS ═══ -->' },
     { key: 'specialties', label: 'Specialties',                      anchor: '<section class="awards-section" id="specialties"' },
     { key: 'thesis',      label: 'Thesis',                           anchor: '<!-- ═══ THESIS ═══ -->' },
     { key: 'stats',       label: 'Stats (30+ / 6 / 20+ 숫자)',        anchor: '<!-- ═══ STATS ═══ -->' },
@@ -5380,15 +5362,13 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
       log(INDEX_PATH + ' Our Works 섹션 확인 중...');
       const indexFile = await getFile(INDEX_PATH);
       if (indexFile) {
-        // projects.push()es new entries onto the end, so "latest first" means reversed.
-        const latestProjects = projects.slice().reverse();
+        // 2026-10: the homepage marquee shows the latest Works (the articles list, latest
+        // first - same order as works.html), mapped onto the fields the marquee rows use.
+        const latestProjects = articles.map(a => ({ ...a, desc: a.lead, tags: (a.tags && a.tags.length) ? a.tags : [a.category].filter(Boolean) }));
         await computeMarqueeImageKeys(latestProjects.slice(0, 3));
         let newIndexHtml = normalizeSectionOrder(indexFile.content).replace(
           /<!-- ═══ OUR WORKS ═══ -->[\s\S]*?<!-- ═══ THESIS ═══ -->/,
-          // 2026-10: "Our Works" merged into Works (articles.html) - the homepage no longer
-          // shows a works section; only the anchor comment stays for section ordering.
-          // (Specialties lives inside the same marker block, so it is kept here.)
-          `<!-- ═══ OUR WORKS ═══ -->\n    ${SPECIALTIES_SECTION_HTML}\n\n    <!-- ═══ THESIS ═══ -->`
+          `<!-- ═══ OUR WORKS ═══ -->\n    ${buildIndexWorksSectionHtml(latestProjects)}\n\n    <!-- ═══ THESIS ═══ -->`
         );
         // NOTE: index.html's ORIGINAL stylesheet already defines a bare ".marquee-ph {"
         // rule (sizing only, no background) — checking for that text would always match
@@ -5446,7 +5426,7 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
         }
 
         for (const a of articles) {
-          const path = `articles/${a.slug}.html`;
+          const path = `works/${a.slug}.html`;
           const others = articles.filter(x => x.slug !== a.slug).slice(0, 3);
           const html = applyGlobalPageFixes(buildArticleDetailHtml(a, others));
           log(path + ' 확인 중...');
