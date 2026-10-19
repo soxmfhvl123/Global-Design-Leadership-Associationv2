@@ -1,89 +1,5 @@
 [
   {
-    "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
-    "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
-    "category": "News",
-    "author": "Jin C.",
-    "date": "2026.10.17",
-    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
-    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.jpg",
-        "caption": "",
-        "text": "Professor Lee led a conversation with Simon Loasby, Head of Hyundai Design Center, and Betty J. Chung, Professor and Academic Director of Korea University Global MBA.\nFRAME is a global art and culture conference hosted by Busan Metropolitan City and organised by Art Busan. Now in its second year, it ran over two days and featured 16 leaders\nfrom eight fields across six sessions.",
-        "reverse": false
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg",
-        "caption": "",
-        "text": "This year’s theme was “People Who Stand by Their Convictions.” The session explored how leaders navigate diverse cultures and markets while staying true to their own philosophy and identity. It also examined how cultural perspectives can become a foundation for sustainable business and lasting value.",
-        "reverse": true
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg",
-        "caption": "",
-        "text": "Both days of FRAME 2026 sold out, drawing around 250 participants. Around 70 percent were in their 20s and 30s. The session offered a space to explore what global design leadership means where design, business and culture meet.",
-        "reverse": false
-      }
-    ],
-    "ownerSlug": "jin-c",
-    "tags": [
-      "News"
-    ]
-  },
-  {
-    "slug": "designing-the-boundary",
-    "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
-    "category": "Design",
-    "author": "Jin C.",
-    "date": "2026.05.09",
-    "lead": "On May 9, the 2026 KICD Spring International Conference and International Invitational Exhibition was held at Gachon University under the theme \"Borders,\" exploring the meaning of boundaries across design, culture, and society. Professor Cathy Lee of Hongik University IDAS delivered a keynote speech titled \"Designing the Boundary,\" questioning what design must safeguard as technology penetrates deeper and faster into human life.",
-    "coverImagePath": "assets/uploads/project/cover.jpg",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "heading",
-        "text": "Background"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/project/block-1.jpg",
-        "caption": "2026 Keynote — Designing the Boundary\n▲ Keynote Address by Professor Cathy Lee: \"Designing the Boundary\" — The Evolving Role of Design in Rapidly Changing Technological, Cultural, and Socioeconomic Contexts",
-        "text": "Professor Cathy Lee opened her address by redefining design not as a matter of \"what we make,\" but \"what we decide.\" While design has always produced artifacts, she noted that the deeper inquiry lies in what design permits and what it refuses. Establishing boundaries, she emphasized, is not an act of limitation, but an act of \"authorship\"—declaring that certain values matter more than others and inscribing that conviction into the world.",
-        "reverse": false
-      },
-      {
-        "type": "heading",
-        "text": "Insight"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/project/block-3.jpg",
-        "caption": "Design as the Mediator — Between Technology and Human Dignity\n▲ Design as a Mediator Between Technology and Human Dignity — Setting the Terms, Embodying Values, and Holding the Boundary",
-        "text": "The core thesis of the speech was a clear declaration: \"The challenge is no longer technological; it is directional.\" As AI becomes increasingly expansive, autonomous, and intimately woven into daily life, the essential question shifts from \"what AI can do\" to \"what it should do, and from whose perspective.\" Design, she argued, is the very discipline that guards this boundary.",
-        "reverse": true
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/project/block-4.jpg",
-        "caption": "",
-        "text": "Traditionally, design has been understood as the creation of outputs and deliverables. Today, however, it is being repositioned as a critical discipline that shapes the human future, mediates complex systems, and defines the ethical frontiers of innovation. Professor Cathy Lee diagnosed our current reality as an \"era of expanding capabilities,\" where AI and emerging technologies exhibit unprecedented expandability, autonomous judgment, and intimate closeness to human existence. Consequently, the center of gravity in design is shifting: from \"Making Artifacts, Designing Products\" to \"Shaping the Future, Mediating Systems.\" The coordinates of design are moving from the hands that craft to the judgment that directs.\n\nThis philosophy translates into principles, and ultimately into real-world applications. Serving as a mediator between technology and human dignity, design must set the terms, embody values, and hold the boundary. The constant question to ask is: \"Does this affirm human life, or does it merely optimize it?\" Citing the \"Designed with Human Dignity\" project conducted in collaboration with Hyundai Motor Group, she illustrated how principles of Respect, Care, Co-Existence, and Trust are implemented within industrial frameworks. In closing, she emphasized a \"mindset\" that transcends methodology. While tools can be transferred and methods can be taught, navigating a world that struggles even to name its own crises demands more than a toolkit. Mindset is more than an attitude—it is the catalyst for transforming the world, bridging generations, and opening new pathways for leadership.",
-        "reverse": false
-      }
-    ],
-    "ownerSlug": "jin-c",
-    "tags": [
-      "Design"
-    ]
-  },
-  {
     "slug": "why-2025-future-begins-with-questions",
     "title": "WHY: 2025 Future Begins with Questions",
     "category": "Global Forum",
@@ -152,6 +68,160 @@
         "caption": "",
         "text": "Running across both days, the Future Culture track explored new senses and forms of art shaped by technology, including AI, design intelligence and biomimicry. The first session looked at how lessons from nature can drive creative innovation. The second traced creative thinking from craft to future living. Around 200 participants joined FRAME 2025, which opened a new space for dialogue between the city and the arts. The sessions offered a chance to reflect on the role of design in connecting technology and everyday life.",
         "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c",
+    "tags": [
+      "News"
+    ]
+  },
+  {
+    "slug": "professor-cathy-lee-participates-in-sustainability-panel-at-",
+    "title": "Professor Cathy Lee Participates in Sustainability Panel at the 13th “From Lausanne to Beijing” International Fiber Art Biennale",
+    "category": "Design",
+    "author": "Jin",
+    "date": "2026.10.20",
+    "lead": "Professor Cathy Yeonchoo Lee of the International Design School for Advanced Studies (IDAS), Hongik University, participated as a panelist in the international academic forum of the 13th “From Lausanne to Beijing” International Fiber Art Biennale, held in Beijing on December 7, 2025.",
+    "coverImagePath": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/cover.jpeg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/block-0.jpeg",
+        "caption": "",
+        "text": "The Biennale opened on December 6 at the Tsinghua University Art Museum under the theme “Interwoven Horizon.” This edition presents 205 works by 220 artists from 53 countries and regions. The exhibition runs through March 1, 2026, across five thematic sections at the Tsinghua University Art Museum, the Beijing Yingjie Museum of Stone Art, and the Today Art Museum.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/block-1.jpeg",
+        "caption": "",
+        "text": "The accompanying forum, “Interwoven Horizon: Fiber Art’s Response and Construction in the Intelligent Era,” examined artificial intelligence, ecological materials, the revival of craftsmanship, and cultural sustainability. Through cross-disciplinary dialogue, participants considered the theoretical and practical future of contemporary fiber art.",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/block-2.jpeg",
+        "caption": "",
+        "text": "Professor Lee served on the afternoon panel, “The Texture of Sustainability: Natural Fibers and Future Lifestyles.” Fellow panelists included Gao Yang, Yuan Bo, and Wang Jian (China), Anett Papp (Hungary), and Kathrin Von Rechenberg (Germany). The discussion addressed the ecological ethics of cashmere in relation to regional culture and the emergence of a new naturalist lifestyle, tracing a shift from material ethics to design aesthetics.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/block-3.jpeg",
+        "caption": "",
+        "text": "Professor Chung Kyoung-Yeon, Dean of the Graduate School of Craft Arts at Hongik University, attended the opening ceremony. She also delivered a keynote address, “Reshaping Humanity,” during the morning session.\n\nThe Biennale reaffirmed fiber art as a critical medium for engaging with the complexities of the future, bringing craft, technology, and sustainability into international dialogue.",
+        "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c"
+  },
+  {
+    "slug": "designing-the-boundary",
+    "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
+    "category": "Design",
+    "author": "Jin C.",
+    "date": "2026.05.09",
+    "lead": "On May 9, the 2026 KICD Spring International Conference and International Invitational Exhibition was held at Gachon University under the theme \"Borders,\" exploring the meaning of boundaries across design, culture, and society. Professor Cathy Lee of Hongik University IDAS delivered a keynote speech titled \"Designing the Boundary,\" questioning what design must safeguard as technology penetrates deeper and faster into human life.",
+    "coverImagePath": "assets/uploads/project/cover.jpg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Background"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/project/block-1.jpg",
+        "caption": "2026 Keynote — Designing the Boundary\n▲ Keynote Address by Professor Cathy Lee: \"Designing the Boundary\" — The Evolving Role of Design in Rapidly Changing Technological, Cultural, and Socioeconomic Contexts",
+        "text": "Professor Cathy Lee opened her address by redefining design not as a matter of \"what we make,\" but \"what we decide.\" While design has always produced artifacts, she noted that the deeper inquiry lies in what design permits and what it refuses. Establishing boundaries, she emphasized, is not an act of limitation, but an act of \"authorship\"—declaring that certain values matter more than others and inscribing that conviction into the world.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "Insight"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/project/block-3.jpg",
+        "caption": "Design as the Mediator — Between Technology and Human Dignity\n▲ Design as a Mediator Between Technology and Human Dignity — Setting the Terms, Embodying Values, and Holding the Boundary",
+        "text": "The core thesis of the speech was a clear declaration: \"The challenge is no longer technological; it is directional.\" As AI becomes increasingly expansive, autonomous, and intimately woven into daily life, the essential question shifts from \"what AI can do\" to \"what it should do, and from whose perspective.\" Design, she argued, is the very discipline that guards this boundary.",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/project/block-4.jpg",
+        "caption": "",
+        "text": "Traditionally, design has been understood as the creation of outputs and deliverables. Today, however, it is being repositioned as a critical discipline that shapes the human future, mediates complex systems, and defines the ethical frontiers of innovation. Professor Cathy Lee diagnosed our current reality as an \"era of expanding capabilities,\" where AI and emerging technologies exhibit unprecedented expandability, autonomous judgment, and intimate closeness to human existence. Consequently, the center of gravity in design is shifting: from \"Making Artifacts, Designing Products\" to \"Shaping the Future, Mediating Systems.\" The coordinates of design are moving from the hands that craft to the judgment that directs.\n\nThis philosophy translates into principles, and ultimately into real-world applications. Serving as a mediator between technology and human dignity, design must set the terms, embody values, and hold the boundary. The constant question to ask is: \"Does this affirm human life, or does it merely optimize it?\" Citing the \"Designed with Human Dignity\" project conducted in collaboration with Hyundai Motor Group, she illustrated how principles of Respect, Care, Co-Existence, and Trust are implemented within industrial frameworks. In closing, she emphasized a \"mindset\" that transcends methodology. While tools can be transferred and methods can be taught, navigating a world that struggles even to name its own crises demands more than a toolkit. Mindset is more than an attitude—it is the catalyst for transforming the world, bridging generations, and opening new pathways for leadership.",
+        "reverse": false
+      }
+    ],
+    "ownerSlug": "jin-c",
+    "tags": [
+      "Design"
+    ]
+  },
+  {
+    "slug": "human-factors-in-leadership-deia-design-workshop-held-at-hon",
+    "title": "Human Factors in Leadership (DEIA & Design) Workshop Held at Hongik University",
+    "category": "Design",
+    "author": "Jin",
+    "date": "2026.10.20",
+    "lead": "The international design workshop “Human Factors in Leadership (DEIA & Design)” took place from December 9 to 12, 2024, at Yemungwan Hall, Hongik University. The program aimed to develop future leaders by combining design leadership with a global mindset.",
+    "coverImagePath": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/cover.jpeg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-0.jpeg",
+        "caption": "",
+        "text": "The workshop integrated DEIA (Diversity, Equity, Inclusion, Accessibility) values into design. It offered a platform for inclusive design practice and stronger strategic thinking. Participants included Hongik University students in emerging technology design and students from the International Design School for Advanced Studies (IDAS).\n\nTwo facilitators led the program. Enrique Martinez is a professor at the Federal Executive Institute, part of the U.S. Office of Personnel Management (OPM), and an expert in government design leadership. Professor Cathy Yeonchoo Lee teaches Design Management at IDAS.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-1.jpeg",
+        "caption": "",
+        "text": "Over four days, the facilitators examined how design leadership shapes corporate strategy and government policy. They presented a range of problem-solving strategies and innovative approaches. Participants explored DEIA-centered design thinking and practice, building strategic skills and a broader global perspective.\n\nThe program also included a dialogue with UNDP (United Nations Development Programme). The discussion covered DEI-driven business strategy and directions for policy research. UNDP works in around 170 countries to end poverty, reduce inequality and support sustainable development.\n\nThe workshop offered a space to explore how inclusive values can shape design leadership across business and public policy. More programs are planned to develop creative leadership and global design talent.",
+        "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c"
+  },
+  {
+    "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
+    "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
+    "category": "News",
+    "author": "Jin C.",
+    "date": "2026.10.17",
+    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.jpg",
+        "caption": "",
+        "text": "Professor Lee led a conversation with Simon Loasby, Head of Hyundai Design Center, and Betty J. Chung, Professor and Academic Director of Korea University Global MBA.\nFRAME is a global art and culture conference hosted by Busan Metropolitan City and organised by Art Busan. Now in its second year, it ran over two days and featured 16 leaders\nfrom eight fields across six sessions.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg",
+        "caption": "",
+        "text": "This year’s theme was “People Who Stand by Their Convictions.” The session explored how leaders navigate diverse cultures and markets while staying true to their own philosophy and identity. It also examined how cultural perspectives can become a foundation for sustainable business and lasting value.",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg",
+        "caption": "",
+        "text": "Both days of FRAME 2026 sold out, drawing around 250 participants. Around 70 percent were in their 20s and 30s. The session offered a space to explore what global design leadership means where design, business and culture meet.",
+        "reverse": false
       }
     ],
     "ownerSlug": "jin-c",
