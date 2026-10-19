@@ -192,6 +192,41 @@
     "ownerSlug": "jin-c"
   },
   {
+    "slug": "international-design-workshop-apart-together-held-at-hongik-",
+    "title": "International Design Workshop “Apart — Together” Held at Hongik University with UNDP",
+    "category": "Design",
+    "author": "Jin",
+    "date": "2026.10.20",
+    "lead": "The International Design School for Advanced Studies (IDAS), Hongik University, and the United Nations Development Programme (UNDP) hosted the international design workshop “Apart — Together” on November 13 and 14, 2025, at Yemungwan Hall. Under the theme “Design Between the Individual and the Collective,” the two-day program examined how individual action can drive collective change.",
+    "coverImagePath": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/cover.png",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/block-0.jpg",
+        "caption": "",
+        "text": "The workshop was led by two facilitators. Enrique Martinez is a Design, Innovation and Strategy Advisor and a faculty member of the Federal Executive Institute, part of the U.S. Office of Personnel Management (OPM). Soren Vester Haldrup is a Policy Advisor at the UNDP Global Policy Centre for Governance, with a focus on applying design thinking to complex public-sector systems.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/block-1.jpg",
+        "caption": "",
+        "text": "On the first day, participants mapped their personal histories onto a timeline. They then set these against major global and national events of the same period, such as the COVID-19 pandemic, reflecting on how larger shifts had shaped their own lives.\n\nThe program also introduced how UNDP applies design in its work. Through short lectures, discussions, and hands-on making activities, participants considered the kind of designer and agent of change they aspire to be, both as individuals and as members of a wider community.",
+        "reverse": true
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/block-2.jpg",
+        "caption": "",
+        "text": "At the conclusion of the program, each participant pitched an original idea. These proposals were brought together in a Collective Impact Map, connecting individual perspectives into a shared framework for action.\n\nThe workshop underscored the role of design in bridging individual agency and collective impact across public and global contexts.",
+        "reverse": false
+      }
+    ],
+    "ownerSlug": "jin-c"
+  },
+  {
     "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
     "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
     "category": "News",
