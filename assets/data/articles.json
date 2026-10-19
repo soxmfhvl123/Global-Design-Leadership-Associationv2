@@ -38,45 +38,6 @@
     ]
   },
   {
-    "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
-    "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
-    "category": "News",
-    "author": "Jin C.",
-    "date": "2026.10.17",
-    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
-    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "heading",
-        "text": ""
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.jpg",
-        "caption": "",
-        "text": "Professor Lee led “Understanding Design Intelligence” with Marília Biill, VP and Head of CMF Design at Kia, and Sujeong Choi, Senior Researcher. She also moderated\n“Rediscovering the Everyday” with Yeontaek Lee, CEO of LG Electronics’ MyTasteCompany. FRAME is a culture and arts conference organised by Art Busan. Its first edition featured 10 sessions and 18 speakers across city, architecture, design, technology and lifestyle.",
-        "reverse": false
-      },
-      {
-        "type": "heading",
-        "text": ""
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.jpg",
-        "caption": "",
-        "text": "Running across both days, the Future Culture track explored new senses and forms of art shaped by technology, including AI, design intelligence and biomimicry. The first session looked at how lessons from nature can drive creative innovation. The second traced creative thinking from craft to future living. Around 200 participants joined FRAME 2025, which opened a new space for dialogue between the city and the arts. The sessions offered a chance to reflect on the role of design in connecting technology and everyday life.",
-        "reverse": true
-      }
-    ],
-    "ownerSlug": "jin-c",
-    "tags": [
-      "News"
-    ]
-  },
-  {
     "slug": "designing-the-boundary",
     "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
     "category": "Design",
@@ -157,6 +118,45 @@
       "Global Forum",
       "Design Leadership",
       "Future Strategy"
+    ]
+  },
+  {
+    "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
+    "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
+    "category": "News",
+    "author": "Jin C.",
+    "date": "2026.10.17",
+    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "heading",
+        "text": ""
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.jpg",
+        "caption": "",
+        "text": "Professor Lee led “Understanding Design Intelligence” with Marília Biill, VP and Head of CMF Design at Kia, and Sujeong Choi, Senior Researcher. She also moderated\n“Rediscovering the Everyday” with Yeontaek Lee, CEO of LG Electronics’ MyTasteCompany. FRAME is a culture and arts conference organised by Art Busan. Its first edition featured 10 sessions and 18 speakers across city, architecture, design, technology and lifestyle.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": ""
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.jpg",
+        "caption": "",
+        "text": "Running across both days, the Future Culture track explored new senses and forms of art shaped by technology, including AI, design intelligence and biomimicry. The first session looked at how lessons from nature can drive creative innovation. The second traced creative thinking from craft to future living. Around 200 participants joined FRAME 2025, which opened a new space for dialogue between the city and the arts. The sessions offered a chance to reflect on the role of design in connecting technology and everyday life.",
+        "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c",
+    "tags": [
+      "News"
     ]
   }
 ]
