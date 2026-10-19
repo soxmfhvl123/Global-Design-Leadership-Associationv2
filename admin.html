@@ -330,7 +330,6 @@
             <button class="admin-nav-item active" type="button" data-view="dashboard" onclick="showAdminView('dashboard')">Dashboard</button>
             <button class="admin-nav-item" type="button" data-view="hero" onclick="showAdminView('hero')">Hero</button>
             <button class="admin-nav-item" type="button" data-view="specialties" onclick="showAdminView('specialties')">Specialties</button>
-            <button class="admin-nav-item" type="button" data-view="works" onclick="showAdminView('works')" hidden>Our Works</button>
             <button class="admin-nav-item" type="button" data-view="thesis" onclick="showAdminView('thesis')">Thesis</button>
             <button class="admin-nav-item" type="button" data-view="news" onclick="showAdminView('news')">News</button>
             <button class="admin-nav-item" type="button" data-view="articles" onclick="showAdminView('articles')">Works</button>
@@ -355,7 +354,6 @@
           </div>
           <div class="dash-grid">
             <div class="dash-card"><div class="dash-num" id="dash-hero-count">0</div><div class="dash-label">Hero Slides</div></div>
-            <div class="dash-card"><div class="dash-num" id="dash-projects-count">0</div><div class="dash-label">Projects</div></div>
             <div class="dash-card"><div class="dash-num" id="dash-articles-count">0</div><div class="dash-label">Works</div></div>
             <div class="dash-card"><div class="dash-num" id="dash-team-count">0</div><div class="dash-label">Team Members</div></div>
             <div class="dash-card"><div class="dash-num" id="dash-thesis-count">0</div><div class="dash-label">Thesis</div></div>
@@ -1735,6 +1733,9 @@
 
   /* ═══════════════════ SIDEBAR VIEW SWITCHING ═══════════════════ */
   window.showAdminView = function (view) {
+    // "works" (Our Works) was folded into Works and has no menu any more — a remembered
+    // last view of it lands on the Dashboard instead of an orphaned panel.
+    if (view === 'works') view = 'dashboard';
     document.querySelectorAll('.admin-view').forEach(el => el.classList.toggle('active', el.dataset.view === view));
     document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.toggle('active', el.dataset.view === view));
     try { localStorage.setItem('gdla_admin_last_view', view); } catch (e) {}
@@ -3627,6 +3628,43 @@
   // path -> content hash; a path that couldn't be fetched (e.g. uploaded seconds ago and
   // not deployed yet) just falls back to its own path as the key.
   let marqueeImageKeys = {};
+  // Marquee tiles are 460px squares (260px on mobile) but were loading the full 2000px
+  // photo. Each marquee photo gets a "<name>.thumb.jpg" next to it whose SHORT edge is
+  // MARQUEE_THUMB_EDGE (2x the tile, for retina); Publish creates + uploads it the first
+  // time it's missing and the marquee uses it from then on. Photos already that small, or
+  // ones that can't be fetched yet (just uploaded, not deployed), keep their own path.
+  const MARQUEE_THUMB_EDGE = 920;
+  let marqueeThumbs = {};
+  function marqueeThumbPath(path) {
+    return path.replace(/\.[a-z0-9]+$/i, '') + '.thumb.jpg';
+  }
+  async function ensureMarqueeThumb(path, bytes) {
+    if (marqueeThumbs[path] || /\.thumb\.jpg$/.test(path)) return;
+    const thumb = marqueeThumbPath(path);
+    try {
+      const bmp = await createImageBitmap(new Blob([bytes]), { imageOrientation: 'from-image' });
+      const scale = MARQUEE_THUMB_EDGE / Math.min(bmp.width, bmp.height);
+      if (scale >= 1) { bmp.close && bmp.close(); return; }
+      const head = await fetch(thumb, { method: 'HEAD', cache: 'no-store' });
+      if (head.ok) { bmp.close && bmp.close(); marqueeThumbs[path] = thumb; return; }
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(bmp.width * scale);
+      canvas.height = Math.round(bmp.height * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      bmp.close && bmp.close();
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.82));
+      if (!blob) return;
+      log && log(`  ↳ 마퀴 썸네일 생성: ${thumb} (${Math.round(blob.size / 1024)}KB)`);
+      await putFileRawBase64(thumb, await fileToBase64(blob), `Upload marquee thumbnail via admin (${currentPerson.name})`);
+      marqueeThumbs[path] = thumb;
+    } catch (e) {
+      // keep using the full-size photo
+    }
+  }
   async function computeMarqueeImageKeys(projectList) {
     for (const p of projectList) {
       for (const path of collectProjectImages(p)) {
@@ -3634,7 +3672,9 @@
         try {
           const res = await fetch(path, { cache: 'no-store' });
           if (!res.ok) throw new Error(res.status);
-          const digest = await crypto.subtle.digest('SHA-256', await res.arrayBuffer());
+          const bytes = await res.arrayBuffer();
+          await ensureMarqueeThumb(path, bytes);
+          const digest = await crypto.subtle.digest('SHA-256', bytes);
           marqueeImageKeys[path] = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
         } catch (e) {
           marqueeImageKeys[path] = path;
@@ -3667,7 +3707,7 @@
     const imgs = uniqueMarqueeImages(p);
     const blurClass = p.locked ? ' blurred' : '';
     const setItems = imgs.length
-      ? imgs.map(src => `<img class="marquee-item${blurClass}" src="${src}" alt="${escapeHtml(p.title)}">`)
+      ? imgs.map(src => `<img class="marquee-item${blurClass}" src="${marqueeThumbs[src] || src}" alt="${escapeHtml(p.title)}">`)
       : Array(3).fill('<div class="marquee-ph"></div>');
     // One loop "half" must be wider than the widest viewport, or a project with only a few
     // images shows an empty gap at the end of each loop — so repeat the set up to at least
