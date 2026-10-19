@@ -836,7 +836,7 @@ FRAME 2026 at Nurimaru APEC House in Busan.</p>
 
   function renderList() {
     const selected = currentCategory();
-    const matching = rows.filter(row => selected === 'All' || row.dataset.cat === selected);
+    const matching = rows.filter(row => selected === 'All' || (row.dataset.cat || '').split('|').includes(selected));
     matching.forEach((row, i) => {
       row.style.display = i < visibleCount ? '' : 'none';
     });

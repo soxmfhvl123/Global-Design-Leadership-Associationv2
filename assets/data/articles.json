@@ -3,7 +3,6 @@
     "slug": "why-2025-future-begins-with-questions",
     "title": "WHY: 2025 Future Begins with Questions",
     "category": "Global Forum",
-    "author": "Jin C.",
     "date": "2026.09.05",
     "lead": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
     "coverImagePath": "assets/uploads/add-new-project/cover.png",
@@ -34,13 +33,15 @@
       "Global Forum",
       "Design Leadership",
       "Future Strategy"
+    ],
+    "categories": [
+      "Global Forum"
     ]
   },
   {
     "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
     "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
     "category": "News",
-    "author": "Jin C.",
     "date": "2026.10.17",
     "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
     "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
@@ -73,13 +74,15 @@
     "ownerSlug": "jin-c",
     "tags": [
       "News"
+    ],
+    "categories": [
+      "News"
     ]
   },
   {
     "slug": "professor-cathy-lee-participates-in-sustainability-panel-at-",
     "title": "Professor Cathy Lee Participates in Sustainability Panel at the 13th “From Lausanne to Beijing” International Fiber Art Biennale",
     "category": "Design",
-    "author": "Jin",
     "date": "2026.10.20",
     "lead": "Professor Cathy Yeonchoo Lee of the International Design School for Advanced Studies (IDAS), Hongik University, participated as a panelist in the international academic forum of the 13th “From Lausanne to Beijing” International Fiber Art Biennale, held in Beijing on December 7, 2025.",
     "coverImagePath": "assets/uploads/articles/professor-cathy-lee-participates-in-sustainability-panel-at-/cover.jpeg",
@@ -115,13 +118,15 @@
         "reverse": true
       }
     ],
-    "ownerSlug": "jin-c"
+    "ownerSlug": "jin-c",
+    "categories": [
+      "Design"
+    ]
   },
   {
     "slug": "designing-the-boundary",
     "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
     "category": "Design",
-    "author": "Jin C.",
     "date": "2026.05.09",
     "lead": "On May 9, the 2026 KICD Spring International Conference and International Invitational Exhibition was held at Gachon University under the theme \"Borders,\" exploring the meaning of boundaries across design, culture, and society. Professor Cathy Lee of Hongik University IDAS delivered a keynote speech titled \"Designing the Boundary,\" questioning what design must safeguard as technology penetrates deeper and faster into human life.",
     "coverImagePath": "assets/uploads/project/cover.jpg",
@@ -161,13 +166,15 @@
     "ownerSlug": "jin-c",
     "tags": [
       "Design"
+    ],
+    "categories": [
+      "Design"
     ]
   },
   {
     "slug": "human-factors-in-leadership-deia-design-workshop-held-at-hon",
     "title": "Human Factors in Leadership (DEIA & Design) Workshop Held at Hongik University",
     "category": "Design",
-    "author": "Jin",
     "date": "2026.10.20",
     "lead": "The international design workshop “Human Factors in Leadership (DEIA & Design)” took place from December 9 to 12, 2024, at Yemungwan Hall, Hongik University. The program aimed to develop future leaders by combining design leadership with a global mindset.",
     "coverImagePath": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/cover.jpeg",
@@ -189,13 +196,15 @@
         "reverse": true
       }
     ],
-    "ownerSlug": "jin-c"
+    "ownerSlug": "jin-c",
+    "categories": [
+      "Design"
+    ]
   },
   {
     "slug": "international-design-workshop-apart-together-held-at-hongik-",
     "title": "International Design Workshop “Apart — Together” Held at Hongik University with UNDP",
     "category": "Design",
-    "author": "Jin",
     "date": "2026.10.20",
     "lead": "The International Design School for Advanced Studies (IDAS), Hongik University, and the United Nations Development Programme (UNDP) hosted the international design workshop “Apart — Together” on November 13 and 14, 2025, at Yemungwan Hall. Under the theme “Design Between the Individual and the Collective,” the two-day program examined how individual action can drive collective change.",
     "coverImagePath": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/cover.png",
@@ -224,13 +233,15 @@
         "reverse": false
       }
     ],
-    "ownerSlug": "jin-c"
+    "ownerSlug": "jin-c",
+    "categories": [
+      "Design"
+    ]
   },
   {
     "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
     "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
     "category": "News",
-    "author": "Jin C.",
     "date": "2026.10.17",
     "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
     "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
@@ -261,6 +272,9 @@
     ],
     "ownerSlug": "jin-c",
     "tags": [
+      "News"
+    ],
+    "categories": [
       "News"
     ]
   }
