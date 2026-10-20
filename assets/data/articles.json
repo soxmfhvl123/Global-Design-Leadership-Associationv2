@@ -205,6 +205,9 @@
     "slug": "international-design-workshop-apart-together-held-at-hongik-",
     "title": "International Design Workshop “Apart — Together” Held at Hongik University with UNDP",
     "category": "Design",
+    "categories": [
+      "Design"
+    ],
     "date": "2026.10.20",
     "lead": "The International Design School for Advanced Studies (IDAS), Hongik University, and the United Nations Development Programme (UNDP) hosted the international design workshop “Apart — Together” on November 13 and 14, 2025, at Yemungwan Hall. Under the theme “Design Between the Individual and the Collective,” the two-day program examined how individual action can drive collective change.",
     "coverImagePath": "assets/uploads/articles/international-design-workshop-apart-together-held-at-hongik-/cover.png",
@@ -233,10 +236,7 @@
         "reverse": false
       }
     ],
-    "ownerSlug": "jin-c",
-    "categories": [
-      "Design"
-    ]
+    "ownerSlug": "jin-c"
   },
   {
     "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
