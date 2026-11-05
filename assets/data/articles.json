@@ -1,5 +1,80 @@
 [
   {
+    "slug": "professor-cathy-lee-of-hongik-university-idas-concludes-kore",
+    "title": "Professor Cathy Lee of Hongik University IDAS Concludes \"Korea–Finland Design Talk 2026,\" Co-Organized with the Embassy of Finland in Seoul",
+    "category": "Design",
+    "categories": [
+      "Design"
+    ],
+    "date": "2026.11.06",
+    "lead": "Korean and Finnish design leaders gather at DDP to discuss the role and responsibility of design in the age of AI",
+    "coverImagePath": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/cover.png",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-0.jpeg",
+        "caption": "",
+        "text": "Hongik University IDAS and CLAB, together with the Embassy of Finland in Seoul and the Global Design Leadership Association (GDLA), present new possibilities for international design exchange.\n\nThe \"Korea–Finland Design Talk 2026,\" organized by Professor Cathy Lee of the International Design School for Advanced Studies (IDAS) at Hongik University in collaboration with the Embassy of Finland in Seoul, was successfully held on October 30 at the Design Hall, Design Lab (3F), Dongdaemun Design Plaza (DDP), Seoul.\n\nThe event was jointly hosted by Hongik University IDAS, CLAB (Center for Leadership and Branding), the Embassy of Finland in Seoul, and the Global Design Leadership Association (GDLA), with Aalto University in Finland participating as a partner institution.\n\nThe event was particularly significant in that it was conceived as a platform for international exchange, drawing on the global design network and academic and industry partnerships that Professor Lee has built over many years. It brought together design leaders from Korea and Finland to discuss the role and responsibility of design in the society of the future.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "In the Age of AI, What Must Design Protect?"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-2.jpeg",
+        "caption": "",
+        "text": "Held under the theme \"Designing What Comes Next: Radical Creativity as a Future Competence,\" the event explored the role design must play at a time when artificial intelligence (AI) and advanced technologies are rapidly transforming human life, industry, and creative environments.\nKorea and Finland are both internationally recognized for their strengths in design, technology, innovation, and education. By connecting the experiences and philosophies of the two countries, the event highlighted the potential of design to shape a human-centered future that goes beyond technology-driven innovation.\nGoing a step beyond the question of how to use technology, the event posed fundamental questions: What should technology enhance rather than replace? What must remain human, even in the age of AI? And what responsibility do the designers and design leaders shaping the future bear?",
+        "reverse": true
+      },
+      {
+        "type": "heading",
+        "text": "Aalto University Dean Tuomas Auvinen Presents Radical Creativity as a Core Future Competence"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-4.jpeg",
+        "caption": "",
+        "text": "The program, attended by representatives of the Embassy of Finland in Seoul and members of the Korean and Finnish design communities, consisted of a keynote lecture, a panel discussion, and a documentary screening.\n\nIn the morning session, Professor Tuomas Auvinen, Dean of the School of Arts, Design and Architecture at Aalto University, delivered a keynote titled \"Radical Creativity as a Future Competence.\"\n\nIntroducing economist Joseph Schumpeter's concept of \"creative destruction\" and the long-term waves of technological innovation, Professor Auvinen described the creative competencies needed in an era of accelerating innovation, from the Industrial Revolution to digital transformation, AI, and robotics.\nHe emphasized that radical creativity, the ability to challenge existing ways of thinking and conventions and to connect different forms of knowledge and perspectives to create new possibilities, is a core competence for the society of the future.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "Global Design Leaders Discuss the Future Direction of Design"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-6.jpeg",
+        "caption": "",
+        "text": "The panel discussion that followed featured keynote speaker Dean Tuomas Auvinen; Professor Cathy Lee of Hongik University IDAS; Eric Rhee, Head of Korea at global satellite imaging company ICEYE; and Hyeyun Claire Kim, Head of the Brand Planning Team at Hyundai Motor's Genesis. The discussion was moderated by Dr. Riikka Pellinen, Counsellor for Science and Higher Education at the Embassy of Finland in Seoul.\nDrawing on their experience across academia, global technology, and the automotive and brand industries, the panelists discussed the relationship between creative individuals and a creative organizational culture, the meaning of fundamental human capabilities amid technological progress, and the leadership and organizational conditions that make innovation possible.",
+        "reverse": true
+      },
+      {
+        "type": "heading",
+        "text": "Discovering the Value of a Human-Centered Future in Finland's Design Heritage"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-8.jpeg",
+        "caption": "",
+        "text": "In the afternoon session, the documentary Aalto: Architect of Emotions (2020), directed by Finnish filmmaker Virpi Suutari, was screened. The film illuminates the lives and work of Alvar Aalto, Aino Aalto, and Elissa Aalto, celebrated Finnish architects and designers, and shows how they brought human emotion, experience, and the value of everyday life into architecture and design. The screening extended the morning's discussion of technological innovation and future competencies into the history and human-centered philosophy of Finnish design.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": "Hongik University IDAS Expands International Collaboration for Global Design Leadership"
+      },
+      {
+        "type": "text",
+        "text": "The event was attended by around 50 participants, including design professionals, academics, industry representatives, and students from Korea and Finland, and the entire program was conducted in English. Through this event, Hongik University IDAS, CLAB, and GDLA identified new opportunities for collaboration connecting universities, industry, diplomacy, and international design networks."
+      }
+    ],
+    "ownerSlug": "jin-c"
+  },
+  {
     "slug": "why-2025-future-begins-with-questions",
     "title": "WHY: 2025 Future Begins with Questions",
     "category": "Global Forum",
@@ -277,82 +352,5 @@
     "categories": [
       "News"
     ]
-  },
-  {
-    "slug": "professor-cathy-lee-of-hongik-university-idas-concludes-kore",
-    "title": "Professor Cathy Lee of Hongik University IDAS Concludes \"Korea–Finland Design Talk 2026,\" Co-Organized with the Embassy of Finland in Seoul",
-    "category": "Design",
-    "categories": [
-      "Design",
-      "News",
-      "Global Forum"
-    ],
-    "date": "2026.11.06",
-    "lead": "Korean and Finnish design leaders gather at DDP to discuss the role and responsibility of design in the age of AI",
-    "coverImagePath": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/cover.png",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-0.jpeg",
-        "caption": "",
-        "text": "Hongik University IDAS and CLAB, together with the Embassy of Finland in Seoul and the Global Design Leadership Association (GDLA), present new possibilities for international design exchange.\n\nThe \"Korea–Finland Design Talk 2026,\" organized by Professor Cathy Lee of the International Design School for Advanced Studies (IDAS) at Hongik University in collaboration with the Embassy of Finland in Seoul, was successfully held on October 30 at the Design Hall, Design Lab (3F), Dongdaemun Design Plaza (DDP), Seoul.\n\nThe event was jointly hosted by Hongik University IDAS, CLAB (Center for Leadership and Branding), the Embassy of Finland in Seoul, and the Global Design Leadership Association (GDLA), with Aalto University in Finland participating as a partner institution.\n\nThe event was particularly significant in that it was conceived as a platform for international exchange, drawing on the global design network and academic and industry partnerships that Professor Lee has built over many years. It brought together design leaders from Korea and Finland to discuss the role and responsibility of design in the society of the future.",
-        "reverse": false
-      },
-      {
-        "type": "heading",
-        "text": "In the Age of AI, What Must Design Protect?"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-2.jpeg",
-        "caption": "",
-        "text": "Held under the theme \"Designing What Comes Next: Radical Creativity as a Future Competence,\" the event explored the role design must play at a time when artificial intelligence (AI) and advanced technologies are rapidly transforming human life, industry, and creative environments.\nKorea and Finland are both internationally recognized for their strengths in design, technology, innovation, and education. By connecting the experiences and philosophies of the two countries, the event highlighted the potential of design to shape a human-centered future that goes beyond technology-driven innovation.\nGoing a step beyond the question of how to use technology, the event posed fundamental questions: What should technology enhance rather than replace? What must remain human, even in the age of AI? And what responsibility do the designers and design leaders shaping the future bear?",
-        "reverse": true
-      },
-      {
-        "type": "heading",
-        "text": "Aalto University Dean Tuomas Auvinen Presents Radical Creativity as a Core Future Competence"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-4.jpeg",
-        "caption": "",
-        "text": "The program, attended by representatives of the Embassy of Finland in Seoul and members of the Korean and Finnish design communities, consisted of a keynote lecture, a panel discussion, and a documentary screening.\n\nIn the morning session, Professor Tuomas Auvinen, Dean of the School of Arts, Design and Architecture at Aalto University, delivered a keynote titled \"Radical Creativity as a Future Competence.\"\n\nIntroducing economist Joseph Schumpeter's concept of \"creative destruction\" and the long-term waves of technological innovation, Professor Auvinen described the creative competencies needed in an era of accelerating innovation, from the Industrial Revolution to digital transformation, AI, and robotics.\nHe emphasized that radical creativity, the ability to challenge existing ways of thinking and conventions and to connect different forms of knowledge and perspectives to create new possibilities, is a core competence for the society of the future.",
-        "reverse": false
-      },
-      {
-        "type": "heading",
-        "text": "Global Design Leaders Discuss the Future Direction of Design"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-6.jpeg",
-        "caption": "",
-        "text": "The panel discussion that followed featured keynote speaker Dean Tuomas Auvinen; Professor Cathy Lee of Hongik University IDAS; Eric Rhee, Head of Korea at global satellite imaging company ICEYE; and Hyeyun Claire Kim, Head of the Brand Planning Team at Hyundai Motor's Genesis. The discussion was moderated by Dr. Riikka Pellinen, Counsellor for Science and Higher Education at the Embassy of Finland in Seoul.\nDrawing on their experience across academia, global technology, and the automotive and brand industries, the panelists discussed the relationship between creative individuals and a creative organizational culture, the meaning of fundamental human capabilities amid technological progress, and the leadership and organizational conditions that make innovation possible.",
-        "reverse": true
-      },
-      {
-        "type": "heading",
-        "text": "Discovering the Value of a Human-Centered Future in Finland's Design Heritage"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/professor-cathy-lee-of-hongik-university-idas-concludes-kore/block-8.jpeg",
-        "caption": "",
-        "text": "In the afternoon session, the documentary Aalto: Architect of Emotions (2020), directed by Finnish filmmaker Virpi Suutari, was screened. The film illuminates the lives and work of Alvar Aalto, Aino Aalto, and Elissa Aalto, celebrated Finnish architects and designers, and shows how they brought human emotion, experience, and the value of everyday life into architecture and design. The screening extended the morning's discussion of technological innovation and future competencies into the history and human-centered philosophy of Finnish design.",
-        "reverse": false
-      },
-      {
-        "type": "heading",
-        "text": "Hongik University IDAS Expands International Collaboration for Global Design Leadership"
-      },
-      {
-        "type": "text",
-        "text": "The event was attended by around 50 participants, including design professionals, academics, industry representatives, and students from Korea and Finland, and the entire program was conducted in English. Through this event, Hongik University IDAS, CLAB, and GDLA identified new opportunities for collaboration connecting universities, industry, diplomacy, and international design networks."
-      }
-    ],
-    "ownerSlug": "jin-c"
   }
 ]
