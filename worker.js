@@ -269,23 +269,32 @@ export default {
         }
         // Always re-check the current sha server-side right before writing,
         // so the client never has to juggle sha bookkeeping or race conditions.
-        let sha;
-        const shaRes = await githubFetch(env, `contents/${path}?ref=${GH_BRANCH}`);
-        if (shaRes.ok) {
-          const shaData = await shaRes.json();
-          sha = shaData.sha;
-        } // 404 = new file, no sha needed
+        // GitHub's contents API occasionally answers a write with a bare 5xx (or a 409
+        // when the branch moved under it); that used to abort the whole admin Publish.
+        // Retry those up to 3 times, re-reading the sha each time, with a short backoff.
+        let putRes;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          let sha;
+          const shaRes = await githubFetch(env, `contents/${path}?ref=${GH_BRANCH}`);
+          if (shaRes.ok) {
+            const shaData = await shaRes.json();
+            sha = shaData.sha;
+          } // 404 = new file, no sha needed
 
-        const putRes = await githubFetch(env, `contents/${path}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: message || `Update ${path} via GDLA admin (${auth.name})`,
-            content: contentBase64,
-            branch: GH_BRANCH,
-            ...(sha ? { sha } : {}),
-          }),
-        });
+          putRes = await githubFetch(env, `contents/${path}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: message || `Update ${path} via GDLA admin (${auth.name})`,
+              content: contentBase64,
+              branch: GH_BRANCH,
+              ...(sha ? { sha } : {}),
+            }),
+          });
+          const retryable = putRes.status >= 500 || putRes.status === 409;
+          if (putRes.ok || !retryable || attempt === 3) break;
+          await new Promise((r) => setTimeout(r, attempt * 1500));
+        }
         if (!putRes.ok) {
           const errText = await putRes.text();
           return json({ error: `GitHub write failed (${putRes.status}): ${errText}` }, 502, origin);
