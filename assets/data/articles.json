@@ -75,75 +75,35 @@
     "ownerSlug": "jin-c"
   },
   {
-    "slug": "why-2025-future-begins-with-questions",
-    "title": "WHY: 2025 Future Begins with Questions",
-    "category": "Global Forum",
-    "date": "2026.09.05",
-    "lead": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
-    "coverImagePath": "assets/uploads/add-new-project/cover.png",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "heading",
-        "text": "Our Beginnings: The Shift from 'What & How' to 'Why'"
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/add-new-project/block-1-opt.jpg",
-        "caption": "",
-        "text": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
-        "reverse": false
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/add-new-project/block-2.png",
-        "caption": "",
-        "text": "We have grown by continuously reflecting on what we create and how we advance. Every step of our journey has held its own meaning and value, leading us to where we stand today. Today, the world seeks not only what we create and how we create it, but crucially the 'WHY' behind it all.",
-        "reverse": true
-      }
-    ],
-    "ownerSlug": "jin-c",
-    "tags": [
-      "Global Forum",
-      "Design Leadership",
-      "Future Strategy"
-    ],
-    "categories": [
-      "Global Forum"
-    ]
-  },
-  {
-    "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
-    "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
+    "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
+    "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
     "category": "News",
     "date": "2026.10.17",
-    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
-    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
+    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
     "locked": false,
     "lockHash": null,
     "blocks": [
       {
-        "type": "heading",
-        "text": ""
-      },
-      {
         "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.jpg",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.jpg",
         "caption": "",
-        "text": "Professor Lee led “Understanding Design Intelligence” with Marília Biill, VP and Head of CMF Design at Kia, and Sujeong Choi, Senior Researcher. She also moderated\n“Rediscovering the Everyday” with Yeontaek Lee, CEO of LG Electronics’ MyTasteCompany. FRAME is a culture and arts conference organised by Art Busan. Its first edition featured 10 sessions and 18 speakers across city, architecture, design, technology and lifestyle.",
+        "text": "Professor Lee led a conversation with Simon Loasby, Head of Hyundai Design Center, and Betty J. Chung, Professor and Academic Director of Korea University Global MBA.\nFRAME is a global art and culture conference hosted by Busan Metropolitan City and organised by Art Busan. Now in its second year, it ran over two days and featured 16 leaders\nfrom eight fields across six sessions.",
         "reverse": false
       },
       {
-        "type": "heading",
-        "text": ""
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg",
+        "caption": "",
+        "text": "This year’s theme was “People Who Stand by Their Convictions.” The session explored how leaders navigate diverse cultures and markets while staying true to their own philosophy and identity. It also examined how cultural perspectives can become a foundation for sustainable business and lasting value.",
+        "reverse": true
       },
       {
         "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.jpg",
+        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg",
         "caption": "",
-        "text": "Running across both days, the Future Culture track explored new senses and forms of art shaped by technology, including AI, design intelligence and biomimicry. The first session looked at how lessons from nature can drive creative innovation. The second traced creative thinking from craft to future living. Around 200 participants joined FRAME 2025, which opened a new space for dialogue between the city and the arts. The sessions offered a chance to reflect on the role of design in connecting technology and everyday life.",
-        "reverse": true
+        "text": "Both days of FRAME 2026 sold out, drawing around 250 participants. Around 70 percent were in their 20s and 30s. The session offered a space to explore what global design leadership means where design, business and culture meet.",
+        "reverse": false
       }
     ],
     "ownerSlug": "jin-c",
@@ -199,6 +159,45 @@
     ]
   },
   {
+    "slug": "why-2025-future-begins-with-questions",
+    "title": "WHY: 2025 Future Begins with Questions",
+    "category": "Global Forum",
+    "date": "2026.09.05",
+    "lead": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
+    "coverImagePath": "assets/uploads/add-new-project/cover.png",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Our Beginnings: The Shift from 'What & How' to 'Why'"
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/add-new-project/block-1-opt.jpg",
+        "caption": "",
+        "text": "In a rapidly changing world of instant answers and uncertainty, the most fundamental compass we hold is 'WHY'. WHY 2025 explores new directions and the purpose of design leadership through essential questions.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/add-new-project/block-2.png",
+        "caption": "",
+        "text": "We have grown by continuously reflecting on what we create and how we advance. Every step of our journey has held its own meaning and value, leading us to where we stand today. Today, the world seeks not only what we create and how we create it, but crucially the 'WHY' behind it all.",
+        "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c",
+    "tags": [
+      "Global Forum",
+      "Design Leadership",
+      "Future Strategy"
+    ],
+    "categories": [
+      "Global Forum"
+    ]
+  },
+  {
     "slug": "designing-the-boundary",
     "title": "Designing the Boundary — Human Dignity That Design Must Uphold in an Era of Acceleration",
     "category": "Design",
@@ -247,36 +246,6 @@
     ]
   },
   {
-    "slug": "human-factors-in-leadership-deia-design-workshop-held-at-hon",
-    "title": "Human Factors in Leadership (DEIA & Design) Workshop Held at Hongik University",
-    "category": "Design",
-    "date": "2026.10.20",
-    "lead": "The international design workshop “Human Factors in Leadership (DEIA & Design)” took place from December 9 to 12, 2024, at Yemungwan Hall, Hongik University. The program aimed to develop future leaders by combining design leadership with a global mindset.",
-    "coverImagePath": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/cover.jpeg",
-    "locked": false,
-    "lockHash": null,
-    "blocks": [
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-0.jpeg",
-        "caption": "",
-        "text": "The workshop integrated DEIA (Diversity, Equity, Inclusion, Accessibility) values into design. It offered a platform for inclusive design practice and stronger strategic thinking. Participants included Hongik University students in emerging technology design and students from the International Design School for Advanced Studies (IDAS).\n\nTwo facilitators led the program. Enrique Martinez is a professor at the Federal Executive Institute, part of the U.S. Office of Personnel Management (OPM), and an expert in government design leadership. Professor Cathy Yeonchoo Lee teaches Design Management at IDAS.",
-        "reverse": false
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-1.jpeg",
-        "caption": "",
-        "text": "Over four days, the facilitators examined how design leadership shapes corporate strategy and government policy. They presented a range of problem-solving strategies and innovative approaches. Participants explored DEIA-centered design thinking and practice, building strategic skills and a broader global perspective.\n\nThe program also included a dialogue with UNDP (United Nations Development Programme). The discussion covered DEI-driven business strategy and directions for policy research. UNDP works in around 170 countries to end poverty, reduce inequality and support sustainable development.\n\nThe workshop offered a space to explore how inclusive values can shape design leadership across business and public policy. More programs are planned to develop creative leadership and global design talent.",
-        "reverse": true
-      }
-    ],
-    "ownerSlug": "jin-c",
-    "categories": [
-      "Design"
-    ]
-  },
-  {
     "slug": "international-design-workshop-apart-together-held-at-hongik-",
     "title": "International Design Workshop “Apart — Together” Held at Hongik University with UNDP",
     "category": "Design",
@@ -314,35 +283,36 @@
     "ownerSlug": "jin-c"
   },
   {
-    "slug": "professor-cathy-lee-moderates-global-mindset-session-at-fram",
-    "title": "Professor Cathy Lee Moderates Global Mindset Session at FRAME 2026",
+    "slug": "professor-cathy-lee-moderates-future-culture-sessions-at-fra",
+    "title": "Professor Cathy Lee Moderates Future Culture Sessions at FRAME 2025",
     "category": "News",
     "date": "2026.10.17",
-    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated the “Global Mindset” session on 9 October, the first day of\nFRAME 2026 at Nurimaru APEC House in Busan.",
-    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/cover.jpg",
+    "lead": "Professor Cathy Lee of Hongik University’s International Design School for Advanced\nStudies (IDAS) moderated two sessions in the “Future Culture” track at FRAME 2025. The\nevent took place on 23 and 24 September 2025 at Grand Josun Busan.",
+    "coverImagePath": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/cover.jpg",
     "locked": false,
     "lockHash": null,
     "blocks": [
       {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-0.jpg",
-        "caption": "",
-        "text": "Professor Lee led a conversation with Simon Loasby, Head of Hyundai Design Center, and Betty J. Chung, Professor and Academic Director of Korea University Global MBA.\nFRAME is a global art and culture conference hosted by Busan Metropolitan City and organised by Art Busan. Now in its second year, it ran over two days and featured 16 leaders\nfrom eight fields across six sessions.",
-        "reverse": false
+        "type": "heading",
+        "text": ""
       },
       {
         "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-1.jpg",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-1.jpg",
         "caption": "",
-        "text": "This year’s theme was “People Who Stand by Their Convictions.” The session explored how leaders navigate diverse cultures and markets while staying true to their own philosophy and identity. It also examined how cultural perspectives can become a foundation for sustainable business and lasting value.",
+        "text": "Professor Lee led “Understanding Design Intelligence” with Marília Biill, VP and Head of CMF Design at Kia, and Sujeong Choi, Senior Researcher. She also moderated\n“Rediscovering the Everyday” with Yeontaek Lee, CEO of LG Electronics’ MyTasteCompany. FRAME is a culture and arts conference organised by Art Busan. Its first edition featured 10 sessions and 18 speakers across city, architecture, design, technology and lifestyle.",
+        "reverse": false
+      },
+      {
+        "type": "heading",
+        "text": ""
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/professor-cathy-lee-moderates-future-culture-sessions-at-fra/block-3.jpg",
+        "caption": "",
+        "text": "Running across both days, the Future Culture track explored new senses and forms of art shaped by technology, including AI, design intelligence and biomimicry. The first session looked at how lessons from nature can drive creative innovation. The second traced creative thinking from craft to future living. Around 200 participants joined FRAME 2025, which opened a new space for dialogue between the city and the arts. The sessions offered a chance to reflect on the role of design in connecting technology and everyday life.",
         "reverse": true
-      },
-      {
-        "type": "row",
-        "image": "assets/uploads/professor-cathy-lee-moderates-global-mindset-session-at-fram/block-2.jpg",
-        "caption": "",
-        "text": "Both days of FRAME 2026 sold out, drawing around 250 participants. Around 70 percent were in their 20s and 30s. The session offered a space to explore what global design leadership means where design, business and culture meet.",
-        "reverse": false
       }
     ],
     "ownerSlug": "jin-c",
@@ -351,6 +321,36 @@
     ],
     "categories": [
       "News"
+    ]
+  },
+  {
+    "slug": "human-factors-in-leadership-deia-design-workshop-held-at-hon",
+    "title": "Human Factors in Leadership (DEIA & Design) Workshop Held at Hongik University",
+    "category": "Design",
+    "date": "2026.10.20",
+    "lead": "The international design workshop “Human Factors in Leadership (DEIA & Design)” took place from December 9 to 12, 2024, at Yemungwan Hall, Hongik University. The program aimed to develop future leaders by combining design leadership with a global mindset.",
+    "coverImagePath": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/cover.jpeg",
+    "locked": false,
+    "lockHash": null,
+    "blocks": [
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-0.jpeg",
+        "caption": "",
+        "text": "The workshop integrated DEIA (Diversity, Equity, Inclusion, Accessibility) values into design. It offered a platform for inclusive design practice and stronger strategic thinking. Participants included Hongik University students in emerging technology design and students from the International Design School for Advanced Studies (IDAS).\n\nTwo facilitators led the program. Enrique Martinez is a professor at the Federal Executive Institute, part of the U.S. Office of Personnel Management (OPM), and an expert in government design leadership. Professor Cathy Yeonchoo Lee teaches Design Management at IDAS.",
+        "reverse": false
+      },
+      {
+        "type": "row",
+        "image": "assets/uploads/articles/human-factors-in-leadership-deia-design-workshop-held-at-hon/block-1.jpeg",
+        "caption": "",
+        "text": "Over four days, the facilitators examined how design leadership shapes corporate strategy and government policy. They presented a range of problem-solving strategies and innovative approaches. Participants explored DEIA-centered design thinking and practice, building strategic skills and a broader global perspective.\n\nThe program also included a dialogue with UNDP (United Nations Development Programme). The discussion covered DEI-driven business strategy and directions for policy research. UNDP works in around 170 countries to end poverty, reduce inequality and support sustainable development.\n\nThe workshop offered a space to explore how inclusive values can shape design leadership across business and public policy. More programs are planned to develop creative leadership and global design talent.",
+        "reverse": true
+      }
+    ],
+    "ownerSlug": "jin-c",
+    "categories": [
+      "Design"
     ]
   }
 ]
