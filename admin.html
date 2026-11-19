@@ -335,7 +335,8 @@
             <button class="admin-nav-item" type="button" data-view="articles" onclick="showAdminView('articles')">Works</button>
             <button class="admin-nav-item" type="button" data-view="partners" onclick="showAdminView('partners')">Partners</button>
             <button class="admin-nav-item" type="button" data-view="team" onclick="showAdminView('team')">Team</button>
-            <button class="admin-nav-item" type="button" data-view="footer" onclick="showAdminView('footer')">Footer</button>
+            <button class="admin-nav-item" type="button" data-view="manifesto" onclick="showAdminView('manifesto')">Manifesto</button>
+            <button class="admin-nav-item" type="button" data-view="footer" onclick="showAdminView('footer')">Links</button>
             <button class="admin-nav-item" type="button" data-view="publish" onclick="showAdminView('publish')">Publish</button>
           </nav>
           <div class="admin-sidebar-bottom">
@@ -457,10 +458,20 @@
         <!-- ═══ FOOTER ═══ -->
         <section class="admin-view" id="view-footer" data-view="footer">
           <div class="admin-view-head">
-            <h1>Footer</h1>
-            <p>모든 페이지 맨 아래 SOCIAL 영역의 링크예요. 링크를 비워두면 글자만 보이고 클릭은 안 돼요.</p>
+            <h1>Links</h1>
+            <p>메뉴의 Join 탭 링크와, 모든 페이지 맨 아래 SOCIAL 영역의 링크예요. Publish를 눌러야 실제 사이트에 반영돼요.</p>
           </div>
           <div>
+            <div class="admin-section-head"><h2>Join 탭</h2></div>
+            <p class="hint" style="margin-top:8px;">메뉴의 Join을 눌렀을 때 열릴 주소예요 (예: 가입 신청 Google Form). 새 탭으로 열려요. 비워두면 Join은 메뉴에 보이기만 하고 눌러도 이동하지 않아요.</p>
+            <div class="admin-field" style="margin-top:12px;">
+              <label for="sc-join-url">Join URL</label>
+              <input type="url" id="sc-join-url" oninput="updateSiteField('joinUrl', this.value.trim())" placeholder="https://forms.gle/..."/>
+            </div>
+          </div>
+          <div>
+            <div class="admin-section-head"><h2>Footer SOCIAL</h2></div>
+            <p class="hint" style="margin-top:8px;">링크를 비워두면 글자만 보이고 클릭은 안 돼요.</p>
             <div class="admin-field">
               <label for="sc-footer-instagram">Instagram URL</label>
               <input type="url" id="sc-footer-instagram" oninput="updateFooterLink('instagram', this.value)" placeholder="https://www.instagram.com/..."/>
@@ -469,6 +480,32 @@
               <label for="sc-footer-linkedin">LinkedIn URL</label>
               <input type="url" id="sc-footer-linkedin" oninput="updateFooterLink('linkedin', this.value)" placeholder="https://www.linkedin.com/..."/>
             </div>
+          </div>
+        </section>
+
+        <!-- ═══ MANIFESTO ═══ -->
+        <section class="admin-view" id="view-manifesto" data-view="manifesto">
+          <div class="admin-view-head">
+            <h1>Manifesto</h1>
+            <p>Manifesto 페이지(manifesto.html) 내용이에요. 수정한 뒤 Publish를 눌러야 실제 사이트에 반영돼요.</p>
+          </div>
+          <div>
+            <div class="admin-field">
+              <label for="mf-title">Title</label>
+              <textarea id="mf-title" style="min-height:60px;" oninput="updateManifestoField('title', this.value)"></textarea>
+            </div>
+            <div class="admin-field" style="margin-top:12px;">
+              <label for="mf-lead">Lead (제목 아래 소개 문단)</label>
+              <textarea id="mf-lead" oninput="updateManifestoField('lead', this.value)"></textarea>
+            </div>
+          </div>
+          <div>
+            <div class="admin-section-head">
+              <h2>Principles</h2>
+              <button class="btn-outline" type="button" onclick="addManifestoItem()">+ Add Principle</button>
+            </div>
+            <p class="hint" style="margin-top:8px;">번호(01, 02…)는 순서대로 자동으로 붙어요. 화살표로 순서를 바꿀 수 있어요.</p>
+            <div class="admin-project-list" id="manifesto-item-list"></div>
           </div>
         </section>
 
@@ -1025,6 +1062,40 @@
         image: 'assets/uploads/site/feature-2.png'
       }
     ],
+    // Manifesto page content (manifesto.html is rebuilt from this on every Publish).
+    manifesto: {
+          "title": "Shaping the Future through Global Design Leadership",
+          "lead": "We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence.",
+          "items": [
+                {
+                      "name": "Humanity",
+                      "sub": "Love for Humanity",
+                      "body": "We honor human dignity and believe in each person’s capacity to learn, create, and contribute. Empathy and respect guide how we think and act. We seek to understand lives beyond our own and consider how our choices affect others."
+                },
+                {
+                      "name": "Global Mindset",
+                      "sub": "Curiosity and Openness Beyond Boundaries",
+                      "body": "Curiosity and openness broaden our view of the world. We seek out perspectives that challenge our assumptions and deepen our understanding. Through dialogue and exchange across cultures and disciplines, we build the relationships and trust that make collaboration possible."
+                },
+                {
+                      "name": "Design Leadership",
+                      "sub": "Shaping Vision, Inspiring People, Building Cultures",
+                      "body": "Design leadership connects imagination with strategic judgment. It gives ideas direction, brings people together around a shared purpose, and builds cultures where people can contribute and act. We cultivate curiosity, trust, and ownership so that a shared vision leads to meaningful change."
+                },
+                {
+                      "name": "Possibilities",
+                      "sub": "Exploring the Future of Business",
+                      "body": "New possibilities emerge where design, technology, and human intelligence meet. We explore what they could mean for the future of business and the ways we live and work. Through imagination and experimentation, we give ideas form and discover new sources of value."
+                },
+                {
+                      "name": "Empowerment",
+                      "sub": "Individual Growth, Shared Excellence",
+                      "body": "Creative minds thrive when they have the freedom to grow and the support to pursue their ideas. We share knowledge and experience, helping people develop the capacity to lead. Each person’s growth strengthens our community, making excellence a shared pursuit."
+                }
+          ]
+    },
+    // Nav "Join" tab target (external sign-up form). Empty = the tab shows but goes nowhere.
+    joinUrl: '',
     // Footer SOCIAL links (every page). Empty string = rendered as plain text, not a link.
     footerLinks: {
       instagram: 'https://www.instagram.com/clab_leadership_and_branding/',
@@ -1342,6 +1413,14 @@
   function currentNavVisibility() {
     return (siteContent && siteContent.navVisibility) || SEED_SITE_CONTENT.navVisibility;
   }
+  // Nav "Join" tab: opens siteContent.joinUrl in a new tab; with no URL set yet it still
+  // shows (as requested) but is an inert "#" link.
+  function joinNavParts() {
+    const url = ((siteContent && siteContent.joinUrl) || '').trim();
+    return url
+      ? { href: escapeHtml(url), attrs: ' target="_blank" rel="noopener"', label: 'Join <span aria-hidden="true">↗</span>' }
+      : { href: '#', attrs: '', label: 'Join' };
+  }
   function navLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
@@ -1355,7 +1434,8 @@
             ${FORUM_DROPDOWN_LIST_HTML}
           </div>
         </div>
-        ${articleHtml}${contactHtml}<div class="link-wrapper"><a class="link-2" href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>`;
+        ${articleHtml}${contactHtml}<div class="link-wrapper"><a class="link-2" href="${joinNavParts().href}"${joinNavParts().attrs}>${joinNavParts().label}</a></div>
+        <div class="link-wrapper"><a class="link-2" href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>`;
   }
   // Desktop nav links for "style 2" pages (team pages only — .nav-links-wrap has no
   // per-item wrapper div, just bare <a> children).
@@ -1372,7 +1452,8 @@
           ${FORUM_DROPDOWN_LIST_HTML}
         </div>
       </div>
-      ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>`;
+      ${articleHtml}${contactHtml}<a href="${joinNavParts().href}"${joinNavParts().attrs}>${joinNavParts().label}</a>
+      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
   // Mobile slide-down nav content — shared by both styles (both use the same
   // ".mobile-nav" overlay markup/CSS). Forum expands in place via <details>, since hover
@@ -1388,7 +1469,8 @@
       <summary>Forum</summary>
       <div class="mobile-forum-list">${FORUM_DROPDOWN_LIST_HTML}</div>
     </details>
-    ${articleHtml}${contactHtml}<a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
+    ${articleHtml}${contactHtml}<a href="${joinNavParts().href}"${joinNavParts().attrs} onclick="closeMobileNav()">${joinNavParts().label}</a>
+    <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>`;
   }
   // 2026-09: footer redesign — LAYOUT/typography from the Figma "Home" mobile spec (just
   // the IDAS + Hongik University marks — the association's own GDLA/CLAB marks were dropped
@@ -1406,6 +1488,65 @@
   function footerSocialLinkHtml(label, url, cls) {
     const inner = `<div class="${cls}">${label}</div>`;
     return url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${inner}</a>` : inner;
+  }
+  const MANIFESTO_PAGE_CSS = `
+    /* ═══ MANIFESTO PAGE CSS START ═══ */
+    .manifesto-hero { width: 100%; padding: 40px 0 120px; display: flex; flex-direction: column; gap: 32px; }
+    .manifesto-eyebrow { margin: 0; font-family: var(--header-header-5-font-family); font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: var(--paragraph-2); text-transform: uppercase; }
+    .manifesto-title { margin: 0; max-width: 1250px; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 110%; color: #000; }
+    .manifesto-lead { margin: 0; max-width: 900px; font-family: var(--paragraph-1-font-family); font-size: 24px; letter-spacing: -0.8px; line-height: 135%; color: #000; }
+    .manifesto-list { width: 100%; display: flex; flex-direction: column; padding-bottom: 120px; }
+    .manifesto-item { display: grid; grid-template-columns: 8% 34% 1fr; gap: 0 3%; padding: 40px 0 48px; border-top: 1px solid var(--divider, #000); }
+    .manifesto-num { font-family: var(--header-header-5-font-family); font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: var(--paragraph-2); padding-top: 10px; }
+    .manifesto-name { margin: 0; font-family: var(--header-header-2-font-family); font-weight: 400; font-size: 37px; letter-spacing: -1.11px; line-height: 105%; color: #000; }
+    .manifesto-sub { margin: 10px 0 0; font-family: var(--paragraph-1-font-family); font-size: 20px; letter-spacing: -1px; line-height: 121%; color: var(--paragraph-2); }
+    .manifesto-body { margin: 0; max-width: 760px; font-family: var(--paragraph-1-font-family); font-size: 20px; letter-spacing: -0.6px; line-height: 145%; color: #000; padding-top: 6px; }
+    @media (max-width: 768px) {
+      .manifesto-hero { padding: 24px 0 64px; gap: 20px; }
+      .manifesto-title { font-size: 36px; letter-spacing: -1.8px; }
+      .manifesto-lead { font-size: 18px; letter-spacing: -0.5px; }
+      .manifesto-list { padding-bottom: 64px; }
+      .manifesto-item { grid-template-columns: 1fr; gap: 12px; padding: 28px 0 36px; }
+      .manifesto-num { padding-top: 0; }
+      .manifesto-name { font-size: 28px; letter-spacing: -1.2px; }
+      .manifesto-sub { margin-top: 6px; font-size: 17px; letter-spacing: -0.5px; }
+      .manifesto-body { font-size: 17px; letter-spacing: -0.4px; }
+    }
+    /* ═══ MANIFESTO PAGE CSS END ═══ */
+`;
+  function buildManifestoMainHtml(m) {
+    const data = (m && Array.isArray(m.items)) ? m : SEED_SITE_CONTENT.manifesto;
+    const nl2br = (str) => escapeHtml(str || '').replace(/\r?\n/g, '<br/>');
+    const itemsHtml = data.items.map((it, idx) => {
+      const i = idx + 1;
+      return `
+      <article class="manifesto-item" aria-labelledby="manifesto-${i}">
+        <div class="manifesto-num">${String(i).padStart(2, '0')}</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-${i}">${escapeHtml(it.name || '')}</h2>
+          <p class="manifesto-sub">${escapeHtml(it.sub || '')}</p>
+        </div>
+        <p class="manifesto-body">${nl2br(it.body)}</p>
+      </article>`;
+    }).join('');
+    return `<main class="main">
+
+    <section class="manifesto-hero" aria-labelledby="manifesto-title">
+      <p class="manifesto-eyebrow">Manifesto</p>
+      <h1 class="manifesto-title" id="manifesto-title">${nl2br(data.title)}</h1>
+      <p class="manifesto-lead">${nl2br(data.lead)}</p>
+    </section>
+
+    <section class="manifesto-list" aria-label="Our principles">${itemsHtml}
+    </section>
+
+  </main>`;
+  }
+  function buildManifestoPage(html, m) {
+    let out = html.replace(/<main class="main">[\s\S]*?<\/main>/, buildManifestoMainHtml(m));
+    out = out.replace(/\n    \/\* ═══ MANIFESTO PAGE CSS START ═══ \*\/[\s\S]*?\/\* ═══ MANIFESTO PAGE CSS END ═══ \*\/\n/, '');
+    out = out.replace('</style>', MANIFESTO_PAGE_CSS + '\n  </style>');
+    return out;
   }
   function buildFooterHtml(prefix = '') {
     const links = (siteContent && siteContent.footerLinks) || SEED_SITE_CONTENT.footerLinks;
@@ -2061,6 +2202,10 @@
     if (siteContent.introLead == null) siteContent.introLead = SEED_SITE_CONTENT.introLead;
     if (siteContent.introText == null) siteContent.introText = SEED_SITE_CONTENT.introText;
     if (siteContent.introBody == null) siteContent.introBody = '';
+    if (!siteContent.manifesto || !Array.isArray(siteContent.manifesto.items)) {
+      siteContent.manifesto = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.manifesto));
+    }
+    if (siteContent.joinUrl == null) siteContent.joinUrl = '';
     if (!Array.isArray(siteContent.features)) {
       siteContent.features = JSON.parse(JSON.stringify(SEED_SITE_CONTENT.features));
     }
@@ -2079,6 +2224,58 @@
     ensureSiteContentShape();
     siteContent[field] = value;
   };
+  /* ═══════════════════ MANIFESTO (title / lead / principles) ═══════════════════ */
+  window.updateManifestoField = function (field, value) {
+    ensureSiteContentShape();
+    siteContent.manifesto[field] = value;
+  };
+  function renderManifestoItems() {
+    const listEl = document.getElementById('manifesto-item-list');
+    if (!listEl) return;
+    const items = siteContent.manifesto.items;
+    if (!items.length) {
+      listEl.innerHTML = '<p class="admin-empty">원칙이 없어요. "+ Add Principle"로 추가해보세요.</p>';
+      return;
+    }
+    listEl.innerHTML = items.map((it, i) => `
+      <div class="admin-project-row" style="align-items:flex-start;">
+        <div class="admin-project-order">
+          <button class="admin-icon-btn" title="위로" ${i === 0 ? 'disabled' : ''} onclick="moveManifestoItem(${i}, -1)">▲</button>
+          <button class="admin-icon-btn" title="아래로" ${i === items.length - 1 ? 'disabled' : ''} onclick="moveManifestoItem(${i}, 1)">▼</button>
+        </div>
+        <div class="admin-project-info" style="display:flex;flex-direction:column;gap:8px;">
+          <div class="meta">${String(i + 1).padStart(2, '0')}</div>
+          <input type="text" class="admin-field-inline" style="max-width:none;" placeholder="이름 (예: Humanity)" value="${escapeHtml(it.name || '')}" oninput="updateManifestoItem(${i}, 'name', this.value)"/>
+          <input type="text" class="admin-field-inline" style="max-width:none;" placeholder="부제 (예: Love for Humanity)" value="${escapeHtml(it.sub || '')}" oninput="updateManifestoItem(${i}, 'sub', this.value)"/>
+          <textarea class="admin-field-inline" style="max-width:none;min-height:96px;resize:vertical;" placeholder="본문" oninput="updateManifestoItem(${i}, 'body', this.value)">${escapeHtml(it.body || '')}</textarea>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-icon-btn danger" title="삭제" onclick="deleteManifestoItem(${i})">🗑</button>
+        </div>
+      </div>`).join('');
+  }
+  window.updateManifestoItem = function (i, field, value) {
+    ensureSiteContentShape();
+    if (siteContent.manifesto.items[i]) siteContent.manifesto.items[i][field] = value;
+  };
+  window.moveManifestoItem = function (i, dir) {
+    const items = siteContent.manifesto.items;
+    const j = i + dir;
+    if (j < 0 || j >= items.length) return;
+    [items[i], items[j]] = [items[j], items[i]];
+    renderManifestoItems();
+  };
+  window.deleteManifestoItem = function (i) {
+    if (!confirm('이 원칙을 삭제할까요?\n(Publish 해야 실제 반영돼요)')) return;
+    siteContent.manifesto.items.splice(i, 1);
+    renderManifestoItems();
+  };
+  window.addManifestoItem = function () {
+    ensureSiteContentShape();
+    siteContent.manifesto.items.push({ name: '', sub: '', body: '' });
+    renderManifestoItems();
+  };
+
   window.updateFooterLink = function (key, value) {
     ensureSiteContentShape();
     siteContent.footerLinks[key] = value.trim();
@@ -2100,6 +2297,10 @@
     document.getElementById('sc-specialties-items').value = (siteContent.specialtiesItems || []).join('\n');
     document.getElementById('sc-footer-instagram').value = siteContent.footerLinks.instagram || '';
     document.getElementById('sc-footer-linkedin').value = siteContent.footerLinks.linkedin || '';
+    document.getElementById('sc-join-url').value = siteContent.joinUrl || '';
+    document.getElementById('mf-title').value = siteContent.manifesto.title || '';
+    document.getElementById('mf-lead').value = siteContent.manifesto.lead || '';
+    renderManifestoItems();
     renderFeatureList();
   }
 
@@ -5456,12 +5657,12 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
         log('✅ ' + teamPath + ' 업데이트 완료');
       }
 
-      // manifesto.html is hand-written content (not admin data) — Publish only refreshes its
-      // nav/footer so a nav or footer change reaches it like every other page.
-      log(MANIFESTO_PATH + ' 메뉴·푸터 확인 중...');
+      // manifesto.html: <main> rebuilt from siteContent.manifesto (admin "Manifesto" menu),
+      // nav/footer refreshed like every other page.
+      log(MANIFESTO_PATH + ' 확인 중...');
       const manifestoFile = await getFile(MANIFESTO_PATH);
       if (manifestoFile) {
-        const newManifestoHtml = applyGlobalPageFixes(patchStyle1Nav(manifestoFile.content, ''));
+        const newManifestoHtml = applyGlobalPageFixes(patchStyle1Nav(buildManifestoPage(manifestoFile.content, siteContent && siteContent.manifesto), ''));
         if (newManifestoHtml !== manifestoFile.content) {
           await putFile(MANIFESTO_PATH, newManifestoHtml, `Update manifesto nav/footer via admin (${currentPerson.name})`);
           log('✅ ' + MANIFESTO_PATH + ' 업데이트 완료');

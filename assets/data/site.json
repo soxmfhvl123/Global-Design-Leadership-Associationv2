@@ -35,5 +35,37 @@
   "sectionVisibility": {
     "thesis": true
   },
-  "introBody": "We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence."
+  "introBody": "We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence.",
+  "manifesto": {
+    "title": "Shaping the Future through Global Design Leadership",
+    "lead": "We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence.",
+    "items": [
+      {
+        "name": "Humanity",
+        "sub": "Love for Humanity",
+        "body": "We honor human dignity and believe in each person’s capacity to learn, create, and contribute. Empathy and respect guide how we think and act. We seek to understand lives beyond our own and consider how our choices affect others."
+      },
+      {
+        "name": "Global Mindset",
+        "sub": "Curiosity and Openness Beyond Boundaries",
+        "body": "Curiosity and openness broaden our view of the world. We seek out perspectives that challenge our assumptions and deepen our understanding. Through dialogue and exchange across cultures and disciplines, we build the relationships and trust that make collaboration possible."
+      },
+      {
+        "name": "Design Leadership",
+        "sub": "Shaping Vision, Inspiring People, Building Cultures",
+        "body": "Design leadership connects imagination with strategic judgment. It gives ideas direction, brings people together around a shared purpose, and builds cultures where people can contribute and act. We cultivate curiosity, trust, and ownership so that a shared vision leads to meaningful change."
+      },
+      {
+        "name": "Possibilities",
+        "sub": "Exploring the Future of Business",
+        "body": "New possibilities emerge where design, technology, and human intelligence meet. We explore what they could mean for the future of business and the ways we live and work. Through imagination and experimentation, we give ideas form and discover new sources of value."
+      },
+      {
+        "name": "Empowerment",
+        "sub": "Individual Growth, Shared Excellence",
+        "body": "Creative minds thrive when they have the freedom to grow and the support to pursue their ideas. We share knowledge and experience, helping people develop the capacity to lead. Each person’s growth strengthens our community, making excellence a shared pursuit."
+      }
+    ]
+  },
+  "joinUrl": ""
 }
