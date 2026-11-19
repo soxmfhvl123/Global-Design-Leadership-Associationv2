@@ -1,17 +1,17 @@
 {
   "introLead": "Global Design Leadership Association",
-  "introText": "is an organization to create social value and integrating design and leadership through forums, education, research, and public-interest initiatives.",
+  "introText": "Shaping the Future through Global Design Leadership",
   "features": [
     {
       "id": "seed-feature-1",
-      "title": "From Designer\nto Entrepreneur",
-      "description": "We'll explore how to use AI to build your own business system, turn your creative work into a sustainable business, protect your IP, and set yourself up as an entrepreneur.",
+      "title": "The Art of Design Leadership",
+      "description": "Design leadership goes beyond creativity. It is about shaping vision, inspiring people, building cultures, and driving meaningful transformation. We empower creative minds to become leaders who shape the future.",
       "image": "assets/uploads/site/feature-1.png"
     },
     {
       "id": "seed-feature-2",
-      "title": "Build Your Own Business System",
-      "description": "If you're working at a company, we'll also talk about how to grow from a creative role into a leadership position—and eventually make your way to the C-suite.",
+      "title": "A Global Mindset for Future Business",
+      "description": "In a world without boundaries, the future belongs to those who think beyond disciplines, industries, and cultures. We explore how design, technology, and human intelligence can create new possibilities for future business.",
       "image": "assets/uploads/site/feature-2.png"
     }
   ],
@@ -34,5 +34,6 @@
   },
   "sectionVisibility": {
     "thesis": true
-  }
+  },
+  "introBody": "We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence."
 }
