@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Manifesto — Global Design Leadership Association</title>
+  <meta name="description" content="We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ─── styleguide.css variables ─── */
+    :root {
+      --background: rgba(255,255,255,1);
+      --paragraph-1: rgba(0,0,0,1);
+      --paragraph-2: rgba(118,118,118,1);
+      --divider: rgba(0,0,0,1);
+
+      --header-header-1-font-family: "Instrument Sans", Helvetica;
+      --header-header-1-font-weight: 400;
+      --header-header-1-font-size: 64px;
+      --header-header-1-letter-spacing: -3.2px;
+      --header-header-1-line-height: 100%;
+      --header-header-1-font-style: normal;
+
+      --header-header-2-font-family: "Instrument Sans", Helvetica;
+      --header-header-2-font-weight: 400;
+      --header-header-2-font-size: 37px;
+      --header-header-2-letter-spacing: -1.11px;
+      --header-header-2-line-height: 100%;
+      --header-header-2-font-style: normal;
+
+      --header-header-5-font-family: "Instrument Sans", Helvetica;
+      --header-header-5-font-weight: 600;
+      --header-header-5-font-size: 16px;
+      --header-header-5-letter-spacing: -0.48px;
+      --header-header-5-line-height: 100%;
+      --header-header-5-font-style: normal;
+
+      --paragraph-1-font-family: "Instrument Sans", Helvetica;
+      --paragraph-1-font-weight: 400;
+      --paragraph-1-font-size: 20px;
+      --paragraph-1-letter-spacing: -1px;
+      --paragraph-1-line-height: 121%;
+      --paragraph-1-font-style: normal;
+
+      --paragraph-2-font-family: "Instrument Sans", Helvetica;
+      --paragraph-2-font-weight: 400;
+      --paragraph-2-font-size: 16px;
+      --paragraph-2-letter-spacing: -0.48px;
+      --paragraph-2-line-height: 110%;
+      --paragraph-2-font-style: normal;
+
+      --display-1-font-family: "Instrument Sans", Helvetica;
+      --display-1-font-weight: 400;
+      --display-1-font-size: 105px;
+      --display-1-letter-spacing: -5.25px;
+      --display-1-line-height: 110%;
+      --display-1-font-style: normal;
+
+      --text-link-font-family: "Instrument Sans", Helvetica;
+      --text-link-font-weight: 500;
+      --text-link-font-size: 16px;
+      --text-link-letter-spacing: -0.48px;
+      --text-link-line-height: 110%;
+      --text-link-font-style: normal;
+
+      --nav-link-font-family: "Instrument Sans", Helvetica;
+      --nav-link-font-weight: 400;
+      --nav-link-font-size: 20px;
+      --nav-link-letter-spacing: -1px;
+      --nav-link-line-height: 100%;
+      --nav-link-font-style: normal;
+    }
+
+    /* ─── globals.css reset ─── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
+    * { -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+    img { display: block; }
+    h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+    button:focus-visible {
+      outline: 2px solid #4a90e2 !important;
+    }
+    @font-face {
+      font-family: "Instrument Sans";
+      src: local("Instrument Sans");
+    }
+
+    /* ─── Desktop wrapper ─── */
+    .desktop {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      align-items: center;
+      padding: 0 40px;
+      position: relative;
+      background-color: var(--background);
+    }
+
+    /* ─── NAV ─── */
+    .nav-header-2 {
+      display: flex;
+      width: 100%;
+      height: 46px;
+      align-items: center;
+      padding: 0 40px;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 200;
+      background-color: var(--background);
+      max-width: 1920px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* fallback for full-width */
+    @supports not (max-width: 1280px) {
+      .nav-header-2 { left: 0; transform: none; }
+    }
+    .logotype-contain {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px 10px 0;
+      position: relative;
+      flex: 1;
+      align-self: stretch;
+      flex-grow: 1;
+      border-bottom: 1px solid var(--divider);
+    }
+    .f-f-logo {
+      position: relative;
+      width: 310px;
+      height: 24px;
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 0 4px;
+      position: relative;
+    }
+    .nav-link .link {
+      position: relative;
+      width: fit-content;
+      font-family: "Instrument Sans", Helvetica;
+      font-weight: 400;
+      color: #000;
+      font-size: 20px;
+      letter-spacing: -1px;
+      line-height: 20px;
+      white-space: nowrap;
+    }
+    .links-contain {
+      display: flex;
+      max-width: 615px;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 189px;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+      align-self: stretch;
+    }
+    .text-links {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 50px;
+      padding: 12px 0 10px 20px;
+      position: relative;
+      flex: 1;
+      align-self: stretch;
+      flex-grow: 1;
+      background-color: var(--background);
+      border-bottom: 1px solid var(--divider);
+    }
+    .link-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 0 4px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .link-2 {
+      width: fit-content;
+      white-space: nowrap;
+      position: relative;
+      font-family: var(--nav-link-font-family);
+      font-weight: var(--nav-link-font-weight);
+      color: var(--paragraph-1);
+      font-size: var(--nav-link-font-size);
+      letter-spacing: var(--nav-link-letter-spacing);
+      line-height: var(--nav-link-line-height);
+    }
+    .link-2:hover, .nav-link:hover { opacity: 0.6; }
+
+    /* ─── Nav spacer ─── */
+    .nav-spacer {
+      height: 46px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    /* ─── MAIN ─── */
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+
+    /* ─── INTRO / HERO ─── */
+    .intro-section {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 15px 0 120px;
+      position: relative;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .frame-logos {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .frame-logos .img {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+    .intro-h1 {
+      position: relative;
+      align-self: stretch;
+      font-family: var(--header-header-1-font-family);
+      font-weight: var(--header-header-1-font-weight);
+      color: #000;
+      font-size: var(--header-header-1-font-size);
+      letter-spacing: var(--header-header-1-letter-spacing);
+      line-height: var(--header-header-1-line-height);
+    }
+    .flexcontainer {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .flexcontainer .div {
+      position: relative;
+      align-self: stretch;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+
+    /* ─── Hero cards screenshot ─── */
+    .screenshot {
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 0;
+    }
+
+    /* ─── OUR WORKS section ─── */
+    .stats-section {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      align-items: center;
+      gap: 30px;
+      padding: 67px 0 100px;
+      width: 100%;
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .divider-line {
+      height: 1px;
+      background: var(--divider);
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+    }
+    .our-work-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0 0 40px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-2 {
+      position: relative;
+      width: fit-content;
+      margin-top: -1px;
+      font-family: var(--header-header-1-font-family);
+      font-weight: var(--header-header-1-font-weight);
+      color: #000;
+      font-size: var(--header-header-1-font-size);
+      letter-spacing: var(--header-header-1-letter-spacing);
+      line-height: var(--header-header-1-line-height);
+      white-space: nowrap;
+    }
+    .stats-content {
+      display: flex;
+      align-items: flex-start;
+      padding: 0 0 100px;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .stats-body {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 633px;
+      align-items: flex-start;
+      gap: 40px 0;
+      flex: 1;
+      flex-grow: 1;
+      position: relative;
+    }
+    .branding-list {
+      display: flex;
+      flex-direction: column;
+      min-width: 250px;
+      max-width: 300px;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 0 20px 0 0;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+    }
+    .text-wrapper-3 {
+      width: fit-content;
+      margin-top: -1px;
+      white-space: nowrap;
+      position: relative;
+      color: var(--paragraph-2);
+      font-family: var(--paragraph-2-font-family);
+      font-weight: var(--paragraph-2-font-weight);
+      font-size: var(--paragraph-2-font-size);
+      letter-spacing: var(--paragraph-2-letter-spacing);
+      line-height: var(--paragraph-2-line-height);
+    }
+    .flexcontainer-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .flexcontainer-2 .div {
+      position: relative;
+      align-self: stretch;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+
+    /* ─── PROJECT articles ─── */
+    .project-article {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 0 0 50px;
+      position: relative;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .image-strip {
+      width: calc(100% + 40px);
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    /* Placeholder image strip for projects without photos */
+    .image-strip-ph {
+      width: calc(100% + 40px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      height: 280px;
+    }
+    .image-strip-ph > div {
+      width: 100%;
+      height: 100%;
+    }
+    /* ─── Marquee image strip ─── */
+    .marquee-container {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+    .marquee-inner {
+      display: flex;
+      gap: 10px;
+      animation: marqueeLeft 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      flex-shrink: 0;
+      width: 460px;
+      height: 460px;
+      object-fit: cover;
+      display: block;
+    }
+    .marquee-ph {
+      flex-shrink: 0;
+      width: 460px;
+      height: 460px;
+    }
+    @keyframes marqueeLeft {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .project-description {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .project-title {
+      display: flex;
+      width: 341px;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+    }
+    .text-wrapper-4 {
+      position: relative;
+      width: fit-content;
+      margin-top: -1px;
+      font-family: var(--header-header-5-font-family);
+      font-weight: var(--header-header-5-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--header-header-5-font-size);
+      letter-spacing: var(--header-header-5-letter-spacing);
+      line-height: var(--header-header-5-line-height);
+      white-space: nowrap;
+    }
+    .titles {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .titles .p {
+      position: relative;
+      width: 286px;
+      margin-top: -1px;
+      font-family: var(--header-header-5-font-family);
+      font-weight: var(--header-header-5-font-weight);
+      color: #000;
+      font-size: var(--header-header-5-font-size);
+      letter-spacing: var(--header-header-5-letter-spacing);
+      line-height: var(--header-header-5-line-height);
+    }
+    .text-wrapper-5 {
+      position: relative;
+      width: 286px;
+      font-family: var(--header-header-5-font-family);
+      font-weight: var(--header-header-5-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--header-header-5-font-size);
+      letter-spacing: var(--header-header-5-letter-spacing);
+      line-height: var(--header-header-5-line-height);
+    }
+    .project-body-copy {
+      display: flex;
+      flex-direction: column;
+      max-width: 360px;
+      width: 316px;
+      align-items: flex-start;
+      gap: 30px;
+      position: relative;
+    }
+    .text-wrapper-6 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: var(--paragraph-2-font-family);
+      font-weight: var(--paragraph-2-font-weight);
+      color: #000;
+      font-size: var(--paragraph-2-font-size);
+      letter-spacing: var(--paragraph-2-letter-spacing);
+      line-height: var(--paragraph-2-line-height);
+    }
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      position: relative;
+      flex: 0 0 auto;
+      cursor: pointer;
+    }
+    .text-wrapper-7 {
+      position: relative;
+      width: fit-content;
+      margin-top: -1px;
+      font-family: var(--text-link-font-family);
+      font-weight: var(--text-link-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--text-link-font-size);
+      letter-spacing: var(--text-link-letter-spacing);
+      line-height: var(--text-link-line-height);
+      white-space: nowrap;
+    }
+    .see-more-projects {
+      align-self: flex-end;
+    }
+
+    /* ─── THESIS section ─── */
+    .awards-section {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      gap: 30px;
+      padding: 0 0 100px;
+      width: 100%;
+      flex: 0 0 auto;
+      align-items: flex-start;
+      position: relative;
+    }
+    .awards-content {
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .text-wrapper-8 {
+      position: relative;
+      flex: 1;
+      margin-top: -1px;
+      font-family: var(--header-header-1-font-family);
+      font-weight: var(--header-header-1-font-weight);
+      color: #000;
+      font-size: var(--header-header-1-font-size);
+      letter-spacing: var(--header-header-1-letter-spacing);
+      line-height: var(--header-header-1-line-height);
+    }
+    .awards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex: 1;
+      flex-grow: 1;
+      align-items: flex-start;
+      position: relative;
+    }
+    .awards-list > a {
+      display: block;
+      align-self: stretch;
+    }
+    .award {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-9 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+    .frame-2 {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-10 {
+      position: relative;
+      width: fit-content;
+      margin-top: -1px;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+      white-space: nowrap;
+    }
+    .text-wrapper-11 {
+      position: relative;
+      width: fit-content;
+      margin-top: -1px;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+      white-space: nowrap;
+    }
+    .divider-2 {
+      height: 1px;
+      background: var(--divider);
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+    }
+    .frame-3 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+      width: 100%;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    /* ─── STATS numbers ─── */
+    .stats-content-2 {
+      display: flex;
+      height: 346px;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 32px 0;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+    }
+    .stat-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 16px 16px 16px 0;
+      position: relative;
+      flex: 1;
+      align-self: stretch;
+      flex-grow: 1;
+      border-right: 1px solid #000;
+    }
+    .stat-middle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 16px 16px 16px 0;
+      align-self: stretch;
+      border-right: 1px solid #000;
+      flex: 1;
+      flex-grow: 1;
+      position: relative;
+    }
+    .stat-content-2 {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      flex: 1;
+      flex-grow: 1;
+      align-items: flex-start;
+      position: relative;
+    }
+    .stat-last {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 16px 16px 16px 0;
+      align-self: stretch;
+      flex: 1;
+      flex-grow: 1;
+      position: relative;
+    }
+    .text-wrapper-13 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: var(--display-1-font-family);
+      font-weight: var(--display-1-font-weight);
+      color: #000;
+      font-size: var(--display-1-font-size);
+      letter-spacing: var(--display-1-letter-spacing);
+      line-height: var(--display-1-line-height);
+    }
+    .stats-content-2 .div {
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+
+    /* ─── NEWS section — reuses awards-section styles ─── */
+
+    /* ─── PRESIDENT & FOUNDER ─── */
+    .our-team-section {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 0 0 100px;
+      position: relative;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .divider-3 {
+      height: 1px;
+      background: var(--divider);
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+    }
+    .team-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 80px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .president-founder {
+      position: relative;
+      margin-top: -1px;
+      font-family: var(--header-header-1-font-family);
+      font-weight: var(--header-header-1-font-weight);
+      color: #000;
+      font-size: var(--header-header-1-font-size);
+      letter-spacing: var(--header-header-1-letter-spacing);
+      line-height: var(--header-header-1-line-height);
+    }
+    .frame-4 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 24px;
+      align-self: stretch;
+      width: 100%;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .team-content-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      align-self: stretch;
+      width: 100%;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .team-content-2 {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+    }
+    .image {
+      position: relative;
+      width: 390px;
+      height: 385px;
+      object-fit: cover;
+      object-position: top center;
+      flex-shrink: 0;
+    }
+    .frame-5 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+    }
+    .description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 9px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-14 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: var(--header-header-2-font-family);
+      font-weight: var(--header-header-2-font-weight);
+      color: #000;
+      font-size: var(--header-header-2-font-size);
+      letter-spacing: var(--header-header-2-letter-spacing);
+      line-height: var(--header-header-2-line-height);
+    }
+    .text-wrapper-15 {
+      position: relative;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+    .row {
+      padding: 0;
+      align-self: stretch;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .person {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 9px;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+    }
+    .flexcontainer-3 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .flexcontainer-3 .div {
+      position: relative;
+      align-self: stretch;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: #000;
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+    .person-wrapper {
+      width: 285px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-16 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: var(--paragraph-1-font-family);
+      font-weight: var(--paragraph-1-font-weight);
+      color: var(--paragraph-2);
+      font-size: var(--paragraph-1-font-size);
+      letter-spacing: var(--paragraph-1-letter-spacing);
+      line-height: var(--paragraph-1-line-height);
+    }
+
+    /* ─── CONNECT WITH US ─── */
+    .connect-with-us {
+      max-width: 1920px;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .connect-with-us-2 {
+      gap: 34px;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-17 {
+      position: relative;
+      align-self: stretch;
+      font-family: var(--header-header-2-font-family);
+      font-weight: var(--header-header-2-font-weight);
+      color: #000;
+      font-size: var(--header-header-2-font-size);
+      letter-spacing: var(--header-header-2-letter-spacing);
+      line-height: var(--header-header-2-line-height);
+    }
+
+    /* ─── Poster screenshots ─── */
+    .screenshot-2 {
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      aspect-ratio: 2.92;
+      object-fit: cover;
+      display: block;
+    }
+    .screenshot-3 {
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      aspect-ratio: 2.75;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      max-width: 1920px;
+      gap: 60px;
+      padding: 30px 0 60px;
+      flex: 0 0 auto;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+    }
+    .footer-content {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      flex: 0 0 auto;
+      align-items: flex-start;
+      position: relative;
+    }
+    .logo-contain-2 {
+      display: flex;
+      max-width: 625px;
+      align-items: flex-start;
+      gap: 10px;
+      position: relative;
+      flex: 1;
+      flex-grow: 1;
+    }
+    .image-2 {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .clab-logo-black {
+      position: relative;
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+    .logo {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .footer-text {
+      display: flex;
+      width: 100%;
+      max-width: 616px;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+    }
+    .office-contain {
+      display: flex;
+      flex-direction: column;
+      width: 260px;
+      align-items: flex-start;
+      gap: 62px;
+      position: relative;
+    }
+    .office-contain-2 {
+      display: flex;
+      flex-direction: column;
+      width: 201px;
+      align-items: flex-start;
+      gap: 30px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .text-wrapper-18 {
+      position: relative;
+      align-self: stretch;
+      margin-top: -1px;
+      font-family: "Instrument Sans", Helvetica;
+      font-weight: 400;
+      color: #000;
+      font-size: 20px;
+      letter-spacing: -1px;
+      line-height: 20px;
+    }
+    .text-wrapper-19 {
+      position: relative;
+      align-self: stretch;
+      font-family: "Instrument Sans", Helvetica;
+      font-weight: 400;
+      color: #000;
+      font-size: 20px;
+      letter-spacing: -1px;
+      line-height: 20px;
+    }
+    .contact-contain {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .div-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      flex: 0 0 auto;
+    }
+    .social-contain {
+      display: flex;
+      flex-direction: column;
+      width: 260px;
+      align-items: flex-start;
+      gap: 30px;
+      position: relative;
+    }
+    .social-contain a { color: #000; }
+    .social-contain a:hover { opacity: 0.5; }
+
+    /* ─── Placeholder colours for marquee items ─── */
+    .ph-p2a { background: #E85A1A; }
+    .ph-p2b { background: #2B1F8C; }
+    .ph-p2c { background: #F0C87A; }
+    .ph-p3a { background: #111111; }
+    .ph-p3b { background: #4a4a4a; }
+    .ph-p3c { background: #2a2a2a; }
+
+    /* ─── Hamburger nav (mobile) ─── */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: #000;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 46px; left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 199;
+      flex-direction: column;
+      padding: 24px 40px 32px;
+      border-bottom: 1px solid #000;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: "Instrument Sans", Helvetica;
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      letter-spacing: -1.2px;
+      line-height: 1;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { opacity: 0.5; }
+
+    /* ─── Focus styles ─── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #4a90e2;
+      outline-offset: 4px;
+    }
+
+    /* ─── Responsive — tablet ─── */
+    @media (max-width: 1280px) {
+      .desktop { padding: 0 24px; }
+      .nav-header-2 { padding: 0 24px; }
+      .project-description, .awards-content, .footer-content, .team-content-2 { gap: 24px; }
+      .project-description, .awards-content, .footer-content { flex-wrap: wrap; }
+      .project-title, .project-body-copy, .footer-text, .logo-contain-2 { width: 100%; max-width: none; }
+      .stats-content-2 { height: auto; min-height: 346px; }
+    }
+
+    /* ─── Responsive — mobile (Figma: 375px / 40px padding) ─── */
+    @media (max-width: 768px) {
+
+      /* ── Layout ── */
+      .desktop { padding: 0 40px; }
+      .nav-header-2 {
+        padding: 0 40px;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* ── Nav ── */
+      .hamburger-btn { display: flex; }
+      .links-contain { display: none; }
+      .logotype-contain { border-bottom: none; }
+
+      /* ── Type scale ── */
+      .intro-h1,
+      .text-wrapper-2,
+      .text-wrapper-8,
+      .president-founder {
+        font-size: 36px;
+        letter-spacing: -1.8px;
+      }
+      .text-wrapper-17 {
+        font-size: 28px;
+        letter-spacing: -1.4px;
+      }
+      .text-wrapper-13 {
+        font-size: 56px;
+        letter-spacing: -2.8px;
+      }
+      .text-wrapper-14 {
+        font-size: 26px;
+        letter-spacing: -1px;
+      }
+
+      /* ── Intro ── */
+      .intro-section { padding: 12px 0 60px; gap: 20px; }
+      .frame-logos .img { width: 60px; height: 60px; }
+      .flexcontainer .div { font-size: 16px; letter-spacing: -0.5px; line-height: 130%; }
+
+      /* ── Screenshot cards ── */
+      .screenshot { width: calc(100% + 80px); margin-left: -40px; }
+
+      /* ── Our Works section ── */
+      .stats-section { padding: 40px 0 60px; gap: 20px; }
+      .our-work-content { padding-bottom: 20px; }
+      .stats-content { flex-direction: column; padding-bottom: 30px; }
+      .stats-body { max-width: 100%; gap: 30px 0; }
+      .branding-list { min-width: 100%; max-width: 100%; padding-right: 0; }
+
+      /* ── Marquee ── */
+      .marquee-item { width: 260px; height: 260px; }
+      .marquee-ph  { width: 260px; height: 260px; }
+
+      /* ── Project description ── */
+      .project-description { flex-direction: column; gap: 20px; }
+      .project-title { width: 100%; }
+      .titles .p, .text-wrapper-5 { width: 100%; }
+      .project-body-copy { width: 100%; max-width: 100%; }
+
+      /* ── Poster screenshots ── */
+      .screenshot-2, .screenshot-3 {
+        width: calc(100% + 80px);
+        margin-left: -40px;
+      }
+
+      /* ── Thesis / Awards section ── */
+      .awards-section { padding-bottom: 60px; gap: 20px; }
+      .awards-content { flex-direction: column; gap: 16px; }
+      .text-wrapper-9 { font-size: 18px; letter-spacing: -0.5px; }
+      .text-wrapper-10, .text-wrapper-11 { font-size: 16px; }
+      .frame-3 { gap: 8px; }
+
+      /* ── Stats numbers ── */
+      .stats-content-2 {
+        flex-direction: column;
+        height: auto;
+        padding: 16px 0;
+        gap: 0;
+      }
+      .stat-content, .stat-middle, .stat-last {
+        border-right: none;
+        border-bottom: 1px solid #000;
+        padding: 20px 0;
+      }
+      .stat-last { border-bottom: none; }
+      .stat-content-2 { gap: 20px; }
+
+      /* ── Team section ── */
+      .our-team-section { padding-bottom: 60px; }
+      .team-content { gap: 40px; }
+      .team-content-wrapper { flex-direction: column; gap: 20px; }
+      .team-content-2 { flex-direction: column; gap: 20px; }
+      .image { width: 100%; height: auto; max-width: 390px; }
+      .row { flex-direction: column; gap: 16px; }
+      .person-wrapper { width: 100%; }
+      .flexcontainer-3 .div { font-size: 16px; }
+
+      /* ── Connect with us ── */
+      .connect-with-us-2 { gap: 20px; }
+
+      /* ── Footer ── */
+      .footer-section { padding: 30px 0 48px; gap: 40px; }
+      .footer-content { flex-direction: column; gap: 30px; }
+      .logo-contain-2 { max-width: 100%; }
+      .footer-text { flex-direction: column; gap: 30px; max-width: 100%; width: 100%; }
+      .office-contain, .social-contain, .office-contain-2 { width: 100%; }
+      .text-wrapper-18, .text-wrapper-19 { font-size: 20px; letter-spacing: -1px; line-height: 20px; }
+    }
+
+    /* ─── Extra-small (≤ 375px) ─── */
+    @media (max-width: 420px) {
+      .desktop { padding: 0 24px; }
+      .nav-header-2 { padding: 0 24px; }
+      .mobile-nav { padding: 24px 24px 32px; }
+      .screenshot { width: calc(100% + 48px); margin-left: -24px; }
+      .screenshot-2, .screenshot-3 { width: calc(100% + 48px); margin-left: -24px; }
+    }
+  
+    :root { --gray: rgba(118,118,118,1); }
+    .section-divider { width: 100%; height: 1px; background: #000; }
+    .section-heading-xl { font-family: "Instrument Sans", Helvetica; font-size: 64px; font-weight: 400; letter-spacing: -3.2px; line-height: 100%; color: #000; }
+    .works-section { width: 100%; display: flex; flex-direction: column; gap: 104px; padding: 15px 0 80px; }
+    .works-title-wrap { display: flex; flex-direction: column; gap: 29px; width: 100%; }
+    .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; }
+    .work-card { display: flex; flex-direction: column; gap: 10px; }
+    .work-card-image { width: 100%; aspect-ratio: 1 / 1; background: #d8d8d8; border-radius: 2px; }
+    .work-thumb-link { display: block; }
+    .work-thumb-link:hover .work-card-image, .work-thumb-link:hover .work-row-thumb { opacity: 0.85; }
+    .work-card-body { display: flex; flex-direction: column; gap: 20px; font-family: "Instrument Sans", Helvetica; font-size: 16px; letter-spacing: -0.48px; }
+    .work-eyebrow { font-weight: 600; color: var(--gray); line-height: 100%; margin: 0; }
+    .work-titles { display: flex; flex-direction: column; gap: 4px; }
+    .work-title { font-weight: 600; color: #000; line-height: 100%; margin: 0; }
+    .work-subtitle { font-weight: 600; color: var(--gray); line-height: 100%; margin: 0; }
+    .work-desc { font-weight: 400; color: #000; line-height: 110%; margin: 0; }
+    .works-list-section { width: 100%; padding: 60px 0 80px; display: flex; flex-direction: column; gap: 30px; }
+    .works-list-header { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .articles-count { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: #000; }
+    .sort-tabs { display: flex; gap: 24px; }
+    .sort-tab { background: none; border: none; cursor: pointer; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: var(--gray); padding: 0; }
+    .sort-tab.active { color: #000; }
+    .works-row-list { display: flex; flex-direction: column; gap: 60px; width: 100%; }
+    .work-row-item { display: flex; align-items: flex-start; gap: 20px; width: 100%; }
+    .work-row-thumb { width: 340px; height: 348px; object-fit: cover; border-radius: 2px; background: #d8d8d8; flex-shrink: 0; }
+    .work-row-body { flex: 1; display: flex; flex-direction: column; gap: 20px; font-family: "Instrument Sans", Helvetica; font-size: 16px; letter-spacing: -0.48px; min-width: 0; }
+    .text-link { display: inline-flex; align-items: center; gap: 3px; position: relative; flex: 0 0 auto; cursor: pointer; }
+    .text-wrapper-7 { position: relative; width: fit-content; margin-top: -1px; font-family: "Instrument Sans", Helvetica; font-weight: 500; color: var(--gray); font-size: 16px; letter-spacing: -0.48px; line-height: 110%; white-space: nowrap; }
+    .text-link:hover .text-wrapper-7 { opacity: 0.6; }
+    .see-more-btn { display: block; width: 100%; text-align: center; padding: 18px 0; margin-top: 10px; border: 1px solid #000; font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 20px; letter-spacing: -1px; color: #000; cursor: pointer; background: none; }
+    .see-more-btn:hover { opacity: 0.6; }
+    @media (max-width: 768px) {
+      .section-heading-xl { font-size: 36px; letter-spacing: -1.8px; }
+      .works-section { gap: 40px; padding-bottom: 60px; }
+      .works-grid { grid-template-columns: 1fr; gap: 40px; }
+      .works-list-section { padding: 40px 0 60px; }
+      .work-row-item { flex-direction: column; gap: 16px; }
+      .work-row-thumb { width: 100%; height: auto; aspect-ratio: 1/1; }
+    }
+
+  
+    .marquee-ph { background: #d8d8d8; }
+    .marquee-item.blurred { filter: blur(18px); transform: scale(1.08); }
+/* ═══ FORUM DROPDOWN CSS START ═══ */
+    .nav-has-dropdown { position: relative; }
+    /* Style-2 pages (.nav-links-wrap: about.html, team pages) have no per-item wrapper —
+       every other nav item is a bare <a>, which flexbox "blockifies" as a direct flex
+       child under the wrap's align-items:flex-end. The Forum <a> is one level deeper
+       (inside this div), so without this it stays a plain inline element and its line
+       box doesn't line up with its siblings' — this restores the same flex/blockify
+       behavior for just this one wrapped item so "Forum" sits on the same baseline. */
+    .nav-links-wrap .nav-has-dropdown { display: inline-flex; align-items: flex-end; }
+    .forum-dropdown { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; margin-top: 0; background: #fff; border: 1px solid #000; padding: 16px 24px 20px; min-width: 220px; z-index: 250; }
+    .nav-has-dropdown:hover .forum-dropdown, .nav-has-dropdown:focus-within .forum-dropdown { display: flex; }
+    .forum-dropdown-item { font-family: "Instrument Sans", Helvetica; font-weight: 400; font-size: 16px; letter-spacing: -0.48px; color: #000; white-space: nowrap; text-decoration: none; }
+    a.forum-dropdown-item:hover { opacity: 0.6; }
+    .forum-dropdown-item.is-tbd { color: rgba(118,118,118,1); }
+    .mobile-forum summary { font-family: "Instrument Sans", Helvetica; font-size: 24px; font-weight: 400; color: #000; letter-spacing: -1.2px; line-height: 1; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.12); cursor: pointer; list-style: none; }
+    .mobile-forum summary::-webkit-details-marker { display: none; }
+    .mobile-forum-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 16px 12px; }
+    .mobile-forum-list .forum-dropdown-item { font-size: 18px; }
+    /* ═══ FORUM DROPDOWN CSS END ═══ */
+/* ═══ LIST TEXT FIX CSS START ═══ */
+    .awards-list .list-extra { display: none; }
+    .awards-list.is-expanded .list-extra { display: block; }
+    .award .div { margin: 0; font-family: var(--paragraph-1-font-family); font-weight: var(--paragraph-1-font-weight); color: #000; font-size: var(--paragraph-1-font-size); letter-spacing: var(--paragraph-1-letter-spacing); line-height: var(--paragraph-1-line-height); }
+    @media (max-width: 768px) {
+      .awards-list { align-self: stretch; width: 100%; min-width: 0; }
+      .award .div { font-size: 18px; letter-spacing: -0.5px; }
+      .award .frame-2 { display: flex; max-width: 100%; }
+      .award .text-wrapper-10 { white-space: normal; }
+      .project-title { min-width: 0; }
+      .titles { flex: 1 1 auto; min-width: 0; }
+    }
+    /* ═══ LIST TEXT FIX CSS END ═══ */
+
+    /* ═══ MANIFESTO PAGE CSS START ═══ */
+    .manifesto-hero { width: 100%; padding: 40px 0 120px; display: flex; flex-direction: column; gap: 32px; }
+    .manifesto-eyebrow { margin: 0; font-family: var(--header-header-5-font-family); font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: var(--paragraph-2); text-transform: uppercase; }
+    .manifesto-title { margin: 0; max-width: 1250px; font-family: var(--header-header-1-font-family); font-weight: 400; font-size: 64px; letter-spacing: -3.2px; line-height: 110%; color: #000; }
+    .manifesto-lead { margin: 0; max-width: 900px; font-family: var(--paragraph-1-font-family); font-size: 24px; letter-spacing: -0.8px; line-height: 135%; color: #000; }
+    .manifesto-list { width: 100%; display: flex; flex-direction: column; padding-bottom: 120px; }
+    .manifesto-item { display: grid; grid-template-columns: 8% 34% 1fr; gap: 0 3%; padding: 40px 0 48px; border-top: 1px solid var(--divider, #000); }
+    .manifesto-num { font-family: var(--header-header-5-font-family); font-weight: 600; font-size: 16px; letter-spacing: -0.48px; color: var(--paragraph-2); padding-top: 10px; }
+    .manifesto-name { margin: 0; font-family: var(--header-header-2-font-family); font-weight: 400; font-size: 37px; letter-spacing: -1.11px; line-height: 105%; color: #000; }
+    .manifesto-sub { margin: 10px 0 0; font-family: var(--paragraph-1-font-family); font-size: 20px; letter-spacing: -1px; line-height: 121%; color: var(--paragraph-2); }
+    .manifesto-body { margin: 0; max-width: 760px; font-family: var(--paragraph-1-font-family); font-size: 20px; letter-spacing: -0.6px; line-height: 145%; color: #000; padding-top: 6px; }
+    @media (max-width: 768px) {
+      .manifesto-hero { padding: 24px 0 64px; gap: 20px; }
+      .manifesto-title { font-size: 36px; letter-spacing: -1.8px; }
+      .manifesto-lead { font-size: 18px; letter-spacing: -0.5px; }
+      .manifesto-list { padding-bottom: 64px; }
+      .manifesto-item { grid-template-columns: 1fr; gap: 12px; padding: 28px 0 36px; }
+      .manifesto-num { padding-top: 0; }
+      .manifesto-name { font-size: 28px; letter-spacing: -1.2px; }
+      .manifesto-sub { margin-top: 6px; font-size: 17px; letter-spacing: -0.5px; }
+      .manifesto-body { font-size: 17px; letter-spacing: -0.4px; }
+    }
+    /* ═══ MANIFESTO PAGE CSS END ═══ */
+
+  </style>
+</head>
+<body>
+
+<div class="desktop">
+
+  <!-- ═══ NAV ═══ -->
+  <header class="nav-header-2">
+    <div class="logotype-contain">
+      <div class="f-f-logo">
+        <a class="nav-link" href="#" aria-label="Global Design Leadership Association home">
+          <span class="link">Global Design Leadership Association</span>
+        </a>
+      </div>
+    </div>
+    <nav class="links-contain" aria-label="Primary">
+      <div class="text-links">
+        <div class="link-wrapper"><a class="link-2" href="manifesto.html">Manifesto</a></div>
+        <div class="link-wrapper nav-has-dropdown">
+          <a class="link-2" href="#" aria-haspopup="true">Forum</a>
+          <div class="forum-dropdown">
+            <a class="forum-dropdown-item" href="http://whyglobalforum.com/2025/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <a class="forum-dropdown-item" href="http://whyglobalforum.com/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="link-wrapper"><a class="link-2" href="works.html">Works</a></div>
+        <div class="link-wrapper"><a class="link-2" href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener">Research Lab <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </nav>
+    <!-- Mobile hamburger -->
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="manifesto.html" onclick="closeMobileNav()">Manifesto</a>
+    <details class="mobile-forum">
+      <summary>Forum</summary>
+      <div class="mobile-forum-list"><a class="forum-dropdown-item" href="http://whyglobalforum.com/2025/" target="_blank" rel="noopener">Why2025 <span aria-hidden="true">↗</span></a>
+      <a class="forum-dropdown-item" href="http://whyglobalforum.com/" target="_blank" rel="noopener">Why2027 <span aria-hidden="true">↗</span></a></div>
+    </details>
+    <a href="works.html" onclick="closeMobileNav()">Works</a>
+    <a href="https://www.clabresearchcenter.com/" target="_blank" rel="noopener" onclick="closeMobileNav()">Research Lab <span aria-hidden="true">↗</span></a>
+  </nav>
+
+  <!-- Nav height spacer -->
+  <div class="nav-spacer"></div>
+
+  <main class="main">
+
+    <section class="manifesto-hero" aria-labelledby="manifesto-title">
+      <p class="manifesto-eyebrow">Manifesto</p>
+      <h1 class="manifesto-title" id="manifesto-title">Shaping the Future through Global Design Leadership</h1>
+      <p class="manifesto-lead">We connect creative minds across boundaries and empower them to lead. Together, we explore new possibilities for business and society through design, technology, and human intelligence.</p>
+    </section>
+
+    <section class="manifesto-list" aria-label="Our principles">
+      <article class="manifesto-item" aria-labelledby="manifesto-1">
+        <div class="manifesto-num">01</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-1">Humanity</h2>
+          <p class="manifesto-sub">Love for Humanity</p>
+        </div>
+        <p class="manifesto-body">We honor human dignity and believe in each person’s capacity to learn, create, and contribute. Empathy and respect guide how we think and act. We seek to understand lives beyond our own and consider how our choices affect others.</p>
+      </article>
+      <article class="manifesto-item" aria-labelledby="manifesto-2">
+        <div class="manifesto-num">02</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-2">Global Mindset</h2>
+          <p class="manifesto-sub">Curiosity and Openness Beyond Boundaries</p>
+        </div>
+        <p class="manifesto-body">Curiosity and openness broaden our view of the world. We seek out perspectives that challenge our assumptions and deepen our understanding. Through dialogue and exchange across cultures and disciplines, we build the relationships and trust that make collaboration possible.</p>
+      </article>
+      <article class="manifesto-item" aria-labelledby="manifesto-3">
+        <div class="manifesto-num">03</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-3">Design Leadership</h2>
+          <p class="manifesto-sub">Shaping Vision, Inspiring People, Building Cultures</p>
+        </div>
+        <p class="manifesto-body">Design leadership connects imagination with strategic judgment. It gives ideas direction, brings people together around a shared purpose, and builds cultures where people can contribute and act. We cultivate curiosity, trust, and ownership so that a shared vision leads to meaningful change.</p>
+      </article>
+      <article class="manifesto-item" aria-labelledby="manifesto-4">
+        <div class="manifesto-num">04</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-4">Possibilities</h2>
+          <p class="manifesto-sub">Exploring the Future of Business</p>
+        </div>
+        <p class="manifesto-body">New possibilities emerge where design, technology, and human intelligence meet. We explore what they could mean for the future of business and the ways we live and work. Through imagination and experimentation, we give ideas form and discover new sources of value.</p>
+      </article>
+      <article class="manifesto-item" aria-labelledby="manifesto-5">
+        <div class="manifesto-num">05</div>
+        <div class="manifesto-head">
+          <h2 class="manifesto-name" id="manifesto-5">Empowerment</h2>
+          <p class="manifesto-sub">Individual Growth, Shared Excellence</p>
+        </div>
+        <p class="manifesto-body">Creative minds thrive when they have the freedom to grow and the support to pursue their ideas. We share knowledge and experience, helping people develop the capacity to lead. Each person’s growth strengthens our community, making excellence a shared pursuit.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer-section" id="contact">
+    <div class="footer-content">
+      <div class="logo-contain-2">
+        <img class="logo" src="assets/logo/Hongik_University.svg.webp" alt="Hongik University" decoding="async" loading="lazy"/>
+        <img class="image-2" src="assets/logo/Idas_logo.png" alt="IDAS" decoding="async" loading="lazy"/>
+      </div>
+      <div class="footer-text">
+        <div class="office-contain">
+          <div class="office-contain-2">
+            <a class="text-wrapper-18" href="https://idas.hongik.ac.kr/idas/0301.do?mode=view&articleNo=130915&article.offset=0&articleLimit=10&noCat=" target="_blank" rel="noopener">International Design School for Advanced Studies (IDAS)</a>
+            <p class="text-wrapper-19">101 Dongmak-ro #208,<br/>Mapo-gu, Seoul,<br/>South Korea</p>
+          </div>
+          <div class="contact-contain">
+            <div class="text-wrapper-18">CONTACT</div>
+            <div class="div-2">
+              <p class="text-wrapper-18">Tel. +82 10 3232 3072<br/>cathylee@hongik.ac.kr</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-contain">
+          <div class="text-wrapper-18">SOCIAL</div>
+          <div class="div-2">
+            <a href="https://www.instagram.com/clab_leadership_and_branding/" target="_blank" rel="noopener"><div class="text-wrapper-18">Instagram</div></a>
+            <a href="https://www.linkedin.com/in/professorcathylee/" target="_blank" rel="noopener"><div class="text-wrapper-19">LinkedIn</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  function closeMobileNav() {
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  }
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !nav.contains(e.target)) closeMobileNav();
+  });
+</script>
+
+
+</body>
+</html>

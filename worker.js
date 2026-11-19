@@ -57,7 +57,7 @@ const SEED_TEAM = [
 const WRITE_PREFIXES = ['team/', 'our-works/', 'assets/uploads/', 'assets/data/', 'articles/', 'works/'];
 // A few generated files live at exact top-level paths rather than under a prefix.
 // (works.html / works/ = the Works list + detail pages, which replaced articles.html.)
-const WRITE_EXACT_PATHS = ['articles.html', 'about.html', 'index.html', 'works.html'];
+const WRITE_EXACT_PATHS = ['articles.html', 'about.html', 'index.html', 'works.html', 'manifesto.html'];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
 

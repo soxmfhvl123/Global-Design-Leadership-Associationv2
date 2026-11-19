@@ -900,6 +900,7 @@
   const THESIS_PATH   = 'assets/data/thesis.json';
   const NEWS_PATH     = 'assets/data/news.json';
   const ABOUT_PATH    = 'about.html';
+  const MANIFESTO_PATH = 'manifesto.html';
   const INDEX_PATH    = 'index.html';
   // Matches the filter sidebar already hardcoded in articles.html — keep in sync if that list changes.
   const ARTICLE_CATEGORIES = ['Design','News','Global Forum','AI','UX','IT','Strategies','Business','Career','Alumni Stories','Tips & Advice','Uncategorized'];
@@ -1344,10 +1345,11 @@
   function navLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
+    const manifestoHtml = `<div class="link-wrapper"><a class="link-2" href="${prefix}manifesto.html">Manifesto</a></div>\n        `;
     const aboutHtml = nav.about ? `<div class="link-wrapper"><a class="link-2" href="${prefix}about.html">About</a></div>\n        ` : '';
     const articleHtml = nav.article ? `<div class="link-wrapper"><a class="link-2" href="${prefix}works.html">Works</a></div>\n        ` : '';
     const contactHtml = nav.contact ? `<div class="link-wrapper"><a class="link-2" href="${contactHref}">Contact</a></div>\n        ` : '';
-    return `${aboutHtml}<div class="link-wrapper nav-has-dropdown">
+    return `${manifestoHtml}${aboutHtml}<div class="link-wrapper nav-has-dropdown">
           <a class="link-2" href="#" aria-haspopup="true">Forum</a>
           <div class="forum-dropdown">
             ${FORUM_DROPDOWN_LIST_HTML}
@@ -1360,10 +1362,11 @@
   function navHeaderLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
+    const manifestoHtml = `<a href="${prefix}manifesto.html">Manifesto</a>\n      `;
     const aboutHtml = nav.about ? `<a href="${prefix}about.html">About</a>\n      ` : '';
     const articleHtml = nav.article ? `<a href="${prefix}works.html">Works</a>\n      ` : '';
     const contactHtml = nav.contact ? `<a href="${contactHref}">Contact</a>\n      ` : '';
-    return `${aboutHtml}<div class="nav-has-dropdown">
+    return `${manifestoHtml}${aboutHtml}<div class="nav-has-dropdown">
         <a href="#" aria-haspopup="true">Forum</a>
         <div class="forum-dropdown">
           ${FORUM_DROPDOWN_LIST_HTML}
@@ -1377,10 +1380,11 @@
   function mobileNavLinksHtml(prefix = '') {
     const contactHref = prefix ? `${prefix}index.html#contact` : '#contact';
     const nav = currentNavVisibility();
+    const manifestoHtml = `<a href="${prefix}manifesto.html" onclick="closeMobileNav()">Manifesto</a>\n    `;
     const aboutHtml = nav.about ? `<a href="${prefix}about.html" onclick="closeMobileNav()">About</a>\n    ` : '';
     const articleHtml = nav.article ? `<a href="${prefix}works.html" onclick="closeMobileNav()">Works</a>\n    ` : '';
     const contactHtml = nav.contact ? `<a href="${contactHref}" onclick="closeMobileNav()">Contact</a>\n    ` : '';
-    return `${aboutHtml}<details class="mobile-forum">
+    return `${manifestoHtml}${aboutHtml}<details class="mobile-forum">
       <summary>Forum</summary>
       <div class="mobile-forum-list">${FORUM_DROPDOWN_LIST_HTML}</div>
     </details>
@@ -5450,6 +5454,18 @@ ${rows}${buildListSeeMoreHtml(list.length, 'news')}
         newHtml = applyGlobalPageFixes(newHtml);
         await putFile(teamPath, newHtml, `Update portfolio via admin (${currentPerson.name})`);
         log('✅ ' + teamPath + ' 업데이트 완료');
+      }
+
+      // manifesto.html is hand-written content (not admin data) — Publish only refreshes its
+      // nav/footer so a nav or footer change reaches it like every other page.
+      log(MANIFESTO_PATH + ' 메뉴·푸터 확인 중...');
+      const manifestoFile = await getFile(MANIFESTO_PATH);
+      if (manifestoFile) {
+        const newManifestoHtml = applyGlobalPageFixes(patchStyle1Nav(manifestoFile.content, ''));
+        if (newManifestoHtml !== manifestoFile.content) {
+          await putFile(MANIFESTO_PATH, newManifestoHtml, `Update manifesto nav/footer via admin (${currentPerson.name})`);
+          log('✅ ' + MANIFESTO_PATH + ' 업데이트 완료');
+        }
       }
 
       log(ABOUT_PATH + ' 팀 섹션 확인 중...');
